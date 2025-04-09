@@ -58,3 +58,49 @@ anime({
   easing: 'easeOutCubic'
 });
 
+
+
+// firebase.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+// Your Firebase config here
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "XXXXXX",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+export { db, ref, set };
+
+import { db, ref, set } from "./firebase.js";
+
+document.getElementById("subscribeBtn").addEventListener("click", () => {
+  const email = document.getElementById("emailInput").value.trim();
+
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email address!");
+    return;
+  }
+
+  const emailRef = ref(db, 'subscribers/' + email.replace(/\./g, "_"));
+  set(emailRef, {
+    email: email,
+    subscribedAt: new Date().toISOString()
+  })
+  .then(() => {
+    alert("🎉 Subscribed successfully!");
+    document.getElementById("emailInput").value = "";
+  })
+  .catch(error => {
+    console.error("Error subscribing:", error);
+    alert("❌ Failed to subscribe. Try again.");
+  });
+});
