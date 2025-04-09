@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exonova — Embrace the path of endless liberty</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js" defer></script>
+  <script src="https://unpkg.com/@barba/core" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
+  <!-- Main JS -->
+  <script src="main.js" defer></script>
+</head>
+<body data-barba="wrapper">
+  <div data-barba="container" data-barba-namespace="home">
+    
+    <!-- HERO SECTION -->
+    <section class="hero rellax" data-rellax-speed="-3">
+      <canvas id="three-bg"></canvas>
+      <div class="hero-content">
+        <h1 class="headline">Exonova</h1>
+        <p class="slogan">Embrace the path of endless liberty</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-section">
+      <div class="container">
+        <h2 class="section-title">What is Exonova?</h2>
+        <p class="section-text">Exonova is your gateway to knowledge, curiosity, and creative liberty. Explore, learn, and evolve beyond boundaries.</p>
+      </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section class="blog-preview rellax" data-rellax-speed="2">
+      <div class="container">
+        <h2 class="section-title">Latest Blog Highlights</h2>
+        <div class="blog-cards">
+          <div class="blog-card">
+            <img src="https://source.unsplash.com/300x200/?galaxy" />
+            <h3>The Secret of Black Holes</h3>
+          </div>
+          <div class="blog-card">
+            <img src="https://source.unsplash.com/300x200/?technology" />
+            <h3>Future of AI in Education</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCIENCE FACTS -->
+    <section class="facts-section">
+      <div class="container">
+        <h2 class="section-title">Did You Know?</h2>
+        <ul>
+          <li>💡 A teaspoon of neutron star would weigh 6 billion tons.</li>
+          <li>🚀 Light takes 8 minutes to reach Earth from the Sun.</li>
+          <li>🌌 More stars in the universe than grains of sand on Earth.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Let’s Connect</h2>
+        <form>
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message..."></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2025 Exonova. Made with 💙 by Aditya Jha.</p>
+    </footer>
+  </div>
+</body>
+</html>
