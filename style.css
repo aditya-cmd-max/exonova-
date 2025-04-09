@@ -210,104 +210,56 @@ header {
   box-shadow: 0 0 10px rgba(0,255,255,0.2);
 }
 
+/* Common Navbar Styling */
+header {
+  background-color: #0f0f0f;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px cyan;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
 }
 
 .logo {
   font-size: 1.8rem;
-  font-weight: bold;
   color: #00ffff;
-  text-shadow: 0 0 5px cyan;
+  text-shadow: 0 0 10px cyan;
 }
 
 .nav-links {
-  display: flex;
   list-style: none;
+  display: flex;
   gap: 2rem;
 }
 
-.nav-links li a {
-  text-decoration: none;
+.nav-links a {
   color: #fff;
-  font-weight: 500;
+  text-decoration: none;
   position: relative;
-  transition: color 0.3s;
 }
 
-.nav-links li a::after {
+.nav-links a:hover,
+.nav-links a.active {
+  color: #00ffff;
+}
+
+.nav-links a::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: -5px;
   width: 0%;
   height: 2px;
-  background: cyan;
-  transition: 0.3s;
+  bottom: -4px;
+  left: 0;
+  background-color: cyan;
+  transition: width 0.3s;
 }
 
-.nav-links li a:hover::after {
+.nav-links a:hover::after {
   width: 100%;
-}
-
-.btn-glow {
-  padding: 0.5rem 1rem;
-  background: #00ffff;
-  color: #000;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 0 10px cyan;
-  transition: 0.3s ease;
-}
-
-.btn-glow:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px cyan;
-}
-
-/* Hamburger Menu (Mobile) */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.hamburger span {
-  height: 3px;
-  width: 25px;
-  background: cyan;
-  margin: 4px;
-  border-radius: 5px;
-}
-
-/* Responsive Nav */
-@media (max-width: 768px) {
-  .nav-links {
-    position: absolute;
-    top: 70px;
-    left: -100%;
-    flex-direction: column;
-    background: #111;
-    width: 100%;
-    transition: left 0.3s;
-    padding: 1rem 2rem;
-  }
-
-  .nav-links.active {
-    left: 0;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .btn-glow {
-    display: none;
-  }
 }
