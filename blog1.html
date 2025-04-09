@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog 1 | Exonova</title>
+  <title>The Science of Sleep | Exonova Blog</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
   <!-- AOS for animations -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
-      font-family: 'Merriweather', serif;
-      background-color: #f4f7fa;
-      color: #333;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #eef2f3, #ffffff);
+      color: #2d2d2d;
       margin: 0;
       padding: 0;
     }
@@ -26,78 +28,95 @@
     .blog-container {
       max-width: 900px;
       margin: auto;
-      background-color: #fff;
-      padding: 40px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.08);
-      border-radius: 10px;
-      transition: transform 0.3s ease;
+      background-color: #ffffff;
+      padding: 50px 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      animation: floatIn 1.2s ease-in-out;
     }
 
-    .blog-container:hover {
-      transform: translateY(-4px);
+    @keyframes floatIn {
+      0% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .blog-title {
-      font-size: 2.6rem;
-      color: #2c3e50;
-      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.7rem;
+      color: #1e2d40;
+      text-align: center;
+      margin-bottom: 15px;
     }
 
     .blog-date {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #777;
-      margin-bottom: 30px;
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     .blog-content p {
-      font-size: 1.12rem;
-      line-height: 1.8;
+      font-size: 1.1rem;
+      line-height: 1.85;
       margin-bottom: 25px;
+      opacity: 0.9;
     }
 
     .blog-content img {
       width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      margin: 25px 0;
-      border-radius: 6px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      margin: 30px 0;
+      transition: all 0.4s ease;
     }
 
     .blog-content img:hover {
-      transform: scale(1.03);
+      transform: scale(1.025) rotateZ(1deg);
     }
 
     .go-back {
       display: inline-block;
-      margin-top: 30px;
-      padding: 10px 20px;
-      background-color: #2c3e50;
+      margin-top: 40px;
+      padding: 12px 24px;
+      background-color: #34495e;
       color: #fff;
       text-decoration: none;
       border-radius: 6px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .go-back:hover {
-      background-color: #1a252f;
+      background-color: #2c3e50;
+      transform: scale(1.05);
     }
 
-    @media screen and (max-width: 768px) {
+    .highlight {
+      background: #fef3c7;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
       .blog-container {
-        padding: 25px;
+        padding: 30px 20px;
       }
 
       .blog-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Load Navbar -->
+  <!-- Navbar will load here -->
   <div class="navbar-placeholder" id="navbar-placeholder"></div>
   <script>
     fetch("navbar.html")
@@ -108,37 +127,39 @@
   </script>
 
   <!-- Blog Content -->
-  <div class="blog-container" data-aos="fade-up">
-    <h1 class="blog-title">How AI is Shaping the Future of Education</h1>
-    <p class="blog-date">Published on 9th April, 2025</p>
+  <div class="blog-container" data-aos="fade-up" data-aos-duration="1000">
+    <h1 class="blog-title" data-aos="fade-down" data-aos-delay="100">The Science of Sleep: Why Students Must Never Ignore It</h1>
+    <p class="blog-date" data-aos="zoom-in" data-aos-delay="200">Published on 9th April, 2025</p>
 
     <div class="blog-content">
-      <p data-aos="fade-up" data-aos-delay="100">
-        In recent years, Artificial Intelligence (AI) has entered the education sector, transforming how students learn and how teachers teach. But what exactly is AI in education, and why is it being adopted so rapidly?
+      <p data-aos="fade-up" data-aos-delay="300">
+        <span class="highlight">Sleep</span> isn’t just rest. It’s an active, dynamic process that helps the brain solidify memory, heal the body, and prepare for the challenges of a new day.
       </p>
 
-      <p data-aos="fade-up" data-aos-delay="200">
-        Simply put, AI refers to machines or software that can mimic human intelligence. In education, this can mean personalized learning tools, AI tutors, or systems that analyze students' performance to help them improve.
+      <img src="https://source.unsplash.com/960x400/?sleep,student,education" alt="Sleep and Study" data-aos="zoom-in-up" data-aos-delay="400">
+
+      <p data-aos="fade-left" data-aos-delay="500">
+        Teenagers and learners need at least <strong>8–10 hours</strong> of sleep. But late-night scrolling and exam stress often reduce that to just 5–6.
       </p>
 
-      <img src="https://source.unsplash.com/960x400/?ai,education,classroom" alt="AI and Education" data-aos="zoom-in" data-aos-delay="300">
-
-      <p data-aos="fade-up" data-aos-delay="400">
-        Platforms like Exonova are trying to bring advanced tools to students so they not only consume knowledge but also understand, analyze, and innovate. Whether it's adaptive learning apps or smart grading systems, AI is making education more accessible and efficient.
+      <p data-aos="fade-right" data-aos-delay="600">
+        Sleep deprivation directly impacts memory, focus, and even mental health. A tired mind is slower, more distracted, and emotionally unstable.
       </p>
 
-      <img src="https://source.unsplash.com/960x400/?students,learning,technology" alt="Students Learning with Technology" data-aos="zoom-in" data-aos-delay="500">
+      <img src="https://source.unsplash.com/960x400/?brain,focus,learning" alt="Brain Power" data-aos="zoom-in" data-aos-delay="700">
 
-      <p data-aos="fade-up" data-aos-delay="600">
-        But as with any technology, we must be cautious. The use of AI must be fair, ethical, and inclusive. Every student deserves a chance to grow, and AI should assist in that — not replace teachers, but support them.
+      <p data-aos="fade-up" data-aos-delay="800">
+        Try this: set a fixed bedtime. Avoid screens for 30 minutes before. Do breathing exercises. Even journaling your thoughts can calm the mind.
       </p>
 
-      <p data-aos="fade-up" data-aos-delay="700">
-        The future of education lies in a balanced mix of human wisdom and machine precision. Exonova envisions a world where both go hand in hand to make learning exciting and effective.
+      <p data-aos="fade-up" data-aos-delay="900">
+        At <strong>Exonova</strong>, we encourage not just knowledge, but wisdom — and wisdom starts with self-care. <span class="highlight">Sleep smart, not just study hard.</span>
       </p>
     </div>
 
-    <a href="blogs.html" class="go-back" data-aos="fade-up" data-aos-delay="800">← Back to Blogs</a>
+    <a href="blogs.html" class="go-back" data-aos="fade-up" data-aos-delay="1000">
+      <i class="fas fa-arrow-left"></i> Back to Blogs
+    </a>
   </div>
 
   <!-- AOS Script -->
