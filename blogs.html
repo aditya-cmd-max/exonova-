@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exonova | Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- AOS Animate on Scroll -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(45deg, #141e30, #243b55);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    header p {
+      color: #ccc;
+      font-size: 1.2rem;
+    }
+
+    .blogs-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .blog-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      width: 300px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    .blog-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .blog-content {
+      padding: 1.2rem;
+    }
+
+    .blog-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #00ffff;
+    }
+
+    .blog-desc {
+      margin-top: 0.6rem;
+      color: #ccc;
+    }
+
+    .read-more {
+      margin-top: 1rem;
+      display: inline-block;
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .read-more:hover {
+      text-shadow: 0 0 10px cyan;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #141e30;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header data-aos="fade-down">
+    <h1>Exonova Blogs</h1>
+    <p>Explore the universe of knowledge with us</p>
+  </header>
+
+  <section class="blogs-container">
+    <!-- Blog Card 1 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://source.unsplash.com/featured/?ai" alt="AI" class="blog-img">
+      <div class="blog-content">
+        <h2 class="blog-title">The Rise of AI</h2>
+        <p class="blog-desc">Explore how artificial intelligence is transforming industries and daily lives in the 21st century.</p>
+        <a href="#" class="read-more">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Blog Card 2 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://source.unsplash.com/featured/?space" alt="Space" class="blog-img">
+      <div class="blog-content">
+        <h2 class="blog-title">Journey to the Stars</h2>
+        <p class="blog-desc">A look into space exploration, latest rocket tech, and humanity's dream of interstellar travel.</p>
+        <a href="#" class="read-more">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Blog Card 3 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+      <img src="https://source.unsplash.com/featured/?coding" alt="Coding" class="blog-img">
+      <div class="blog-content">
+        <h2 class="blog-title">Code Your Future</h2>
+        <p class="blog-desc">Why coding is the new literacy and how to start your journey as a developer in 2025.</p>
+        <a href="#" class="read-more">Read More →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Exonova | Designed with 💙 by Aditya Jha
+  </footer>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
+</body>
+</html>
