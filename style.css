@@ -203,49 +203,7 @@ footer {
 }
 
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.logo {
-  font-size: 1.8rem;
-  color: #00ffff;
-  text-shadow: 0 0 10px cyan;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  position: relative;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-  color: #00ffff;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: cyan;
-  transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
 
 html {
   scroll-behavior: smooth;
