@@ -1,0 +1,111 @@
+/* Fonts and Base Styling */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0e0e0e;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HERO SECTION */
+.hero {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+#three-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-content {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+}
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  color: #b388ff;
+}
+.slogan {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #aaa;
+}
+
+/* Sections */
+section {
+  padding: 5rem 10%;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-left: 4px solid #b388ff;
+  padding-left: 1rem;
+}
+.section-text, .blog-card h3, .facts-section li {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Blog Cards */
+.blog-cards {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.blog-card {
+  background: #1f1f1f;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+.blog-card:hover {
+  transform: scale(1.03);
+}
+.blog-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Contact */
+.contact-section input, .contact-section textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #222;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+}
+.contact-section button {
+  background: #b388ff;
+  padding: 1rem 2rem;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #111;
+  font-size: 0.9rem;
+  color: #666;
+}
