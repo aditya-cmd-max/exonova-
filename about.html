@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Exonova</title>
+  <link rel="stylesheet" href="about.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style></style>
+
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">🚀 Exonova</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="#">About</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+        <li><a href="auth.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="about-container">
+    <div class="photo-frame" id="photoFrame">
+      <!-- Replace this image -->
+      <img src="your-photo.png" alt="Aditya Jha" />
+      <div class="glow-border"></div>
+    </div>
+
+    <div class="about-content">
+      <h1>About <span>Aditya Jha</span></h1>
+      <p>
+        Hello, I’m <strong>Aditya Jha</strong>, the passionate founder of <strong>Exonova</strong> – a mission to spread knowledge, creativity, and futuristic tech.  
+        I started this platform to ignite curiosity among students and tech enthusiasts.  
+        From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow.
+      </p>
+      <p>
+        I dream of becoming a software engineer and creating magical experiences for users around the globe.  
+        I'm currently learning programming, animation, and design while building projects like Reverbit Messenger, The Maharathi game, and many more.
+      </p>
+      <p>
+        Let’s learn. Let’s grow. Let’s revolutionize the digital world – together.
+      </p>
+    </div>
+  </main>
+
+  <script>
+    // Animation using GSAP
+    gsap.from(".photo-frame", { duration: 1, x: -100, opacity: 0 });
+    gsap.from(".about-content", { duration: 1, x: 100, opacity: 0, delay: 0.5 });
+  </script>
+</body>
+</html>
