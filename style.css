@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* HERO SECTION */
+.hero-banner {
+  padding: 8rem 2rem;
+  text-align: center;
+  background: url('https://images.unsplash.com/photo-1520523839897-bd0b52c27a14') no-repeat center center/cover;
+}
+.headline {
+  font-size: 4rem;
+  color: #b388ff;
+}
+.slogan {
+  font-size: 1.4rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+/* FOUNDER SECTION */
+.founder-section {
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+.curved-box {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 2rem;
+  border: 2px dashed #b388ff;
+}
+.curved-box img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid #b388ff;
+}
+.founder-info h2 {
+  font-size: 2rem;
+  color: #b388ff;
+}
+.founder-info p {
+  color: #ccc;
+  margin-top: 0.4rem;
+}
+
+/* COMMON SECTION STYLES */
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #b388ff;
+}
+.facts-grid, .blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0 10%;
+}
+.fact-box, .blog-card {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 4px solid #b388ff;
+  transition: transform 0.3s ease;
+}
+.fact-box:hover, .blog-card:hover {
+  transform: translateY(-5px);
+}
+.more-btn, .cta-btn {
+  display: block;
+  margin: 2rem auto;
+  background: #b388ff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ABOUT + CTA */
+.about-section, .cta-section {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.about-text {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+.cta-section h2 {
+  font-size: 2rem;
+  color: #ffcc70;
+}
+.cta-section p {
+  color: #aaa;
+  margin-top: 0.5rem;
+}
+
+/* FOOTER */
+footer {
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+
+/* MISSION SECTION */
+.mission-section {
+  padding: 4rem 2rem;
+  background: #111;
+}
+.mission-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.mission-card {
+  flex: 1;
+  min-width: 250px;
+  background: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #ffcc70;
+  color: #fff;
+}
+
+/* TESTIMONIALS */
+.testimonial-section {
+  padding: 4rem 2rem;
+  background: #0f0f0f;
+}
+.testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.testimonial {
+  background: #1e1e1e;
+  padding: 1.5rem;
+  border-left: 4px solid #b388ff;
+  border-radius: 10px;
+  max-width: 300px;
+}
+.testimonial h4 {
+  margin-top: 1rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* NEWSLETTER */
+.newsletter-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #151515;
+}
+.newsletter-form {
+  margin-top: 1rem;
+}
+.newsletter-form input {
+  padding: 0.7rem;
+  border: none;
+  width: 250px;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+.newsletter-form button {
+  padding: 0.7rem 1.2rem;
+  background: #b388ff;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
