@@ -38,4 +38,4 @@ document.getElementById("newsletterForm").addEventListener("submit", (e) => {
   document.getElementById("newsletterForm").reset();
 });
 
-  window.location.href = "thankyou.html";
+  
