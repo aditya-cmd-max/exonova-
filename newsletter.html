@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exonova Newsletter</title>
+  <link rel="stylesheet" href="newsletter.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"></script>
+</head>
+<body>
+  <div class="newsletter-container">
+    <h1>🚀 Subscribe to Exonova's Newsletter</h1>
+    <p>Get the most exciting science facts, blogs, and updates delivered straight to your inbox!</p>
+    <form id="newsletterForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <button type="submit">Subscribe</button>
+      <p id="successMessage"></p>
+    </form>
+  </div>
+
+  <script type="module" src="newsletter.js"></script>
+</body>
+</html>
