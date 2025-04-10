@@ -31,9 +31,11 @@ document.getElementById("newsletterForm").addEventListener("submit", (e) => {
   });
 
   
-   window.location.href = "thankyou.html";
+ 
 
    
    document.getElementById("successMessage").innerText = "🎉 You’re subscribed!";
   document.getElementById("newsletterForm").reset();
 });
+
+  window.location.href = "thankyou.html";
