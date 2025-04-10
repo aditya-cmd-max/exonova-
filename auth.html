@@ -94,10 +94,53 @@
       margin: 0 auto 15px;
       display: block;
     }
+  
+  .back-button {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  padding: 12px 20px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 999;
+  border: 2px solid transparent;
+}
+
+.back-button:hover {
+  background-color: #ffffff;
+  color: #1e1e1e;
+  border-color: #1e1e1e;
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.back-button span {
+  margin-right: 6px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+  
+  
+  
   </style>
 </head>
 <body>
 
+
+  <a href="index.html" class="back-button">
+  <span>&larr;</span> Back to Home
+</a>
+
+    
+  
+  
   <div class="auth-container">
     <img src="ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" class="logo" alt="Exonova logo"/>
 
