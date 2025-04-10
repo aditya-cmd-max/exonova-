@@ -203,59 +203,6 @@ footer {
 }
 
 
-/* Common Navbar Styling */
-header {
-  background-color: #0f0f0f;
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 0 10px cyan;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 1.8rem;
-  color: #00ffff;
-  text-shadow: 0 0 10px cyan;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  position: relative;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #00ffff;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: cyan;
-  transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
 
 
 
