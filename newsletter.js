@@ -30,6 +30,10 @@ document.getElementById("newsletterForm").addEventListener("submit", (e) => {
     subscribedAt: new Date().toISOString()
   });
 
-  document.getElementById("successMessage").innerText = "🎉 You’re subscribed!";
+  
+   window.location.href = "thankyou.html";
+
+   
+   document.getElementById("successMessage").innerText = "🎉 You’re subscribed!";
   document.getElementById("newsletterForm").reset();
 });
