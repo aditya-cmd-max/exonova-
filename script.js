@@ -60,4 +60,73 @@ anime({
 
 
 
+// firebase.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
+// Your Firebase config here
+const firebaseConfig = {
+ apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  authDomain: "exonova-cd89c.firebaseapp.com",
+  projectId: "exonova-cd89c",
+  storageBucket: "exonova-cd89c.firebasestorage.app",
+  messagingSenderId: "465326262278",
+  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+  measurementId: "G-GGG45V0PEF"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+export { db, ref, set };
+
+import { db, ref, set } from "./firebase.js";
+
+document.getElementById("subscribeBtn").addEventListener("click", () => {
+  const email = document.getElementById("emailInput").value.trim();
+
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email address!");
+    return;
+  }
+
+  const emailRef = ref(db, 'subscribers/' + email.replace(/\./g, "_"));
+  set(emailRef, {
+    email: email,
+    subscribedAt: new Date().toISOString()
+  })
+  .then(() => {
+    alert("🎉 Subscribed successfully!");
+    document.getElementById("emailInput").value = "";
+  })
+  .catch(error => {
+    console.error("Error subscribing:", error);
+    alert("❌ Failed to subscribe. Try again.");
+  });
+});
+
+
+
+// Toggle nav menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// GSAP Animation
+gsap.from('.nav-logo', {
+  duration: 1,
+  y: -50,
+  opacity: 0,
+  ease: 'bounce.out'
+});
+
+gsap.from('.nav-links li', {
+  duration: 1,
+  y: -20,
+  opacity: 0,
+  stagger: 0.1,
+  delay: 0.2
+});
