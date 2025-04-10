@@ -104,3 +104,29 @@ document.getElementById("subscribeBtn").addEventListener("click", () => {
     alert("❌ Failed to subscribe. Try again.");
   });
 });
+
+
+
+// Toggle nav menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// GSAP Animation
+gsap.from('.nav-logo', {
+  duration: 1,
+  y: -50,
+  opacity: 0,
+  ease: 'bounce.out'
+});
+
+gsap.from('.nav-links li', {
+  duration: 1,
+  y: -20,
+  opacity: 0,
+  stagger: 0.1,
+  delay: 0.2
+});
