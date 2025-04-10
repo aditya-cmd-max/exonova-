@@ -116,15 +116,17 @@
 </head>
 <body>
 
-  <!-- Navbar will load here -->
-  <div class="navbar-placeholder" id="navbar-placeholder"></div>
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("navbar-placeholder").innerHTML = data;
-      });
-  </script>
+   <nav class="navbar">
+    <div class="nav-logo">Exonova</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blogs.html">Blogs</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="auth.html">Login</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+  </nav>
+  
 
   <!-- Blog Content -->
   <div class="blog-container" data-aos="fade-up" data-aos-duration="1000">
