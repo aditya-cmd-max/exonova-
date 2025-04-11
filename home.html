@@ -364,81 +364,114 @@
   
   
   
- <style>
+  <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: white;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2ff;
+      overflow-x: hidden;
     }
 
-    .floating-button {
+    .floating-btn {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background-color: #4B0082;
-      color: white;
-      border: none;
-      padding: 15px 20px;
+      background: indigo;
+      color: #fff;
+      padding: 15px 25px;
       border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
+      transition: 0.4s;
       z-index: 1000;
     }
 
-    .floating-button:hover {
-      background-color: #6A0DAD;
+    .floating-btn:hover {
+      background: #5b21b6;
+      transform: scale(1.05);
     }
 
-    .challenge-panel {
-      position: fixed;
-      bottom: 100px;
-      right: 30px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 20px;
-      width: 300px;
+    #challengePanel {
       display: none;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      z-index: 999;
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: popin 0.5s ease-out;
     }
 
-    .challenge-question {
-      font-size: 18px;
-      margin-bottom: 15px;
+    @keyframes popin {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
-    .timer {
-      font-size: 24px;
-      color: #ffcc00;
+    #questionText {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #timer {
+      font-size: 1.2rem;
+      color: indigo;
       margin-bottom: 10px;
     }
 
-    .answer {
-      margin-top: 15px;
-      color: #00ff99;
-      font-weight: bold;
+    #answerText {
       display: none;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .exonova-title {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: indigo;
     }
   </style>
 </head>
-<body>
 
-  <button class="floating-button" onclick="showChallenge()">🧠 Curiosity</button>
+<body data-barba="wrapper">
+  <div data-barba="container" data-barba-namespace="home">
+    <div class="exonova-title" data-aos="zoom-in">
+      🚀 Exonova Maze Challenge
+    </div>
 
-  <div class="challenge-panel" id="challengePanel" data-aos="fade-left">
-    <div class="challenge-question" id="questionText">Loading...</div>
-    <div class="timer" id="timer">⏱ 30</div>
-    <div class="answer" id="answerText">Answer: </div>
+    <div id="challengePanel" data-aos="fade-up">
+      <div id="timer">⏱ 30</div>
+      <div id="questionText">Click the button to start a challenge!</div>
+      <div id="answerText"></div>
+    </div>
+
+    <div class="floating-btn" onclick="showChallenge()">🧠 Try A Challenge</div>
   </div>
 
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- Anime.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <!-- Barba.js (for future page transitions) -->
+  <script src="https://unpkg.com/@barba/core"></script>
+
   <script>
     AOS.init();
+    barba.init({});
 
     const challenges = [
       { question: "I can travel faster than light but have no mass. What am I?", answer: "Thought" },
@@ -448,18 +481,22 @@
       { question: "What invention lets you look through a wall?", answer: "A window" }
     ];
 
+    let animationFrame;
+    let countdownStart;
+
     function showChallenge() {
       const panel = document.getElementById("challengePanel");
       const questionEl = document.getElementById("questionText");
       const answerEl = document.getElementById("answerText");
       const timerEl = document.getElementById("timer");
 
-      let selected = challenges[Math.floor(Math.random() * challenges.length)];
+      if (animationFrame) cancelAnimationFrame(animationFrame);
 
+      const selected = challenges[Math.floor(Math.random() * challenges.length)];
       questionEl.textContent = selected.question;
       answerEl.textContent = "Answer: " + selected.answer;
       answerEl.style.display = "none";
-      timerEl.textContent = "⏱ 30";
+
       panel.style.display = "block";
 
       anime({
@@ -470,12 +507,18 @@
         easing: 'easeOutExpo'
       });
 
-      let timeLeft = 30;
-      const timer = setInterval(() => {
-        timeLeft--;
-        timerEl.textContent = `⏱ ${timeLeft}`;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
+      const duration = 30 * 1000;
+      countdownStart = performance.now();
+
+      function updateTimer(currentTime) {
+        const elapsed = currentTime - countdownStart;
+        const remaining = Math.max(0, duration - elapsed);
+        const seconds = Math.ceil(remaining / 1000);
+        timerEl.textContent = `⏱ ${seconds}`;
+
+        if (remaining > 0) {
+          animationFrame = requestAnimationFrame(updateTimer);
+        } else {
           answerEl.style.display = "block";
           anime({
             targets: answerEl,
@@ -484,10 +527,11 @@
             easing: 'easeInOutQuad'
           });
         }
-      }, 1000);
+      }
+
+      animationFrame = requestAnimationFrame(updateTimer);
     }
   </script>
- 
 
  
   
