@@ -93,12 +93,95 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({
       duration: 1200,
       once: true,
     });
   </script>
+
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Today in Science</title>
+
+  <!-- AOS for animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f1a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .science-history {
+      background: linear-gradient(145deg, #1a1a2e, #121212);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .science-history h2 {
+      color: #9f7aea;
+      font-size: 28px;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .science-history p {
+      font-size: 18px;
+      line-height: 1.5;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    @keyframes fadeInDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="science-history" data-aos="zoom-in">
+    <h2>🔬 Today in Science</h2>
+    <p id="science-event">Loading...</p>
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Fake Data (Replace this with real API if needed)
+    const events = {
+      "4-11": "On April 11, 1970, NASA launched Apollo 13 — the ill-fated mission that became a 'successful failure' when an onboard explosion forced astronauts to return to Earth without landing on the Moon.",
+      "4-10": "In 1849, Walter Hunt patented the safety pin!",
+      "4-12": "On April 12, 1961, Yuri Gagarin became the first human to journey into outer space aboard Vostok 1."
+    };
+
+    const today = new Date();
+    const key = `${today.getMonth()+1}-${today.getDate()}`;
+    const fact = events[key] || "No science fact available today. Come back tomorrow!";
+
+    document.getElementById("science-event").innerText = fact;
+  </script>
+
+
+
 </body>
 </html>
