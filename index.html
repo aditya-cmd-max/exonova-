@@ -207,11 +207,129 @@
   }
 </style>
 
+
+  
 <!-- Include AOS if not already -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
 <script>AOS.init({ once: true });</script>
   
+ <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #0a0f1c;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      overflow-x: hidden;
+    }
+
+    .section-heading {
+      font-size: 42px;
+      color: #00ffcc;
+      margin-bottom: 40px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .scientist-card {
+      background: linear-gradient(135deg, #1b263b, #0f172a);
+      padding: 30px;
+      border-radius: 15px;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      max-width: 800px;
+      cursor: pointer;
+    }
+
+    .scientist-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 40px rgba(0, 255, 204, 0.5);
+    }
+
+    .scientist-card img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      border: 3px solid #00ffcc;
+      animation: pulse 2s infinite;
+    }
+
+    .scientist-info h2 {
+      font-size: 28px;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .scientist-info h4 {
+      color: #00d0ff;
+      margin-bottom: 15px;
+    }
+
+    .scientist-info p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #e0e0e0;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.4);
+      }
+      70% {
+        transform: scale(1.03);
+        box-shadow: 0 0 20px 10px rgba(0, 255, 204, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 255, 204, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="section-heading">👨‍🔬 Scientist of the Week</h1>
+
+  <div class="scientist-card" onclick="showAlert()">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/330px-Albert_Einstein_Head.jpg" alt="Albert Einstein" />
+    <div class="scientist-info">
+      <h2>Albert Einstein</h2>
+      <h4>Physicist, Theory of Relativity</h4>
+      <p>"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world."</p>
+    </div>
+  </div>
+
+  <script>
+    function showAlert() {
+      alert("You're viewing this week's Scientist: Albert Einstein 🧠✨");
+    }
+  </script>
   
   
   
