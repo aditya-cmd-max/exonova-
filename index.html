@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exonova Loader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #1c1c2b, #0b0b12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden;
+    }
+
+    .loader-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .loader {
+      width: 100px;
+      height: 100px;
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid indigo;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      color: indigo;
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px rgba(75, 0, 130, 0.5);
+      transition: all 0.4s ease-in-out;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="loader-container">
+  <div class="loader"></div>
+  <div class="loading-text" id="loadingText">Loading Exonova</div>
+</div>
+
+<script>
+  const messages = [
+    "Loading Exonova...",
+    "Crafting Innovation...",
+    "Unleashing Science...",
+    "Almost Ready..."
+  ];
+  let index = 0;
+  const textElement = document.getElementById("loadingText");
+
+  setInterval(() => {
+    index = (index + 1) % messages.length;
+    textElement.style.opacity = 0;
+    setTimeout(() => {
+      textElement.textContent = messages[index];
+      textElement.style.opacity = 1;
+    }, 300);
+  }, 2500);
+</script>
+
+  <script>
+  // Redirect to homepage after 5 seconds
+  setTimeout(() => {
+    window.location.href = "index.html"; // change to your homepage URL
+  }, 5000);
+</script>
+
+  
+</body>
+</html>
