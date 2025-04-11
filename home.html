@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Gabriela&family=Paprika&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
 </head>
 <body data-barba="wrapper">
@@ -364,6 +364,129 @@
   
   
   
+ <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: white;
+    }
+
+    .floating-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #4B0082;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .floating-button:hover {
+      background-color: #6A0DAD;
+    }
+
+    .challenge-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      width: 300px;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .challenge-question {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .timer {
+      font-size: 24px;
+      color: #ffcc00;
+      margin-bottom: 10px;
+    }
+
+    .answer {
+      margin-top: 15px;
+      color: #00ff99;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="floating-button" onclick="showChallenge()">🧠 Curiosity</button>
+
+  <div class="challenge-panel" id="challengePanel" data-aos="fade-left">
+    <div class="challenge-question" id="questionText">Loading...</div>
+    <div class="timer" id="timer">⏱ 30</div>
+    <div class="answer" id="answerText">Answer: </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script>
+    AOS.init();
+
+    const challenges = [
+      { question: "I can travel faster than light but have no mass. What am I?", answer: "Thought" },
+      { question: "What gets sharper the more you use it?", answer: "Your brain" },
+      { question: "I'm present in every atom and in the universe. What am I?", answer: "Energy" },
+      { question: "I disappear when you say my name. What am I?", answer: "Silence" },
+      { question: "What invention lets you look through a wall?", answer: "A window" }
+    ];
+
+    function showChallenge() {
+      const panel = document.getElementById("challengePanel");
+      const questionEl = document.getElementById("questionText");
+      const answerEl = document.getElementById("answerText");
+      const timerEl = document.getElementById("timer");
+
+      let selected = challenges[Math.floor(Math.random() * challenges.length)];
+
+      questionEl.textContent = selected.question;
+      answerEl.textContent = "Answer: " + selected.answer;
+      answerEl.style.display = "none";
+      timerEl.textContent = "⏱ 30";
+      panel.style.display = "block";
+
+      anime({
+        targets: panel,
+        opacity: [0, 1],
+        translateY: [50, 0],
+        duration: 800,
+        easing: 'easeOutExpo'
+      });
+
+      let timeLeft = 30;
+      const timer = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `⏱ ${timeLeft}`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          answerEl.style.display = "block";
+          anime({
+            targets: answerEl,
+            opacity: [0, 1],
+            duration: 600,
+            easing: 'easeInOutQuad'
+          });
+        }
+      }, 1000);
+    }
+  </script>
  
 
  
