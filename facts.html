@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Science Facts | Exonova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+    body {
+      background-color: #0f172a;
+      color: white;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      color: #a78bfa;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s ease-in-out;
+    }
+    .facts-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .fact-card {
+      background: #1e293b;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 300px;
+      flex: 1 1 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .fact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255,255,255,0.1);
+    }
+    .fact-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .fact-text {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 data-aos="fade-down"> Science Facts</h1>
+
+  <div class="facts-container">
+    <div class="fact-card" data-aos="fade-up">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXBut3QLVZy-1qYDVy4vegEB8oxMA1MqyBYA&s/300x200/?galaxy" alt="Galaxy">
+      <p class="fact-text">There are more stars in the universe than grains of sand on Earth.</p>
+    </div>
+    <div class="fact-card" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://static.wixstatic.com/media/66ffe2_64c12a1f266949f8aa7b0223cfcc30d6~mv2.png/v1/fill/w_568,h_566,al_c,lg_1,q_85,enc_avif,quality_auto/66ffe2_64c12a1f266949f8aa7b0223cfcc30d6~mv2.png/300x200/?atom" alt="Atom">
+      <p class="fact-text">An atom is about 99.9999999999996% empty space.</p>
+    </div>
+    <div class="fact-card" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://source.unsplash.com/300x200/?brain" alt="Brain">
+      <p class="fact-text">The human brain generates more electrical impulses in a day than all telephones combined.</p>
+    </div>
+    <div class="fact-card" data-aos="fade-up" data-aos-delay="300">
+      <img src="https://source.unsplash.com/300x200/?dna" alt="DNA">
+      <p class="fact-text">If uncoiled, the DNA in all the cells in your body would stretch 10 billion miles.</p>
+    </div>
+    <div class="fact-card" data-aos="fade-up" data-aos-delay="400">
+      <img src="https://source.unsplash.com/300x200/?volcano" alt="Volcano">
+      <p class="fact-text">The largest volcano in the solar system is Olympus Mons on Mars.</p>
+    </div>
+    <div class="fact-card" data-aos="fade-up" data-aos-delay="500">
+      <img src="https://source.unsplash.com/300x200/?blackhole" alt="Black Hole">
+      <p class="fact-text">A black hole’s gravity is so strong that not even light can escape it.</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1200,
+      once: true,
+    });
+  </script>
+</body>
+</html>
