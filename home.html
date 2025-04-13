@@ -315,29 +315,185 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonial-section">
-  <h2 class="section-title">Testimonials</h2>
-  <center><p><h3 style="Font-family:Gabriela";>What our learners say!</h3></p></center>
 
-  <br><br>
-  
-  <div class="testimonials">
- <left>   <div class="testimonial anime-fade">
-      <p>"Exonova has changed the way my child thinks about science. Truly inspiring!"</p>
-      <h4>- Mrs. Verma, Parent</h4>
-    </div></left>
-    <center><div class="testimonial anime-fade">
-      <p>"A magical platform for young minds. Great content, amazing presentation!"</p>
-      <h4>- Ravi, Class 9 Student</h4>
-    </div></center>
-   <right> <div class="testimonial anime-fade">
-      <p>"Loved the blend of creativity and science. Aditya is doing a fantastic job."</p>
-      <h4>- Mr. Gupta, Science Teacher</h4>
-    </div></right>
-  </div>
-</section>
+    <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: white;
+    }
 
+    .testimonials {
+      max-width: 1200px;
+      margin: auto;
+      padding: 4rem 1rem;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 1s ease;
+    }
 
+    .testimonials.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 2.5rem;
+      color: #38bdf8;
+      text-shadow: 0 0 20px #0ea5e9;
+      position: relative;
+    }
+
+    .testimonials h2::after {
+      content: '';
+      width: 80px;
+      height: 4px;
+      background: #38bdf8;
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    .testimonial-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .testimonial {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 15px;
+      padding: 2rem;
+      width: 300px;
+      position: relative;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+      transform: scale(0.8);
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .testimonial.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .testimonial:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      margin-bottom: 1rem;
+    }
+
+    .author {
+      font-weight: bold;
+      color: #38bdf8;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .author img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #38bdf8;
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="testimonials" id="testimonials">
+    <h2>What People Say</h2>
+    <div class="testimonial-container">
+
+      <div class="testimonial">
+        <p class="quote">"Exonova made science fun again! I never thought I could enjoy learning this much!"</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/150?img=1" alt="User 1"/>
+          Riya Sharma
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="quote">"The interactive parts are amazing! It’s like a mix of education and gaming!"</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/150?img=2" alt="User 2"/>
+          Aakash Verma
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="quote">"The design, the animations, everything feels premium. I love Exonova!"</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/150?img=3" alt="User 3"/>
+          Sneha Roy
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="quote">"Perfect for school projects and quick revision. This site is gold!"</p>
+        <div class="author">
+          <img src="https://i.pravatar.cc/150?img=4" alt="User 4"/>
+          Rohan Mishra
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
+  </script>
+
+  <!-- Scroll Up Reveal + Anime -->
+  <script>
+    const section = document.querySelector('.testimonials');
+    const cards = document.querySelectorAll('.testimonial');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section.classList.add('active');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('show');
+              anime({
+                targets: card,
+                scale: [0.8, 1],
+                duration: 800,
+                easing: 'easeOutElastic(1, .6)'
+              });
+            }, index * 200);
+          });
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+
+    observer.observe(section);
+  </script>
 
 
 <!-- CALL TO ACTION -->
