@@ -270,7 +270,61 @@ html {
     </nav>
   </navbar>
 
+<!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
 
+    const toggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("nav");
+
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+
+    // Anime.js Logo animation
+    anime({
+      targets: '.logo',
+      translateY: [-30, 0],
+      opacity: [0, 1],
+      duration: 1500,
+      easing: 'easeOutElastic(1, .8)',
+    });
+
+    anime({
+      targets: 'nav a',
+      opacity: [0, 1],
+      translateY: [20, 0],
+      delay: anime.stagger(200, { start: 500 }),
+      duration: 1000,
+      easing: 'easeOutExpo'
+    });
+
+    // Barba page transitions
+    barba.init({
+      transitions: [{
+        name: 'fade',
+        leave(data) {
+          return anime({
+            targets: data.current.container,
+            opacity: [1, 0],
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }).finished;
+        },
+        enter(data) {
+          return anime({
+            targets: data.next.container,
+            opacity: [0, 1],
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }).finished;
+        }
+      }]
+    });
+  </script>
+
+  <!--NAvbr End -->
 
 
   
