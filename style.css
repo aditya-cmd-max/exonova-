@@ -216,6 +216,20 @@ footer {
 }
 
 
+
+
+
+ header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
 .logo {
       font-size: 1.8rem;
       font-weight: bold;
