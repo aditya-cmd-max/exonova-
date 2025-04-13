@@ -33,16 +33,219 @@
 
 <body>
  
- <nav class="navbar">
-    <div class="nav-logo">Exonova</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="blogs.html">Blogs</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="auth.html">Login</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger">&#9776;</div>
-  </nav>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #38bdf8;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #e0f2fe;
+      font-size: 1rem;
+      position: relative;
+      padding-bottom: 5px;
+      transition: 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #38bdf8;
+      left: 0;
+      bottom: 0;
+      transition: all 0.4s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #7dd3fc;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      height: 3px;
+      width: 25px;
+      background-color: #38bdf8;
+      margin: 4px 0;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background-color: #1e293b;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+      }
+
+      nav.active {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #38bdf8;
+      }
+      to {
+        text-shadow: 0 0 20px #7dd3fc;
+      }
+    }
+
+    .content {
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body data-barba="wrapper">
+
+  <header data-aos="fade-down">
+    <div class="logo">Exonova</div>
+    <div class="menu-toggle" id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <nav id="nav">
+      <a href="#">Home</a>
+      <a href="#">Facts</a>
+      <a href="#">Quiz</a>
+      <a href="#">Videos</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content" data-barba="container" data-barba-namespace="home">
+    <h1 data-aos="fade-up">Welcome to Exonova</h1>
+    <p data-aos="fade-up" data-aos-delay="300">Explore science like never before!</p>
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
+
+    const toggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("nav");
+
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+
+    // Anime.js Logo animation
+    anime({
+      targets: '.logo',
+      translateY: [-30, 0],
+      opacity: [0, 1],
+      duration: 1500,
+      easing: 'easeOutElastic(1, .8)',
+    });
+
+    anime({
+      targets: 'nav a',
+      opacity: [0, 1],
+      translateY: [20, 0],
+      delay: anime.stagger(200, { start: 500 }),
+      duration: 1000,
+      easing: 'easeOutExpo'
+    });
+
+    // Barba page transitions
+    barba.init({
+      transitions: [{
+        name: 'fade',
+        leave(data) {
+          return anime({
+            targets: data.current.container,
+            opacity: [1, 0],
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }).finished;
+        },
+        enter(data) {
+          return anime({
+            targets: data.next.container,
+            opacity: [0, 1],
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }).finished;
+        }
+      }]
+    });
+  </script>
     
     
     <!-- HERO BANNER -->
