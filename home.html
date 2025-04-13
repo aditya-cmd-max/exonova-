@@ -637,140 +637,108 @@
  <!--Start of YT-->
 
  <style>
-   /* Basic Reset */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: white;
-  display: flex;
-  justify-content: center;  /* Centers content horizontally */
-  align-items: center;      /* Centers content vertically */
-  height: 100vh;            /* Full viewport height */
-  margin: 0;                /* Removes default margin */
-  overflow-x: hidden;
-  position: relative;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* Container for the profile card */
-.profile-card {
-  width: 380px;
-  background: #1e1e1e;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  text-align: center;
-  padding: 30px;
-  position: relative;
-  transform: translateY(30px);
-  animation: floatUp 2s ease-out forwards;
-  z-index: 1;
-}
+    body {
+      background-color: #121212;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-/* Profile Image */
-.profile-image {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-  border: 6px solid #4C6EF5;
-}
+    .profile-card {
+      width: 360px;
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      position: relative;
+      animation: floatUp 1s ease-out forwards;
+    }
 
-/* Name and Username */
-.name {
-  font-size: 28px;
-  font-weight: 600;
-  color: #fff;
-  margin: 15px 0;
-  animation: fadeInUp 1.5s ease-out;
-}
+    .profile-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 5px solid #4C6EF5;
+    }
 
-.username {
-  font-size: 16px;
-  color: #b3b3b3;
-  margin-bottom: 20px;
-  animation: fadeInUp 2s ease-out;
-}
+    .name {
+      font-size: 26px;
+      font-weight: 600;
+      margin: 10px 0;
+    }
 
-/* Stats (Subscribers and Videos) */
-.stats {
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 30px;
-  animation: fadeInUp 2.5s ease-out;
-}
+    .username {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
 
-.stats div {
-  font-size: 18px;
-  font-weight: 500;
-}
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 25px;
+    }
 
-/* View Channel Button */
-.view-channel {
-  padding: 14px 28px;
-  background-color: #4C6EF5;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  border-radius: 35px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-  display: inline-block;
-  animation: fadeInUp 3s ease-out;
-  position: relative;
-  z-index: 2;
-}
+    .stats div {
+      font-size: 16px;
+      font-weight: 500;
+    }
 
-.view-channel:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-}
+    .view-channel {
+      padding: 12px 24px;
+      background-color: #4C6EF5;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 30px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
 
-/* Keyframe for float-up effect */
-@keyframes floatUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .view-channel:hover {
+      transform: scale(1.05);
+      background-color: #5c7dfb;
+    }
 
-/* Keyframe for fade-in animation */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+    @keyframes floatUp {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="profile-card" data-aos="fade-up" data-aos-duration="1500">
-    <img src="https://www.example.com/your-youtube-profile-pic.jpg" alt="Profile Picture" class="profile-image">
-    <div class="name" data-aos="fade-up" data-aos-duration="2000">Aditya Jha</div>
-    <div class="username" data-aos="fade-up" data-aos-duration="2500">@eonovaaditya1104</div>
-    
-    <div class="stats" data-aos="fade-up" data-aos-duration="3000">
-      <div>Subscribers: 10K</div>
-      <div>Videos: 52</div>
+  <div class="profile-card" data-aos="zoom-in">
+    <img src="https://yt3.googleusercontent.com/ytc/AOPolaQn...=s176-c-k-c0x00ffffff-no-rj" alt="Profile" class="profile-image">
+    <div class="name">Aditya Jha</div>
+    <div class="username">@exonovaaditya1104</div>
+    <div class="stats">
+      <div>Subscribers: <strong>1.2K</strong></div>
+      <div>Videos: <strong>52</strong></div>
     </div>
-    
-    <a href="https://www.youtube.com/c/Exonova" class="view-channel" data-aos="fade-up" data-aos-duration="3500">View Channel</a>
+    <a href="https://youtube.com/@exonovaaditya1104" class="view-channel" target="_blank">View Channel</a>
   </div>
 
-  <!-- AOS.js -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
-  <!-- Initialize AOS.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init();
   </script>
