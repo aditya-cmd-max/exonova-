@@ -2,279 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Top 5 Study Hacks | Exonova Blog</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
-  <!-- AOS for animations -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 5 Scientific Study Hacks - Exonova Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #eef2f3, #ffffff);
-      color: #2d2d2d;
       margin: 0;
-      padding: 0;
-    }
-
-    .navbar-placeholder {
-      margin-bottom: 40px;
-    }
-
-    .blog-container {
-      max-width: 900px;
-      margin: auto;
-      background-color: #ffffff;
-      padding: 50px 40px;
-      border-radius: 14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      animation: floatIn 1.2s ease-in-out;
-    }
-
-    @keyframes floatIn {
-      0% {
-        transform: translateY(40px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .blog-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.7rem;
-      color: #1e2d40;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .blog-date {
-      font-size: 0.9rem;
-      color: #777;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .blog-content p {
-      font-size: 1.1rem;
-      line-height: 1.85;
-      margin-bottom: 25px;
-      opacity: 0.9;
-    }
-
-    .blog-content img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      margin: 30px 0;
-      transition: all 0.4s ease;
-    }
-
-    .blog-content img:hover {
-      transform: scale(1.025) rotateZ(1deg);
-    }
-
-    .go-back {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 12px 24px;
-      background-color: #34495e;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
       color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-
-    .go-back:hover {
-      background-color: #2c3e50;
+    header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      background: linear-gradient(to right, #1a1a1a, #0f0f0f);
+    }
+    h1 {
+      font-size: 3rem;
+      color: #eee;
+    }
+    .published {
+      font-size: 1rem;
+      color: #bbb;
+      margin-top: 0.5rem;
+    }
+    .content {
+      padding: 3rem 10%;
+      font-size: 1.2rem;
+    }
+    .highlight {
+      background-color: #ff0;
+      color: #000 !important;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+    .curved-img {
+      display: block;
+      margin: 4rem auto;
+      border: 10px solid #222;
+      border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+      box-shadow: 0 0 30px rgba(255,255,255,0.1);
+      width: 70%;
+      transition: transform 0.5s ease;
+    }
+    .curved-img:hover {
       transform: scale(1.05);
     }
-
-    .highlight {
-      background: #fef3c7;
-      padding: 4px 10px;
-      border-radius: 4px;
+    .back-button {
+      display: inline-block;
+      margin: 4rem auto 2rem;
+      padding: 1rem 2rem;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      color: #fff;
+      text-decoration: none;
       font-weight: bold;
+      transition: all 0.4s ease;
+      background-color: transparent;
+      cursor: pointer;
+      animation: pulse 2s infinite;
     }
-
-    @media (max-width: 768px) {
-      .blog-container {
-        padding: 30px 20px;
-      }
-
-      .blog-title {
-        font-size: 2.2rem;
-      }
+    .back-button:hover {
+      background-color: #fff;
+      color: #000;
+      transform: scale(1.1);
     }
- 
-  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Rubik', sans-serif;
-}
-
-
-/* Navbar Base */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  padding: 15px 40px;
-  color: white;
-  position: fixed;
-  width: 100%;
-  z-index: 999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Logo */
-.nav-logo {
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* Links */
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-.nav-links li a {
-  text-decoration: none;
-  color: white;
-  font-size: 17px;
-  position: relative;
-  transition: 0.3s ease;
-}
-
-.nav-links li a::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #00e1ff;
-  transition: 0.3s ease-in-out;
-}
-
-.nav-links li a:hover::after {
-  width: 100%;
-}
-
-.nav-links li a:hover {
-  color: #00e1ff;
-}
-
-/* Hamburger (Mobile) */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background: #1c1c1c;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 100%;
-    padding: 20px 0;
-    text-align: center;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .nav-links li {
-    margin: 15px 0;
-  }
-}
-
-
-
-
-html {
-  scroll-behavior: smooth;
-}
-  
-  
-  
-  
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+      50% { box-shadow: 0 0 20px 5px rgba(255,255,255,0.2); }
+    }
   </style>
 </head>
 <body>
+  <header>
+    <h1 data-aos="zoom-in">Top 5 Scientific Study Hacks Every Student Should Know</h1>
+    <p class="published">Published on 13th April, 2025</p>
+  </header>
 
-   <nav class="navbar">
-    <div class="nav-logo">Exonova</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="blogs.html">Blogs</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="auth.html">Login</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger">&#9776;</div>
-  </nav>
-  
+  <div class="content">
+    <p data-aos="fade-up" data-aos-delay="100">
+      Struggling to study smarter instead of harder? Science-backed study methods can improve your memory, focus, and academic performance significantly. These <span class="highlight">Top 5 Study Hacks</span> are not just trends—they’re rooted in cognitive psychology and neuroscience.
+    </p>
 
-  <!-- Blog Content -->
-  <div class="blog-container" data-aos="fade-up" data-aos-duration="1000">
-    <h1 class="blog-title" data-aos="fade-down" data-aos-delay="100">The Science of Sleep: Why Students Must Never Ignore It</h1>
-    <p class="blog-date" data-aos="zoom-in" data-aos-delay="200">Published on 9th April, 2025</p>
+    <p data-aos="fade-up" data-aos-delay="200">
+      <strong>1. The Pomodoro Technique</strong><br>
+      Study in 25-minute sessions followed by a 5-minute break. This method maximizes focus while preventing mental fatigue. The brain thrives in <span class="highlight">short, focused bursts</span> of attention.
+    </p>
 
-    <div class="blog-content">
-      <p data-aos="fade-up" data-aos-delay="300">
-        <span class="highlight">Studying</span> can be tough, especially when there’s so much to learn and not enough time to do it all. Whether you're preparing for exams, working on assignments, or just trying to keep up with your studies, the challenge of staying productive and efficient is real. But don't worry! Here are 5 study hacks that can help you study smarter, not harder, and get the best results without burning out.
-      </p>
+    <p data-aos="fade-up" data-aos-delay="300">
+      <strong>2. Active Recall</strong><br>
+      Instead of re-reading notes, close the book and try to recall key points. This strengthens memory by forcing your brain to <span class="highlight">retrieve information</span> actively.
+    </p>
 
-      <img src="https://www.colgateprofessional.com/content/dam/cp-sites/oral-care/professional2020/global/articles/exhausted-overworked-young-man-studying-sleeping.jpg" alt="Sleep and Study" data-aos="zoom-in-up" data-aos-delay="400">
+    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="Study Hacks" class="curved-img" data-aos="zoom-in" data-aos-delay="400"/>
 
-      <p data-aos="fade-left" data-aos-delay="500">
-        Teenagers and learners need at least <strong>8–10 hours</strong> of sleep. But late-night scrolling and exam stress often reduce that to just 5–6.
-      </p>
+    <p data-aos="fade-up" data-aos-delay="500">
+      <strong>3. Spaced Repetition</strong><br>
+      Spread out study sessions over days or weeks. This technique improves long-term memory retention through <span class="highlight">repeated exposure</span> to information at spaced intervals.
+    </p>
 
-      <p data-aos="fade-right" data-aos-delay="600">
-        Sleep deprivation directly impacts memory, focus, and even mental health. A tired mind is slower, more distracted, and emotionally unstable.
-      </p>
+    <p data-aos="fade-up" data-aos-delay="600">
+      <strong>4. Interleaving</strong><br>
+      Mix different subjects or problem types during a single study session. This forces your brain to adapt and improves <span class="highlight">problem-solving flexibility</span>.
+    </p>
 
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEp-bHMlf4oaKEKSYPCIlif8AQlmC5EK0-pw&sg" alt="Brain Power" data-aos="zoom-in" data-aos-delay="700">
+    <p data-aos="fade-up" data-aos-delay="700">
+      <strong>5. Teaching What You Learn</strong><br>
+      Try explaining a concept to someone else, or even to yourself. The act of teaching requires you to understand deeply and spot gaps in knowledge. It’s one of the most <span class="highlight">powerful learning strategies</span>.
+    </p>
 
-      <p data-aos="fade-up" data-aos-delay="800">
-        Try this: set a fixed bedtime. Avoid screens for 30 minutes before. Do breathing exercises. Even journaling your thoughts can calm the mind.
-      </p>
-
-      <p data-aos="fade-up" data-aos-delay="900">
-        At <strong>Exonova</strong>, we encourage not just knowledge, but wisdom — and wisdom starts with self-care. <span class="highlight">Sleep smart, not just study hard.</span>
-      </p>
+    <div style="text-align: center;">
+      <a href="#" class="back-button" data-aos="fade-up" data-aos-delay="800">← Back to Blogs</a>
     </div>
-
-    <a href="blogs.html" class="go-back" data-aos="fade-up" data-aos-delay="1000">
-      <i class="fas fa-arrow-left"></i> Back to Blogs
-    </a>
   </div>
 
-  <!-- AOS Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init();</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://unpkg.com/@barba/core"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    anime({
+      targets: 'h1',
+      translateY: [-50, 0],
+      opacity: [0, 1],
+      duration: 1500,
+      easing: 'easeOutExpo'
+    });
+  </script>
 </body>
 </html>
