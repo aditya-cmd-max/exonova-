@@ -137,197 +137,192 @@ html {
 
   <!-- Navabr Start -->
   
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Navbar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0f1f;
+      color: #ffffff;
+      overflow-x: hidden;
     }
-
-
-
-    navbar {
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 15, 30, 0.95);
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      position: sticky;
-      top: 0;
       z-index: 1000;
+      box-shadow: 0 0 20px #00f7ff;
+      backdrop-filter: blur(8px);
     }
-
     .logo {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: bold;
-      color: #38bdf8;
-      animation: glow 2s ease-in-out infinite alternate;
+      color: #00f7ff;
+      letter-spacing: 1.5px;
     }
-
-    nav {
+    .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 40px;
+      flex-wrap: wrap;
     }
-
-    nav a {
-      text-decoration: none;
-      color: #e0f2fe;
-      font-size: 1rem;
+    .nav-links a {
       position: relative;
-      padding-bottom: 5px;
-      transition: 0.3s;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px;
+      transition: color 0.3s;
     }
-
-    nav a::after {
-      content: '';
+    .nav-links a::after {
+      content: "";
       position: absolute;
-      width: 0%;
-      height: 2px;
-      background-color: #38bdf8;
       left: 0;
-      bottom: 0;
-      transition: all 0.4s ease;
-    }
-
-    nav a:hover::after {
+      bottom: -3px;
       width: 100%;
+      height: 2px;
+      background: #00f7ff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease-out;
     }
-
-    nav a:hover {
-      color: #7dd3fc;
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
-
-    .menu-toggle {
+    .nav-links a.active {
+      color: #00f7ff;
+      font-weight: 600;
+    }
+    .hamburger {
       display: none;
       flex-direction: column;
       cursor: pointer;
+      gap: 6px;
     }
-
-    .bar {
-      height: 3px;
+    .hamburger div {
       width: 25px;
-      background-color: #38bdf8;
-      margin: 4px 0;
-      border-radius: 10px;
-      transition: 0.3s;
+      height: 3px;
+      background-color: #00f7ff;
+      transition: all 0.3s ease;
     }
-
     @media (max-width: 768px) {
-      .menu-toggle {
-        display: flex;
-      }
-
-      nav {
+      .nav-links {
         position: absolute;
-        top: 70px;
-        right: 0;
-        background-color: #1e293b;
+        top: 100%;
+        left: 0;
+        background-color: rgba(10, 15, 30, 0.98);
         width: 100%;
         flex-direction: column;
         align-items: center;
         display: none;
+        padding: 20px 0;
+        gap: 20px;
       }
-
-      nav.active {
+      .nav-links.active {
         display: flex;
-        animation: slideDown 0.3s ease forwards;
       }
-
-      @keyframes slideDown {
-        0% {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .hamburger {
+        display: flex;
       }
     }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #38bdf8;
-      }
-      to {
-        text-shadow: 0 0 20px #7dd3fc;
-      }
-    }
-
- 
   </style>
 </head>
 <body data-barba="wrapper">
 
-  <navbar data-aos="fade-down">
-    <div class="logo">Exonova</div>
-    <div class="menu-toggle" id="menu-toggle">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-    <nav id="nav">
-      <a href="home.html">Home</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="about.html">About</a>
-      <a href="auth.html">Sign In</a>
-      
-    </nav>
-  </navbar>
+<div class="navbar" data-aos="fade-down" data-aos-duration="1000">
+  <div class="logo" id="logo">Exonova</div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="home.html" class="nav-link" data-barba-link>Home</a>
+    <a href="blogs.html" class="nav-link" data-barba-link>Blog</a>
+    <a href="about.html" class="nav-link active" data-barba-link>About</a>
+    <a href="quiz.html" class="nav-link" data-barba-link>Quiz</a>
+    <a href="auth.html" class="nav-link" data-barba-link>Sign In</a>
+  </div>
+</div>
 
-<!-- AOS JS -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init();
 
-    const toggle = document.getElementById("menu-toggle");
-    const nav = document.getElementById("nav");
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+  }
 
-    toggle.addEventListener("click", () => {
-      nav.classList.toggle("active");
+  // Barba transitions
+  barba.init({
+    transitions: [{
+      name: 'fade-transition',
+      leave(data) {
+        return anime({
+          targets: data.current.container,
+          opacity: [1, 0],
+          easing: 'easeInOutQuad',
+          duration: 400
+        }).finished;
+      },
+      enter(data) {
+        return anime({
+          targets: data.next.container,
+          opacity: [0, 1],
+          easing: 'easeInOutQuad',
+          duration: 400
+        }).finished;
+      }
+    }]
+  });
+
+  // Logo animation
+  anime({
+    targets: '#logo',
+    scale: [0.8, 1.05],
+    opacity: [0, 1],
+    easing: 'easeOutExpo',
+    duration: 1200,
+    delay: 300
+  });
+
+  // Highlight active link on click
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
     });
+  });
 
-    // Anime.js Logo animation
-    anime({
-      targets: '.logo',
-      translateY: [-30, 0],
-      opacity: [0, 1],
-      duration: 1500,
-      easing: 'easeOutElastic(1, .8)',
-    });
-
-    anime({
-      targets: 'nav a',
-      opacity: [0, 1],
-      translateY: [20, 0],
-      delay: anime.stagger(200, { start: 500 }),
-      duration: 1000,
-      easing: 'easeOutExpo'
-    });
-
-    // Barba page transitions
-    barba.init({
-      transitions: [{
-        name: 'fade',
-        leave(data) {
-          return anime({
-            targets: data.current.container,
-            opacity: [1, 0],
-            duration: 500,
-            easing: 'easeInOutQuad'
-          }).finished;
-        },
-        enter(data) {
-          return anime({
-            targets: data.next.container,
-            opacity: [0, 1],
-            duration: 500,
-            easing: 'easeInOutQuad'
-          }).finished;
-        }
-      }]
-    });
-  </script>
+  // Entrance animation for nav links
+  anime({
+    targets: '.nav-links a',
+    translateY: [-20, 0],
+    opacity: [0, 1],
+    delay: anime.stagger(150, { start: 500 }),
+    duration: 800,
+    easing: 'easeOutBack'
+  });
+</script>
+</body>
+</html>
+   
 
   <!--NAvbr End -->
 
