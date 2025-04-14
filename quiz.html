@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exonova Quiz Sets</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: white;
+      margin: 0;
+      padding: 1rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #111;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: cyan;
+      margin-bottom: 1rem;
+    }
+    .quiz-set-select {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .quiz-set-select button {
+      padding: 0.7rem 1.2rem;
+      background: #222;
+      color: cyan;
+      border: 2px solid cyan;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .quiz-set-select button:hover {
+      background: cyan;
+      color: black;
+    }
+    .question { font-weight: bold; margin-bottom: 1rem; }
+    .options button {
+      background: #1a1a1a;
+      border: 2px solid cyan;
+      color: white;
+      padding: 0.6rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .options button:hover { background: cyan; color: black; }
+    #next-btn {
+      background: cyan;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+    }
+    .score {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .timer {
+      text-align: right;
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" data-aos="fade-up">
+    <h2>🧠 Exonova Quiz Zone</h2>
+    <div class="quiz-set-select" id="set-selector">
+      <button onclick="startQuiz(0)">Set 1</button>
+      <button onclick="startQuiz(1)">Set 2</button>
+      <button onclick="startQuiz(2)">Set 3</button>
+      <button onclick="startQuiz(3)">Set 4</button>
+      <button onclick="startQuiz(4)">Set 5</button>
+      <button onclick="startQuiz(5)">Set 6</button>
+    </div>
+
+    <div class="timer" id="timer" style="display:none;">⏳ Time left: <span id="time">15</span>s</div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <button id="next-btn">Next</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const sets = [
+      [ // Set 1
+        { question: "Capital of France?", options: ["Berlin", "Paris", "Rome", "Madrid"], answer: "Paris" },
+        { question: "3 x 4 = ?", options: ["7", "12", "9", "15"], answer: "12" },
+        { question: "Sun is a?", options: ["Planet", "Comet", "Star", "Moon"], answer: "Star" }
+      ],
+      [ // Set 2
+        { question: "Largest mammal?", options: ["Elephant", "Blue Whale", "Shark", "Hippo"], answer: "Blue Whale" },
+        { question: "100 / 4 = ?", options: ["25", "30", "20", "24"], answer: "25" },
+        { question: "Rainbow has how many colors?", options: ["6", "7", "8", "9"], answer: "7" }
+      ],
+      [ // Set 3
+        { question: "What is H2O?", options: ["Oxygen", "Water", "Hydrogen", "Salt"], answer: "Water" },
+        { question: "First PM of India?", options: ["Gandhi", "Nehru", "Modi", "Rajaji"], answer: "Nehru" },
+        { question: "1 km = ? meters", options: ["1000", "100", "10", "10,000"], answer: "1000" }
+      ],
+      [ // Set 4
+        { question: "Who painted Mona Lisa?", options: ["Da Vinci", "Picasso", "Van Gogh", "Rembrandt"], answer: "Da Vinci" },
+        { question: "Speed = ?", options: ["Time / Distance", "Distance / Time", "Area x Volume", "Mass / Time"], answer: "Distance / Time" },
+        { question: "Smallest continent?", options: ["Asia", "Europe", "Australia", "Africa"], answer: "Australia" }
+      ],
+      [ // Set 5
+        { question: "Square root of 81?", options: ["7", "9", "6", "8"], answer: "9" },
+        { question: "CPU means?", options: ["Central Unit", "Processing Unit", "Central Processing Unit", "System Unit"], answer: "Central Processing Unit" },
+        { question: "Color of sky?", options: ["Blue", "Red", "Green", "Yellow"], answer: "Blue" }
+      ],
+      [ // Set 6
+        { question: "Symbol of Gold?", options: ["Go", "Gd", "Au", "Ag"], answer: "Au" },
+        { question: "Which organ pumps blood?", options: ["Lungs", "Heart", "Liver", "Kidney"], answer: "Heart" },
+        { question: "Which planet has rings?", options: ["Earth", "Mars", "Saturn", "Venus"], answer: "Saturn" }
+      ]
+    ];
+
+    let currentSet = 0;
+    let currentIndex = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 15;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const scoreEl = document.getElementById('score');
+    const timeEl = document.getElementById('time');
+    const timerBox = document.getElementById('timer');
+    const selector = document.getElementById('set-selector');
+
+    function startQuiz(setNum) {
+      currentSet = setNum;
+      currentIndex = 0;
+      score = 0;
+      selector.style.display = "none";
+      scoreEl.textContent = '';
+      showQuestion();
+      startTimer();
+    }
+
+    function showQuestion() {
+      const q = sets[currentSet][currentIndex];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt);
+        optionsEl.appendChild(btn);
+      });
+      nextBtn.style.display = 'none';
+      timerBox.style.display = "block";
+    }
+
+    function checkAnswer(selected) {
+      const correct = sets[currentSet][currentIndex].answer;
+      const buttons = optionsEl.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correct) btn.style.background = 'limegreen';
+        else if (btn.textContent === selected) btn.style.background = 'crimson';
+      });
+      if (selected === correct) score++;
+      nextBtn.style.display = 'block';
+      clearInterval(timer);
+    }
+
+    function startTimer() {
+      timeLeft = 15;
+      timeEl.textContent = timeLeft;
+      timer = setInterval(() => {
+        timeLeft--;
+        timeEl.textContent = timeLeft;
+        if (timeLeft === 0) {
+          clearInterval(timer);
+          checkAnswer("");
+        }
+      }, 1000);
+    }
+
+    nextBtn.onclick = () => {
+      currentIndex++;
+      if (currentIndex < sets[currentSet].length) {
+        showQuestion();
+        startTimer();
+      } else {
+        showResult();
+      }
+    };
+
+    function showResult() {
+      questionEl.textContent = "🎉 Quiz Over!";
+      optionsEl.innerHTML = "";
+      nextBtn.style.display = "none";
+      timerBox.style.display = "none";
+      scoreEl.innerHTML = `You scored <strong>${score}</strong> out of ${sets[currentSet].length}`;
+      selector.style.display = "flex";
+    }
+  </script>
+</body>
+</html>
