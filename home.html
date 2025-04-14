@@ -305,150 +305,128 @@
     
 <!-- OUR MISSION -->
  
-  <style>
+   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #0d0d0d;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f0f0f;
       color: #fff;
       overflow-x: hidden;
     }
+
+    .divider {
+      height: 2px;
+      width: 90%;
+      margin: 100px auto 50px auto;
+      background: linear-gradient(to right, transparent, #ccc, transparent);
+      border-radius: 100px;
+    }
+
     .mission-section {
-      padding: 100px 20px;
-      max-width: 1200px;
-      margin: auto;
+      padding: 50px 20px;
       text-align: center;
-      position: relative;
-      z-index: 1;
     }
+
     .mission-title {
-      font-size: 3rem;
-      margin-bottom: 60px;
+      font-size: 48px;
       color: #FFD700;
-      position: relative;
+      text-shadow: 0 0 10px #FFD700;
+      margin-bottom: 10px;
     }
-    .mission-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: #FFD700;
-    }
-    .mission-grid {
+
+    .mission-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 30px;
       justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
     }
+
     .mission-card {
       width: 300px;
-      padding: 30px;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
-      transform: scale(0.9);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 30px;
+      transition: transform 0.3s ease;
       opacity: 0;
+      transform: scale(0.8);
     }
+
+    .mission-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+
     .mission-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
-      color: #fff;
+      color: #00ffe1;
+      font-size: 22px;
+      margin-bottom: 15px;
     }
+
     .mission-card p {
-      font-size: 1rem;
+      font-size: 15px;
       color: #ccc;
-    }
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
 
-  <section class="mission-section" id="mission" data-barba="container" data-barba-namespace="mission">
-    <h2 class="mission-title" id="animatedTitle">Our Mission</h2>
-    <div class="mission-grid">
-      <div class="mission-card" data-aos="fade-up">
-        <h3>🚀 Inspire</h3>
-        <p>Ignite the minds of the next generation to dream beyond the stars.</p>
+  <div class="divider"></div>
+
+  <section class="mission-section" id="our-mission">
+    <h2 class="mission-title" data-aos="fade-up">Our Mission</h2>
+    <div class="mission-container">
+      <div class="mission-card" data-aos="fade-up" data-aos-delay="100">
+        <h3>Empowering Learners</h3>
+        <p>We aim to democratize knowledge and make learning accessible to every student with our platform.</p>
       </div>
       <div class="mission-card" data-aos="fade-up" data-aos-delay="200">
-        <h3>📚 Educate</h3>
-        <p>Make complex science easy and fun through creative education.</p>
+        <h3>Innovating Education</h3>
+        <p>By integrating modern tech like AI and animation, we reshape traditional learning into engaging experiences.</p>
       </div>
-      <div class="mission-card" data-aos="fade-up" data-aos-delay="400">
-        <h3>🌍 Empower</h3>
-        <p>Provide a voice and space for students to explore and innovate.</p>
+      <div class="mission-card" data-aos="fade-up" data-aos-delay="300">
+        <h3>Creating Future Leaders</h3>
+        <p>We empower students with the tools and mindset to become future changemakers of the world.</p>
       </div>
     </div>
   </section>
 
-  <!-- Barba.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true
+    });
+  </script>
 
-  <!-- Anime.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <!-- AOS -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init({ once: true, duration: 1000 });</script>
-
-  <!-- Animation Script -->
+  <!-- GSAP Scroll Animations -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.from('.mission-card', {
-      scrollTrigger: {
-        trigger: '.mission-grid',
-        start: 'top 80%',
-      },
-      y: 50,
-      opacity: 0,
-      scale: 0.8,
-      duration: 1,
-      stagger: 0.3,
-      ease: "power4.out"
-    });
-
-    anime({
-      targets: '#animatedTitle',
-      translateY: [-100, 0],
-      opacity: [0, 1],
-      duration: 1500,
-      easing: 'easeOutExpo',
-      delay: 500
-    });
-
-    barba.init({
-      transitions: [{
-        name: 'fade',
-        leave(data) {
-          return gsap.to(data.current.container, { opacity: 0, duration: 0.5 });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, { opacity: 0, duration: 0.5 });
+    gsap.utils.toArray(".mission-card").forEach(card => {
+      gsap.fromTo(card, 
+        { autoAlpha: 0, scale: 0.8 }, 
+        {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
         }
-      }]
+      );
     });
   </script>
-</body>
-  
 <!-- TESTIMONIALS -->
 
     <style>
