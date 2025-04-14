@@ -307,124 +307,147 @@
  
   <style>
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: #0a0a0a;
-      color: white;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
     }
-
     .mission-section {
       padding: 100px 20px;
+      max-width: 1200px;
+      margin: auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
-
-    .mission-heading {
+    .mission-title {
       font-size: 3rem;
       margin-bottom: 60px;
-      background: linear-gradient(90deg, #7f00ff, #e100ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 1.5s ease-in-out infinite alternate;
+      color: #FFD700;
+      position: relative;
     }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #7f00ff; }
-      to { text-shadow: 0 0 25px #e100ff; }
+    .mission-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #FFD700;
     }
-
-    .mission-cards {
+    .mission-grid {
       display: flex;
-      justify-content: center;
-      gap: 30px;
       flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
     }
-
     .mission-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 30px 20px;
       width: 300px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.05);
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
       backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+      transform: scale(0.9);
       opacity: 0;
-      transform: translateY(50px);
     }
-
-    .mission-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
-    }
-
     .mission-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #ffffff;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #fff;
     }
-
     .mission-card p {
       font-size: 1rem;
       color: #ccc;
     }
-
-    .emoji {
-      font-size: 1.3rem;
-      margin-right: 8px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
+  <div class="overlay"></div>
 
-<section class="mission-section" id="mission">
-  <h2 class="mission-heading">🎯 Our Mission</h2>
-  <div class="mission-cards">
-    <div class="mission-card">
-      <h3><span class="emoji">🚀</span>Inspire</h3>
-      <p>Igniting young minds to dream big and think differently in science and technology.</p>
+  <section class="mission-section" id="mission" data-barba="container" data-barba-namespace="mission">
+    <h2 class="mission-title" id="animatedTitle">Our Mission</h2>
+    <div class="mission-grid">
+      <div class="mission-card" data-aos="fade-up">
+        <h3>🚀 Inspire</h3>
+        <p>Ignite the minds of the next generation to dream beyond the stars.</p>
+      </div>
+      <div class="mission-card" data-aos="fade-up" data-aos-delay="200">
+        <h3>📚 Educate</h3>
+        <p>Make complex science easy and fun through creative education.</p>
+      </div>
+      <div class="mission-card" data-aos="fade-up" data-aos-delay="400">
+        <h3>🌍 Empower</h3>
+        <p>Provide a voice and space for students to explore and innovate.</p>
+      </div>
     </div>
-    <div class="mission-card">
-      <h3><span class="emoji">📚</span>Educate</h3>
-      <p>Delivering powerful knowledge through engaging blogs, facts, and visual storytelling.</p>
-    </div>
-    <div class="mission-card">
-      <h3><span class="emoji">🌍</span>Empower</h3>
-      <p>Creating a global platform where students become the creators of tomorrow.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  // AOS INIT
-  AOS.init();
+  <!-- Barba.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
 
-  // GSAP Scroll Animation
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.utils.toArray(".mission-card").forEach((card, i) => {
-    gsap.to(card, {
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true, duration: 1000 });</script>
+
+  <!-- Animation Script -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.mission-card', {
       scrollTrigger: {
-        trigger: card,
-        start: "top 90%",
-        toggleActions: "play none none none"
+        trigger: '.mission-grid',
+        start: 'top 80%',
       },
-      opacity: 1,
-      y: 0,
+      y: 50,
+      opacity: 0,
+      scale: 0.8,
       duration: 1,
-      delay: i * 0.2,
-      ease: "power3.out"
+      stagger: 0.3,
+      ease: "power4.out"
     });
-  });
 
-  // Anime.js for title entrance
-  anime({
-    targets: '.mission-heading',
-    translateY: [-50, 0],
-    opacity: [0, 1],
-    duration: 1200,
-    easing: 'easeOutExpo'
-  });
-</script>
+    anime({
+      targets: '#animatedTitle',
+      translateY: [-100, 0],
+      opacity: [0, 1],
+      duration: 1500,
+      easing: 'easeOutExpo',
+      delay: 500
+    });
+
+    barba.init({
+      transitions: [{
+        name: 'fade',
+        leave(data) {
+          return gsap.to(data.current.container, { opacity: 0, duration: 0.5 });
+        },
+        enter(data) {
+          return gsap.from(data.next.container, { opacity: 0, duration: 0.5 });
+        }
+      }]
+    });
+  </script>
+</body>
   
 <!-- TESTIMONIALS -->
 
