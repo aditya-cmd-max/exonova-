@@ -298,7 +298,127 @@
     
 <!-- OUR MISSION -->
  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      color: white;
+    }
 
+    .mission-section {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .mission-heading {
+      font-size: 3rem;
+      margin-bottom: 60px;
+      background: linear-gradient(90deg, #7f00ff, #e100ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #7f00ff; }
+      to { text-shadow: 0 0 25px #e100ff; }
+    }
+
+    .mission-cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .mission-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px 20px;
+      width: 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.05);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .mission-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+    }
+
+    .mission-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .mission-card p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .emoji {
+      font-size: 1.3rem;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<section class="mission-section" id="mission">
+  <h2 class="mission-heading">🎯 Our Mission</h2>
+  <div class="mission-cards">
+    <div class="mission-card">
+      <h3><span class="emoji">🚀</span>Inspire</h3>
+      <p>Igniting young minds to dream big and think differently in science and technology.</p>
+    </div>
+    <div class="mission-card">
+      <h3><span class="emoji">📚</span>Educate</h3>
+      <p>Delivering powerful knowledge through engaging blogs, facts, and visual storytelling.</p>
+    </div>
+    <div class="mission-card">
+      <h3><span class="emoji">🌍</span>Empower</h3>
+      <p>Creating a global platform where students become the creators of tomorrow.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // AOS INIT
+  AOS.init();
+
+  // GSAP Scroll Animation
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray(".mission-card").forEach((card, i) => {
+    gsap.to(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: "top 90%",
+        toggleActions: "play none none none"
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: i * 0.2,
+      ease: "power3.out"
+    });
+  });
+
+  // Anime.js for title entrance
+  anime({
+    targets: '.mission-heading',
+    translateY: [-50, 0],
+    opacity: [0, 1],
+    duration: 1200,
+    easing: 'easeOutExpo'
+  });
+</script>
+  
 <!-- TESTIMONIALS -->
 
     <style>
