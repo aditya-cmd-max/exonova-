@@ -125,26 +125,7 @@ footer {
 }
 
 
-/* MISSION SECTION */
-.mission-section {
-  padding: 4rem 2rem;
-  background: #111;
-}
-.mission-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-}
-.mission-card {
-  flex: 1;
-  min-width: 250px;
-  background: #1e1e1e;
-  padding: 1.5rem;
-  border-radius: 10px;
-  border-left: 4px solid #ffcc70;
-  color: #fff;
-}
+
 
 /* TESTIMONIALS */
 .testimonial-section {
