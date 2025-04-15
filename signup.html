@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exonova Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow-x: hidden;
+      background-color: #0e0e0e;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 5vw 5vw;
+      min-height: 100vh;
+      gap: 30px;
+      background: url('https://img.freepik.com/free-vector/futuristic-background-design_23-2148503793.jpg') center/cover no-repeat;
+      backdrop-filter: blur(6px);
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .left {
+      color: white;
+      max-width: 500px;
+      flex: 1 1 300px;
+      text-align: center;
+    }
+
+    .left h1 {
+      font-size: 2.5em;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .left p {
+      margin-top: 10px;
+      font-size: 1em;
+      padding: 0 10px;
+    }
+
+    .left .socials {
+      margin-top: 20px;
+    }
+
+    .left .socials i {
+      font-size: 1.3em;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .left .socials i:hover {
+      color: orange;
+    }
+
+    .signup-form {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 95, 109, 0.5);
+      width: 100%;
+      max-width: 400px;
+      animation: floatBox 3s ease infinite alternate;
+      flex: 1 1 300px;
+    }
+
+    @keyframes floatBox {
+      to { transform: translateY(10px); }
+    }
+
+    .signup-form h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #1e1e1e;
+    }
+
+    .signup-form input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #f1f1f1;
+    }
+
+    .signup-form label {
+      font-size: 0.9em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .btn, .google-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      color: white;
+      margin-top: 10px;
+    }
+
+    .btn:hover, .google-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .google-btn {
+      background: white;
+      border: 1px solid #ddd;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .google-btn i {
+      margin-right: 10px;
+      color: #4285F4;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8em;
+      margin-top: 15px;
+      color: #555;
+    }
+
+    .signin-link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.9em;
+    }
+
+    .signin-link a {
+      color: #ff5f6d;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signin-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px 10px;
+        text-align: center;
+      }
+
+      .left h1 {
+        font-size: 2em;
+      }
+
+      .left p {
+        font-size: 0.95em;
+      }
+
+      .signup-form {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container">
+  <div class="left">
+    <h1>Welcome to <span style="color: #ffcf4d;">Exonova</span></h1>
+    <p>Your gateway to premium education. Learn smart, stay ahead.</p>
+    <div class="socials">
+      <i class="fab fa-facebook-f" style="color:white;"></i>
+      <i class="fab fa-twitter" style="color:white;"></i>
+      <i class="fab fa-instagram" style="color:white;"></i>
+      <i class="fab fa-youtube" style="color:white;"></i>
+    </div>
+  </div>
+
+  <div class="signup-form">
+    <h2>Create an Account</h2>
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="Enter Email" required />
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter Password" required />
+    
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+    
+    <button class="btn" onclick="signUpEmail()">Sign Up Now</button>
+    <button class="google-btn" onclick="signUpWithGoogle()"><i class="fab fa-google"></i>Continue with Google</button>
+
+    <div class="signin-link">
+      Already have an account? <a href="signin.html">Sign In</a>
+    </div>
+    <div class="footer">
+      By signing up you agree to our <br />
+      <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  authDomain: "exonova-cd89c.firebaseapp.com",
+  projectId: "exonova-cd89c",
+  storageBucket: "exonova-cd89c.firebasestorage.app",
+  messagingSenderId: "465326262278",
+  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+  measurementId: "G-GGG45V0PEF"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.signUpEmail = function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        alert("Account created successfully!");
+        console.log(userCredential.user);
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+  };
+
+  window.signUpWithGoogle = function () {
+    signInWithPopup(auth, provider)
+      .then(result => {
+        alert("Signed up with Google!");
+        console.log(result.user);
+      })
+      .catch(error => {
+        alert("Google Sign-Up Failed: " + error.message);
+      });
+  };
+</script>
+
+<!-- Canvas BG Script -->
+<script>
+  gsap.from(".left h1", { opacity: 0, x: -100, duration: 1 });
+  gsap.from(".left p", { opacity: 0, x: -100, duration: 1.5 });
+  gsap.from(".signup-form", { opacity: 0, y: 100, duration: 1.2 });
+
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 1,
+      dx: Math.random() * 0.5,
+      dy: Math.random() * 0.5,
+      color: "rgba(255,255,255,0.5)"
+    };
+  }
+
+  for (let i = 0; i < 100; i++) {
+    particles.push(createParticle());
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y > canvas.height) p.y = 0;
+    }
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+</script>
+
+</body>
+</html>
