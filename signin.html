@@ -208,9 +208,10 @@
 
 <canvas id="bgCanvas"></canvas>
 
-
+<!-- BAck Button-->
   
-   <style>
+
+  <style>
     /* Basic styles */
     body {
       font-family: Arial, sans-serif;
@@ -222,38 +223,35 @@
       position: relative; /* To enable absolute positioning within the body */
     }
 
+    /* Back button styling */
     .back-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 25px; /* Reduced padding for a smaller button */
-      font-size: 24px; /* Slightly smaller font size */
+      padding: 12px 25px; /* Smaller padding */
+      font-size: 24px; /* Adjusted font size */
       background-color: #007bff;
       color: white;
       border-radius: 50px;
       border: none;
       cursor: pointer;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease-in-out;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      position: absolute; /* Position the button absolutely */
-      top: 20px; /* 20px from the top */
-      left: 20px; /* 20px from the left */
+      position: absolute; /* Absolute positioning */
+      top: 20px; /* Distance from top */
+      left: 20px; /* Distance from left */
+      opacity: 0; /* Initially hidden for animation */
     }
 
     .back-btn i {
-      margin-right: 8px; /* Adjusted margin for smaller button */
+      margin-right: 8px; /* Adjusted margin */
     }
 
-    /* Hover Effect */
+    /* Hover effect */
     .back-btn:hover {
-      transform: scale(1.1) rotate(5deg); /* Slightly larger and rotated on hover */
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-      background-color: #0056b3; /* Darker shade for hover */
-    }
-
-    /* Animation on page load */
-    .back-btn {
-      opacity: 0;
+      transform: scale(1.1) rotate(5deg); /* Slightly larger and rotated */
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+      background-color: #0056b3; /* Darker color on hover */
     }
   </style>
 </head>
@@ -265,7 +263,7 @@
   </button>
 
   <script>
-    // GSAP Animation on page load
+    // GSAP Animation to show the back button when the page loads
     window.onload = () => {
       gsap.to(".back-btn", { opacity: 1, duration: 1, y: 0, ease: "power3.out" });
     };
@@ -277,6 +275,13 @@
   </script>
 
 </body>
+  
+  
+  
+  
+  
+  
+  <!-- Back Button End-->
   
   
   
