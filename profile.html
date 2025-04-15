@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Profile</title>
+
+  <!-- External CSS File Link -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- AOS.js (for scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Anime.js (for simple animations) -->
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+  <!-- GSAP (for animation effects) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+       apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  authDomain: "exonova-cd89c.firebaseapp.com",
+  projectId: "exonova-cd89c",
+  storageBucket: "exonova-cd89c.firebasestorage.app",
+  messagingSenderId: "465326262278",
+  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+  measurementId: "G-GGG45V0PEF"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+
+<style>/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-container {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 40px;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: 1.8em;
+  color: #333;
+}
+
+.bio {
+  font-size: 1.1em;
+  color: #777;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-details h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+label {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.3s ease-in-out;
+}
+
+input:focus, textarea:focus {
+  border-color: #4e9bff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.save-button {
+  background-color: #4e9bff;
+  color: white;
+  font-size: 1.1em;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #368ac0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+
+
+
+
+
+
+</head>
+<body>
+
+  <!-- Profile Section -->
+  <div class="profile-container">
+    <div class="profile-header" data-aos="fade-up">
+      <img src="https://via.placeholder.com/120" alt="Profile Image" class="profile-image">
+      <div class="user-info">
+        <h2 class="username" id="username">John Doe</h2>
+        <p class="bio" id="bio">A passionate developer and a tech enthusiast.</p>
+      </div>
+    </div>
+
+    <!-- Profile Details Form -->
+    <div class="profile-details" data-aos="fade-up">
+      <h3>Profile Details</h3>
+      <form id="profile-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="user@example.com" disabled>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Your location" required>
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio" placeholder="Tell us about yourself" required></textarea>
+
+        <button type="submit" class="save-button">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript for Firebase, Animations and Form -->
+  <script>
+    // Initialize AOS.js (Animate on Scroll)
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    // Check if the user is signed in
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const userId = user.uid;
+        document.getElementById("email").value = user.email;
+        getProfile(userId); // Get profile data from Firestore
+      } else {
+        window.location.href = "signin.html"; // Redirect to login page
+      }
+    });
+
+    // Function to get user profile from Firestore
+    async function getProfile(userId) {
+      const userProfileRef = db.collection('users').doc(userId);
+      const doc = await userProfileRef.get();
+      if (doc.exists) {
+        const data = doc.data();
+        document.getElementById("location").value = data.location || '';
+        document.getElementById("bio").value = data.bio || '';
+      }
+    }
+
+    // Handle profile form submission
+    document.getElementById('profile-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const user = auth.currentUser;
+      if (user) {
+        const userId = user.uid;
+        const location = document.getElementById("location").value;
+        const bio = document.getElementById("bio").value;
+
+        // Save user profile to Firestore
+        db.collection('users').doc(userId).set({
+          email: user.email,
+          location: location,
+          bio: bio
+        }).then(() => {
+          alert("Profile Updated Successfully!");
+        }).catch(error => {
+          console.error("Error updating profile: ", error);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
