@@ -202,7 +202,80 @@
 
 <canvas id="bgCanvas"></canvas>
 
-<div class="container">
+
+  
+   <style>
+    /* Basic styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      position: relative; /* To enable absolute positioning within the body */
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 25px; /* Reduced padding for a smaller button */
+      font-size: 24px; /* Slightly smaller font size */
+      background-color: #007bff;
+      color: white;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute; /* Position the button absolutely */
+      top: 20px; /* 20px from the top */
+      left: 20px; /* 20px from the left */
+    }
+
+    .back-btn i {
+      margin-right: 8px; /* Adjusted margin for smaller button */
+    }
+
+    /* Hover Effect */
+    .back-btn:hover {
+      transform: scale(1.1) rotate(5deg); /* Slightly larger and rotated on hover */
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+      background-color: #0056b3; /* Darker shade for hover */
+    }
+
+    /* Animation on page load */
+    .back-btn {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="goBack()">
+    <i class="fas fa-arrow-left"></i> Back
+  </button>
+
+  <script>
+    // GSAP Animation on page load
+    window.onload = () => {
+      gsap.to(".back-btn", { opacity: 1, duration: 1, y: 0, ease: "power3.out" });
+    };
+
+    // Function to go back to the previous page
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+</body>
+  
+  
+  
+  
+  <div class="container">
   <div class="left">
     <h1>Welcome Back to <span style="color: #ffcf4d;">Exonova</span></h1>
     <p>Your gateway to premium education. Learn smart, stay ahead.</p>
