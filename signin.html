@@ -267,22 +267,7 @@
   };
 
  
-  <p id="user-info"></p>
-    <button onclick="signOut()">Sign Out</button>
-  </div>
 
-  <script>
-    // Function to handle sign-out
-    function signOut() {
-      auth.signOut()
-        .then(() => {
-          console.log("Signed out successfully.");
-          window.location.href = "signin.html";  // Redirects to sign-in page after sign out
-        })
-        .catch((error) => {
-          console.error("Error signing out:", error);
-        });
-    }
   
   
   
