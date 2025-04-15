@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exonova Sign In</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-  <script src="https://kit.fontawesome.com/a2d9d6a82f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * {
       margin: 0; padding: 0;
@@ -43,9 +40,6 @@
     .left {
       color: white;
       max-width: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
     }
 
     .left h1 {
@@ -60,32 +54,38 @@
       max-width: 80%;
     }
 
-    .profile-img {
-      width: 100px;
-      height: 100px;
+    .profile-image {
+      margin-top: 20px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      margin-bottom: 15px;
-      border: 3px solid #fff;
+      border: 4px solid white;
+      overflow: hidden;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
-    .socials {
+    .left .socials {
       margin-top: 20px;
     }
 
-    .socials i {
+    .left .socials i {
       font-size: 1.4em;
       margin-right: 15px;
       cursor: pointer;
       transition: 0.3s;
     }
 
-    .socials i:hover {
+    .left .socials i:hover {
       color: orange;
     }
 
     .signin-form {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
@@ -118,16 +118,12 @@
       width: 100%;
       padding: 12px;
       border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s ease;
-      margin-bottom: 10px;
-    }
-
-    .btn {
       background: linear-gradient(135deg, #ff5f6d, #ffc371);
       color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
 
     .btn:hover, .google-btn:hover {
@@ -136,33 +132,54 @@
 
     .google-btn {
       background: white;
+      color: #444;
       border: 1px solid #ccc;
-      color: #333;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .google-btn i {
+    .google-btn img {
+      width: 20px;
       margin-right: 10px;
-      font-size: 1.2em;
     }
 
-    .footer {
+    .signin-form .footer {
       text-align: center;
       font-size: 0.8em;
       margin-top: 15px;
       color: #555;
     }
+
+    #messageBox {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2ecc71;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
+
+<div id="messageBox"></div>
+
 <canvas id="bgCanvas"></canvas>
+
 <div class="container">
-  <div class="left">
-    <img src="ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="profile" class="profile-img">
+  <div class="left" data-aos="fade-right">
     <h1>Welcome Back to <span style="color: #ff2432;">Exonova</span></h1>
     <p>Your gateway to premium education. Learn smart, stay ahead.</p>
+    <div class="profile-image">
+      <img src="https://i.pravatar.cc/150?img=12" alt="User Image">
+    </div>
     <div class="socials">
       <i class="fab fa-facebook-f"></i>
       <i class="fab fa-twitter"></i>
@@ -171,14 +188,16 @@
     </div>
   </div>
 
-  <div class="signin-form" id="formBox">
+  <div class="signin-form" data-aos="fade-left">
     <h2>Sign In</h2>
     <label>Email Address</label>
     <input type="email" id="email" placeholder="Enter Email" required>
     <label>Password</label>
     <input type="password" id="password" placeholder="Enter Password" required>
-    <button class="btn" onclick="signInEmail()">Sign In Now</button>
-    <button class="google-btn" onclick="signInWithGoogle()"><i class="fab fa-google"></i>Continue with Google</button>
+    <button class="btn" onclick="loginUser()">Sign In Now</button>
+    <button class="google-btn" onclick="googleSignIn()">
+      <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google Icon">Continue with Google
+    </button>
     <div class="footer">
       By signing in you agree to our <br>
       <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
@@ -186,9 +205,12 @@
   </div>
 </div>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
   authDomain: "exonova-cd89c.firebaseapp.com",
   projectId: "exonova-cd89c",
   storageBucket: "exonova-cd89c.firebasestorage.app",
@@ -196,34 +218,73 @@
   appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
   measurementId: "G-GGG45V0PEF"
   };
-
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
-  function signInEmail() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => alert('Signed In!'))
-      .catch(error => alert(error.message));
+  function showMessage(message) {
+    const box = document.getElementById("messageBox");
+    box.textContent = message;
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 4000);
   }
 
-  function signInWithGoogle() {
+  function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    auth.signInWithEmailAndPassword(email, password)
+      .then(userCred => {
+        const name = userCred.user.email.split('@')[0];
+        showMessage(`Welcome, ${name}!`);
+      })
+      .catch(error => {
+        showMessage("Login failed. Please try again.");
+      });
+  }
+
+  function googleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
-      .then(result => alert('Signed in with Google!'))
-      .catch(error => alert(error.message));
+      .then(result => {
+        const name = result.user.displayName;
+        showMessage(`Welcome, ${name}!`);
+      })
+      .catch(err => {
+        showMessage("Google Sign-In failed.");
+      });
   }
+</script>
 
+<!-- Libraries -->
+<script src="https://kit.fontawesome.com/a2d9d6a82f.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
+
+<script>
+  AOS.init();
   gsap.from(".left h1", { opacity: 0, x: -100, duration: 1 });
   gsap.from(".left p", { opacity: 0, x: -100, duration: 1.5 });
   gsap.from(".signin-form", { opacity: 0, y: 100, duration: 1.2 });
 
+  anime({
+    targets: '.btn',
+    scale: [0.8, 1],
+    duration: 800,
+    delay: 500,
+    easing: 'easeInOutExpo'
+  });
+</script>
+
+<script>
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
+
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
   const particles = [];
+
   function createParticle() {
     return {
       x: Math.random() * canvas.width,
@@ -234,7 +295,11 @@
       color: "rgba(255,255,255,0.5)"
     };
   }
-  for (let i = 0; i < 100; i++) particles.push(createParticle());
+
+  for (let i = 0; i < 100; i++) {
+    particles.push(createParticle());
+  }
+
   function drawParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let p of particles) {
@@ -242,8 +307,10 @@
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
       ctx.fill();
+
       p.x += p.dx;
       p.y += p.dy;
+
       if (p.x > canvas.width) p.x = 0;
       if (p.y > canvas.height) p.y = 0;
     }
