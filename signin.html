@@ -16,7 +16,7 @@
 
     body, html {
       height: 100%;
-      overflow: hidden;
+      overflow-x: hidden;
       background-color: #0e0e0e;
     }
 
@@ -28,12 +28,14 @@
     }
 
     .container {
-      height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
-      padding: 0 8vw;
-      background: url('https://img.freepik.com/premium-vector/padlock-with-keyhole-icon-personal-data-security-illustrates-cyber-data-information-privacy-idea-blue-color-abstract-hi-speed-internet-technology_542466-600.jpg?semt=ais_hybrid&w=740') center/cover no-repeat;
+      padding: 5vw 5vw;
+      min-height: 100vh;
+      gap: 30px;
+      background: url('https://img.freepik.com/free-vector/futuristic-background-design_23-2148503793.jpg') center/cover no-repeat;
       backdrop-filter: blur(6px);
       position: relative;
       z-index: 1;
@@ -47,19 +49,21 @@
 
     .left {
       color: white;
-      max-width: 50%;
+      max-width: 500px;
+      flex: 1 1 300px;
+      text-align: center;
     }
 
     .left h1 {
-      font-size: 3em;
+      font-size: 2.5em;
       font-weight: 700;
       line-height: 1.2;
     }
 
     .left p {
       margin-top: 10px;
-      font-size: 1.1em;
-      max-width: 80%;
+      font-size: 1em;
+      padding: 0 10px;
     }
 
     .left .socials {
@@ -67,8 +71,8 @@
     }
 
     .left .socials i {
-      font-size: 1.4em;
-      margin-right: 15px;
+      font-size: 1.3em;
+      margin: 10px;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -79,11 +83,13 @@
 
     .signin-form {
       background-color: rgba(255, 255, 255, 0.95);
-      padding: 40px;
+      padding: 30px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(255, 95, 109, 0.5);
-      width: 350px;
+      width: 100%;
+      max-width: 400px;
       animation: floatBox 3s ease infinite alternate;
+      flex: 1 1 300px;
     }
 
     @keyframes floatBox {
@@ -169,6 +175,27 @@
     .signup-link a:hover {
       text-decoration: underline;
     }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px 10px;
+        text-align: center;
+      }
+
+      .left h1 {
+        font-size: 2em;
+      }
+
+      .left p {
+        font-size: 0.95em;
+      }
+
+      .signin-form {
+        width: 90%;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -208,13 +235,11 @@
 
 <!-- Firebase SDKs -->
 <script type="module">
-  // Import Firebase modules
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-  // ✅ Replace with your actual Firebase configuration
   const firebaseConfig = {
-   apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
   authDomain: "exonova-cd89c.firebaseapp.com",
   projectId: "exonova-cd89c",
   storageBucket: "exonova-cd89c.firebasestorage.app",
@@ -223,7 +248,6 @@
   measurementId: "G-GGG45V0PEF"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -254,7 +278,7 @@
   };
 </script>
 
-<!-- GSAP & Canvas -->
+<!-- Canvas BG Script -->
 <script>
   gsap.from(".left h1", { opacity: 0, x: -100, duration: 1 });
   gsap.from(".left p", { opacity: 0, x: -100, duration: 1.5 });
