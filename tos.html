@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service - Exonova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow-x: hidden;
+      background-color: #0e0e0e;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5vw;
+      min-height: 100vh;
+      gap: 30px;
+      background: url('https://images.unsplash.com/photo-1610878180933-908f70eb5d89?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      backdrop-filter: blur(6px);
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .content {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 95, 109, 0.5);
+      width: 100%;
+      max-width: 800px;
+      animation: floatBox 3s ease infinite alternate;
+    }
+
+    @keyframes floatBox {
+      to { transform: translateY(10px); }
+    }
+
+    .content h1 {
+      text-align: center;
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #1e1e1e;
+    }
+
+    .content p {
+      font-size: 1em;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .content a {
+      color: #ff5f6d;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .content a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8em;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 10px;
+        text-align: center;
+      }
+
+      .content {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container">
+  <div class="content">
+    <h1>Terms of Service</h1>
+    
+    <p><strong>1. Introduction</strong><br>
+    Welcome to Exonova! By accessing and using our services, you agree to comply with and be bound by these Terms of Service. If you do not agree with these terms, please refrain from using our services.
+    </p>
+    
+    <p><strong>2. Services</strong><br>
+    Exonova provides an educational platform where users can access courses, resources, and tools for learning. Our services are available online, and we strive to make them accessible and valuable to everyone.
+    </p>
+    
+    <p><strong>3. User Responsibilities</strong><br>
+    As a user of Exonova, you agree to:
+      <ul>
+        <li>Provide accurate and up-to-date information during sign-up.</li>
+        <li>Use the platform responsibly and in accordance with applicable laws.</li>
+        <li>Not engage in any behavior that could harm the platform or other users.</li>
+        <li>Respect the intellectual property rights of content provided on Exonova.</li>
+      </ul>
+    </p>
+
+    <p><strong>4. Privacy</strong><br>
+    We take your privacy seriously. Please refer to our <a href="#">Privacy Policy</a> to understand how we collect, use, and protect your personal information.
+    </p>
+
+    <p><strong>5. Content</strong><br>
+    All educational content provided on Exonova is for personal and non-commercial use. You are not permitted to reproduce, distribute, or sell any content from the platform without express permission from us.
+    </p>
+
+    <p><strong>6. Termination</strong><br>
+    Exonova reserves the right to terminate or suspend your account if you violate these Terms of Service. We will notify you of such actions and provide an opportunity to resolve any issues.
+    </p>
+
+    <p><strong>7. Limitation of Liability</strong><br>
+    We do not accept responsibility for any indirect, incidental, or consequential damages arising from the use of our platform.
+    </p>
+
+    <p><strong>8. Modifications</strong><br>
+    Exonova may modify or update these Terms of Service at any time. We will notify you of any significant changes, and continued use of the platform will constitute acceptance of those changes.
+    </p>
+
+    <p><strong>9. Governing Law</strong><br>
+    These terms shall be governed by the laws of the jurisdiction in which Exonova is based. Any disputes shall be resolved through the appropriate legal channels.
+    </p>
+
+    <p>If you have any questions or concerns, please contact us at <a href="mailto:support@exonova.com">support@exonova.com</a>.</p>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Exonova. All rights reserved.</p>
+  </div>
+</div>
+
+<!-- Canvas BG Script -->
+<script>
+  gsap.from(".content h1", { opacity: 0, y: -50, duration: 1 });
+  gsap.from(".content p", { opacity: 0, y: 20, duration: 1.2, stagger: 0.2 });
+
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 1,
+      dx: Math.random() * 0.5,
+      dy: Math.random() * 0.5,
+      color: "rgba(255,255,255,0.5)"
+    };
+  }
+
+  for (let i = 0; i < 100; i++) {
+    particles.push(createParticle());
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y > canvas.height) p.y = 0;
+    }
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+</script>
+
+</body>
+</html>
