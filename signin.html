@@ -209,7 +209,12 @@
       font-size: 13px;
       color: #555;
     }
-  
+
+
+
+ 
+ .back-button { position: fixed; top: 30px; left: 30px; padding: 12px 20px; background-color: #1e1e1e; color: #ffffff; border-radius: 8px; font-size: 16px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; z-index: 999; border: 2px solid transparent; } .back-button:hover { background-color: #ffffff; color: #1e1e1e; border-color: #1e1e1e; transform: scale(1.05); box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4); } .back-button span { margin-right: 6px; font-weight: bold; font-size: 18px; }
+    
   </style>
 </head>
 <body>
@@ -219,79 +224,7 @@
 <!-- BAck Button-->
   
 
-  <style>
-    /* Basic styles */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      position: relative; /* To enable absolute positioning within the body */
-    }
-
-    /* Back button styling */
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 25px; /* Smaller padding */
-      font-size: 24px; /* Adjusted font size */
-      background-color: #007bff;
-      color: white;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      position: absolute; /* Absolute positioning */
-      top: 20px; /* Distance from top */
-      left: 20px; /* Distance from left */
-      opacity: 0; /* Initially hidden for animation */
-    }
-
-    .back-btn i {
-      margin-right: 8px; /* Adjusted margin */
-    }
-
-    /* Hover effect */
-    .back-btn:hover {
-      transform: scale(1.1) rotate(5deg); /* Slightly larger and rotated */
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
-      background-color: #0056b3; /* Darker color on hover */
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Back Button -->
-  <button class="back-btn" onclick="goBack()">
-    <i class="fas fa-arrow-left"></i> Back
-  </button>
-
-  <script>
-    // GSAP Animation to show the back button when the page loads
-    window.onload = () => {
-      gsap.to(".back-btn", { opacity: 1, duration: 1, y: 0, ease: "power3.out" });
-    };
-
-    // Function to go back to the previous page
-    function goBack() {
-      window.history.back();
-    }
-  </script>
-
-</body>
-  
-  
-  
-  
-  
-  
-  <!-- Back Button End-->
-  
-  
+    <a href="home.html" class="back-button">   <span>&larr;</span> Back to Home </a>
   
   
   <div class="container">
