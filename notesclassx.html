@@ -2,110 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Exonova Notes - All Subjects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class X Notes - Exonova</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f2f6ff;
-      color: #333;
-    }
-    header {
-      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
       padding: 2rem 1rem;
     }
     h1 {
-      font-size: 2.5rem;
-      color: #3f5efb;
-    }
-    section {
-      padding: 2rem;
-    }
-    .subject-section {
-      margin-bottom: 4rem;
-    }
-    .subject-title {
+      text-align: center;
+      color: #0a3d62;
+      margin-bottom: 2rem;
       font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #3f5efb;
     }
-    .pdf-link {
-      display: block;
-      background: #fff;
-      border: 1px solid #3f5efb;
-      color: #3f5efb;
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-      transition: all 0.3s ease;
-      max-width: 400px;
-    }
-    .pdf-link:hover {
-      background: #3f5efb;
-      color: white;
+    .subject {
+      margin-bottom: 2rem;
     }
     .divider {
-      width: 100%;
       height: 4px;
-      background: linear-gradient(90deg, #3f5efb, #fc466b);
-      margin: 3rem 0;
-      animation: pulse 2s infinite ease-in-out;
-      border-radius: 10px;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      margin: 1.5rem 0;
+      animation: slideIn 1s ease forwards;
     }
-    @keyframes pulse {
-      0% { transform: scaleX(1); }
-      50% { transform: scaleX(1.05); }
-      100% { transform: scaleX(1); }
+    .subject h2 {
+      color: #3f5efb;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .notes-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin: 0.25rem 0;
+      background-color: #3f5efb;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .notes-link:hover {
+      background-color: #2a4edb;
+    }
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .subject h2 {
+        font-size: 1.2rem;
+      }
+      .notes-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+    }
+    @keyframes slideIn {
+      from { width: 0%; }
+      to { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <header data-aos="fade-down">
-    <h1>Exonova - Class X Notes</h1>
-    <p>Select and download notes by subject below</p>
-  </header>
+  <h1 data-aos="zoom-in">Class X Notes</h1>
 
-  <section class="subject-section" data-aos="fade-up">
-    <div class="subject-title">Science</div>
-    <a class="pdf-link" href="pdfs/science-ch1.pdf" target="_blank">Chapter 1 - Chemical Reactions</a>
-    <a class="pdf-link" href="pdfs/science-ch2.pdf" target="_blank">Chapter 2 - Acids, Bases and Salts</a>
-  </section>
+  <div class="subject" data-aos="fade-up">
+    <h2>Science</h2>
+    <a href="pdfs/science-ch1.pdf" class="notes-link" target="_blank">Chapter 1: Chemical Reactions</a><br />
+    <a href="pdfs/science-ch2.pdf" class="notes-link" target="_blank">Chapter 2: Acids, Bases and Salts</a>
+    <div class="divider"></div>
+  </div>
 
-  <div class="divider" data-aos="zoom-in"></div>
+  <div class="subject" data-aos="fade-up" data-aos-delay="100">
+    <h2>Maths</h2>
+    <a href="pdfs/maths-ch1.pdf" class="notes-link" target="_blank">Chapter 1: Real Numbers</a><br />
+    <a href="pdfs/maths-ch2.pdf" class="notes-link" target="_blank">Chapter 2: Polynomials</a>
+    <div class="divider"></div>
+  </div>
 
-  <section class="subject-section" data-aos="fade-up">
-    <div class="subject-title">Mathematics</div>
-    <a class="pdf-link" href="pdfs/maths-ch1.pdf" target="_blank">Chapter 1 - Real Numbers</a>
-    <a class="pdf-link" href="pdfs/maths-ch2.pdf" target="_blank">Chapter 2 - Polynomials</a>
-  </section>
+  <div class="subject" data-aos="fade-up" data-aos-delay="200">
+    <h2>English</h2>
+    <a href="pdfs/english-poem1.pdf" class="notes-link" target="_blank">Poem: Dust of Snow</a>
+    <div class="divider"></div>
+  </div>
 
-  <div class="divider" data-aos="zoom-in"></div>
-
-  <section class="subject-section" data-aos="fade-up">
-    <div class="subject-title">English</div>
-    <a class="pdf-link" href="pdfs/english-ch1.pdf" target="_blank">Chapter 1 - A Letter to God</a>
-    <a class="pdf-link" href="pdfs/english-ch2.pdf" target="_blank">Chapter 2 - Nelson Mandela</a>
-  </section>
-
-  <div class="divider" data-aos="zoom-in"></div>
-
-  <section class="subject-section" data-aos="fade-up">
-    <div class="subject-title">Hindi</div>
-    <a class="pdf-link" href="pdfs/hindi-kshitij1.pdf" target="_blank">Kshitij Chapter 1 - Surdas</a>
-    <a class="pdf-link" href="pdfs/hindi-kritika1.pdf" target="_blank">Kritika Chapter 1 - Mata Ka Anchal</a>
-  </section>
-
-  <div class="divider" data-aos="zoom-in"></div>
-
-  <section class="subject-section" data-aos="fade-up">
-    <div class="subject-title">Social Science</div>
-    <a class="pdf-link" href="pdfs/sst-history1.pdf" target="_blank">History - The Rise of Nationalism</a>
-    <a class="pdf-link" href="pdfs/sst-geography1.pdf" target="_blank">Geography - Resources & Development</a>
-  </section>
+  <div class="subject" data-aos="fade-up" data-aos-delay="300">
+    <h2>Hindi</h2>
+    <a href="pdfs/hindi-ch1.pdf" class="notes-link" target="_blank">चाप्टर 1: छीञ</a>
+    <div class="divider"></div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
