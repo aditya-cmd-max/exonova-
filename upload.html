@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upload Notes - Exonova</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-  <script defer src="notes.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Notes - Exonova Premium</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="logo">Exonova</div>
-    <button id="loginBtn">Login</button>
-  </header>
-
-  <main>
-    <section class="upload-section" id="uploadSection">
-      <input type="text" id="noteTitle" placeholder="Note Title" required />
-      <input type="text" id="noteTopic" placeholder="Topic" required />
-      <input type="file" id="thumbnail" accept="image/*" required />
-      <textarea id="noteContent" placeholder="Write your note here..." required></textarea>
-      <button onclick="uploadNote()">Upload Note</button>
-    </section>
-  </main>
-
-  <div class="login-popup" id="loginPopup">
-    <div class="popup-content">
-      <h2>Login to Exonova</h2>
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="handleLogin()">Login</button>
-      <p id="loginError"></p>
+    <!-- Login Modal -->
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <h2>Login to Upload Notes</h2>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button id="loginBtn">Login</button>
+        </div>
     </div>
-  </div>
+
+    <!-- Upload Notes Section -->
+    <div id="uploadSection" style="display: none;">
+        <h2>Upload Your Notes</h2>
+        <input type="text" id="noteTitle" placeholder="Title" required>
+        <input type="text" id="noteTopic" placeholder="Topic" required>
+        <textarea id="noteContent" placeholder="Content" required></textarea>
+        <input type="text" id="noteThumbnail" placeholder="Thumbnail URL" required>
+        <button id="uploadBtn">Upload Notes</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
