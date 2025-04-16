@@ -1,237 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exonova Premium Notes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
-    body {
-      background: linear-gradient(to right, #000428, #004e92);
-      color: #fff;
-      padding: 2rem;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    header h1 {
-      font-size: 3rem;
-      color: #00f7ff;
-    }
-    .notes-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .note-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 1.5rem;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .note-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-    .note-title {
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-      color: #00ffe0;
-    }
-    .note-content {
-      font-size: 1rem;
-      color: #d2d2d2;
-    }
-    .upload-section {
-      margin-top: 3rem;
-      text-align: center;
-    }
-    .upload-btn {
-      background: #00f7ff;
-      color: #000;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .upload-btn:hover {
-      background: #00e6cc;
-    }
-    footer {
-      text-align: center;
-      margin-top: 5rem;
-      color: #aaa;
-    }
-    .login-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 20px;
-      display: none;
-      z-index: 1000;
-      backdrop-filter: blur(15px);
-    }
-    .login-popup input {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.5rem;
-      width: 80%;
-      border-radius: 10px;
-      border: none;
-    }
-    .login-popup button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 10px;
-      background: #00ffe0;
-      color: #000;
-      cursor: pointer;
-    }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 999;
-    }
-  </style>
-</head>
-<body>
-  <div class="overlay" id="overlay"></div>
-  <div class="login-popup" id="loginPopup">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-  </div>
-
-  <header data-aos="zoom-in">
-    <h1>📚 Exonova Premium Notes</h1>
-    <p>Curated High-Quality Study Material for Future Toppers</p>
-  </header>
-
-  <section class="notes-container" id="notesList">
-    <!-- Notes will be loaded here from Firebase -->
-  </section>
-
-  <div class="upload-section" data-aos="fade-up">
-    <button class="upload-btn" onclick="toggleLoginPopup()">➕ Upload Your Notes</button>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Exonova. All rights reserved.</p>
-  </footer>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-
-  <!-- Animation Libraries -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Notes - Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/@barba/core"></script>
 
-  <script>
-    const firebaseConfig = {
-  apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
-  authDomain: "exonova-cd89c.firebaseapp.com",
-  projectId: "exonova-cd89c",
-  storageBucket: "exonova-cd89c.firebasestorage.app",
-  messagingSenderId: "465326262278",
-  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
-  measurementId: "G-GGG45V0PEF"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
+  <style>/* styles.css */
 
-    function loadNotes() {
-      db.collection("notes").get().then(snapshot => {
-        const container = document.getElementById("notesList");
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          container.innerHTML += `
-            <div class="note-card" data-aos="fade-up">
-              <h2 class="note-title">${data.title}</h2>
-              <p class="note-content">${data.content}</p>
-            </div>
-          `;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #1c1f26, #2e3340);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #111;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00f9ff;
+}
+
+button {
+  background-color: #00f9ff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #00c2cc;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.upload-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #1f232e;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-section input,
+.upload-section textarea {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.upload-section textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.note-card {
+  background-color: #262b36;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.note-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.note-card h3 {
+  margin: 0.5rem 0;
+  color: #00f9ff;
+}
+
+.note-card p {
+  font-weight: bold;
+  color: #ccc;
+}
+
+.note-content {
+  margin-top: 0.5rem;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.login-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: #1f232e;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 90%;
+  max-width: 400px;
+}
+
+.popup-content input {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.popup-content h2 {
+  margin: 0;
+  color: #00f9ff;
+  text-align: center;
+}
+
+.popup-content p {
+  color: #ff5f5f;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .upload-section,
+  .popup-content {
+    width: 100%;
+  }
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+  <div class="login-popup" id="loginPopup">
+    <div class="popup-content">
+      <h2>Login</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p id="loginMsg"></p>
+    </div>
+  </div>
+
+  <header>
+    <h1 class="logo" data-aos="fade-down">Exonova Notes</h1>
+    <button id="uploadBtn" disabled>Upload Note</button>
+  </header>
+
+  <main>
+    <section class="upload-section hidden" id="uploadSection">
+      <h2>Upload Your Note</h2>
+      <input type="text" id="noteTitle" placeholder="Note Title">
+      <input type="text" id="noteTopic" placeholder="Topic">
+      <input type="file" id="thumbnail" accept="image/*">
+      <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+      <button onclick="uploadNote()">Submit Note</button>
+    </section>
+
+    <section id="notesContainer" data-aos="fade-up">
+      <!-- Notes will appear here -->
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const loginPopup = document.getElementById("loginPopup");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadSection = document.getElementById("uploadSection");
+    const loginMsg = document.getElementById("loginMsg");
+
+    window.login = () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          loginPopup.style.display = "none";
+          uploadBtn.disabled = false;
+          uploadSection.classList.remove("hidden");
+        })
+        .catch(error => {
+          loginMsg.textContent = error.message;
         });
-        AOS.refresh();
+    };
+
+    uploadBtn.onclick = () => {
+      uploadSection.classList.toggle("hidden");
+    };
+
+    window.uploadNote = async () => {
+      const title = document.getElementById("noteTitle").value;
+      const topic = document.getElementById("noteTopic").value;
+      const content = document.getElementById("noteContent").value;
+      const thumbnailFile = document.getElementById("thumbnail").files[0];
+
+      if (!thumbnailFile) return alert("Please select a thumbnail.");
+
+      const storageRef = ref(storage, `thumbnails/${Date.now()}_${thumbnailFile.name}`);
+      await uploadBytes(storageRef, thumbnailFile);
+      const thumbnailURL = await getDownloadURL(storageRef);
+
+      await addDoc(collection(db, "notes"), {
+        title,
+        topic,
+        content,
+        thumbnail: thumbnailURL,
+        createdAt: new Date()
+      });
+
+      alert("Note uploaded!");
+    };
+
+    async function loadNotes() {
+      const querySnapshot = await getDocs(collection(db, "notes"));
+      const container = document.getElementById("notesContainer");
+      container.innerHTML = "";
+      querySnapshot.forEach(doc => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "note-card";
+        card.innerHTML = `
+          <img src="${data.thumbnail}" alt="Thumbnail">
+          <h3>${data.title}</h3>
+          <p>${data.topic}</p>
+          <div class="note-content">${data.content}</div>
+        `;
+        container.appendChild(card);
       });
     }
 
-    function toggleLoginPopup() {
-      document.getElementById('loginPopup').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
-    }
-
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          alert("Login successful!");
-          document.getElementById('loginPopup').style.display = 'none';
-          document.getElementById('overlay').style.display = 'none';
-        })
-        .catch(err => alert("Error: " + err.message));
-    }
-
-    AOS.init();
-    gsap.from("header h1", {
-      duration: 1.2,
-      y: -50,
-      opacity: 0,
-      ease: "bounce"
-    });
-
-    anime({
-      targets: '.note-card',
-      translateY: [20, 0],
-      opacity: [0, 1],
-      delay: anime.stagger(200),
-      duration: 1000,
-      easing: 'easeOutExpo'
-    });
-
-    barba.init({
-      transitions: [{
-        name: 'fade-transition',
-        leave(data) {
-          return gsap.to(data.current.container, {
-            opacity: 0
-          });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, {
-            opacity: 0
-          });
-        }
-      }]
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        loginPopup.style.display = "none";
+        uploadBtn.disabled = false;
+        uploadSection.classList.remove("hidden");
+      } else {
+        loginPopup.style.display = "flex";
+      }
     });
 
     loadNotes();
   </script>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    anime({ targets: '.logo', translateY: [-50, 0], opacity: [0, 1], duration: 1500, easing: 'easeOutExpo' });
+  </script>
 </body>
+
 </html>
