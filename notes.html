@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exonova Premium Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #000428, #004e92);
+      color: #fff;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #00f7ff;
+    }
+    .notes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .note-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1.5rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .note-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .note-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      color: #00ffe0;
+    }
+    .note-content {
+      font-size: 1rem;
+      color: #d2d2d2;
+    }
+    .upload-section {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .upload-btn {
+      background: #00f7ff;
+      color: #000;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .upload-btn:hover {
+      background: #00e6cc;
+    }
+    footer {
+      text-align: center;
+      margin-top: 5rem;
+      color: #aaa;
+    }
+    .login-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 20px;
+      display: none;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+    }
+    .login-popup input {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem;
+      width: 80%;
+      border-radius: 10px;
+      border: none;
+    }
+    .login-popup button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      background: #00ffe0;
+      color: #000;
+      cursor: pointer;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+  <div class="login-popup" id="loginPopup">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <header data-aos="zoom-in">
+    <h1>📚 Exonova Premium Notes</h1>
+    <p>Curated High-Quality Study Material for Future Toppers</p>
+  </header>
+
+  <section class="notes-container" id="notesList">
+    <!-- Notes will be loaded here from Firebase -->
+  </section>
+
+  <div class="upload-section" data-aos="fade-up">
+    <button class="upload-btn" onclick="toggleLoginPopup()">➕ Upload Your Notes</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Exonova. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
+  <!-- Animation Libraries -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://unpkg.com/@barba/core"></script>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  authDomain: "exonova-cd89c.firebaseapp.com",
+  projectId: "exonova-cd89c",
+  storageBucket: "exonova-cd89c.firebasestorage.app",
+  messagingSenderId: "465326262278",
+  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+  measurementId: "G-GGG45V0PEF"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    function loadNotes() {
+      db.collection("notes").get().then(snapshot => {
+        const container = document.getElementById("notesList");
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          container.innerHTML += `
+            <div class="note-card" data-aos="fade-up">
+              <h2 class="note-title">${data.title}</h2>
+              <p class="note-content">${data.content}</p>
+            </div>
+          `;
+        });
+        AOS.refresh();
+      });
+    }
+
+    function toggleLoginPopup() {
+      document.getElementById('loginPopup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Login successful!");
+          document.getElementById('loginPopup').style.display = 'none';
+          document.getElementById('overlay').style.display = 'none';
+        })
+        .catch(err => alert("Error: " + err.message));
+    }
+
+    AOS.init();
+    gsap.from("header h1", {
+      duration: 1.2,
+      y: -50,
+      opacity: 0,
+      ease: "bounce"
+    });
+
+    anime({
+      targets: '.note-card',
+      translateY: [20, 0],
+      opacity: [0, 1],
+      delay: anime.stagger(200),
+      duration: 1000,
+      easing: 'easeOutExpo'
+    });
+
+    barba.init({
+      transitions: [{
+        name: 'fade-transition',
+        leave(data) {
+          return gsap.to(data.current.container, {
+            opacity: 0
+          });
+        },
+        enter(data) {
+          return gsap.from(data.next.container, {
+            opacity: 0
+          });
+        }
+      }]
+    });
+
+    loadNotes();
+  </script>
+</body>
+</html>
