@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Studynova - Coming Later</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Monoton&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: white;
+    }
+
+    .glow-text {
+      font-size: 3rem;
+      font-family: 'Monoton', cursive;
+      text-align: center;
+      color: #facc15;
+      text-shadow: 0 0 5px #facc15, 0 0 10px #facc15, 0 0 20px #facc15;
+      animation: glowPulse 2.5s ease-in-out infinite alternate;
+    }
+
+    .studynova {
+      font-size: 2.5rem;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00ffff;
+      animation: fadeIn 3s ease-in-out;
+      text-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+    }
+
+    .typing-text {
+      margin-top: 40px;
+      font-size: 1.5rem;
+      color: #ffffff;
+      border-right: 3px solid #facc15;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 3s steps(30, end) forwards, blink 0.7s infinite;
+    }
+
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 30px;
+      border-radius: 50%;
+      box-shadow: 0 0 30px #facc15;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 10px #facc15; }
+      100% { text-shadow: 0 0 30px #facc15; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 16ch; }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: #facc15; }
+      50% { border-color: transparent; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #facc15; }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px #facc15; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #facc15; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="bg-music.mp3" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Logo -->
+  <img class="logo" src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" />
+
+  <!-- Main Text -->
+  <div class="glow-text">🚀 The Biggest Launch<br>EXONOVA</div>
+  <div class="studynova">Studynova</div>
+  <div class="typing-text">Coming later...</div>
+
+</body>
+</html>
+
