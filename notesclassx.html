@@ -3,70 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Exonova Notes - Select Class</title>
+  <title>Exonova Notes - All Subjects</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #3f5efb, #fc466b);
-      color: #fff;
+      margin: 0;
+      padding: 0;
+      background: #f2f6ff;
+      color: #333;
+    }
+    header {
       text-align: center;
+      padding: 2rem 1rem;
     }
     h1 {
-      margin-top: 2rem;
-      font-size: 3rem;
-    }
-    .card-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 4rem;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #fff;
-      border-radius: 20px;
-      padding: 2rem 3rem;
-      text-decoration: none;
-      color: white;
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-    }
-    .card:hover {
-      background: #fff;
+      font-size: 2.5rem;
       color: #3f5efb;
-      transform: scale(1.05);
+    }
+    section {
+      padding: 2rem;
+    }
+    .subject-section {
+      margin-bottom: 4rem;
+    }
+    .subject-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #3f5efb;
+    }
+    .pdf-link {
+      display: block;
+      background: #fff;
+      border: 1px solid #3f5efb;
+      color: #3f5efb;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      max-width: 400px;
+    }
+    .pdf-link:hover {
+      background: #3f5efb;
+      color: white;
+    }
+    .divider {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #3f5efb, #fc466b);
+      margin: 3rem 0;
+      animation: pulse 2s infinite ease-in-out;
+      border-radius: 10px;
+    }
+    @keyframes pulse {
+      0% { transform: scaleX(1); }
+      50% { transform: scaleX(1.05); }
+      100% { transform: scaleX(1); }
     }
   </style>
 </head>
-<body data-barba="wrapper">
-  <div data-barba="container" data-barba-namespace="class">
-    <h1 data-aos="fade-down">Select Class</h1>
-    <div class="card-container">
-      <a class="card" href="subjects.html?class=IX" data-aos="fade-up">Class IX</a>
-      <a class="card" href="subjects.html?class=X" data-aos="fade-up" data-aos-delay="100">Class X</a>
-    </div>
-  </div>
+<body>
+  <header data-aos="fade-down">
+    <h1>Exonova - Class X Notes</h1>
+    <p>Select and download notes by subject below</p>
+  </header>
+
+  <section class="subject-section" data-aos="fade-up">
+    <div class="subject-title">Science</div>
+    <a class="pdf-link" href="pdfs/science-ch1.pdf" target="_blank">Chapter 1 - Chemical Reactions</a>
+    <a class="pdf-link" href="pdfs/science-ch2.pdf" target="_blank">Chapter 2 - Acids, Bases and Salts</a>
+  </section>
+
+  <div class="divider" data-aos="zoom-in"></div>
+
+  <section class="subject-section" data-aos="fade-up">
+    <div class="subject-title">Mathematics</div>
+    <a class="pdf-link" href="pdfs/maths-ch1.pdf" target="_blank">Chapter 1 - Real Numbers</a>
+    <a class="pdf-link" href="pdfs/maths-ch2.pdf" target="_blank">Chapter 2 - Polynomials</a>
+  </section>
+
+  <div class="divider" data-aos="zoom-in"></div>
+
+  <section class="subject-section" data-aos="fade-up">
+    <div class="subject-title">English</div>
+    <a class="pdf-link" href="pdfs/english-ch1.pdf" target="_blank">Chapter 1 - A Letter to God</a>
+    <a class="pdf-link" href="pdfs/english-ch2.pdf" target="_blank">Chapter 2 - Nelson Mandela</a>
+  </section>
+
+  <div class="divider" data-aos="zoom-in"></div>
+
+  <section class="subject-section" data-aos="fade-up">
+    <div class="subject-title">Hindi</div>
+    <a class="pdf-link" href="pdfs/hindi-kshitij1.pdf" target="_blank">Kshitij Chapter 1 - Surdas</a>
+    <a class="pdf-link" href="pdfs/hindi-kritika1.pdf" target="_blank">Kritika Chapter 1 - Mata Ka Anchal</a>
+  </section>
+
+  <div class="divider" data-aos="zoom-in"></div>
+
+  <section class="subject-section" data-aos="fade-up">
+    <div class="subject-title">Social Science</div>
+    <a class="pdf-link" href="pdfs/sst-history1.pdf" target="_blank">History - The Rise of Nationalism</a>
+    <a class="pdf-link" href="pdfs/sst-geography1.pdf" target="_blank">Geography - Resources & Development</a>
+  </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://unpkg.com/@barba/core"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
     AOS.init();
-    barba.init({
-      transitions: [{
-        leave(data) {
-          return gsap.to(data.current.container, { opacity: 0 });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, { opacity: 0 });
-        }
-      }]
-    });
   </script>
 </body>
 </html>
