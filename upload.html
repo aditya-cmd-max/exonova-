@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Notes - Exonova</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">Exonova</div>
+    <button id="loginBtn">Login</button>
+  </header>
+
+  <main>
+    <section class="upload-section" id="uploadSection">
+      <input type="text" id="noteTitle" placeholder="Note Title" required />
+      <input type="text" id="noteTopic" placeholder="Topic" required />
+      <input type="file" id="thumbnail" accept="image/*" required />
+      <textarea id="noteContent" placeholder="Write your note here..." required></textarea>
+      <button onclick="uploadNote()">Upload Note</button>
+    </section>
+  </main>
+
+  <div class="login-popup" id="loginPopup">
+    <div class="popup-content">
+      <h2>Login to Exonova</h2>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="handleLogin()">Login</button>
+      <p id="loginError"></p>
+    </div>
+  </div>
+</body>
+</html>
