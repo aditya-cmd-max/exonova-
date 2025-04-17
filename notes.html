@@ -84,5 +84,47 @@
 
     <script src="auth.js"></script>
     <script src="notes.js"></script>
+
+
+
+<script>
+    // Updated displayNote function in notes.js
+    function displayNote(note) {
+        const noteCard = document.createElement('div');
+        noteCard.className = 'note-card';
+        
+        const tagsHtml = note.tags && note.tags.length > 0 
+            ? `<div class="note-tags">${note.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+            : '';
+            
+        const attachmentsHtml = note.attachments && note.attachments.length > 0
+            ? `<div class="note-attachments">
+                  <p class="attachments-title">Attachments:</p>
+                  <div class="attachments-list">
+                      ${note.attachments.map(file => `
+                          <a href="${file.url}" target="_blank" class="attachment-item">
+                              <i class="fas fa-${file.type === 'application/pdf' ? 'file-pdf' : 'file-image'}"></i>
+                              ${file.name}
+                          </a>
+                      `).join('')}
+                  </div>
+               </div>`
+            : '';
+        
+        noteCard.innerHTML = `
+            <h3 class="note-title">${note.title}</h3>
+            <p class="note-content">${note.content}</p>
+            ${tagsHtml}
+            ${attachmentsHtml}
+            <div class="note-meta">
+                <span>By ${note.author}</span>
+                <span>${note.createdAt?.toDate().toLocaleDateString() || 'Unknown date'}</span>
+            </div>
+        `;
+        
+        notesContainer.appendChild(noteCard);
+    }
+</script>
+    
 </body>
 </html>
