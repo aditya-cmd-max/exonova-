@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Free Books</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?books,library') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 4rem;
+      color: #fff;
+      text-shadow: 0 0 20px #00f0ff;
+      animation: fadeInUp 1s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .book-section {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .book-card {
+      background: #1c1c1c;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #00f0ff;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .book-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ffcc;
+    }
+    .book-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .book-info {
+      padding: 1rem;
+    }
+    .book-info h2 {
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    .book-info p {
+      font-size: 0.9rem;
+      margin: 0.3rem 0;
+      opacity: 0.8;
+    }
+    .view-button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      background: #00f0ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .view-button:hover {
+      background: #00aaff;
+    }
+    .dropdown {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #2b2b2b;
+      box-shadow: 0 0 10px #00f0ff;
+      border-radius: 10px;
+      z-index: 1;
+      right: 0;
+    }
+    .dropdown-content a {
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .signin-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .signin-content {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+    .signin-content input, .signin-content button {
+      display: block;
+      width: 100%;
+      margin: 1rem 0;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+    }
+    .signin-content button {
+      background: #00f0ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media(max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signin-modal" id="signinModal">
+    <div class="signin-content">
+      <h2>Sign In</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="emailSignIn()">Sign In</button>
+      <button onclick="googleSignIn()">Continue with Google</button>
+    </div>
+  </div>
+  <header>
+    <h1 data-aos="fade-up">Welcome to Exonova Free Books</h1>
+  </header>
+  <section class="book-section" id="books">
+    <div class="book-card" data-aos="zoom-in">
+      <div class="dropdown">
+        <i class="fas fa-ellipsis-v"></i>
+        <div class="dropdown-content">
+          <a href="#">Download PDF</a>
+          <a href="#">Description</a>
+        </div>
+      </div>
+      <img src="https://source.unsplash.com/300x200/?book" alt="Book Thumbnail">
+      <div class="book-info">
+        <h2>Book Title</h2>
+        <p>Author: John Doe</p>
+        <p>Published: April 15, 2025</p>
+        <button class="view-button">View PDF</button>
+      </div>
+    </div>
+    <!-- Add more books as needed -->
+  </section>
+
+  <!-- External Libraries -->
+  <script src="https://unpkg.com/@barba/core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth-compat.js"></script>
+  <script>
+    AOS.init();
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+  authDomain: "exonova-cd89c.firebaseapp.com",
+  projectId: "exonova-cd89c",
+  storageBucket: "exonova-cd89c.firebasestorage.app",
+  messagingSenderId: "465326262278",
+  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+  measurementId: "G-GGG45V0PEF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function emailSignIn() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => location.reload())
+        .catch(error => alert(error.message));
+    }
+
+    function googleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => location.reload())
+        .catch(error => alert(error.message));
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        document.getElementById("signinModal").style.display = 'flex';
+      }
+    });
+  </script>
+</body>
+</html>
