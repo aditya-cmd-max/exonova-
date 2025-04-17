@@ -1,192 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Exonova Free Books</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #0d0d0d;
-      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      background: #0f0f0f;
+      color: white;
       overflow-x: hidden;
     }
     header {
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?books,library') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 3rem;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x400/?books') center/cover no-repeat;
       text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
     }
-    header h1 {
-      font-size: 4rem;
-      color: #fff;
-      text-shadow: 0 0 20px #00f0ff;
-      animation: fadeInUp 1s ease-out;
-    }
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    .book-section {
-      padding: 2rem;
+    .book-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
+      padding: 2rem;
     }
     .book-card {
       background: #1c1c1c;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 20px #00f0ff;
+      border-radius: 1rem;
+      padding: 1rem;
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
     .book-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #00ffcc;
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #00f7ff;
     }
     .book-card img {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
+      border-radius: 0.5rem;
     }
-    .book-info {
-      padding: 1rem;
-    }
-    .book-info h2 {
-      font-size: 1.5rem;
-      margin: 0.5rem 0;
-    }
-    .book-info p {
-      font-size: 0.9rem;
-      margin: 0.3rem 0;
-      opacity: 0.8;
-    }
-    .view-button {
+    .book-details {
       margin-top: 1rem;
-      padding: 0.7rem 1.5rem;
+    }
+    .view-btn {
+      margin-top: 1rem;
+      background: #00f7ff;
       border: none;
-      border-radius: 30px;
-      background: #00f0ff;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      cursor: pointer;
       color: #000;
       font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
     }
-    .view-button:hover {
-      background: #00aaff;
+    .options {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
     }
     .dropdown {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-    .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #2b2b2b;
-      box-shadow: 0 0 10px #00f0ff;
-      border-radius: 10px;
-      z-index: 1;
-      right: 0;
+      background: #222;
+      right: 1rem;
+      top: 3rem;
+      border-radius: 0.5rem;
+      z-index: 2;
     }
-    .dropdown-content a {
+    .dropdown a {
+      display: block;
       color: white;
-      padding: 10px 15px;
+      padding: 0.5rem 1rem;
       text-decoration: none;
-      display: block;
     }
-    .dropdown:hover .dropdown-content {
-      display: block;
+    .dropdown a:hover {
+      background: #333;
     }
-    .signin-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
+    #loginPopup {
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
       z-index: 999;
+      justify-content: center;
     }
-    .signin-content {
+    #loginBox {
       background: #1e1e1e;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #00f0ff;
+      border-radius: 1rem;
+      width: 90%;
+      max-width: 400px;
     }
-    .signin-content input, .signin-content button {
-      display: block;
+    input {
       width: 100%;
-      margin: 1rem 0;
-      padding: 0.8rem;
-      border-radius: 10px;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
       border: none;
     }
-    .signin-content button {
-      background: #00f0ff;
-      color: #000;
-      font-weight: bold;
+    .auth-btn {
+      background: #00f7ff;
+      color: black;
+      border: none;
+      padding: 0.75rem;
+      width: 100%;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
       cursor: pointer;
     }
-    @media(max-width: 768px) {
-      header h1 {
-        font-size: 2.5rem;
-      }
+    .auth-links {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .auth-links a {
+      color: #00f7ff;
+      text-decoration: none;
+      margin: 0 0.25rem;
     }
   </style>
 </head>
 <body>
-  <div class="signin-modal" id="signinModal">
-    <div class="signin-content">
+  <div id="loginPopup">
+    <div id="loginBox">
       <h2>Sign In</h2>
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="emailSignIn()">Sign In</button>
-      <button onclick="googleSignIn()">Continue with Google</button>
+      <input type="email" id="emailInput" placeholder="Email">
+      <input type="password" id="passwordInput" placeholder="Password">
+      <button class="auth-btn" onclick="signInWithEmail()">Sign In</button>
+      <button class="auth-btn" id="googleSignInBtn">Continue with Google</button>
+      <div class="auth-links">
+        <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a></p>
+        <p>Don't have an account? <a href="#">Sign Up</a></p>
+      </div>
     </div>
   </div>
-  <header>
-    <h1 data-aos="fade-up">Welcome to Exonova Free Books</h1>
-  </header>
-  <section class="book-section" id="books">
-    <div class="book-card" data-aos="zoom-in">
-      <div class="dropdown">
+
+  <header data-aos="fade-down">📚 Exonova Free Books</header>
+
+  <div class="book-container">
+    <div class="book-card" data-aos="fade-up">
+      <img src="https://source.unsplash.com/300x200/?book" alt="Book">
+      <div class="book-details">
+        <strong>Title:</strong> The Great Gatsby<br>
+        <strong>Author:</strong> F. Scott Fitzgerald<br>
+        <strong>Date:</strong> 10 April 1925
+        <button class="view-btn">View PDF</button>
+      </div>
+      <div class="options" onclick="toggleDropdown(this)">
         <i class="fas fa-ellipsis-v"></i>
-        <div class="dropdown-content">
+        <div class="dropdown">
           <a href="#">Download PDF</a>
           <a href="#">Description</a>
         </div>
       </div>
-      <img src="https://source.unsplash.com/300x200/?book" alt="Book Thumbnail">
-      <div class="book-info">
-        <h2>Book Title</h2>
-        <p>Author: John Doe</p>
-        <p>Published: April 15, 2025</p>
-        <button class="view-button">View PDF</button>
-      </div>
     </div>
-    <!-- Add more books as needed -->
-  </section>
+    <!-- More book cards can be added here -->
+  </div>
 
-  <!-- External Libraries -->
-  <script src="https://unpkg.com/@barba/core"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth-compat.js"></script>
+  <!-- Firebase & Script section -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script>
-    AOS.init();
-
     const firebaseConfig = {
-      apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+        apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
   authDomain: "exonova-cd89c.firebaseapp.com",
   projectId: "exonova-cd89c",
   storageBucket: "exonova-cd89c.firebasestorage.app",
@@ -194,30 +178,38 @@
   appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
   measurementId: "G-GGG45V0PEF"
     };
-
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    function emailSignIn() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    function signInWithEmail() {
+      const email = document.getElementById("emailInput").value;
+      const password = document.getElementById("passwordInput").value;
       auth.signInWithEmailAndPassword(email, password)
-        .then(() => location.reload())
-        .catch(error => alert(error.message));
+        .then(userCredential => {
+          document.getElementById('loginPopup').style.display = 'none';
+        })
+        .catch(error => alert("Login Failed: " + error.message));
     }
 
-    function googleSignIn() {
+    document.getElementById('googleSignInBtn').addEventListener('click', () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
-        .then(() => location.reload())
-        .catch(error => alert(error.message));
-    }
-
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        document.getElementById("signinModal").style.display = 'flex';
-      }
+        .then(result => {
+          document.getElementById('loginPopup').style.display = 'none';
+        })
+        .catch(error => alert("Google sign-in failed: " + error.message));
     });
+  </script>
+
+  <!-- Animation Libraries -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function toggleDropdown(el) {
+      const dropdown = el.querySelector('.dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
   </script>
 </body>
 </html>
