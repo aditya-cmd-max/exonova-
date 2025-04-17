@@ -1,217 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exonova Free Books</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Books</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0f0f;
-      color: white;
+    }
+
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
       overflow-x: hidden;
     }
 
-    .header {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1512820790803-83ca734da794') center/cover no-repeat;
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    header {
+      background: rgba(0, 0, 0, 0.6);
       text-align: center;
+      padding: 60px 20px;
     }
 
-    .header h1 {
-      font-size: 4rem;
-      color: #ffffff;
-      text-shadow: 0 0 15px #00f2ff, 0 0 30px #00f2ff;
+    header h1 {
+      font-size: 3em;
+      color: #00ffe5;
+      text-shadow: 0 0 10px #00ffe5, 0 0 20px #00ffe5;
     }
 
     .books-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 30px;
       padding: 40px 20px;
+      gap: 20px;
     }
 
     .book-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      padding: 20px;
+      width: 250px;
+      transition: transform 0.3s ease;
       position: relative;
-      background: #1c1c1c;
-      border-radius: 20px;
-      overflow: hidden;
-      width: 280px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .book-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
     }
 
     .book-card img {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
 
-    .book-info {
-      padding: 20px;
+    .book-card h3 {
+      font-size: 1.2em;
+      color: #00ffe5;
     }
 
-    .book-info h2 {
-      font-size: 1.4rem;
-      color: #00f2ff;
+    .book-card p {
+      font-size: 0.9em;
+      color: #ccc;
     }
 
-    .book-info p {
-      font-size: 0.9rem;
-      margin: 4px 0;
+    .actions {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .view-btn {
-      margin-top: 10px;
-      padding: 10px 20px;
+      background: #00ffe5;
       border: none;
-      background: #00f2ff;
+      padding: 10px 15px;
+      border-radius: 10px;
       color: #000;
       font-weight: bold;
-      border-radius: 25px;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
-    .view-btn:hover {
-      background: #00d2ff;
-    }
-
-    .three-dots {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    .dots {
+      font-size: 20px;
       cursor: pointer;
-      color: white;
-      font-size: 1.5rem;
     }
 
-    .popup-desc {
+    .popup-description {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      background: #1a1a1a;
+      background: #111;
+      color: #fff;
       padding: 30px;
-      border-radius: 15px;
-      color: white;
-      z-index: 999;
-      box-shadow: 0 0 20px #00f2ff;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffe5;
+      z-index: 1000;
       width: 90%;
-      max-width: 400px;
-      transition: all 0.3s ease;
+      max-width: 500px;
+      transition: transform 0.4s ease;
     }
 
-    .popup-desc.active {
+    .popup-description.active {
       transform: translate(-50%, -50%) scale(1);
     }
 
-    .popup-desc h3 {
-      margin-top: 0;
-      color: #00f2ff;
+    .popup-description h2 {
+      color: #00ffe5;
+      margin-bottom: 10px;
     }
 
-    .popup-desc p {
-      margin: 10px 0;
+    .popup-description p {
+      margin-top: 10px;
+      line-height: 1.5;
     }
 
     .close-popup {
-      margin-top: 20px;
-      padding: 10px;
-      border: none;
-      background: #00f2ff;
-      color: #000;
-      border-radius: 10px;
+      position: absolute;
+      top: 10px;
+      right: 20px;
       cursor: pointer;
-      font-weight: bold;
+      color: #00ffe5;
+      font-size: 20px;
     }
   </style>
 </head>
-<body>
-  <div class="header" data-aos="fade-in">
-    <h1>📚 Exonova Premium Free Books</h1>
-  </div>
 
-  <div class="books-container" id="booksContainer">
-    <!-- Book Example -->
+<body>
+  <header>
+    <h1 data-aos="fade-up">📚 Welcome to Exonova Books</h1>
+  </header>
+
+  <section class="books-container">
     <div class="book-card" data-aos="zoom-in">
-      <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="Book Cover">
-      <div class="book-info">
-        <h2>Learning Python</h2>
-        <p><strong>Author:</strong> Mark Lutz</p>
-        <p><strong>Published:</strong> 2020</p>
+      <img src="https://via.placeholder.com/250x150" alt="Book Thumbnail">
+      <h3>The Science of Learning</h3>
+      <p><strong>Author:</strong> John Smith</p>
+      <p><strong>Published:</strong> April 2024</p>
+      <div class="actions">
         <button class="view-btn">View PDF</button>
-      </div>
-      <div class="three-dots" onclick="showPopup('Learn Python with step-by-step exercises, covering basics to advanced topics.')">
-        <i class="fas fa-ellipsis-v"></i>
+        <div class="dots" onclick="showPopup('A detailed guide to neuroscience and memory-enhancing techniques for students.')">⋮</div>
       </div>
     </div>
-    <!-- Add more books here -->
+    <!-- Add more book cards similarly -->
+  </section>
+
+  <div class="popup-description" id="popup">
+    <div class="close-popup" onclick="closePopup()">&times;</div>
+    <h2>Description</h2>
+    <p id="popup-text">Loading...</p>
   </div>
 
-  <div class="popup-desc" id="descPopup">
-    <h3>📖 Book Description</h3>
-    <p id="descText"></p>
-    <button class="close-popup" onclick="closePopup()">Close</button>
-  </div>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.0/dist/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="https://unpkg.com/@barba/core"></script>
-
   <script>
     AOS.init();
 
-    const descPopup = document.getElementById("descPopup");
-    const descText = document.getElementById("descText");
-
-    function showPopup(description) {
-      descText.innerText = description;
-      descPopup.classList.add("active");
+    function showPopup(desc) {
+      const popup = document.getElementById("popup");
+      document.getElementById("popup-text").innerText = desc;
+      popup.classList.add("active");
     }
 
     function closePopup() {
-      descPopup.classList.remove("active");
+      document.getElementById("popup").classList.remove("active");
     }
 
-    // Fancy GSAP Animation on page load
-    gsap.from(".book-card", {
-      y: 100,
-      opacity: 0,
-      stagger: 0.2,
-      duration: 1,
-      ease: "back.out(1.7)"
+    // Anime.js glowing effect
+    anime({
+      targets: 'h1',
+      textShadow: [
+        '0 0 10px #00ffe5',
+        '0 0 20px #00ffe5',
+        '0 0 30px #00ffe5'
+      ],
+      loop: true,
+      direction: 'alternate',
+      duration: 1500,
+      easing: 'easeInOutSine'
     });
 
-    // Barba.js page transition (if more pages exist)
+    // Barba.js page transition setup (optional, not fully configured here)
     barba.init({
       transitions: [{
         name: 'fade',
         leave(data) {
-          return gsap.to(data.current.container, {
-            opacity: 0
-          });
+          return gsap.to(data.current.container, { opacity: 0 });
         },
         enter(data) {
-          return gsap.from(data.next.container, {
-            opacity: 0
-          });
+          return gsap.from(data.next.container, { opacity: 0 });
         }
       }]
     });
   </script>
 </body>
+
 </html>
