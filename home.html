@@ -1093,11 +1093,19 @@ We believe one inspired mind can change the world—and the universe beyond.</p>
   
 
   
-  
- <style>
+  <!--LATEST NOTICE start-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notice Popup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@500&display=swap" rel="stylesheet">
+
+  <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: #10102a;
       color: #fff;
     }
@@ -1124,19 +1132,32 @@ We believe one inspired mind can change the world—and the universe beyond.</p>
       transform: scale(1.1);
     }
 
+    .red-dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      height: 12px;
+      width: 12px;
+      background-color: red;
+      border-radius: 50%;
+      z-index: 1100;
+      box-shadow: 0 0 8px red;
+    }
+
     .notice-popup {
       position: fixed;
       bottom: 100px;
       right: 25px;
-      width: 300px;
-      background: #1c1c3c;
-      border-radius: 12px;
+      width: 320px;
+      background: #1e1e3f;
+      border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      padding: 20px;
+      padding: 22px;
       opacity: 0;
       pointer-events: none;
       transform: translateY(20px);
       transition: all 0.4s ease;
+      font-family: 'Raleway', sans-serif;
     }
 
     .notice-popup.active {
@@ -1147,25 +1168,38 @@ We believe one inspired mind can change the world—and the universe beyond.</p>
 
     .notice-popup h2 {
       margin: 0;
-      font-size: 20px;
-      color: #ffd700;
-      margin-bottom: 10px;
+      font-size: 22px;
+      background: linear-gradient(to right, #ff6ec4, #7873f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
     }
 
     .notice-popup p {
       font-size: 15px;
       line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .highlight-text {
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #00c9ff, #92fe9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .notice-popup button {
-      margin-top: 15px;
-      padding: 8px 15px;
+      margin-top: 18px;
+      padding: 9px 17px;
       background-color: #4b0082;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       color: white;
       cursor: pointer;
       transition: background 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
 
     .notice-popup button:hover {
@@ -1175,26 +1209,50 @@ We believe one inspired mind can change the world—and the universe beyond.</p>
 </head>
 <body>
 
-  <div class="fab" onclick="toggleNotice()">🔔</div>
+  <div class="fab" onclick="toggleNotice()">
+    🔔
+    <div class="red-dot" id="redDot"></div>
+  </div>
 
   <div class="notice-popup" id="noticeBox">
-    <h2>📢 Latest Notice!</h2>
-    <p>📅 New Blog #3.</p>  
-    Introduction to Economics: What is Economics?</p>
-   <p>
-      <button class="more-btn" onclick="location.href='blog3.html'">Blog #3</button></p>
-    <br><br>
-    <h3 style="font-color:Yellow";><p style="Font-family:Oswald";>Get an overview of the world of economics, exploring how individuals and societies make choices with limited resources.  </p></h3>
+    <h2>📢 New Notice</h2>
+    <p>📅 Blog #3 just dropped!</p>  
+    <p><strong>Title:</strong> Introduction to Economics: What is Economics?</p>
+    <p class="highlight-text">
+      Discover how people and nations make choices when resources are limited – a perfect intro to the world of economics!
+    </p>
+    <button onclick="location.href='blog3.html'">Read Blog</button>
     <button onclick="toggleNotice()">Close</button>
   </div>
 
   <script>
-    function toggleNotice() {
-      const notice = document.getElementById('noticeBox');
-      notice.classList.toggle('active');
-    }
-  </script>  
+    const redDot = document.getElementById("redDot");
+    const noticeBox = document.getElementById("noticeBox");
 
+    function toggleNotice() {
+      noticeBox.classList.toggle("active");
+
+      // User has now seen the notice, so remove the red dot
+      if (noticeBox.classList.contains("active")) {
+        localStorage.setItem("noticeSeen", "true");
+        redDot.style.display = "none";
+      }
+    }
+
+    // Check if notice was already seen
+    window.onload = function () {
+      const seen = localStorage.getItem("noticeSeen");
+      if (seen === "true") {
+        redDot.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
+
+
+  
+  <!--LATEST NOTICE ends-->
  
 
 <!--Major Footer Start-->
