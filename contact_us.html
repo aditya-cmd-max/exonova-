@@ -56,32 +56,41 @@
 
   <h1>Contact Us</h1>
 
-  <div class="contact-form">
-    <form id="contact-form">
-      <input type="text" id="name" name="name" placeholder="Your Name" required />
-      <input type="email" id="email" name="email" placeholder="Your Email" required />
-      <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
+ <form id="contactForm">
+  <input type="text" name="from_name" placeholder="Your Name" required>
+  <input type="email" name="from_email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  <button type="submit">Send</button>
+</form>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    // Initialize EmailJS with your user ID
-    emailjs.init("kd3XWlZ-6jSKMrPr5"); // Replace "yourUserID" with your actual EmailJS User ID
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("kd3XWlZ-6jSKMrPr5"); // your public key
+  })();
 
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent form from submitting the traditional way
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      // Send the email using the data from the form
-      emailjs.sendForm('service_vf246xi', 'template_zoj0xts', this) // Replace with your actual service and template IDs
-        .then(function(response) {
-          alert('Your message has been sent successfully!');
-        }, function(error) {
-          alert('There was an error sending your message. Please try again later.');
-        });
-    });
-  </script>
+    // Send to you
+    emailjs.sendForm('service_vf246xi', 'template_admin', this)
+      .then(function() {
+        console.log('Message sent to admin!');
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
+
+    // Auto-reply to sender
+    emailjs.sendForm('service_vf246xi', 'template_reply', this)
+      .then(function() {
+        alert("Message sent! Check your inbox for confirmation ✉️");
+      }, function(error) {
+        console.log('Auto-reply failed...', error);
+      });
+
+    this.reset();
+  });
+</script>
 
 </body>
 </html>
