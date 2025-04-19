@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Exonova for inquiries, feedback, or support." />
+  <meta name="keywords" content="Exonova, Contact, Support, Educational Queries, Aditya Jha">
+  <meta name="author" content="Aditya Jha">
+  <title>Contact Us | Exonova</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- AOS Library CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="icon" href="ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" type="image/png">
+
+  <style>
+    :root {
+      --primary-color: #3f51b5; /* Indigo-ish */
+      --accent-color: #7986cb;
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --input-bg: #333;
+      --input-border: #444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      text-align: center;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      padding: 60px 0;
+      color: white;
+      font-size: 2.5rem;
+    }
+
+    .contact-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .contact-info,
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-info h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .contact-info p {
+      font-size: 1.1rem;
+      margin: 15px 0;
+    }
+
+    .contact-info .social-links a {
+      display: inline-block;
+      margin: 10px;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info .social-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .contact-form {
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .contact-form h3 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+      border: 1px solid var(--input-border);
+      border-radius: 5px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+
+    .contact-form button {
+      padding: 12px 30px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: var(--accent-color);
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin-left: 10px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Contact Exonova</h1>
+    <p>We'd love to hear from you. Whether it's feedback, inquiries, or support, we're here to help!</p>
+  </header>
+
+  <div class="contact-container" data-aos="fade-up">
+    <!-- Contact Info Section -->
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <p>If you have any questions or suggestions, feel free to reach out. Here's how you can get in touch with us:</p>
+      <p><strong>Email:</strong> <a href="exonova1104@gmail.com">info@exonova.com</a></p>
+    
+      <p><strong>Social Media:</strong></p>
+      <div class="social-links">
+        <a href="https://twitter.com/Exonova" target="_blank">Twitter</a>
+        <a href="https://facebook.com/Exonova" target="_blank">Facebook</a>
+        <a href="https://instagram.com/Exonova" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <form action="contact_form_handler.php" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Exonova. Made with 💖 by Aditya Jha.</p>
+    <p>Visit us at: <a href="https://aditya-cmd-max.github.io/exonova-/" target="_blank">https://aditya-cmd-max.github.io/exonova-/</a></p>
+  </footer>
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init(); // Initialize AOS for animations
+  </script>
+</body>
+</html>
