@@ -5,8 +5,14 @@
   <title>Suggest to Improve - Exonova</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    /* Reset & Base Styling */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(to right, #0f172a, #1e293b);
       color: #fff;
@@ -16,10 +22,73 @@
       padding: 50px 20px;
     }
 
+    /* Navbar Styling */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(30, 41, 59, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      animation: slideDown 0.7s ease-out;
+    }
+
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #facc15;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li {
+      transition: transform 0.3s ease;
+    }
+
+    .navbar ul li:hover {
+      transform: scale(1.1);
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #38bdf8;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #facc15;
+    }
+
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Page Content */
     h1 {
       font-size: 42px;
+      margin-top: 100px;
       margin-bottom: 20px;
       color: #facc15;
+      text-align: center;
     }
 
     p {
@@ -67,6 +136,16 @@
     }
 
     @media(max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
       h1 {
         font-size: 30px;
       }
@@ -82,17 +161,27 @@
   </style>
 </head>
 <body>
- 
 
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Exonova</div>
+    <ul>
+      <li><a href="home">Home</a></li>
+      <li><a href="blogs">Blog</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="signin">Sign In</a></li>
+    </ul>
+  </nav>
 
-  
+  <!-- Page Content -->
   <h1>Suggest to Improve</h1>
   <p>We're always open to your feedback and suggestions! Whether it's a new feature idea, a bug report, or just a thought to share — your input matters.</p>
-  <p>As the founder of Exonova, I'm currently balancing this project with your as well as my idea.Your ideas will shape the future of Exonova!</p>
+  <p>As the founder of Exonova, I'm currently balancing this project with your as well as my idea. Your ideas will shape the future of Exonova!</p>
 
   <div class="email-section">
     <p class="email-address">📧 exonova1104@gmail.com</p>
-    <a href="mailto:exonova1104@gmail.com" class="email-button">Email Us</a>
+    <a href="exonova1104@gmail.com" class="email-button">Email Us</a>
   </div>
+
 </body>
 </html>
