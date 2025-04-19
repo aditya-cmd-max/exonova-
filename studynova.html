@@ -87,6 +87,202 @@
 </head>
 <body>
 
+
+  
+  <!-- Navabr Start -->
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0f1f;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 15, 30, 0.95);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 0 20px #00f7ff;
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00f7ff;
+      letter-spacing: 1.5px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      position: relative;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 2px;
+      background: #00f7ff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease-out;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .nav-links a.active {
+      color: #00f7ff;
+      font-weight: 600;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #00f7ff;
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: rgba(10, 15, 30, 0.98);
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        padding: 20px 0;
+        gap: 20px;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body data-barba="wrapper">
+
+<div class="navbar" data-aos="fade-down" data-aos-duration="1000">
+ <div class="logo" id="logo">
+  <img src="ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" style="height: 60px;">
+</div>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="home.html" class="nav-link" data-barba-link>Home</a>
+    <a href="blogs.html" class="nav-link active" data-barba-link>Blog</a>
+    <a href="about.html" class="nav-link" data-barba-link>About</a>
+    <a href="quiz.html" class="nav-link" data-barba-link>Quiz</a>
+    <a href="signin.html" class="nav-link" data-barba-link>Sign In</a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://unpkg.com/@barba/core"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init();
+
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+  }
+
+  // Barba transitions
+  barba.init({
+    transitions: [{
+      name: 'fade-transition',
+      leave(data) {
+        return anime({
+          targets: data.current.container,
+          opacity: [1, 0],
+          easing: 'easeInOutQuad',
+          duration: 400
+        }).finished;
+      },
+      enter(data) {
+        return anime({
+          targets: data.next.container,
+          opacity: [0, 1],
+          easing: 'easeInOutQuad',
+          duration: 400
+        }).finished;
+      }
+    }]
+  });
+
+  // Logo animation
+  anime({
+    targets: '#logo',
+    scale: [0.8, 1.05],
+    opacity: [0, 1],
+    easing: 'easeOutExpo',
+    duration: 1200,
+    delay: 300
+  });
+
+  // Highlight active link on click
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Entrance animation for nav links
+  anime({
+    targets: '.nav-links a',
+    translateY: [-20, 0],
+    opacity: [0, 1],
+    delay: anime.stagger(150, { start: 500 }),
+    duration: 800,
+    easing: 'easeOutBack'
+  });
+</script>
+</body>
+   
+
+  <!--NAvbr End -->
+  
+  
+  
+  
+  
+  
+  
   <!-- Background Music -->
   <audio autoplay loop>
     <source src="bg-music.mp3" type="audio/mpeg" />
