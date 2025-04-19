@@ -1,29 +1,30 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+    // Collect and sanitize input
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+    
+    // Recipient email
+    $to = "exonova@gmail.com"; // Change to your email address
+    
+    // Subject of the email
+    $subject = "New Contact Message from Exonova";
 
-    // Email details
-    $to = 'exonova1104@gmail.com'; // Replace with your email address
-    $subject = 'New Contact Us Message from ' . $name;
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "Content-Type: text/html; charset=UTF-8\r\n";
+    // Email content
+    $body = "You have received a new message from $name ($email):\n\n$message";
 
-    // Message content
-    $body = "<html><body>";
-    $body .= "<h2>Contact Us Message</h2>";
-    $body .= "<p><strong>Name:</strong> " . $name . "</p>";
-    $body .= "<p><strong>Email:</strong> " . $email . "</p>";
-    $body .= "<p><strong>Message:</strong><br>" . nl2br($message) . "</p>";
-    $body .= "</body></html>";
+    // Send email to you
+    if (mail($to, $subject, $body)) {
+        // Send automatic reply
+        $reply_subject = "Thank You for Contacting Exonova";
+        $reply_body = "Dear $name,\n\nThank you for reaching out to Exonova. We have received your message and will get back to you as soon as possible.\n\nBest Regards,\nExonova Team";
+        mail($email, $reply_subject, $reply_body);
 
-    // Send email
-    if (mail($to, $subject, $body, $headers)) {
-        echo "Thank you for contacting us! Your message has been sent.";
+        // Redirect user to a confirmation page or display a success message
+        echo "Thank you for contacting us! We will get back to you soon.";
     } else {
-        echo "Sorry, there was an issue sending your message. Please try again.";
+        echo "Sorry, there was an error sending your message. Please try again.";
     }
 }
 ?>
