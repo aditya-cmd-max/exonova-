@@ -82,6 +82,101 @@
   </style>
 </head>
 <body>
+ 
+  <!--Back Button START-->
+
+<style>
+    /* Basic styling for the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Style for the back button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #009688;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Add hover and active state */
+    .back-button:hover {
+      background-color: #00796b;
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-button:active {
+      background-color: #004d40;
+      transform: scale(1) rotate(0deg);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Icon styling */
+    .back-button img {
+      width: 30px; /* Icon size */
+      height: 30px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover effect on the icon */
+    .back-button:hover img {
+      transform: translateX(-5px) rotate(-10deg);
+    }
+
+    /* Animation effect for button entry */
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-200px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .back-button {
+      animation: slideIn 0.7s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back Button -->
+  <button class="back-button" onclick="window.history.back()">
+    <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" alt="Back Icon">
+    Go Back
+  </button>
+
+  <!--Back Button END-->
+  
+  
+  
+  
+  
   <h1>Suggest to Improve</h1>
   <p>We're always open to your feedback and suggestions! Whether it's a new feature idea, a bug report, or just a thought to share — your input matters.</p>
   <p>As the founder of Exonova, I'm currently balancing this project with your as well as my idea.Your ideas will shape the future of Exonova!</p>
