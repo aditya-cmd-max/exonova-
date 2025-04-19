@@ -127,12 +127,12 @@
       e.preventDefault();
 
       // Send message to you (admin)
-      emailjs.sendForm(serviceID, templateAdmin, this)
+      emailjs.sendForm(service_vf246xi, template_hbfsnhz, this)
         .then(() => console.log("Message sent to admin"))
         .catch(err => console.error("Admin error:", err));
 
       // Send auto-reply to sender
-      emailjs.sendForm(serviceID, templateReply, this)
+      emailjs.sendForm(service_vf246xi, template_zoj0xts, this)
         .then(() => alert("Thanks for contacting Exonova! We've sent you a reply."))
         .catch(err => console.error("Reply error:", err));
 
