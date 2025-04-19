@@ -1,143 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Exonova</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | Exonova</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("kd3XWlZ-6jSKMrPr5"); // Replace with your EmailJS public key
-    })();
-  </script>
   <style>
-    * {
+    body {
+      background: #121212;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      overflow-x: hidden;
-    }
-
-    .container {
-      padding: 60px 20px;
-      max-width: 800px;
-      margin: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       animation: fadeIn 1.5s ease-in-out;
     }
 
     @keyframes fadeIn {
-      0% {opacity: 0; transform: translateY(20px);}
-      100% {opacity: 1; transform: translateY(0);}
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      color: #58a6ff;
-      animation: slideIn 1s ease-out;
+      font-size: 3rem;
+      color: #00eaff;
+      animation: popUp 1s ease;
     }
 
-    @keyframes slideIn {
-      from {opacity: 0; transform: translateY(-30px);}
-      to {opacity: 1; transform: translateY(0);}
+    @keyframes popUp {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     form {
-      background: #161b22;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
-      animation: grow 1s ease-in;
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background: #1e1e1e;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
+      animation: fadeIn 1s ease-in-out;
     }
 
-    @keyframes grow {
-      from {transform: scale(0.95); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #e0e0e0;
     }
 
     input, textarea {
       width: 100%;
-      padding: 12px;
-      margin: 15px 0;
-      background: #0d1117;
-      border: 2px solid #30363d;
+      padding: 0.75rem;
+      border: none;
       border-radius: 8px;
+      background: #2c2c2c;
       color: white;
-      resize: none;
-      transition: 0.3s;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #58a6ff;
-      outline: none;
+      font-size: 1rem;
+      resize: vertical;
+      box-sizing: border-box;
     }
 
     button {
-      background: #58a6ff;
-      color: white;
-      padding: 12px 24px;
+      margin-top: 2rem;
+      width: 100%;
+      padding: 1rem;
+      background-color: #00eaff;
+      color: black;
+      font-weight: bold;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
     button:hover {
-      background: #1f6feb;
+      background-color: #00c7d6;
     }
 
-    .footer {
-      margin-top: 60px;
+    footer {
+      margin-top: auto;
       text-align: center;
-      font-size: 0.9rem;
-      color: #8b949e;
+      padding: 1rem;
+      color: #888;
+    }
+
+    .confirmation {
+      text-align: center;
+      margin-top: 1rem;
+      color: #4caf50;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Contact Us @ Exonova</h1>
-    <form id="contactForm">
-      <input type="text" name="from_name" placeholder="Your Name" required />
-      <input type="email" name="from_email" placeholder="Your Email" required />
-      <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div class="footer">
-      &copy; 2025 Exonova. All Rights Reserved.
-    </div>
-  </div>
+
+  <header>
+    <h1>Contact Exonova</h1>
+    <p>We'd love to hear from you! Drop us a message below.</p>
+  </header>
+
+  <form id="contactForm">
+    <label for="from_name">Your Name</label>
+    <input type="text" id="from_name" name="from_name" required />
+
+    <label for="from_email">Your Email</label>
+    <input type="email" id="from_email" name="from_email" required />
+
+    <label for="message">Your Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Send Message</button>
+    <div class="confirmation" id="confirmation"></div>
+  </form>
+
+  <footer>
+    © 2025 Exonova. All rights reserved.
+  </footer>
 
   <script>
-    const form = document.getElementById("contactForm");
-    const serviceID = "service_vf246xi"; // Replace with your EmailJS service ID
-    const templateAdmin = "template_hbfsnhz"; // Template for admin (you)
-    const templateReply = "template_zoj0xts"; // Template for auto-reply to sender
+    emailjs.init("kd3XWlZ-6jSKMrPr5");
 
-    form.addEventListener("submit", function (e) {
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Send message to you (admin)
-      emailjs.sendForm(service_vf246xi, template_hbfsnhz, this)
-        .then(() => console.log("Message sent to admin"))
-        .catch(err => console.error("Admin error:", err));
+      const serviceID = "service_vf246xi";
+      const templateID = "template_zoj0xts";
 
-      // Send auto-reply to sender
-      emailjs.sendForm(service_vf246xi, template_zoj0xts, this)
-        .then(() => alert("Thanks for contacting Exonova! We've sent you a reply."))
-        .catch(err => console.error("Reply error:", err));
-
-      form.reset();
+      emailjs.sendForm(service_vf246xi,template_zoj0xts, this)
+        .then(() => {
+          document.getElementById("confirmation").textContent = "✅ Message sent successfully!";
+          this.reset();
+        }, (err) => {
+          document.getElementById("confirmation").textContent = "❌ Something went wrong. Try again later.";
+          console.error("EmailJS error:", err);
+        });
     });
   </script>
+
 </body>
 </html>
