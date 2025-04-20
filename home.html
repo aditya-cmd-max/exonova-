@@ -247,15 +247,143 @@
     </header>
 
     <!-- FOUNDER SECTION -->
-    <section class="founder-section">
-      <div class="curved-box anime-fade">
-        <img src="ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Aditya Jha">
-        <div class="founder-info">
-          <h2>Aditya Jha</h2>
-          <p>Founder of Exonova</p>
-        </div>
+   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f1a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .founder-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px;
+    }
+
+    .founder-box {
+      background: rgba(179, 136, 255, 0.08);
+      border: 2px dotted #b388ff;
+      border-radius: 40px 80px 40px 80px;
+      padding: 40px 50px;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 25px #b388ff66;
+      transition: all 0.3s ease;
+    }
+
+    .founder-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid #b388ff;
+      box-shadow: 0 0 20px #b388ff;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .founder-name {
+      font-size: 28px;
+      font-weight: bold;
+      color: #b388ff;
+      text-shadow: 0 0 10px #b388ff88;
+    }
+
+    .founder-title {
+      font-size: 16px;
+      color: #ffffffcc;
+      text-shadow: 0 0 6px #b388ff66;
+    }
+
+    [data-aos] {
+      transition-duration: 1.2s !important;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .founder-box {
+        padding: 30px 20px;
+        border-radius: 30px;
+      }
+
+      .founder-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .founder-name {
+        font-size: 22px;
+      }
+
+      .founder-title {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Init AOS
+      AOS.init();
+
+      // GSAP from left animation
+      gsap.from(".founder-box", {
+        x: -150,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out"
+      });
+
+      // Anime.js pulsate image
+      anime({
+        targets: '.founder-img',
+        scale: [1, 1.05],
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutSine',
+        duration: 2000
+      });
+
+      // Barba page transitions
+      barba.init({
+        transitions: [{
+          name: 'fade',
+          leave(data) {
+            return gsap.to(data.current.container, {
+              opacity: 0,
+              duration: 0.5
+            });
+          },
+          enter(data) {
+            return gsap.from(data.next.container, {
+              opacity: 0,
+              duration: 0.5
+            });
+          }
+        }]
+      });
+    });
+  </script>
+</head>
+<body data-barba="wrapper">
+  <div data-barba="container" data-barba-namespace="founder">
+    <section class="founder-section" data-aos="fade-left">
+      <div class="founder-box">
+        <!-- Replace the image below -->
+        <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Aditya Jha" class="founder-img" />
+        <div class="founder-name">Aditya Jha</div>
+        <div class="founder-title">Founder of Exonova</div>
       </div>
     </section>
+  </div>
 
     <!-- SCIENCE FACTS -->
     <section class="facts-section">
