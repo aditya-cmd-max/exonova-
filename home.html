@@ -241,7 +241,7 @@
     
     <!-- HERO BANNER -->
  
-  <style>
+<style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -251,7 +251,12 @@
     }
 
     .container {
-      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 2rem;
       text-align: center;
     }
 
@@ -306,7 +311,7 @@
       max-width: 700px;
       font-size: 1rem;
       line-height: 1.6;
-      margin: 1rem auto 0;
+      margin-top: 1rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -325,8 +330,8 @@
   </style>
 </head>
 <body>
-  <section class="container" data-aos="zoom-in">
-    <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" class="logo" />
+  <div class="container" data-aos="zoom-in">
+    <img src="logo.png" alt="Exonova Logo" class="logo" />
     <div class="title">Welcome to <span class="highlighted">Exonova</span></div>
     <p class="description">
       Exonova has become a trusted learning source for students all across the nation.
@@ -334,7 +339,7 @@
       educational content through our Exonova platform and YouTube channel.
       Our mission is to empower students and make learning exciting and effective.
     </p>
-  </section>
+  </div>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -357,6 +362,7 @@
   </script>
 </body>
 
+  <!-- Hero End-->
 
 
     <!-- FOUNDER SECTION -->
