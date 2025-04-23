@@ -1,0 +1,135 @@
+<section class="students-section dark-mode">
+  <style>
+    .students-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background-color: #121212;
+      color: #f1f1f1;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .students-section::before,
+    .students-section::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.2;
+    }
+
+    .students-section::before {
+      background-image: url('https://png.pngtree.com/png-vector/20230728/ourmid/pngtree-grades-clipart-four-school-students-with-books-in-their-hands-cartoon-vector-png-image_6810291.png');
+      top: 10%;
+      left: 5%;
+    }
+
+    .students-section::after {
+      background-image: url('https://png.pngtree.com/png-clipart/20230106/original/pngtree-pencil-clipart-png-image_8877342.png');
+      bottom: 10%;
+      right: 5%;
+    }
+
+    .students-content {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .students-image {
+      border: 4px solid #00bfa6;
+      border-radius: 20px;
+      overflow: hidden;
+      animation: slideInLeft 1s ease-in-out;
+    }
+
+    .students-text {
+      flex: 1;
+      max-width: 550px;
+      animation: slideInRight 1s ease-in-out;
+    }
+
+    .students-text h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #00bfa6;
+    }
+
+    .students-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 500;
+    }
+
+    .feature-item::before {
+      content: '✔';
+      color: #00bfa6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+      .students-content {
+        flex-direction: column;
+      }
+
+      .students-text h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+
+  <div class="students-content">
+    <div class="students-image">
+      <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Mentors" width="300" height="300" />
+    </div>
+    <div class="students-text">
+      <h2>students > teachers</h2>
+      <p>
+        Learning from an online event involves several key steps. First, research and choose an event that aligns with your learning goals. Once registered, review the agenda and plan your time effectively with Exonova's structured resources.
+      </p>
+      <div class="feature-list">
+        <div class="feature-item">Free Access to Everything</div>
+        <div class="feature-item">One Page Notes</div>
+        <div class="feature-item">Easy to Remember Formula Sheet</div>
+        <div class="feature-item">Previous Year Question Paper with Solutions</div>
+      </div>
+    </div>
+  </div>
+</section>
