@@ -241,171 +241,191 @@
     
     <!-- HERO BANNER -->
 
- <style>
-    /* Reset margins and paddings globally */
-    html, body {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<style id="exonova-styles">
+  /* Reset and base styles with increased specificity */
+  html:has(body .exonova-container), 
+  body .exonova-container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    body {
-      background: linear-gradient(to bottom, #000000, #1a1a2e);
-      color: white;
-      overflow-x: hidden;
-    }
+  body .exonova-container {
+    background: linear-gradient(to bottom, #000000, #1a1a2e);
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    isolation: isolate;
+  }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
-    }
+  /* Logo Styles */
+  body .exonova-logo {
+    width: 120px;
+    max-width: 20vw;
+    height: auto;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+  }
 
-    /* Logo Styles */
-    .logo {
-      width: 120px;
-      max-width: 20vw;
-      height: auto;
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
-    }
+  body .exonova-logo:hover {
+    transform: rotate(10deg) scale(1.1);
+  }
 
-    .logo:hover {
-      transform: rotate(10deg) scale(1.1);
-    }
+  /* Title Styles */
+  body .exonova-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1rem;
+  }
 
-    /* Title Styles */
-    .title {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
+  /* Highlighted Text */
+  body .exonova-highlighted {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 1;
+    padding: 0 0.2em;
+  }
 
-    /* Highlighted Text Styles */
-    .highlighted {
-      position: relative;
-      display: inline-block;
-      font-size: 3rem;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
+  body .exonova-highlighted::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.2em;
+    width: 100%;
+    height: 0.5em;
+    background: linear-gradient(90deg, #6a0dad, #8a2be2);
+    transform: skew(-12deg);
+    z-index: -1;
+    animation: exonova-slideIn 1.2s ease-out forwards;
+    border-radius: 4px;
+  }
 
-    .highlighted::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0.2em;
+  body .exonova-highlighted:hover {
+    color: #ffd700;
+    cursor: pointer;
+  }
+
+  @keyframes exonova-slideIn {
+    from { 
+      width: 0;
+      opacity: 0;
+    }
+    to { 
       width: 100%;
-      height: 0.5em;
-      background: indigo;
-      transform: skew(-12deg);
-      z-index: -1;
-      animation: slideIn 1.2s ease-out forwards;
+      opacity: 1;
+    }
+  }
+
+  /* Description with full width utilization */
+  body .exonova-description {
+    width: 100%;
+    max-width: 800px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(26, 26, 46, 0.7);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Media Query for responsiveness */
+  @media screen and (max-width: 768px) {
+    body .exonova-title {
+      font-size: 2rem;
+      padding: 0 0.5rem;
     }
 
-    .highlighted:hover {
-      color: #ffd700;
-      cursor: pointer;
+    body .exonova-highlighted {
+      font-size: 2.2rem;
     }
 
-    @keyframes slideIn {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    /* Description Styles */
-    .description {
-      max-width: 700px;
+    body .exonova-description {
       font-size: 1rem;
-      line-height: 1.6;
-      margin-top: 1rem;
-      padding: 0 1rem;
+      padding: 1rem;
+      margin: 1rem 0.5rem;
     }
 
-    /* Media Query for Mobile Devices */
-    @media screen and (max-width: 768px) {
-      .title {
-        font-size: 2rem;
-      }
-
-      .highlighted {
-        font-size: 2.2rem;
-      }
-
-      .description {
-        font-size: 0.95rem;
-      }
-
-      .logo {
-        width: 80px;
-        max-width: 25vw;
-      }
+    body .exonova-logo {
+      width: 80px;
+      max-width: 25vw;
     }
-  </style>
-</head>
-<body>
-  <div class="container" data-aos="fade-up">
-    <!-- Replace 'logo.png' with the correct path -->
-    <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" class="logo" />
-    <div class="title">
-      Welcome to <span class="highlighted">Exonova</span>
-    </div>
-    <p class="description">
-      Exonova has become a trusted learning source for students all across the nation.
-      Since 2020, we’ve been delivering top-notch notes, important questions, and
-      educational content through our Exonova platform and YouTube channel.
-      Our mission is to empower students and make learning exciting and effective.
-    </p>
-  </div>
+  }
+</style>
 
-  <!-- JS Libraries -->
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://unpkg.com/@barba/core"></script>
+<div class="exonova-container" data-aos="fade-up">
+  <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" 
+       alt="Exonova Logo" 
+       class="exonova-logo" 
+       loading="lazy" />
+  <h1 class="exonova-title">
+    Welcome to <span class="exonova-highlighted">Exonova</span>
+  </h1>
+  <p class="exonova-description">
+    Exonova has become a trusted learning source for students all across the nation.
+    Since 2020, we've been delivering top-notch notes, important questions, and
+    educational content through our Exonova platform and YouTube channel.
+    Our mission is to empower students and make learning exciting and effective.
+  </p>
+</div>
 
-  <script>
-    AOS.init({ once: true });
+<script>
+  // Initialize AOS.js (Animate on Scroll)
+  AOS.init({
+    duration: 1200, // Animation duration
+    once: true // Animation happens once
+  });
 
-    // GSAP animations
-    gsap.from(".logo", { y: -50, opacity: 0, duration: 1 });
-    gsap.from(".title", { x: -100, opacity: 0, duration: 1.2, delay: 0.3 });
-    gsap.from(".description", { y: 50, opacity: 0, duration: 1, delay: 0.6 });
+  // GSAP Animation for Logo and Text
+  gsap.from(".exonova-logo", { duration: 2, opacity: 0, y: -50, ease: "bounce" });
+  gsap.from(".exonova-title", { duration: 2, opacity: 0, x: -100, ease: "power2.out" });
+  gsap.from(".exonova-description", { duration: 2, opacity: 0, y: 50, ease: "power2.out" });
 
-    // Anime.js scale pulse effect
-    anime({
-      targets: '.highlighted',
-      scale: [0.8, 1],
-      easing: 'easeInOutQuad',
-      duration: 1000
-    });
+  // Anime.js animation for highlighted text
+  anime({
+    targets: '.exonova-highlighted',
+    translateY: [50, 0],
+    opacity: [0, 1],
+    easing: 'easeOutExpo',
+    duration: 1200,
+    delay: 500
+  });
 
-    // Barba.js setup (optional future SPA transitions)
-    barba.init({
-      transitions: [{
-        leave(data) {
-          return gsap.to(data.current.container, {
-            opacity: 0,
-            duration: 0.5
-          });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, {
-            opacity: 0,
-            duration: 0.5
-          });
-        }
-      }]
-    });
-  </script>
-</body>
-
+  // Barba.js for smooth page transitions (Optional)
+  barba.init({
+    transitions: [{
+      name: 'fade',
+      leave(data) {
+        return gsap.to(data.current.container, {
+          opacity: 0,
+          duration: 0.5
+        });
+      },
+      enter(data) {
+        return gsap.from(data.next.container, {
+          opacity: 0,
+          duration: 0.5
+        });
+      }
+    }]
+  });
+</script>
   
   <!-- Hero End-->
 
