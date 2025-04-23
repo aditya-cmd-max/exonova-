@@ -240,22 +240,23 @@
   <!--NAvbr End -->
     
     <!-- HERO BANNER -->
-<style>
+  <style>
     /* Reset margins and paddings globally */
-    html, body {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html, body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #000000, #1a1a2e) !important;
+      color: white !important;
+      overflow-x: hidden !important;
     }
 
-    body {
-      background: linear-gradient(to bottom, #000000, #1a1a2e);
-      color: white;
-      overflow-x: hidden;
-    }
-
-    .container {
+    /* Main container */
+    .exonova-container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -266,20 +267,20 @@
     }
 
     /* Logo Styles */
-    .logo {
+    .exonova-logo {
       width: 120px;
       max-width: 20vw;
       height: auto;
       margin-bottom: 1rem;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease !important;
     }
 
-    .logo:hover {
+    .exonova-logo:hover {
       transform: rotate(10deg) scale(1.1);
     }
 
     /* Title Styles */
-    .title {
+    .exonova-title {
       font-size: 2.5rem;
       font-weight: bold;
       margin-bottom: 1rem;
@@ -287,15 +288,15 @@
     }
 
     /* Highlighted Text Styles */
-    .highlighted {
+    .exonova-highlighted {
       position: relative;
       display: inline-block;
       font-size: 3rem;
       font-weight: bold;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease !important;
     }
 
-    .highlighted::before {
+    .exonova-highlighted::before {
       content: "";
       position: absolute;
       left: 0;
@@ -308,7 +309,7 @@
       animation: slideIn 1.2s ease-out forwards;
     }
 
-    .highlighted:hover {
+    .exonova-highlighted:hover {
       color: #ffd700;
       cursor: pointer;
     }
@@ -319,7 +320,7 @@
     }
 
     /* Description Styles */
-    .description {
+    .exonova-description {
       max-width: 700px;
       font-size: 1rem;
       line-height: 1.6;
@@ -329,19 +330,19 @@
 
     /* Media Query for Mobile Devices */
     @media screen and (max-width: 768px) {
-      .title {
+      .exonova-title {
         font-size: 2rem;
       }
 
-      .highlighted {
+      .exonova-highlighted {
         font-size: 2.2rem;
       }
 
-      .description {
+      .exonova-description {
         font-size: 0.95rem;
       }
 
-      .logo {
+      .exonova-logo {
         width: 80px;
         max-width: 25vw;
       }
@@ -349,13 +350,13 @@
   </style>
 </head>
 <body>
-  <div class="container" data-aos="fade-up">
+  <div class="exonova-container" data-aos="fade-up">
     <!-- Replace 'logo.png' with the correct path -->
-    <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" class="logo" />
-    <div class="title">
-      Welcome to <span class="highlighted">Exonova</span>
+    <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo" class="exonova-logo" />
+    <div class="exonova-title">
+      Welcome to <span class="exonova-highlighted">Exonova</span>
     </div>
-    <p class="description">
+    <p class="exonova-description">
       Exonova has become a trusted learning source for students all across the nation.
       Since 2020, we’ve been delivering top-notch notes, important questions, and
       educational content through our Exonova platform and YouTube channel.
@@ -373,13 +374,13 @@
     AOS.init({ once: true });
 
     // GSAP animations
-    gsap.from(".logo", { y: -50, opacity: 0, duration: 1 });
-    gsap.from(".title", { x: -100, opacity: 0, duration: 1.2, delay: 0.3 });
-    gsap.from(".description", { y: 50, opacity: 0, duration: 1, delay: 0.6 });
+    gsap.from(".exonova-logo", { y: -50, opacity: 0, duration: 1 });
+    gsap.from(".exonova-title", { x: -100, opacity: 0, duration: 1.2, delay: 0.3 });
+    gsap.from(".exonova-description", { y: 50, opacity: 0, duration: 1, delay: 0.6 });
 
     // Anime.js scale pulse effect
     anime({
-      targets: '.highlighted',
+      targets: '.exonova-highlighted',
       scale: [0.8, 1],
       easing: 'easeInOutQuad',
       duration: 1000
