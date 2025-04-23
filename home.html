@@ -240,15 +240,16 @@
   <!--NAvbr End -->
     
     <!-- HERO BANNER -->
- <style>
-    * {
+<style>
+    /* Reset margins and paddings globally */
+    html, body {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(to bottom, #000000, #1a1a2e);
       color: white;
       overflow-x: hidden;
@@ -264,6 +265,7 @@
       text-align: center;
     }
 
+    /* Logo Styles */
     .logo {
       width: 120px;
       max-width: 20vw;
@@ -276,6 +278,7 @@
       transform: rotate(10deg) scale(1.1);
     }
 
+    /* Title Styles */
     .title {
       font-size: 2.5rem;
       font-weight: bold;
@@ -283,11 +286,13 @@
       line-height: 1.2;
     }
 
+    /* Highlighted Text Styles */
     .highlighted {
       position: relative;
       display: inline-block;
       font-size: 3rem;
       font-weight: bold;
+      transition: color 0.3s ease;
     }
 
     .highlighted::before {
@@ -303,11 +308,17 @@
       animation: slideIn 1.2s ease-out forwards;
     }
 
+    .highlighted:hover {
+      color: #ffd700;
+      cursor: pointer;
+    }
+
     @keyframes slideIn {
       from { width: 0; }
       to { width: 100%; }
     }
 
+    /* Description Styles */
     .description {
       max-width: 700px;
       font-size: 1rem;
@@ -316,13 +327,7 @@
       padding: 0 1rem;
     }
 
-    /* Hover effects */
-    .highlighted:hover {
-      color: #ffd700;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
+    /* Media Query for Mobile Devices */
     @media screen and (max-width: 768px) {
       .title {
         font-size: 2rem;
