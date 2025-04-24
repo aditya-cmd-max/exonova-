@@ -240,190 +240,155 @@
   <!--NAvbr End -->
   <br><br><br><br>  
     <!-- HERO BANNER -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exonova Teachers Section</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style id="exonova-styles">
+  /* Reset and base styles with increased specificity */
+  html:has(body .exonova-container), 
+  body .exonova-container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f0f0f;
-      color: #fff;
-      padding: 2rem;
-    }
+  body .exonova-container {
+    background: linear-gradient(to bottom, #000000, #1a1a2e);
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    isolation: isolate;
+  }
 
-    .exonova-section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      background: linear-gradient(135deg, #1a1a1a, #232323);
-      border-radius: 2rem;
-      padding: 3rem;
-      position: relative;
-      box-shadow: 0 0 40px rgba(0, 255, 150, 0.1);
-    }
+  /* Logo Styles */
+  body .exonova-logo {
+    width: 120px;
+    max-width: 20vw;
+    height: auto;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+  }
 
-    .exonova-image {
-      flex: 1 1 300px;
-      max-width: 400px;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
-    }
+  body .exonova-logo:hover {
+    transform: rotate(10deg) scale(1.1);
+  }
 
-    .exonova-image img {
+  /* Title Styles */
+  body .exonova-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1rem;
+  }
+
+  /* Highlighted Text - Now fully visible */
+  body .exonova-highlighted {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 1;
+    padding: 0 0.2em;
+  }
+
+  body .exonova-highlighted::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.2em;
+    width: 100%;
+    height: 0.5em;
+    background: linear-gradient(90deg, #6a0dad, #8a2be2);
+    transform: skew(-12deg);
+    z-index: -1;
+    animation: exonova-slideIn 1.2s ease-out forwards;
+    border-radius: 4px;
+  }
+
+  body .exonova-highlighted:hover {
+    color: #ffd700;
+    cursor: pointer;
+  }
+
+  @keyframes exonova-slideIn {
+    from { 
+      width: 0;
+      opacity: 0;
+    }
+    to { 
       width: 100%;
-      display: block;
-      border-radius: 1.5rem;
+      opacity: 1;
+    }
+  }
+
+  /* Description with full width utilization */
+  body .exonova-description {
+    width: 100%;
+    max-width: 800px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(26, 26, 46, 0.7);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Media Query for responsiveness */
+  @media screen and (max-width: 768px) {
+    body .exonova-title {
+      font-size: 2rem;
+      padding: 0 0.5rem;
     }
 
-    .exonova-content {
-      flex: 2 1 400px;
+    body .exonova-highlighted {
+      font-size: 2.2rem;
     }
 
-    .exonova-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #00ffcc;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    body .exonova-description {
+      font-size: 1rem;
+      padding: 1rem;
+      margin: 1rem 0.5rem;
     }
 
-    .exonova-content p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-      color: #bbb;
+    body .exonova-logo {
+      width: 80px;
+      max-width: 25vw;
     }
+  }
+</style>
 
-    .features-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+<div class="exonova-container" data-aos="fade-up">
+  <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" 
+       alt="Exonova Logo" 
+       class="exonova-logo" 
+       loading="lazy" />
+  <h1 class="exonova-title">
+    Welcome to <span class="exonova-highlighted">Exonova</span>
+  </h1>
+  <p class="exonova-description">
+    Exonova has become a trusted learning source for students all across the nation.
+    Since 2020, we've been delivering top-notch notes, important questions, and
+    educational content through our Exonova platform and YouTube channel.
+    Our mission is to empower students and make learning exciting and effective.
+  </p>
+</div>
 
-    .feature-item {
-      flex: 1 1 250px;
-      background: linear-gradient(to right, #202020, #2d2d2d);
-      padding: 1rem 1.5rem;
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      box-shadow: 0 5px 15px rgba(0, 255, 200, 0.15);
-      transition: all 0.3s ease;
-      transform: scale(1);
-    }
-
-    .feature-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 30px rgba(0, 255, 200, 0.25);
-    }
-
-    .feature-item img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 3px #00ffcc);
-    }
-
-    .floating-icon {
-      position: absolute;
-      width: 50px;
-      opacity: 0.8;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .icon-graduation {
-      top: -20px;
-      left: -20px;
-    }
-
-    .icon-pencil {
-      top: -30px;
-      right: -25px;
-    }
-
-    .icon-bolt {
-      bottom: -25px;
-      right: 10%;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .exonova-section {
-        padding: 2rem;
-      }
-
-      .exonova-content h2 {
-        font-size: 2rem;
-      }
-
-      .feature-item {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="exonova-section" data-aos="fade-up">
-    <img src="https://png.pngtree.com/png-vector/20230111/ourmid/pngtree-an-atom-vector-icon-png-image_6559126.png" alt="Floating Icon" class="floating-icon icon-graduation" />
-    <img src="https://png.pngtree.com/png-vector/20230111/ourmid/pngtree-an-atom-vector-icon-png-image_6559126.png" alt="Floating Icon" class="floating-icon icon-pencil" />
-    <img src="https://png.pngtree.com/png-vector/20230111/ourmid/pngtree-an-atom-vector-icon-png-image_6559126.png" alt="Floating Icon" class="floating-icon icon-bolt" />
-
-    <div class="exonova-image" data-aos="zoom-in">
-      <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Teachers Icon" />
-    </div>
-
-    <div class="exonova-content">
-      <h2 data-aos="fade-right">students &gt; teachers</h2>
-      <p data-aos="fade-left">
-        Learning from an online event involves several key steps. Firstly, it’s important to research and choose an event that aligns with your learning objectives and interests. Once you’ve registered for the event, make sure to review the agenda and schedule to plan your time effectively.
-      </p>
-      <div class="features-list">
-        <div class="feature-item" data-aos="zoom-in-up">
-          <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Tick Icon" />
-          <span>Free Access to Everything</span>
-        </div>
-        <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="100">
-          <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Tick Icon" />
-          <span>Easy to Remember Formula Sheet</span>
-        </div>
-        <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="200">
-          <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Tick Icon" />
-          <span>One Page Notes</span>
-        </div>
-        <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="300">
-          <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Tick Icon" />
-          <span>Previous Year Question Paper with Solution</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 1200 });
-  </script>
-</body>
-</html>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Animation initialization code would go here
+  });
+</script>
 
 
   
