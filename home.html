@@ -710,276 +710,373 @@
 
 
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 
- 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <style>
     :root {
-      --primary-color: #58a6ff;
-      --secondary-color: #8b949e;
-      --accent-color: #3fb950;
-      --bg-color: #0d1117;
-      --text-color: #e6edf3;
+      --primary: #00ffcc;
+      --primary-dark: #00c9a4;
+      --secondary: #8a2be2;
+      --dark-bg: #0f0f0f;
+      --card-bg: linear-gradient(135deg, #1a1a1a, #232323);
+      --feature-bg: linear-gradient(to right, #202020, #2d2d2d);
+      --text-light: #bbb;
+      --text-lighter: #e0e0e0;
     }
 
-    * {
+    .exonova-wrapper * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
+    .exonova-wrapper {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-bg);
+      color: #fff;
+      padding: 2rem;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-image: url(''); /* Update this with a background image if needed */
-      background-size: cover;
-      background-attachment: fixed;
-    }
-
-    .exonova-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4rem 2rem 2rem;
-      position: relative;
-      gap: 1rem;
+    }
+
+    .exonova-wrapper .exonova-section {
+      display: flex;
       flex-wrap: wrap;
-      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      background: var(--card-bg);
+      border-radius: 2rem;
+      padding: 4rem 3rem;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0, 255, 150, 0.1);
+      max-width: 1400px;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .exonova-title {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      color: var(--primary-color);
-      margin-bottom: 1rem;
+    .exonova-wrapper .exonova-image {
+      flex: 1 1 300px;
+      max-width: 450px;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+      transition: transform 0.5s ease;
+      position: relative;
+      z-index: 2;
     }
 
-    .exonova-left img {
-      width: 280px;
-      border-radius: 20px;
-      transition: transform 0.3s ease;
-      object-fit: cover;
-      aspect-ratio: 1/1;
+    .exonova-wrapper .exonova-image:hover {
+      transform: translateY(-10px) scale(1.02);
     }
 
-    .exonova-left img:hover {
+    .exonova-wrapper .exonova-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 1.5rem;
+      transition: transform 0.5s ease;
+    }
+
+    .exonova-wrapper .exonova-image:hover img {
       transform: scale(1.05);
     }
 
-    .exonova-right {
-      max-width: 500px;
+    .exonova-wrapper .exonova-content {
+      flex: 2 1 500px;
+      position: relative;
+      z-index: 2;
     }
 
-    .exonova-subtitle {
-      font-size: 1rem;
-      color: var(--secondary-color);
+    .exonova-wrapper .exonova-content h2 {
+      font-size: 2.8rem;
       margin-bottom: 1.5rem;
-      line-height: 1.6;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
     }
 
-    .exonova-features-list {
-      list-style: none;
+    .exonova-wrapper .exonova-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
     }
 
-    .exonova-feature-item {
-      margin-bottom: 1rem;
+    .exonova-wrapper .exonova-content:hover h2::after {
+      transform: scaleX(1);
+    }
+
+    .exonova-wrapper .exonova-content p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      color: var(--text-lighter);
+      max-width: 90%;
+    }
+
+    .exonova-wrapper .features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .exonova-wrapper .feature-item {
+      flex: 1 1 250px;
+      background: var(--feature-bg);
+      padding: 1.5rem;
+      border-radius: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1.2rem;
+      box-shadow: 0 5px 15px rgba(0, 255, 200, 0.15);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
     }
 
-    .exonova-feature-item::before {
-      content: "✔️";
-      color: var(--accent-color);
-    }
-
-    .exonova-icon-box {
+    .exonova-wrapper .feature-item::before {
+      content: '';
       position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+
+    .exonova-wrapper .feature-item:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 255, 200, 0.3);
+      background: linear-gradient(to right, #252525, #323232);
+    }
+
+    .exonova-wrapper .feature-item:hover::before {
+      width: 6px;
+    }
+
+    .exonova-wrapper .feature-item img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 5px var(--primary));
+      transition: transform 0.3s ease;
+    }
+
+    .exonova-wrapper .feature-item:hover img {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    .exonova-wrapper .feature-item span {
+      font-size: 1.05rem;
+      color: var(--text-lighter);
+      transition: color 0.3s ease;
+    }
+
+    .exonova-wrapper .feature-item:hover span {
+      color: #fff;
+    }
+
+    .exonova-wrapper .floating-icon {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 0 5px var(--primary));
+      z-index: 1;
+    }
+
+    .exonova-wrapper .icon-graduation { 
+      top: -30px; 
+      left: -30px; 
+      animation-delay: 0s;
+    }
+    .exonova-wrapper .icon-pencil { 
+      top: -40px; 
+      right: -35px; 
+      animation-delay: 0.5s;
+    }
+    .exonova-wrapper .icon-bolt { 
+      bottom: -35px; 
+      right: 10%; 
+      animation-delay: 1s;
+    }
+    .exonova-wrapper .icon-book { 
+      bottom: -25px; 
+      left: 5%; 
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* Glow Effects */
+    .exonova-wrapper .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
       z-index: 0;
     }
 
-    .exonova-icon-box img {
-      width: 120px;
-      opacity: 0.2;
-      filter: brightness(1.5) contrast(1.2);
-      transition: transform 0.5s ease, opacity 0.5s ease;
+    .exonova-wrapper .glow-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      top: -100px;
+      right: -100px;
     }
 
-    .exonova-icon-box img:hover {
-      transform: scale(1.08);
-      opacity: 0.3;
+    .exonova-wrapper .glow-2 {
+      width: 200px;
+      height: 200px;
+      background: var(--secondary);
+      bottom: -50px;
+      left: -50px;
     }
 
-    .exonova-icon-top-left {
-      top: 5%;
-      left: 5%;
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .exonova-wrapper .exonova-section {
+        padding: 3rem 2rem;
+      }
     }
 
-    .exonova-icon-top-right {
-      top: 10%;
-      right: 10%;
-    }
-
-    .exonova-icon-bottom-left {
-      bottom: 10%;
-      left: 15%;
-    }
-
-    .exonova-header {
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--secondary-color);
-      padding: 1rem;
-      opacity: 0.6;
+    @media (max-width: 992px) {
+      .exonova-wrapper .exonova-content h2 {
+        font-size: 2.4rem;
+      }
+      
+      .exonova-wrapper .exonova-content p {
+        font-size: 1.1rem;
+      }
     }
 
     @media (max-width: 768px) {
-      .exonova-container {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem 1rem;
+      .exonova-wrapper {
+        padding: 1.5rem;
+      }
+      
+      .exonova-wrapper .exonova-section {
+        padding: 2.5rem 1.5rem;
+        gap: 2rem;
       }
 
-      .exonova-left img {
-        width: 80%;
-        max-width: 280px;
+      .exonova-wrapper .exonova-content h2 {
+        font-size: 2rem;
       }
 
-      .exonova-subtitle, .exonova-feature-item {
-        font-size: 0.9rem;
+      .exonova-wrapper .exonova-content p {
+        font-size: 1rem;
+        max-width: 100%;
       }
 
-      .exonova-icon-box img {
-        width: 80px;
+      .exonova-wrapper .feature-item {
+        flex: 1 1 100%;
       }
 
-      .exonova-header {
-        font-size: 0.65rem;
+      .exonova-wrapper .floating-icon {
+        width: 60px;
+        height: 60px;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+    @media (max-width: 480px) {
+      .exonova-wrapper .exonova-section {
+        padding: 2rem 1rem;
+      }
+      
+      .exonova-wrapper .exonova-content h2 {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- Dimmed floating icons -->
-  <div class="exonova-icon-box exonova-icon-top-left" data-aos="fade-down-right">
-    <img src="https://png.pngtree.com/png-vector/20230728/ourmid/pngtree-grades-clipart-four-school-students-with-books-in-their-hands-cartoon-vector-png-image_6810291.png" alt="Education icon" loading="lazy">
-  </div>
-  <div class="exonova-icon-box exonova-icon-top-right" data-aos="fade-down-left">
-    <img src="https://png.pngtree.com/png-clipart/20230106/original/pngtree-pencil-clipart-png-image_8877342.png" alt="Learning icon" loading="lazy">
-  </div>
-  <div class="exonova-icon-box exonova-icon-bottom-left" data-aos="fade-up-right">
-    <img src="https://png.pngtree.com/png-vector/20230728/ourmid/pngtree-learn-clipart-illustration-of-a-boy-drawing-with-pencils-and-light-vector-png-image_6803623.png" alt="Book icon" loading="lazy">
-  </div>
+  <div class="exonova-wrapper">
+    <div class="exonova-section" data-aos="fade-up">
+      <!-- Background Glow Effects -->
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      
+      <!-- Floating Icons -->
+      <img src="https://cdn-icons-png.flaticon.com/512/3976/3976626.png" alt="Graduation Icon" class="floating-icon icon-graduation" />
+      <img src="https://cdn-icons-png.flaticon.com/512/2553/2553270.png" alt="Pencil Icon" class="floating-icon icon-pencil" />
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828643.png" alt="Bolt Icon" class="floating-icon icon-bolt" />
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Book Icon" class="floating-icon icon-book" />
 
-  <main class="exonova-container" data-barba="container" data-barba-namespace="exonova">
-    <div class="exonova-left" data-aos="fade-right">
-      <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Teachers helping students" loading="eager">
+      <!-- Main Image -->
+      <div class="exonova-image" data-aos="zoom-in">
+        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Students Learning" />
+      </div>
+
+      <!-- Content Section -->
+      <div class="exonova-content">
+        <h2 data-aos="fade-right">Students & Teachers</h2>
+        <p data-aos="fade-left">
+          Exonova bridges the gap between students and educators with our comprehensive learning platform. We provide free access to high-quality educational resources including formula sheets, concise one-page notes, and solved previous year question papers - all designed to make learning more effective and enjoyable.
+        </p>
+        <div class="features-list">
+          <div class="feature-item" data-aos="zoom-in-up">
+            <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="Tick Icon" />
+            <span>Free Access to Premium Resources</span>
+          </div>
+          <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="100">
+            <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Formula Icon" />
+            <span>Easy-to-Understand Formula Sheets</span>
+          </div>
+          <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="200">
+            <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Notes Icon" />
+            <span>Concise One-Page Notes</span>
+          </div>
+          <div class="feature-item" data-aos="zoom-in-up" data-aos-delay="300">
+            <img src="https://cdn-icons-png.flaticon.com/512/1570/1570887.png" alt="Paper Icon" />
+            <span>Solved Previous Year Papers</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="exonova-right" data-aos="fade-left">
-      <h1 class="exonova-title">students &gt; teachers</h1>
-      <p class="exonova-subtitle">
-        Learning from an online event involves several key steps. Firstly, it's important to research and choose an event that aligns with your learning objectives and interests.
-      </p>
-      <ul class="exonova-features-list">
-        <li class="exonova-feature-item">Free Access to Everything</li>
-        <li class="exonova-feature-item">One Page Notes</li>
-        <li class="exonova-feature-item">Easy to Remember Formula Sheet</li>
-        <li class="exonova-feature-item">Previous Year Question Paper with Solution</li>
-      </ul>
-    </div>
-  </main>
+  </div>
 
-  <header class="exonova-header">
-    © Exonova Foundation
-  </header>
-
-  <!-- Async script loader -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
-    function loadScript(src, callback) {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      script.onload = callback;
-      document.body.appendChild(script);
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!prefersReducedMotion) {
-        loadScript('https://unpkg.com/aos@2.3.1/dist/aos.js', function () {
-          AOS.init({ duration: 800, once: true });
-        });
-
-        Promise.all([
-          new Promise(resolve => loadScript('https://unpkg.com/animejs@3.2.1/lib/anime.min.js', resolve)),
-          new Promise(resolve => loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js', resolve)),
-          new Promise(resolve => loadScript('https://unpkg.com/@barba/core', resolve))
-        ]).then(() => {
-          gsap.from(".exonova-title", {
-            duration: 1,
-            y: -50,
-            opacity: 0,
-            delay: 0.2,
-            ease: "power2.out"
-          });
-
-          gsap.from(".exonova-subtitle", {
-            duration: 1,
-            x: -100,
-            opacity: 0,
-            delay: 0.4,
-            ease: "power2.out"
-          });
-
-          gsap.from(".exonova-feature-item", {
-            duration: 0.8,
-            opacity: 0,
-            y: 30,
-            stagger: 0.15,
-            delay: 0.6,
-            ease: "back.out"
-          });
-
-          anime({
-            targets: '.exonova-icon-box img',
-            translateY: [0, -5],
-            direction: 'alternate',
-            loop: true,
-            easing: 'easeInOutSine',
-            duration: 1800
-          });
-
-          barba.init({
-            transitions: [{
-              name: 'opacity-transition',
-              leave(data) {
-                return gsap.to(data.current.container, { opacity: 0 });
-              },
-              enter(data) {
-                return gsap.from(data.next.container, { opacity: 0 });
-              }
-            }]
-
-          });
-        });
-      }
+    AOS.init({
+      duration: 1000,
+      once: false,
+      easing: 'ease-out-back',
+      offset: 100
+    });
+    
+    // Add interactive cursor effect
+    document.addEventListener('mousemove', function(e) {
+      const featureItems = document.querySelectorAll('.feature-item');
+      featureItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        item.style.setProperty('--mouse-x', `${x}px`);
+        item.style.setProperty('--mouse-y', `${y}px`);
+      });
     });
   </script>
 </body>
