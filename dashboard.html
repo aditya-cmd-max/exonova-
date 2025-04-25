@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --dark: #0e0e0e;
+      --light: #f8f9fa;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --error: #ef233c;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 20px 0;
+      transition: var(--transition);
+      z-index: 100;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .sidebar-header h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      margin: 5px 0;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+    }
+
+    .menu-item:hover, .menu-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-left: 3px solid var(--accent);
+    }
+
+    .menu-item i {
+      margin-right: 12px;
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .menu-item span {
+      font-size: 0.95rem;
+    }
+
+    .logout-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .logout-btn i {
+      margin-right: 12px;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 20px;
+    }
+
+    .header-title h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .header-title p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    .user-info h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .user-info p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .notification-icon {
+      position: relative;
+      margin-right: 20px;
+      font-size: 1.2rem;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--accent);
+      color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: bold;
+    }
+
+    /* Dashboard Widgets */
+    .dashboard-widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .widget {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .widget:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .widget-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .widget-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .widget-icon.blue {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    }
+
+    .widget-icon.green {
+      background: linear-gradient(135deg, #4cc9f0, #4895ef);
+    }
+
+    .widget-icon.purple {
+      background: linear-gradient(135deg, #7209b7, #f72585);
+    }
+
+    .widget-icon.orange {
+      background: linear-gradient(135deg, #f8961e, #f3722c);
+    }
+
+    .widget-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--dark);
+    }
+
+    .widget-description {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* Charts Section */
+    .charts-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .chart-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .chart-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .chart-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chart-btn {
+      background: #f5f7fa;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chart-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .chart-container {
+      height: 300px;
+      position: relative;
+    }
+
+    /* Recent Activity */
+    .activity-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .activity-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .activity-list {
+      list-style: none;
+    }
+
+    .activity-item {
+      display: flex;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f5f7fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .activity-content h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .activity-content p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .activity-time {
+      font-size: 0.8rem;
+      color: #999;
+      margin-left: auto;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 70px;
+        overflow: hidden;
+      }
+
+      .sidebar-header h3, 
+      .menu-item span,
+      .logout-btn span {
+        display: none;
+      }
+
+      .menu-item {
+        justify-content: center;
+        padding: 15px 0;
+      }
+
+      .menu-item i {
+        margin-right: 0;
+        font-size: 1.2rem;
+      }
+
+      .main-content {
+        margin-left: 70px;
+      }
+
+      .charts-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .user-profile {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .dashboard-widgets {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" alt="Exonova Logo">
+      <h3>Exonova</h3>
+    </div>
+
+    <div class="sidebar-menu">
+      <a href="#" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-book-open"></i>
+        <span>Courses</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-file-alt"></i>
+        <span>Resources</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-tasks"></i>
+        <span>Assignments</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Progress</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Schedule</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </div>
+
+    <a href="#" class="logout-btn" id="logoutBtn">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header fade-in">
+      <div class="header-title">
+        <h1>Welcome back, <span id="userName">Student</span>!</h1>
+        <p>Here's what's happening with your education today</p>
+      </div>
+
+      <div class="user-profile">
+        <div class="notification-icon">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </div>
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Profile" id="userPhoto">
+        <div class="user-info">
+          <h4 id="userFullName">Alex Johnson</h4>
+          <p>Student</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Widgets -->
+    <div class="dashboard-widgets">
+      <div class="widget fade-in delay-1">
+        <div class="widget-header">
+          <div>
+            <div class="widget-title">Courses Enrolled</div>
+            <div class="widget-value">5</div>
+            <div class="widget-description">+2 from last month</div>
+          </div>
+          <div class="widget-icon blue">
+            <i class="fas fa-book"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget fade-in delay-2">
+        <div class="widget-header">
+          <div>
+            <div class="widget-title">Hours Studied</div>
+            <div class="widget-value">24.5</div>
+            <div class="widget-description">+8.2 from last week</div>
+          </div>
+          <div class="widget-icon green">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget fade-in delay-3">
+        <div class="widget-header">
+          <div>
+            <div class="widget-title">Assignments Due</div>
+            <div class="widget-value">3</div>
+            <div class="widget-description">Next due in 2 days</div>
+          </div>
+          <div class="widget-icon purple">
+            <i class="fas fa-tasks"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget fade-in delay-4">
+        <div class="widget-header">
+          <div>
+            <div class="widget-title">Overall Progress</div>
+            <div class="widget-value">78%</div>
+            <div class="widget-description">5% increase</div>
+          </div>
+          <div class="widget-icon orange">
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-container">
+      <div class="chart-card fade-in delay-2">
+        <div class="chart-header">
+          <div class="chart-title">Study Activity</div>
+          <div class="chart-actions">
+            <button class="chart-btn active">Week</button>
+            <button class="chart-btn">Month</button>
+            <button class="chart-btn">Year</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="studyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-card fade-in delay-3">
+        <div class="chart-header">
+          <div class="chart-title">Course Progress</div>
+          <div class="chart-actions">
+            <button class="chart-btn active">All</button>
+            <button class="chart-btn">Top</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="progressChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-card fade-in delay-4">
+      <div class="activity-header">
+        <div class="activity-title">Recent Activity</div>
+        <a href="#" style="font-size: 0.9rem; color: var(--primary);">View All</a>
+      </div>
+      <ul class="activity-list">
+        <li class="activity-item">
+          <div class="activity-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="activity-content">
+            <h4>Completed "Algebra Basics"</h4>
+            <p>You finished the chapter with 92% score</p>
+          </div>
+          <div class="activity-time">2h ago</div>
+        </li>
+        <li class="activity-item">
+          <div class="activity-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="activity-content">
+            <h4>New Resource Added</h4>
+            <p>Chemistry formula sheet available now</p>
+          </div>
+          <div class="activity-time">5h ago</div>
+        </li>
+        <li class="activity-item">
+          <div class="activity-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div class="activity-content">
+            <h4>Assignment Submitted</h4>
+            <p>Physics homework submitted successfully</p>
+          </div>
+          <div class="activity-time">1d ago</div>
+        </li>
+        <li class="activity-item">
+          <div class="activity-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="activity-content">
+            <h4>Progress Milestone</h4>
+            <p>You reached 75% in Mathematics course</p>
+          </div>
+          <div class="activity-time">2d ago</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { 
+      getAuth, 
+      signOut,
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+      authDomain: "exonova-cd89c.firebaseapp.com",
+      projectId: "exonova-cd89c",
+      storageBucket: "exonova-cd89c.firebasestorage.app",
+      messagingSenderId: "465326262278",
+      appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+      measurementId: "G-GGG45V0PEF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Check authentication state
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // User is not logged in, redirect to sign-in
+        window.location.href = 'index.html';
+      } else {
+        // User is logged in, display their info
+        document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
+        document.getElementById('userFullName').textContent = user.displayName || user.email;
+        
+        // Show welcome confetti
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    });
+
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut(auth).then(() => {
+        window.location.href = 'index.html';
+      }).catch((error) => {
+        console.error('Logout error:', error);
+      });
+    });
+  </script>
+
+  <!-- Charts Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Study Activity Chart
+      const studyCtx = document.getElementById('studyChart').getContext('2d');
+      const studyChart = new Chart(studyCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Study Hours',
+            data: [2.5, 3.2, 4.1, 3.8, 5.2, 2.0, 3.7],
+            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+            borderColor: 'rgba(67, 97, 238, 1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: 'white',
+            pointBorderColor: 'rgba(67, 97, 238, 1)',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleFont: {
+                size: 14,
+                weight: 'bold'
+              },
+              bodyFont: {
+                size: 12
+              },
+              padding: 12,
+              cornerRadius: 8,
+              displayColors: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              },
+              ticks: {
+                stepSize: 1
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+
+      // Course Progress Chart
+      const progressCtx = document.getElementById('progressChart').getContext('2d');
+      const progressChart = new Chart(progressCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English'],
+          datasets: [{
+            data: [78, 65, 82, 59, 70],
+            backgroundColor: [
+              'rgba(67, 97, 238, 0.8)',
+              'rgba(76, 201, 240, 0.8)',
+              'rgba(114, 9, 183, 0.8)',
+              'rgba(248, 150, 30, 0.8)',
+              'rgba(239, 35, 60, 0.8)'
+            ],
+            borderColor: [
+              'rgba(67, 97, 238, 1)',
+              'rgba(76, 201, 240, 1)',
+              'rgba(114, 9, 183, 1)',
+              'rgba(248, 150, 30, 1)',
+              'rgba(239, 35, 60, 1)'
+            ],
+            borderWidth: 1,
+            cutout: '70%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 12,
+                padding: 20,
+                font: {
+                  size: 11
+                },
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleFont: {
+                size: 14,
+                weight: 'bold'
+              },
+              bodyFont: {
+                size: 12
+              },
+              padding: 12,
+              cornerRadius: 8
+            }
+          }
+        }
+      });
+
+      // Chart buttons functionality
+      document.querySelectorAll('.chart-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const parent = this.parentElement;
+          parent.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Here you would typically update the chart data based on selection
+          // For demo purposes we're just logging the action
+          console.log(`Selected ${this.textContent} view`);
+        });
+      });
+    });
+
+    // GSAP animations
+    gsap.from(".sidebar", {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    gsap.from(".main-content", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      delay: 0.3,
+      ease: "power3.out"
+    });
+  </script>
+</body>
+</html>
