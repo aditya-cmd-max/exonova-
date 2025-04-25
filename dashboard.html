@@ -8,22 +8,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <style>
     :root {
-      --primary: #4361ee;
-      --primary-light: #4895ef;
-      --secondary: #3f37c9;
-      --accent: #f72585;
+      --primary: #2c3e50;
+      --primary-light: #34495e;
+      --secondary: #1abc9c;
+      --accent: #e74c3c;
       --dark: #0e0e0e;
       --light: #f8f9fa;
-      --success: #4cc9f0;
-      --warning: #f8961e;
-      --error: #ef233c;
-      --border-radius: 12px;
-      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --error: #e74c3c;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
 
     * {
@@ -34,7 +33,7 @@
     }
 
     body {
-      background-color: #f5f7fa;
+      background-color: #ecf0f1;
       color: #333;
       overflow-x: hidden;
     }
@@ -46,12 +45,12 @@
       top: 0;
       height: 100vh;
       width: 250px;
-      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      background: var(--primary);
       color: white;
       padding: 20px 0;
       transition: var(--transition);
       z-index: 100;
-      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .sidebar-header {
@@ -65,7 +64,6 @@
     .sidebar-header img {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
       margin-right: 10px;
     }
 
@@ -92,7 +90,7 @@
     .menu-item:hover, .menu-item.active {
       background: rgba(255, 255, 255, 0.1);
       color: white;
-      border-left: 3px solid var(--accent);
+      border-left: 3px solid var(--secondary);
     }
 
     .menu-item i {
@@ -162,14 +160,6 @@
       align-items: center;
     }
 
-    .user-profile img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-      object-fit: cover;
-    }
-
     .user-info h4 {
       font-size: 0.95rem;
       font-weight: 500;
@@ -204,6 +194,72 @@
       font-weight: bold;
     }
 
+    /* Notifications Dropdown */
+    .notifications-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      width: 350px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      z-index: 1000;
+      display: none;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .notification-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notification-header h4 {
+      font-size: 1rem;
+      color: var(--dark);
+    }
+
+    .notification-header a {
+      font-size: 0.8rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .notification-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .notification-item:hover {
+      background: #f8f9fa;
+    }
+
+    .notification-item.unread {
+      background: #f8f9fa;
+    }
+
+    .notification-item .notification-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: var(--dark);
+    }
+
+    .notification-item .notification-message {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .notification-item .notification-time {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
     /* Dashboard Widgets */
     .dashboard-widgets {
       display: grid;
@@ -222,7 +278,7 @@
 
     .widget:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .widget-header {
@@ -250,19 +306,19 @@
     }
 
     .widget-icon.blue {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: var(--primary);
     }
 
     .widget-icon.green {
-      background: linear-gradient(135deg, #4cc9f0, #4895ef);
+      background: var(--success);
     }
 
     .widget-icon.purple {
-      background: linear-gradient(135deg, #7209b7, #f72585);
+      background: #9b59b6;
     }
 
     .widget-icon.orange {
-      background: linear-gradient(135deg, #f8961e, #f3722c);
+      background: var(--warning);
     }
 
     .widget-value {
@@ -438,6 +494,11 @@
         width: 100%;
         justify-content: space-between;
       }
+
+      .notifications-dropdown {
+        width: 280px;
+        right: -50px;
+      }
     }
 
     @media (max-width: 576px) {
@@ -445,22 +506,6 @@
         grid-template-columns: 1fr;
       }
     }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
   </style>
 </head>
 <body>
@@ -511,20 +556,28 @@
   <!-- Main Content -->
   <div class="main-content">
     <!-- Header -->
-    <div class="header fade-in">
+    <div class="header">
       <div class="header-title">
-        <h1>Welcome back, <span id="userName">Student</span>!</h1>
-        <p>Here's what's happening with your education today</p>
+        <h1>Welcome to Exonova Dashboard</h1>
+        <p>Track your learning progress and activities</p>
       </div>
 
       <div class="user-profile">
-        <div class="notification-icon">
+        <div class="notification-icon" id="notificationIcon">
           <i class="fas fa-bell"></i>
-          <span class="notification-badge">3</span>
+          <span class="notification-badge">0</span>
         </div>
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Profile" id="userPhoto">
+        <div class="notifications-dropdown" id="notificationsDropdown">
+          <div class="notification-header">
+            <h4>Notifications</h4>
+            <a href="#">Mark all as read</a>
+          </div>
+          <div id="notificationsList">
+            <!-- Notifications will be added here dynamically -->
+          </div>
+        </div>
         <div class="user-info">
-          <h4 id="userFullName">Alex Johnson</h4>
+          <h4 id="userEmail">user@exonova.com</h4>
           <p>Student</p>
         </div>
       </div>
@@ -532,12 +585,12 @@
 
     <!-- Dashboard Widgets -->
     <div class="dashboard-widgets">
-      <div class="widget fade-in delay-1">
+      <div class="widget">
         <div class="widget-header">
           <div>
             <div class="widget-title">Courses Enrolled</div>
-            <div class="widget-value">5</div>
-            <div class="widget-description">+2 from last month</div>
+            <div class="widget-value">0</div>
+            <div class="widget-description">No courses yet</div>
           </div>
           <div class="widget-icon blue">
             <i class="fas fa-book"></i>
@@ -545,12 +598,12 @@
         </div>
       </div>
 
-      <div class="widget fade-in delay-2">
+      <div class="widget">
         <div class="widget-header">
           <div>
             <div class="widget-title">Hours Studied</div>
-            <div class="widget-value">24.5</div>
-            <div class="widget-description">+8.2 from last week</div>
+            <div class="widget-value">0</div>
+            <div class="widget-description">Start learning today</div>
           </div>
           <div class="widget-icon green">
             <i class="fas fa-clock"></i>
@@ -558,12 +611,12 @@
         </div>
       </div>
 
-      <div class="widget fade-in delay-3">
+      <div class="widget">
         <div class="widget-header">
           <div>
             <div class="widget-title">Assignments Due</div>
-            <div class="widget-value">3</div>
-            <div class="widget-description">Next due in 2 days</div>
+            <div class="widget-value">0</div>
+            <div class="widget-description">No pending assignments</div>
           </div>
           <div class="widget-icon purple">
             <i class="fas fa-tasks"></i>
@@ -571,12 +624,12 @@
         </div>
       </div>
 
-      <div class="widget fade-in delay-4">
+      <div class="widget">
         <div class="widget-header">
           <div>
             <div class="widget-title">Overall Progress</div>
-            <div class="widget-value">78%</div>
-            <div class="widget-description">5% increase</div>
+            <div class="widget-value">0%</div>
+            <div class="widget-description">Begin your courses</div>
           </div>
           <div class="widget-icon orange">
             <i class="fas fa-chart-line"></i>
@@ -587,7 +640,7 @@
 
     <!-- Charts Section -->
     <div class="charts-container">
-      <div class="chart-card fade-in delay-2">
+      <div class="chart-card">
         <div class="chart-header">
           <div class="chart-title">Study Activity</div>
           <div class="chart-actions">
@@ -601,7 +654,7 @@
         </div>
       </div>
 
-      <div class="chart-card fade-in delay-3">
+      <div class="chart-card">
         <div class="chart-header">
           <div class="chart-title">Course Progress</div>
           <div class="chart-actions">
@@ -616,51 +669,21 @@
     </div>
 
     <!-- Recent Activity -->
-    <div class="activity-card fade-in delay-4">
+    <div class="activity-card">
       <div class="activity-header">
         <div class="activity-title">Recent Activity</div>
         <a href="#" style="font-size: 0.9rem; color: var(--primary);">View All</a>
       </div>
-      <ul class="activity-list">
+      <ul class="activity-list" id="activityList">
         <li class="activity-item">
           <div class="activity-icon">
-            <i class="fas fa-book"></i>
+            <i class="fas fa-info-circle"></i>
           </div>
           <div class="activity-content">
-            <h4>Completed "Algebra Basics"</h4>
-            <p>You finished the chapter with 92% score</p>
+            <h4>Welcome to Exonova</h4>
+            <p>Your learning journey starts here</p>
           </div>
-          <div class="activity-time">2h ago</div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon">
-            <i class="fas fa-file-alt"></i>
-          </div>
-          <div class="activity-content">
-            <h4>New Resource Added</h4>
-            <p>Chemistry formula sheet available now</p>
-          </div>
-          <div class="activity-time">5h ago</div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon">
-            <i class="fas fa-tasks"></i>
-          </div>
-          <div class="activity-content">
-            <h4>Assignment Submitted</h4>
-            <p>Physics homework submitted successfully</p>
-          </div>
-          <div class="activity-time">1d ago</div>
-        </li>
-        <li class="activity-item">
-          <div class="activity-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <div class="activity-content">
-            <h4>Progress Milestone</h4>
-            <p>You reached 75% in Mathematics course</p>
-          </div>
-          <div class="activity-time">2d ago</div>
+          <div class="activity-time">Just now</div>
         </li>
       </ul>
     </div>
@@ -695,15 +718,7 @@
         window.location.href = 'index.html';
       } else {
         // User is logged in, display their info
-        document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
-        document.getElementById('userFullName').textContent = user.displayName || user.email;
-        
-        // Show welcome confetti
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
+        document.getElementById('userEmail').textContent = user.email;
       }
     });
 
@@ -721,7 +736,7 @@
   <!-- Charts Initialization -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Study Activity Chart
+      // Initialize empty charts
       const studyCtx = document.getElementById('studyChart').getContext('2d');
       const studyChart = new Chart(studyCtx, {
         type: 'line',
@@ -729,17 +744,12 @@
           labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           datasets: [{
             label: 'Study Hours',
-            data: [2.5, 3.2, 4.1, 3.8, 5.2, 2.0, 3.7],
-            backgroundColor: 'rgba(67, 97, 238, 0.1)',
-            borderColor: 'rgba(67, 97, 238, 1)',
+            data: [0, 0, 0, 0, 0, 0, 0],
+            backgroundColor: 'rgba(44, 62, 80, 0.1)',
+            borderColor: 'rgba(44, 62, 80, 1)',
             borderWidth: 2,
             tension: 0.4,
-            fill: true,
-            pointBackgroundColor: 'white',
-            pointBorderColor: 'rgba(67, 97, 238, 1)',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6
+            fill: true
           }]
         },
         options: {
@@ -748,64 +758,26 @@
           plugins: {
             legend: {
               display: false
-            },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              titleFont: {
-                size: 14,
-                weight: 'bold'
-              },
-              bodyFont: {
-                size: 12
-              },
-              padding: 12,
-              cornerRadius: 8,
-              displayColors: false
             }
           },
           scales: {
             y: {
               beginAtZero: true,
-              grid: {
-                color: 'rgba(0, 0, 0, 0.05)'
-              },
-              ticks: {
-                stepSize: 1
-              }
-            },
-            x: {
-              grid: {
-                display: false
-              }
+              max: 5
             }
           }
         }
       });
 
-      // Course Progress Chart
       const progressCtx = document.getElementById('progressChart').getContext('2d');
       const progressChart = new Chart(progressCtx, {
         type: 'doughnut',
         data: {
-          labels: ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English'],
+          labels: ['No courses'],
           datasets: [{
-            data: [78, 65, 82, 59, 70],
-            backgroundColor: [
-              'rgba(67, 97, 238, 0.8)',
-              'rgba(76, 201, 240, 0.8)',
-              'rgba(114, 9, 183, 0.8)',
-              'rgba(248, 150, 30, 0.8)',
-              'rgba(239, 35, 60, 0.8)'
-            ],
-            borderColor: [
-              'rgba(67, 97, 238, 1)',
-              'rgba(76, 201, 240, 1)',
-              'rgba(114, 9, 183, 1)',
-              'rgba(248, 150, 30, 1)',
-              'rgba(239, 35, 60, 1)'
-            ],
-            borderWidth: 1,
-            cutout: '70%'
+            data: [100],
+            backgroundColor: ['rgba(206, 212, 218, 1)'],
+            borderWidth: 0
           }]
         },
         options: {
@@ -813,32 +785,83 @@
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              position: 'right',
-              labels: {
-                boxWidth: 12,
-                padding: 20,
-                font: {
-                  size: 11
-                },
-                usePointStyle: true,
-                pointStyle: 'circle'
-              }
-            },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              titleFont: {
-                size: 14,
-                weight: 'bold'
-              },
-              bodyFont: {
-                size: 12
-              },
-              padding: 12,
-              cornerRadius: 8
+              display: false
             }
-          }
+          },
+          cutout: '70%'
         }
       });
+
+      // Notifications system
+      const notificationIcon = document.getElementById('notificationIcon');
+      const notificationsDropdown = document.getElementById('notificationsDropdown');
+      const notificationsList = document.getElementById('notificationsList');
+      
+      // Sample notifications data
+      const notifications = [
+        {
+          id: 1,
+          title: "Welcome to Exonova",
+          message: "Your account has been successfully created",
+          time: "10 min ago",
+          read: false
+        },
+        {
+          id: 2,
+          title: "System Maintenance",
+          message: "Scheduled maintenance on Saturday at 2:00 AM",
+          time: "1 hour ago",
+          read: false
+        },
+        {
+          id: 3,
+          title: "New Feature",
+          message: "Check out the new progress tracking feature",
+          time: "2 days ago",
+          read: true
+        }
+      ];
+
+      // Render notifications
+      function renderNotifications() {
+        notificationsList.innerHTML = '';
+        let unreadCount = 0;
+        
+        notifications.forEach(notification => {
+          if (!notification.read) unreadCount++;
+          
+          const notificationElement = document.createElement('div');
+          notificationElement.className = `notification-item ${notification.read ? '' : 'unread'}`;
+          notificationElement.innerHTML = `
+            <div class="notification-title">${notification.title}</div>
+            <div class="notification-message">${notification.message}</div>
+            <div class="notification-time">${notification.time}</div>
+          `;
+          
+          notificationElement.addEventListener('click', () => {
+            notification.read = true;
+            renderNotifications();
+          });
+          
+          notificationsList.appendChild(notificationElement);
+        });
+        
+        document.querySelector('.notification-badge').textContent = unreadCount;
+      }
+
+      // Toggle notifications dropdown
+      notificationIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notificationsDropdown.style.display = notificationsDropdown.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        notificationsDropdown.style.display = 'none';
+      });
+
+      // Initial render
+      renderNotifications();
 
       // Chart buttons functionality
       document.querySelectorAll('.chart-btn').forEach(btn => {
@@ -846,28 +869,8 @@
           const parent = this.parentElement;
           parent.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
-          
-          // Here you would typically update the chart data based on selection
-          // For demo purposes we're just logging the action
-          console.log(`Selected ${this.textContent} view`);
         });
       });
-    });
-
-    // GSAP animations
-    gsap.from(".sidebar", {
-      x: -50,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    });
-
-    gsap.from(".main-content", {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      delay: 0.3,
-      ease: "power3.out"
     });
   </script>
 </body>
