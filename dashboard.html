@@ -229,7 +229,7 @@
         }
 
         .notification-bell::after {
-            content: '3';
+            content: attr(data-count);
             position: absolute;
             top: -5px;
             right: -5px;
@@ -740,13 +740,13 @@
                 </div>
             </nav>
 
-            <div class="user-profile" data-aos="fade-up" data-aos-delay="500">
+            <div class="user-profile" data-aos="fade-up" data-aos-delay="500" id="user-profile-sidebar">
                 <div class="user-avatar">
-                    <img src="https://via.placeholder.com/40" alt="User Avatar">
+                    <img id="user-avatar-img" src="https://via.placeholder.com/40" alt="User Avatar">
                 </div>
                 <div class="user-info">
-                    <h4>John Doe</h4>
-                    <p>Computer Science</p>
+                    <h4 id="sidebar-username">Loading...</h4>
+                    <p id="sidebar-user-program">Loading...</p>
                 </div>
             </div>
         </aside>
@@ -759,7 +759,7 @@
                     <input type="text" placeholder="Search for courses, books, notes...">
                 </div>
                 <div class="user-actions">
-                    <div class="notification-bell">
+                    <div class="notification-bell" data-count="3">
                         <i class="fas fa-bell"></i>
                     </div>
                     <div class="mobile-menu-btn" id="mobile-menu-btn">
@@ -771,35 +771,16 @@
             <!-- Welcome Banner -->
             <section class="welcome-banner" data-aos="fade-up">
                 <div class="welcome-content">
-                    <h1>Welcome back, John!</h1>
-                    <p>Continue your learning journey with personalized recommendations based on your progress and interests.</p>
+                    <h1 id="welcome-message">Welcome back!</h1>
+                    <p id="welcome-submessage">Continue your learning journey with personalized recommendations based on your progress and interests.</p>
                     <a href="#" class="welcome-btn">Explore New Courses</a>
                 </div>
                 <img src="https://via.placeholder.com/300x200" alt="Learning Illustration" class="welcome-image floating">
             </section>
 
             <!-- Quick Stats -->
-            <section class="quick-stats">
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-book-open"></i>
-                    <h3>12</h3>
-                    <p>Active Courses</p>
-                </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>24</h3>
-                    <p>Completed Lessons</p>
-                </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-trophy"></i>
-                    <h3>5</h3>
-                    <p>Achievements</p>
-                </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-clock"></i>
-                    <h3>36h</h3>
-                    <p>Learning Time</p>
-                </div>
+            <section class="quick-stats" id="user-stats">
+                <!-- Stats will be populated by JavaScript -->
             </section>
 
             <!-- Courses Section -->
@@ -808,64 +789,8 @@
                     <i class="fas fa-book-open"></i>
                     Continue Learning
                 </h2>
-                <div class="courses-grid">
-                    <div class="course-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="course-image">
-                            <img src="https://via.placeholder.com/300x140" alt="Course Image">
-                            <span class="course-category">Programming</span>
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Advanced JavaScript</h3>
-                            <p class="course-instructor">By Sarah Johnson</p>
-                            <div class="course-meta">
-                                <div class="course-lessons">
-                                    <i class="fas fa-play-circle"></i>
-                                    <span>12/24 Lessons</span>
-                                </div>
-                            </div>
-                            <div class="course-progress">
-                                <div class="progress-bar" style="width: 50%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="course-image">
-                            <img src="https://via.placeholder.com/300x140" alt="Course Image">
-                            <span class="course-category">Data Science</span>
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">Machine Learning Basics</h3>
-                            <p class="course-instructor">By Dr. Michael Chen</p>
-                            <div class="course-meta">
-                                <div class="course-lessons">
-                                    <i class="fas fa-play-circle"></i>
-                                    <span>8/15 Lessons</span>
-                                </div>
-                            </div>
-                            <div class="course-progress">
-                                <div class="progress-bar" style="width: 53%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="course-image">
-                            <img src="https://via.placeholder.com/300x140" alt="Course Image">
-                            <span class="course-category">Design</span>
-                        </div>
-                        <div class="course-content">
-                            <h3 class="course-title">UI/UX Fundamentals</h3>
-                            <p class="course-instructor">By Emily Rodriguez</p>
-                            <div class="course-meta">
-                                <div class="course-lessons">
-                                    <i class="fas fa-play-circle"></i>
-                                    <span>5/10 Lessons</span>
-                                </div>
-                            </div>
-                            <div class="course-progress">
-                                <div class="progress-bar" style="width: 50%"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="courses-grid" id="user-courses">
+                    <!-- Courses will be populated by JavaScript -->
                 </div>
             </section>
 
@@ -1017,6 +942,168 @@
             });
         }
         pulseAnimation();
+
+        // USER DATA HANDLING
+        // This would normally come from your backend after login
+        // For demo purposes, we'll simulate fetching user data
+        
+        // Function to get URL parameters (for demo purposes)
+        function getUrlParameter(name) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Simulate fetching user data (in a real app, this would be an API call)
+        function fetchUserData() {
+            // For demo, we'll get parameters from URL or use defaults
+            const firstName = getUrlParameter('firstName') || 'John';
+            const lastName = getUrlParameter('lastName') || 'Doe';
+            const program = getUrlParameter('program') || 'Computer Science';
+            const avatar = getUrlParameter('avatar') || 'https://randomuser.me/api/portraits/men/1.jpg';
+            const activeCourses = parseInt(getUrlParameter('activeCourses')) || 12;
+            const completedLessons = parseInt(getUrlParameter('completedLessons')) || 24;
+            const achievements = parseInt(getUrlParameter('achievements')) || 5;
+            const learningTime = parseInt(getUrlParameter('learningTime')) || 36;
+            
+            return {
+                firstName,
+                lastName,
+                fullName: `${firstName} ${lastName}`,
+                program,
+                avatar,
+                stats: {
+                    activeCourses,
+                    completedLessons,
+                    achievements,
+                    learningTime
+                },
+                courses: [
+                    {
+                        title: "Advanced JavaScript",
+                        instructor: "Sarah Johnson",
+                        category: "Programming",
+                        progress: 50,
+                        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                        lessonsCompleted: 12,
+                        totalLessons: 24
+                    },
+                    {
+                        title: "Machine Learning Basics",
+                        instructor: "Dr. Michael Chen",
+                        category: "Data Science",
+                        progress: 53,
+                        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                        lessonsCompleted: 8,
+                        totalLessons: 15
+                    },
+                    {
+                        title: "UI/UX Fundamentals",
+                        instructor: "Emily Rodriguez",
+                        category: "Design",
+                        progress: 50,
+                        image: "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                        lessonsCompleted: 5,
+                        totalLessons: 10
+                    }
+                ]
+            };
+        }
+
+        // Populate user data on the page
+        function populateUserData() {
+            const user = fetchUserData();
+            
+            // Welcome message
+            document.getElementById('welcome-message').textContent = `Welcome back, ${user.firstName}!`;
+            
+            // Sidebar profile
+            document.getElementById('sidebar-username').textContent = user.fullName;
+            document.getElementById('sidebar-user-program').textContent = user.program;
+            document.getElementById('user-avatar-img').src = user.avatar;
+            
+            // Stats cards
+            const statsContainer = document.getElementById('user-stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-book-open"></i>
+                    <h3>${user.stats.activeCourses}</h3>
+                    <p>Active Courses</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>${user.stats.completedLessons}</h3>
+                    <p>Completed Lessons</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-trophy"></i>
+                    <h3>${user.stats.achievements}</h3>
+                    <p>Achievements</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-clock"></i>
+                    <h3>${user.stats.learningTime}h</h3>
+                    <p>Learning Time</p>
+                </div>
+            `;
+            
+            // User courses
+            const coursesContainer = document.getElementById('user-courses');
+            coursesContainer.innerHTML = user.courses.map(course => `
+                <div class="course-card" data-aos="fade-up" data-aos-delay="${100 + (user.courses.indexOf(course) * 100)}">
+                    <div class="course-image">
+                        <img src="${course.image}" alt="${course.title}">
+                        <span class="course-category">${course.category}</span>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">${course.title}</h3>
+                        <p class="course-instructor">By ${course.instructor}</p>
+                        <div class="course-meta">
+                            <div class="course-lessons">
+                                <i class="fas fa-play-circle"></i>
+                                <span>${course.lessonsCompleted}/${course.totalLessons} Lessons</span>
+                            </div>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar" style="width: ${course.progress}%"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Refresh AOS after dynamic content is loaded
+            AOS.refresh();
+            
+            // Animate the new stat cards
+            anime({
+                targets: '.stat-card',
+                scale: [0.9, 1],
+                opacity: [0, 1],
+                delay: anime.stagger(100),
+                duration: 1000,
+                easing: 'easeOutElastic'
+            });
+        }
+
+        // Check if user is logged in (in a real app, you'd check session/token)
+        // For demo, we'll just populate the data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate checking if user is logged in
+            const isLoggedIn = true; // In a real app, this would be a proper check
+            
+            if (isLoggedIn) {
+                populateUserData();
+            } else {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Demo: Simulate getting user data from URL parameters
+        // You can test by adding ?firstName=Jane&lastName=Smith&program=Physics to the URL
     </script>
 </body>
 </html>
