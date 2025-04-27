@@ -36,12 +36,16 @@
   <meta name="google-site-verification" content="gVm_Dk4QJW6bhd3nyT3WJPIzHXt9SEgn8Z43IU2t27Y">
   
   <!-- Preload critical resources -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" as="style">
   <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style">
   <link rel="preload" href="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" as="image">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- AOS Library CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
@@ -79,12 +83,14 @@
   
   <style>
     :root {
-      --primary-color: #5c6bc0;  /* Indigo-ish */
+      --primary-color: #5c6bc0;
       --accent-color: #7986cb;
       --bg-gradient-start: #1a237e;
       --bg-gradient-end: #0d47a1;
       --text-color: #ffffff;
-      --text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      --text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      --icon-color: rgba(255,255,255,0.15);
+      --icon-accent: rgba(255,255,255,0.3);
     }
     
     * {
@@ -102,6 +108,48 @@
       height: 100vh;
       overflow: hidden;
       color: var(--text-color);
+      position: relative;
+    }
+    
+    /* Floating science icons */
+    .floating-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .floating-icon {
+      position: absolute;
+      color: var(--icon-color);
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: float 15s infinite linear;
+      z-index: 0;
+    }
+    
+    .floating-icon:nth-child(2n) {
+      color: var(--icon-accent);
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
     }
     
     .loader-container {
@@ -111,6 +159,8 @@
       animation: containerAppear 1s forwards;
       max-width: 90%;
       margin: 0 auto;
+      position: relative;
+      z-index: 10;
     }
     
     .logo {
@@ -119,8 +169,10 @@
       margin-bottom: 25px;
       border-radius: 50%;
       border: 4px solid var(--primary-color);
-      box-shadow: var(--text-shadow);
+      box-shadow: 0 0 25px rgba(92, 107, 192, 0.5);
       object-fit: contain;
+      transform: scale(1);
+      animation: pulse 2s infinite alternate;
     }
     
     .loading-text {
@@ -129,24 +181,42 @@
       color: var(--text-color);
       margin-top: 15px;
       text-shadow: var(--text-shadow);
-      /* Initial opacity will be animated using Anime.js */
     }
     
     .progress-container {
-      width: 200px;
+      width: 250px;
       height: 8px;
       background: rgba(255,255,255,0.2);
       border-radius: 10px;
       margin: 20px auto;
       overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: var(--primary-color);
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
       border-radius: 10px;
-      transition: width 0.3s ease;
+      transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shine 2s infinite;
     }
     
     .loading-subtext {
@@ -157,15 +227,29 @@
     }
     
     @keyframes containerAppear {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    
+    @keyframes pulse {
+      from { transform: scale(1); box-shadow: 0 0 25px rgba(92, 107, 192, 0.5); }
+      to { transform: scale(1.05); box-shadow: 0 0 40px rgba(92, 107, 192, 0.8); }
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     
     /* Accessibility improvements */
     @media (prefers-reduced-motion) {
-      .loader-container, .loading-text {
+      .loader-container, .loading-text, .floating-icon, .logo {
         animation: none !important;
         transition: none !important;
+      }
+      
+      .progress-bar::after {
+        display: none;
       }
     }
     
@@ -179,10 +263,22 @@
       .loading-text {
         font-size: 1.5rem;
       }
+      
+      .progress-container {
+        width: 200px;
+      }
+      
+      .floating-icon {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Floating science icons background -->
+  <div class="floating-icons" id="floatingIcons"></div>
+  
+  <!-- Main loader content -->
   <div class="loader-container" data-aos="fade-up">
     <img src="https://aditya-cmd-max.github.io/exonova-/ChatGPT_Image_Apr_4__2025__11_12_14_PM-removebg-preview.png" 
          alt="Exonova Logo - Science Education Platform" 
@@ -209,12 +305,37 @@
       easing: 'ease-out-quad'
     });
     
+    // Create floating science icons
+    const floatingIconsContainer = document.getElementById('floatingIcons');
+    const scienceIcons = [
+      'fa-atom', 'fa-flask', 'fa-microscope', 'fa-dna', 
+      'fa-rocket', 'fa-star', 'fa-magnet', 'fa-brain',
+      'fa-leaf', 'fa-fire', 'fa-bolt', 'fa-wind',
+      'fa-vial', 'fa-satellite', 'fa-meteor', 'fa-seedling'
+    ];
+    
+    // Generate 30 floating icons
+    for (let i = 0; i < 30; i++) {
+      const icon = document.createElement('i');
+      icon.className = `fas ${scienceIcons[Math.floor(Math.random() * scienceIcons.length)]} floating-icon`;
+      
+      // Random position and animation delay
+      icon.style.left = `${Math.random() * 100}%`;
+      icon.style.top = `${Math.random() * 100 + 100}%`;
+      icon.style.fontSize = `${Math.random() * 1 + 1}rem`;
+      icon.style.animationDelay = `${Math.random() * 15}s`;
+      icon.style.animationDuration = `${10 + Math.random() * 20}s`;
+      
+      floatingIconsContainer.appendChild(icon);
+    }
+    
     // Loading messages and progress simulation
     const messages = [
       {main: "Loading Exonova...", sub: "Initializing learning modules..."},
       {main: "Unleashing Knowledge...", sub: "Loading science facts database..."},
       {main: "Preparing Quizzes...", sub: "Compiling interactive content..."},
-      {main: "Almost Ready...", sub: "Finalizing your experience..."}
+      {main: "Almost Ready...", sub: "Finalizing your experience..."},
+      {main: "Welcome!", sub: "Your science journey begins now..."}
     ];
     
     let msgIndex = 0;
@@ -235,7 +356,7 @@
           loadingSubtextEl.textContent = messages[msgIndex].sub;
           
           // Update progress bar (simulated)
-          const progress = Math.min(25 + (msgIndex * 25), 100);
+          const progress = Math.min(20 + (msgIndex * 20), 100);
           progressBarEl.style.width = `${progress}%`;
           
           anime({
@@ -249,7 +370,7 @@
     }
     
     // Start the message rotation
-    const messageInterval = setInterval(updateMessage, 2000);
+    const messageInterval = setInterval(updateMessage, 1800);
     
     // Simulate loading completion
     setTimeout(() => {
@@ -274,19 +395,32 @@
         }
       });
       
-      // Complete the progress bar
+      // Complete the progress bar with a nice animation
       anime({
         targets: progressBarEl,
         width: '100%',
-        duration: 800,
-        easing: 'easeOutQuad'
+        duration: 1000,
+        easing: 'easeOutElastic(1, 1)',
+        update: function(anim) {
+          // Add a bouncy effect to the progress bar
+          progressBarEl.style.transform = `scaleX(${1 + Math.sin(anim.progress * 0.1) * 0.05})`;
+        }
       });
-    }, 8000); // Total loading time 8 seconds
+      
+      // Add particle burst effect on completion
+      anime({
+        targets: '.logo',
+        scale: [1, 1.2],
+        opacity: [1, 0],
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+    }, 7000); // Total loading time 7 seconds
     
     // Add a fallback in case the redirect fails
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 10000);
+    }, 9000);
   </script>
 </body>
 </html>
