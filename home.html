@@ -1122,34 +1122,124 @@
   
 <!-- OUR MISSION -->
  
-   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f0f0f;
-      color: #fff;
-      overflow-x: hidden;
+  <style>
+    :root {
+      --primary: #00f7ff;
+      --secondary: #7b2dff;
+      --accent: #ff2d7b;
+      --dark: #0a0f1f;
+      --darker: #050917;
+      --text-light: #ffffff;
+      --text-muted: #a0a8c0;
+      --gold: #FFD700;
+      --cyan: #00ffe1;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', sans-serif;
+      background-color: var(--darker);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Cosmic Background */
+    .cosmic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(123, 45, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 247, 255, 0.1) 0%, transparent 40%),
+        linear-gradient(var(--darker), var(--dark));
+      z-index: -2;
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Divider */
     .divider {
       height: 2px;
       width: 90%;
-      margin: 100px auto 50px auto;
-      background: linear-gradient(to right, transparent, #ccc, transparent);
+      margin: 100px auto 50px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
       border-radius: 100px;
+      opacity: 0.3;
+      transform: scaleX(0);
+      transform-origin: center;
+      animation: expandDivider 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     }
 
+    @keyframes expandDivider {
+      0% { transform: scaleX(0); }
+      100% { transform: scaleX(1); }
+    }
+
+    /* Mission Section */
     .mission-section {
-      padding: 50px 20px;
+      padding: 80px 20px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
     .mission-title {
-      font-size: 48px;
-      color: #FFD700;
-      text-shadow: 0 0 10px #FFD700;
-      margin-bottom: 10px;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--gold);
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards;
+    }
+
+    .mission-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      filter: blur(2px);
+      opacity: 0;
+      animation: pulseLine 3s ease infinite 1.5s;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseLine {
+      0%, 100% { opacity: 0.8; width: 100px; }
+      50% { opacity: 1; width: 150px; }
     }
 
     .mission-container {
@@ -1157,94 +1247,277 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 40px;
-      margin-top: 40px;
+      margin-top: 60px;
+      perspective: 1000px;
     }
 
     .mission-card {
-      width: 300px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
+      width: 320px;
+      background: rgba(10, 15, 31, 0.7);
+      border: 1px solid rgba(0, 247, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 247, 255, 0.1);
+      backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 30px;
-      transition: transform 0.3s ease;
+      padding: 40px 30px;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
       opacity: 0;
-      transform: scale(0.8);
+      transform: translateY(50px) rotateX(15deg);
+    }
+
+    .mission-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s ease;
     }
 
     .mission-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      transform: translateY(-10px) scale(1.03) rotateX(5deg);
+      box-shadow: 0 20px 50px rgba(0, 247, 255, 0.3);
+      border-color: rgba(0, 247, 255, 0.3);
+    }
+
+    .mission-card:hover::before {
+      transform: scaleX(1);
     }
 
     .mission-card h3 {
-      color: #00ffe1;
-      font-size: 22px;
-      margin-bottom: 15px;
+      color: var(--cyan);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .mission-card h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--cyan);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+    }
+
+    .mission-card:hover h3::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     .mission-card p {
-      font-size: 15px;
-      color: #ccc;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    .mission-card .icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      opacity: 0.8;
+      transition: all 0.4s ease;
+    }
+
+    .mission-card:hover .icon {
+      transform: scale(1.2) rotate(10deg);
+      opacity: 1;
+      text-shadow: 0 0 15px var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .mission-container {
+        gap: 30px;
+      }
+      
+      .mission-card {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mission-section {
+        padding: 60px 15px;
+      }
+      
+      .mission-title {
+        font-size: 2.2rem;
+      }
+      
+      .mission-card {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Cosmic Background -->
+  <div class="cosmic-bg"></div>
+  
+  <!-- Floating Particles -->
+  <div id="particles-container"></div>
 
   <div class="divider"></div>
 
   <section class="mission-section" id="our-mission">
-    <h2 class="mission-title" data-aos="fade-up">Our Mission</h2>
+    <h2 class="mission-title">Our Mission</h2>
     <div class="mission-container">
       <div class="mission-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-fire icon"></i>
         <h3>Inspire</h3>
-        <p>At Exonova, we ignite curiosity like a cosmic spark. Our mission is to inspire the next generation of innovators, thinkers, and creators by showcasing the limitless wonders of science, space, and technology.
-We believe one inspired mind can change the world—and the universe beyond.</p>
+        <p>At Exonova, we ignite curiosity like a cosmic spark. Our mission is to inspire the next generation of innovators, thinkers, and creators by showcasing the limitless wonders of science, space, and technology. We believe one inspired mind can change the world—and the universe beyond.</p>
       </div>
+      
       <div class="mission-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fas fa-book-open icon"></i>
         <h3>Educate</h3>
         <p>Knowledge is our spacecraft. Through well-researched blogs, Science Facts, and interactive experiences, Exonova aims to simplify the toughest concepts and make education engaging, exciting, and unforgettable.</p>
       </div>
+      
       <div class="mission-card" data-aos="fade-up" data-aos-delay="300">
+        <i class="fas fa-bolt icon"></i>
         <h3>Empower</h3>
-        <p>We empower students with the tools and mindset to become future changemakers of the world.</p>
+        <p>We empower students with the tools and mindset to become future changemakers of the world. Through our resources and community, we help turn potential into reality.</p>
       </div>
     </div>
   </section>
 
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
   <script>
+    // Initialize AOS with advanced settings
     AOS.init({
       duration: 1000,
       once: false,
-      mirror: true
+      mirror: true,
+      easing: 'ease-out-back',
+      offset: 120
     });
-  </script>
 
-  <!-- GSAP Scroll Animations -->
-  <script>
+    // Create floating particles
+    function createParticles() {
+      const container = document.getElementById('particles-container');
+      const particleCount = window.innerWidth < 768 ? 30 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 20s and 50s
+        const duration = Math.random() * 30 + 20;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 20}s`;
+        
+        container.appendChild(particle);
+      }
+    }
+
+    // GSAP Scroll Animations for mission cards
     gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray(".mission-card").forEach(card => {
-      gsap.fromTo(card, 
-        { autoAlpha: 0, scale: 0.8 }, 
-        {
-          autoAlpha: 1,
-          scale: 1,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      
+      // Animate mission cards with GSAP
+      gsap.utils.toArray(".mission-card").forEach((card, i) => {
+        gsap.fromTo(card, 
+          { 
+            autoAlpha: 0,
+            y: 50,
+            rotationX: 15,
+            z: -100
+          }, 
+          {
+            autoAlpha: 1,
+            y: 0,
+            rotationX: 0,
+            z: 0,
+            duration: 1,
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none none",
+              // markers: true // For debugging
+            }
           }
-        }
-      );
+        );
+        
+        // Hover effects with GSAP
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -15,
+            boxShadow: "0 25px 60px rgba(0, 247, 255, 0.3)",
+            duration: 0.5,
+            ease: "power2.out"
+          });
+          
+          // Particle burst effect
+          const particles = 15;
+          for (let p = 0; p < particles; p++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = '3px';
+            particle.style.height = '3px';
+            particle.style.background = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animation = `floatParticle 1.5s ease-out forwards`;
+            card.appendChild(particle);
+            
+            // Remove after animation
+            setTimeout(() => {
+              particle.remove();
+            }, 1500);
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            boxShadow: "0 10px 30px rgba(0, 247, 255, 0.1)",
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+      });
+      
+      // Animate title divider
+      gsap.to(".mission-title::after", {
+        opacity: 1,
+        duration: 1,
+        delay: 1.5,
+        ease: "power2.out"
+      });
     });
   </script>
+</body>
 <!-- TESTIMONIALS Start-->
 
 
