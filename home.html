@@ -52,188 +52,222 @@
  
 
   <style>
+    /* Your full CSS here — already correct */
+    :root {
+      --primary: #00f7ff;
+      --secondary: #7b2dff;
+      --accent: #ff2d7b;
+      --dark: #0a0f1f;
+      --darker: #050917;
+      --text-light: #ffffff;
+      --text-muted: #a0a8c0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0a0f1f;
-      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--text-light);
       overflow-x: hidden;
+      padding-top: 80px;
     }
     .navbar {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
-      background: rgba(10, 15, 30, 0.95);
-      padding: 15px 30px;
+      height: 80px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
-      box-shadow: 0 0 20px #00f7ff;
-      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      background: rgba(10, 15, 31, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+      z-index: 9999;
+      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .logo {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #00f7ff;
-      letter-spacing: 1.5px;
+    .navbar.scrolled {
+      height: 70px;
+      box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
+      background: rgba(5, 9, 23, 0.98);
+    }
+    .logo { height: 50px; }
+    .logo img {
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+    .logo:hover img {
+      transform: rotate(-10deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--primary));
     }
     .nav-links {
       display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
     }
-    .nav-links a {
+    .nav-link {
       position: relative;
+      color: var(--text-light);
       text-decoration: none;
-      color: #ffffff;
       font-weight: 500;
-      padding: 5px;
-      transition: color 0.3s;
+      font-size: 1.1rem;
+      padding: 8px 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
     }
-    .nav-links a::after {
-      content: "";
+    .nav-link::before {
+      content: '';
       position: absolute;
-      left: 0;
-      bottom: -3px;
+      bottom: 0; left: 0;
       width: 100%;
       height: 2px;
-      background: #00f7ff;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       transform: scaleX(0);
       transform-origin: right;
-      transition: transform 0.4s ease-out;
+      transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
     }
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+    .nav-link:hover::before,
+    .nav-link.active::before {
       transform: scaleX(1);
       transform-origin: left;
     }
-    .nav-links a.active {
-      color: #00f7ff;
-      font-weight: 600;
-    }
-    .hamburger {
+    .menu-btn {
       display: none;
       flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
       cursor: pointer;
-      gap: 6px;
+      z-index: 10000;
+      position: relative;
     }
-    .hamburger div {
-      width: 25px;
+    .menu-btn span {
+      display: block;
+      width: 100%;
       height: 3px;
-      background-color: #00f7ff;
-      transition: all 0.3s ease;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: left center;
     }
-    @media (max-width: 768px) {
+    .menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(4px, -1px);
+      width: 110%;
+    }
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    .menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, 1px);
+      width: 110%;
+    }
+    @media (max-width: 992px) {
       .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: rgba(10, 15, 30, 0.98);
-        width: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background: rgba(5, 9, 23, 0.98);
         flex-direction: column;
-        align-items: center;
-        display: none;
-        padding: 20px 0;
-        gap: 20px;
+        justify-content: center;
+        gap: 40px;
+        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        border-left: 1px solid rgba(0, 247, 255, 0.1);
       }
       .nav-links.active {
+        right: 0;
+      }
+      .menu-btn {
         display: flex;
       }
-      .hamburger {
-        display: flex;
-      }
+    }
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 10000;
+      transition: width 0.2s ease-out;
     }
   </style>
 </head>
-<body data-barba="wrapper">
 
-<div class="navbar" data-aos="fade-down" data-aos-duration="1000">
-  <div class="logo" id="logo"> <a href="#">
-      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo" style="height: 60px;">
-    </a></div>
- 
-     
-  
-  <div class="hamburger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
+<body>
+
+<!-- Scroll Indicator -->
+<div class="scroll-indicator" id="scrollIndicator"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="logo" data-aos="fade-right" data-aos-duration="800">
+    <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova">
+  </a>
+  <div class="menu-btn" id="menuBtn" data-aos="fade-left" data-aos-duration="800">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
   <div class="nav-links" id="navLinks">
-    <a href="home.html" class="nav-link active" data-barba-link>Home</a>
-    <a href="blogs.html" class="nav-link" data-barba-link>Blog</a>
-    <a href="about.html" class="nav-link" data-barba-link>About</a>
-    <a href="quiz.html" class="nav-link" data-barba-link>Quiz</a>
-    <a href="signin.html" class="nav-link" data-barba-link>Sign In</a>
+    <a href="home.html" class="nav-link active">Home</a>
+    <a href="blogs.html" class="nav-link">Blog</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="quiz.html" class="nav-link">Quiz</a>
+    <a href="signin.html" class="nav-link">Sign In</a>
   </div>
-</div>
+</nav>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<script src="https://unpkg.com/@barba/core"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<!-- Main Content -->
+
+
+<!-- AOS Animation Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <script>
-  AOS.init();
-
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('active');
-  }
-
-  // Barba transitions
-  barba.init({
-    transitions: [{
-      name: 'fade-transition',
-      leave(data) {
-        return anime({
-          targets: data.current.container,
-          opacity: [1, 0],
-          easing: 'easeInOutQuad',
-          duration: 400
-        }).finished;
-      },
-      enter(data) {
-        return anime({
-          targets: data.next.container,
-          opacity: [0, 1],
-          easing: 'easeInOutQuad',
-          duration: 400
-        }).finished;
-      }
-    }]
+  AOS.init({
+    duration: 800,
+    once: false,
+    mirror: true
   });
 
-  // Logo animation
-  anime({
-    targets: '#logo',
-    scale: [0.8, 1.05],
-    opacity: [0, 1],
-    easing: 'easeOutExpo',
-    duration: 1200,
-    delay: 300
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
   });
 
-  // Highlight active link on click
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
+  // Close mobile menu when clicking a nav link
+  document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+      if (window.innerWidth <= 992) {
+        menuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   });
 
-  // Entrance animation for nav links
-  anime({
-    targets: '.nav-links a',
-    translateY: [-20, 0],
-    opacity: [0, 1],
-    delay: anime.stagger(150, { start: 500 }),
-    duration: 800,
-    easing: 'easeOutBack'
+  // Scroll Indicator
+  const scrollIndicator = document.getElementById('scrollIndicator');
+  window.addEventListener('scroll', () => {
+    const maxHeight = document.body.scrollHeight - window.innerHeight;
+    const percentage = (window.scrollY / maxHeight) * 100;
+    scrollIndicator.style.width = percentage + '%';
   });
 </script>
-</body>
 
+</body>
 
 
   <!--NAvbr End -->
