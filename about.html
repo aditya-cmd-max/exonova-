@@ -4,18 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Exonova</title>
-
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- Lottie Animations -->
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
   <style>
     :root {
@@ -41,7 +38,8 @@
       overflow-x: hidden;
     }
 
-    .floating-icons {
+    /* ===== Floating Tech Elements ===== */
+    .floating-tech {
       position: fixed;
       top: 0;
       left: 0;
@@ -52,24 +50,30 @@
       overflow: hidden;
     }
 
-    .floating-icon {
+    .tech-element {
       position: absolute;
-      font-size: 1.5rem;
-      color: rgba(0, 247, 255, 0.1);
-      animation: floatIcon linear infinite;
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: floatTech linear infinite;
       z-index: -1;
+      opacity: 0.1;
+      filter: drop-shadow(0 0 5px var(--primary));
     }
 
-    @keyframes floatIcon {
+    @keyframes floatTech {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); }
       100% { transform: translateY(-100px) translateX(100px) rotate(360deg); }
     }
 
+    /* ===== Modern Navbar ===== */
     header {
       position: sticky;
       top: 0;
       background: rgba(10, 15, 31, 0.96);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0, 247, 255, 0.1);
       z-index: 1000;
       padding: 1rem 5%;
@@ -134,6 +138,7 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 1001;
     }
 
     .hamburger span {
@@ -144,6 +149,7 @@
       transition: all 0.3s ease;
     }
 
+    /* ===== About Section ===== */
     .about-container {
       display: flex;
       justify-content: center;
@@ -200,7 +206,7 @@
       100% { box-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary); opacity: 1; }
     }
 
-    .tech-icons {
+    .tech-bubbles {
       position: absolute;
       bottom: -20px;
       left: 50%;
@@ -210,7 +216,7 @@
       z-index: 2;
     }
 
-    .tech-icon {
+    .tech-bubble {
       width: 40px;
       height: 40px;
       background: rgba(10, 15, 31, 0.8);
@@ -226,7 +232,7 @@
       transition: all 0.3s ease;
     }
 
-    .tech-icon:hover {
+    .tech-bubble:hover {
       transform: translateY(-10px) scale(1.2);
       background: rgba(0, 247, 255, 0.2);
       box-shadow: 0 0 25px var(--primary);
@@ -265,6 +271,7 @@
       font-weight: 600;
     }
 
+    /* ===== Footer ===== */
     footer {
       background: rgba(10, 15, 31, 0.8);
       backdrop-filter: blur(10px);
@@ -284,6 +291,7 @@
       100% { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary); }
     }
 
+    /* ===== Responsive Design ===== */
     @media (max-width: 992px) {
       .about-container {
         flex-direction: column;
@@ -291,7 +299,7 @@
         text-align: center;
       }
 
-      .tech-icons {
+      .tech-bubbles {
         position: relative;
         bottom: 0;
         margin-top: 30px;
@@ -301,93 +309,210 @@
 
     @media (max-width: 768px) {
       .nav-links {
-        position: absolute;
-        top: 80px;
-        right: 5%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(5, 9, 23, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        background: rgba(10, 15, 31, 0.95);
-        width: 200px;
-        border: 1px solid rgba(0, 247, 255, 0.2);
-        padding: 1rem;
-        display: none;
+        justify-content: center;
+        gap: 2rem;
+        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        z-index: 1000;
       }
 
       .nav-links.active {
-        display: flex;
+        right: 0;
       }
 
       .hamburger {
         display: flex;
       }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
     }
   </style>
 </head>
-
 <body>
-
-  <div class="floating-icons"></div>
+  <!-- Floating Tech Elements -->
+  <div class="floating-tech" id="floatingTech"></div>
 
   <header>
-    <div class="navbar">
-      <div class="logo">
-        <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
-      </div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#" class="active">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="hamburger">
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova">
+      </a>
+      
+      <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </div>
-    </div>
+      
+      <ul class="nav-links" id="navLinks">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+        <li><a class="active" href="about.html">About</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section class="about-container">
-    <div class="photo-container">
+  <main class="about-container">
+    <div class="photo-container" data-aos="fade-right">
       <div class="photo-frame">
-        <img src="https://aditya-cmd-max.github.io/exonova-/IMG_20241118_072414.jpg" alt="Team Photo">
+        <img src="https://aditya-cmd-max.github.io/exonova-/IMG_20241118_072414.jpg" alt="Aditya Jha">
         <div class="glow-effect"></div>
       </div>
-     
+      <div class="tech-bubbles">
+        <div class="tech-bubble"><i class="fas fa-code"></i></div>
+        <div class="tech-bubble"><i class="fas fa-robot"></i></div>
+        <div class="tech-bubble"><i class="fas fa-atom"></i></div>
+        <div class="tech-bubble"><i class="fas fa-rocket"></i></div>
+      </div>
     </div>
-
-    <div class="about-content">
+<br><br><br>
+    <div class="about-content" data-aos="fade-left">
       <h1>About <span>Aditya Jha</span></h1>
-      <p>Hello, I’m <span class="highlight">Aditya Jha</span>, the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts. From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow.</p>
-      <p> I dream of becoming a software engineer and creating magical experiences for users around the globe. I'm currently learning programming, animation, and design while building projects like Reverbit Messenger, The Maharathi game, and many more.</p>
-      
-      <p> Let’s learn. Let’s grow. Let’s revolutionize the digital world – together.</p>
+      <p>
+        Hello, I'm <span class="highlight">Aditya Jha</span>, the passionate founder of <span class="highlight">Exonova</span> – a mission to spread knowledge, creativity, and futuristic tech.  
+        I started this platform to ignite curiosity among students and tech enthusiasts.
+      </p>
+      <p>
+        From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.
+      </p>
+      <p>
+        I dream of becoming a <span class="highlight">software engineer</span> and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like Reverbit Messenger, Studynova and many more.
+      </p>
+      <p>
+        Let's learn. Let's grow. Let's revolutionize the digital world – together.
+      </p>
     </div>
-  </section>
+  </main>
 
   <footer>
-    <p> Made with ❤ by Aditya. 2025 Exonova. All rights reserved.</p>
+    <p>© 2025 Exonova. Made with 💖 by Aditya Jha.</p>
   </footer>
 
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  
   <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: false,
+      mirror: true
     });
 
-    // Floating Icons
-    const floatingIcons = document.querySelector('.floating-icons');
-    for (let i = 0; i < 30; i++) {
-      const icon = document.createElement('i');
-      icon.className = 'fas fa-star floating-icon';
-      icon.style.left = `${Math.random() * 100}%`;
-      icon.style.animationDuration = `${Math.random() * 20 + 10}s`;
-      floatingIcons.appendChild(icon);
-    }
-  </script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
 
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // Create floating tech elements
+    function createFloatingTech() {
+      const container = document.getElementById('floatingTech');
+      const techIcons = [
+        'ai-chip.png', 'circuit.png', 'data-cloud.png', 
+        'neural-network.png', 'vr-headset.png', 'blockchain.png'
+      ];
+      const count = window.innerWidth < 768 ? 10 : 20;
+      
+      for (let i = 0; i < count; i++) {
+        const element = document.createElement('div');
+        element.className = 'tech-element';
+        
+        // Random tech icon
+        const randomIcon = techIcons[Math.floor(Math.random() * techIcons.length)];
+        element.style.backgroundImage = `url(https://example.com/path/to/icons/${randomIcon})`;
+        
+        // Random positioning and animation
+        element.style.left = `${Math.random() * 100}%`;
+        element.style.top = `${Math.random() * 100}%`;
+        element.style.width = `${Math.random() * 40 + 20}px`;
+        element.style.height = element.style.width;
+        element.style.opacity = Math.random() * 0.2 + 0.1;
+        element.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        element.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(element);
+      }
+    }
+
+    // Photo frame animation on hover
+    const photoFrame = document.querySelector('.photo-frame');
+    photoFrame.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      photoFrame.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.05)`;
+    });
+
+    photoFrame.addEventListener('mouseleave', () => {
+      photoFrame.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+    });
+
+    // Initialize everything when page loads
+    window.addEventListener('load', () => {
+      createFloatingTech();
+      
+      // GSAP animations
+      gsap.from(".photo-container", {
+        duration: 1.5,
+        x: -100,
+        opacity: 0,
+        ease: "back.out(1.7)"
+      });
+      
+      gsap.from(".about-content", {
+        duration: 1.5,
+        x: 100,
+        opacity: 0,
+        delay: 0.3,
+        ease: "back.out(1.7)"
+      });
+      
+      gsap.from(".tech-bubble", {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        delay: 0.8,
+        ease: "elastic.out(1, 0.5)"
+      });
+    });
+  </script>
 </body>
 </html>
