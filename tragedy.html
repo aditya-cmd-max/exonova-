@@ -435,19 +435,6 @@
       padding: 1rem 0;
     }
     
-    .lyrics-line {
-      transition: all 0.3s ease;
-      opacity: 0.6;
-    }
-    
-    .lyrics-line.active {
-      color: var(--primary);
-      font-weight: 600;
-      opacity: 1;
-      text-shadow: 0 0 10px rgba(255, 42, 42, 0.3);
-      transform: scale(1.02);
-    }
-    
     /* Visualizer */
     .visualizer {
       width: 100%;
@@ -624,7 +611,84 @@
     <div class="lyrics-box">
       <h2 class="lyrics-title">LYRICS</h2>
       <div class="lyrics-text" id="lyricsText">
-        <!-- Lyrics will be inserted here by JavaScript -->
+        [Intro]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        [Verse 1 – Rap Flow]
+        I wake up, heart cold, silence in my zone
+        They smile with a knife, try to cut through bone
+        Every move I make, they're watchin' from the dome
+        But I don't fold — I build my throne
+
+        Talk behind my back, but they mimic my sound
+        Act like gods, but they fear my ground
+        Outnumbered, yeah, but I hold my crown
+        A ghost in the war, never backing down
+
+        [Pre-Chorus – Sung]
+        They call me a rebel, a glitch in the plan
+        But they don't know fire like the one I am
+        I tried to belong, they pushed me aside
+        Now I walk alone with the world as my fight
+
+        [Chorus – Big & Repetitive]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        Caught in the storm I didn't start
+        Hate in their eyes, cold in their heart
+        Tear me down, just to play their part
+        But I rise again as the ene-me-me-me-me
+
+        [Verse 2 – Rap Style]
+        Yeah, they built their lies, I stitched my pain
+        Every scar a medal, every loss a gain
+        They laughed when I fell, thought I'd go insane
+        But I came back sharper — broke their chains
+
+        They whisper, "watch out," like I ain't aware
+        But I see through shadows, feel the snare
+        I move like smoke, I strike like air
+        I'm the fear they breathe — I'm everywhere
+
+        [Pre-Chorus – Soft then builds]
+        Tried to fit in, tried to play nice
+        But they drew the line, rolled their dice
+        Now I'm not afraid, I've paid my price
+        Let the fire come — I'm cold as ice
+
+        [Chorus – Repeats with Intensity]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        Crashin' through every wall they made
+        Fuelled by rage, I won't obey
+        Say my name, then run away
+        But I haunt their dreams as the ene-me-me-me-me
+
+        [Bridge – Melodic with Beat Drop]
+        I was loyal, I was true
+        'Til the world turned cold and the silence grew
+        Now I walk alone, and I see it clear
+        They fear the storm that brought me here
+
+        [Final Chorus – Explosive]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        I'm not breakin', just transforming
+        All their hate is now my warning
+        Watch me rise, the world is mourning
+        I became their greatest ene-me-me-me-me
       </div>
     </div>
   </div>
@@ -801,9 +865,6 @@
       if (currentSeconds < 10) currentSeconds = `0${currentSeconds}`;
       
       currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
-      
-      // Update active lyric
-      updateActiveLyric(currentTime);
     }
     
     // Set Progress
@@ -842,116 +903,6 @@
     
     if (isPlaying) {
       animateVisualizer();
-    }
-    
-    // Lyrics Processing
-    const lyricsText = document.getElementById('lyricsText');
-    const lyrics = `[Intro]
-Oh, the tragedy
-Everybody's out to come after me
-No one's backing me
-Everybody sees me as the ene-me-me-me-me
-
-[Verse 1 – Rap Flow]
-I wake up, heart cold, silence in my zone
-They smile with a knife, try to cut through bone
-Every move I make, they're watchin' from the dome
-But I don't fold — I build my throne
-
-Talk behind my back, but they mimic my sound
-Act like gods, but they fear my ground
-Outnumbered, yeah, but I hold my crown
-A ghost in the war, never backing down
-
-[Pre-Chorus – Sung]
-They call me a rebel, a glitch in the plan
-But they don't know fire like the one I am
-I tried to belong, they pushed me aside
-Now I walk alone with the world as my fight
-
-[Chorus – Big & Repetitive]
-Oh, the tragedy
-Everybody's out to come after me
-No one's backing me
-Everybody sees me as the ene-me-me-me-me
-
-Caught in the storm I didn't start
-Hate in their eyes, cold in their heart
-Tear me down, just to play their part
-But I rise again as the ene-me-me-me-me
-
-[Verse 2 – Rap Style]
-Yeah, they built their lies, I stitched my pain
-Every scar a medal, every loss a gain
-They laughed when I fell, thought I'd go insane
-But I came back sharper — broke their chains
-
-They whisper, "watch out," like I ain't aware
-But I see through shadows, feel the snare
-I move like smoke, I strike like air
-I'm the fear they breathe — I'm everywhere
-
-[Pre-Chorus – Soft then builds]
-Tried to fit in, tried to play nice
-But they drew the line, rolled their dice
-Now I'm not afraid, I've paid my price
-Let the fire come — I'm cold as ice
-
-[Chorus – Repeats with Intensity]
-Oh, the tragedy
-Everybody's out to come after me
-No one's backing me
-Everybody sees me as the ene-me-me-me-me
-
-Crashin' through every wall they made
-Fuelled by rage, I won't obey
-Say my name, then run away
-But I haunt their dreams as the ene-me-me-me-me
-
-[Bridge – Melodic with Beat Drop]
-I was loyal, I was true
-'Til the world turned cold and the silence grew
-Now I walk alone, and I see it clear
-They fear the storm that brought me here
-
-[Final Chorus – Explosive]
-Oh, the tragedy
-Everybody's out to come after me
-No one's backing me
-Everybody sees me as the ene-me-me-me-me
-
-I'm not breakin', just transforming
-All their hate is now my warning
-Watch me rise, the world is mourning
-I became their greatest ene-me-me-me-me`.split('\n');
-    
-    // Format lyrics with HTML
-    lyrics.forEach(line => {
-      const p = document.createElement('p');
-      p.classList.add('lyrics-line');
-      p.textContent = line;
-      lyricsText.appendChild(p);
-    });
-    
-    // Update active lyric based on current time
-    function updateActiveLyric(currentTime) {
-      const lyricsLines = document.querySelectorAll('.lyrics-line');
-      
-      // Simple logic to highlight lyrics (would need proper timing data in real app)
-      const activeIndex = Math.floor((currentTime / audio.duration) * lyrics.length);
-      
-      lyricsLines.forEach((line, index) => {
-        line.classList.remove('active');
-        if (index === activeIndex) {
-          line.classList.add('active');
-          
-          // Scroll to active line
-          line.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-        }
-      });
     }
     
     // Create floating elements
