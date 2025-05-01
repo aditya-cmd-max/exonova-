@@ -604,7 +604,150 @@
 
  <!--ALERT Start-->
 
+  <!-- Add this to your homepage where you want the link to appear -->
+<a href="https://your-song-page-url.com" class="song-link">
+  <div class="song-link-container">
+    <div class="song-link-icon">
+      <i class="fas fa-music"></i>
+    </div>
+    <div class="song-link-text">
+      <span class="song-link-title">Listen to Exopacito</span>
+      <span class="song-link-subtitle">The Fire Within</span>
+    </div>
+    <div class="song-link-arrow">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+</a>
+
+<style>
+  /* Song Link Styles */
+  .song-link {
+    display: inline-block;
+    text-decoration: none;
+    margin: 20px;
+    max-width: 300px;
+  }
   
+  .song-link-container {
+    display: flex;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255, 42, 42, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .song-link-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    transition: all 0.3s ease;
+  }
+  
+  .song-link:hover .song-link-container {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 42, 42, 0.2);
+    border-color: var(--primary);
+  }
+  
+  .song-link:hover .song-link-container::before {
+    width: 8px;
+  }
+  
+  .song-link-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 42, 42, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .song-link:hover .song-link-icon {
+    background: var(--primary);
+    transform: rotate(15deg) scale(1.1);
+  }
+  
+  .song-link-icon i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .song-link:hover .song-link-icon i {
+    color: white;
+  }
+  
+  .song-link-text {
+    flex: 1;
+  }
+  
+  .song-link-title {
+    display: block;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .song-link-subtitle {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  
+  .song-link:hover .song-link-title {
+    color: var(--primary);
+  }
+  
+  .song-link-arrow {
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+  
+  .song-link:hover .song-link-arrow {
+    color: var(--primary);
+    transform: translateX(5px);
+  }
+  
+  /* Animation */
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 42, 42, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); }
+  }
+  
+  .song-link.pulse {
+    animation: pulse-glow 2s infinite;
+  }
+</style>
+
+<script>
+  // Optional: Add pulse animation on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const songLink = document.querySelector('.song-link');
+    songLink.classList.add('pulse');
+    
+    setTimeout(() => {
+      songLink.classList.remove('pulse');
+    }, 4000);
+  });
+</script>
   <!--ALERT End-->
   
   
