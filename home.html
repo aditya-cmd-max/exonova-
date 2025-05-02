@@ -2637,7 +2637,7 @@
     --text: #ffffff;
     --text-secondary: #cccccc;
     --shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
   * {
@@ -2692,7 +2692,6 @@
   }
   
   .youtube-card-wrapper {
-    perspective: 1000px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -2711,43 +2710,12 @@
     width: 380px;
     position: relative;
     overflow: hidden;
-    transform-style: preserve-3d;
-    cursor: pointer;
-  }
-  
-  .youtube-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(76, 110, 245, 0.1) 0%, transparent 70%);
-    transform: rotate(30deg);
-    transition: var(--transition);
-    opacity: 0;
+    transform: translateY(0);
   }
   
   .youtube-card:hover {
-    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-  }
-  
-  .youtube-card:hover::before {
-    opacity: 1;
-    animation: shine 3s infinite;
-  }
-  
-  @keyframes shine {
-    0% {
-      transform: rotate(30deg) translate(-10%, -10%);
-    }
-    50% {
-      transform: rotate(30deg) translate(10%, 10%);
-    }
-    100% {
-      transform: rotate(30deg) translate(-10%, -10%);
-    }
   }
   
   .profile-img-container {
@@ -2765,39 +2733,12 @@
     transition: var(--transition);
     position: relative;
     z-index: 2;
-  }
-  
-  .profile-img-container::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, var(--primary), transparent);
-    z-index: 1;
-    opacity: 0;
-    transition: var(--transition);
+    box-shadow: 0 0 20px rgba(76, 110, 245, 0.3);
   }
   
   .youtube-card:hover .profile-img {
     transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(76, 110, 245, 0.5);
-  }
-  
-  .youtube-card:hover .profile-img-container::before {
-    opacity: 0.6;
-    animation: rotate 4s linear infinite;
-  }
-  
-  @keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    box-shadow: 0 0 30px rgba(76, 110, 245, 0.6);
   }
   
   .channel-name {
@@ -2808,10 +2749,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: var(--transition);
-  }
-  
-  .youtube-card:hover .channel-name {
-    letter-spacing: 0.5px;
   }
   
   .username {
@@ -2917,19 +2854,16 @@
     transform: translateY(-3px) scale(1.2);
   }
   
-  .pulse {
-    animation: pulse 2s infinite;
+  .glow {
+    animation: glow 3s ease-in-out infinite alternate;
   }
   
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(76, 110, 245, 0.7);
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px rgba(76, 110, 245, 0.5);
     }
-    70% {
-      box-shadow: 0 0 0 15px rgba(76, 110, 245, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(76, 110, 245, 0);
+    to {
+      box-shadow: 0 0 20px rgba(76, 110, 245, 0.8);
     }
   }
 </style>
@@ -2937,7 +2871,7 @@
 <div class="floating-icons" id="floating-icons"></div>
 
 <div class="youtube-card-wrapper">
-  <div class="youtube-card pulse">
+  <div class="youtube-card glow">
     <div class="profile-img-container">
       <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Profile Pic" class="profile-img">
     </div>
@@ -2983,27 +2917,6 @@
     
     floatingIconsContainer.appendChild(icon);
   }
-  
-  // Interactive cursor effect
-  document.addEventListener('mousemove', (e) => {
-    const card = document.querySelector('.youtube-card');
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const angleX = (y - centerY) / 20;
-    const angleY = (centerX - x) / 20;
-    
-    card.style.transform = `translateY(-10px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
-  });
-  
-  // Reset rotation when mouse leaves
-  document.querySelector('.youtube-card-wrapper').addEventListener('mouseleave', () => {
-    const card = document.querySelector('.youtube-card');
-    card.style.transform = 'translateY(-10px) rotateX(0deg) rotateY(0deg)';
-  });
 </script>
   
   <!-- End of YT -->
