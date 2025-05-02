@@ -2627,89 +2627,384 @@
  <!--Start of YT-->
 
 <style>
-
- 
- 
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+  
+  :root {
+    --primary: #4c6ef5;
+    --primary-hover: #5c7dfb;
+    --bg: #1f1f1f;
+    --text: #ffffff;
+    --text-secondary: #cccccc;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+  
+  .floating-icons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .floating-icon {
+    position: absolute;
+    color: rgba(76, 110, 245, 0.15);
+    font-size: 1.5rem;
+    animation: float 15s infinite linear;
+    opacity: 0;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
   .youtube-card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-}
-
-.youtube-card {
-  background-color: #1f1f1f;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
-  width: 320px;
-  position: relative;
-}
-
-.profile-img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #4c6ef5;
-  margin-bottom: 20px;
-}
-
-.channel-name {
-  font-size: 26px;
-  margin-bottom: 5px;
-}
-
-.username {
-  font-size: 14px;
-  color: #ccc;
-  margin-bottom: 20px;
-}
-
-.yt-stats {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 25px;
-  font-size: 15px;
-}
-
-.channel-btn {
-  display: inline-block;
-  padding: 12px 20px;
-  background-color: #4c6ef5;
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: bold;
-  transition: transform 0.3s ease, background-color 0.3s;
-}
-
-.channel-btn:hover {
-  background-color: #5c7dfb;
-  transform: scale(1.05);
-}
+    perspective: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .youtube-card {
+    background-color: var(--bg);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    width: 380px;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+  
+  .youtube-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(76, 110, 245, 0.1) 0%, transparent 70%);
+    transform: rotate(30deg);
+    transition: var(--transition);
+    opacity: 0;
+  }
+  
+  .youtube-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  }
+  
+  .youtube-card:hover::before {
+    opacity: 1;
+    animation: shine 3s infinite;
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: rotate(30deg) translate(-10%, -10%);
+    }
+    50% {
+      transform: rotate(30deg) translate(10%, 10%);
+    }
+    100% {
+      transform: rotate(30deg) translate(-10%, -10%);
+    }
+  }
+  
+  .profile-img-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+  }
+  
+  .profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary);
+    transition: var(--transition);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .profile-img-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), transparent);
+    z-index: 1;
+    opacity: 0;
+    transition: var(--transition);
+  }
+  
+  .youtube-card:hover .profile-img {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(76, 110, 245, 0.5);
+  }
+  
+  .youtube-card:hover .profile-img-container::before {
+    opacity: 0.6;
+    animation: rotate 4s linear infinite;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .channel-name {
+    font-size: 28px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    background: linear-gradient(to right, var(--primary), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition);
+  }
+  
+  .youtube-card:hover .channel-name {
+    letter-spacing: 0.5px;
+  }
+  
+  .username {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    transition: var(--transition);
+  }
+  
+  .youtube-card:hover .username {
+    color: #ffffff;
+  }
+  
+  .yt-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+  
+  .yt-stats span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition);
+  }
+  
+  .yt-stats strong {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 5px;
+    transition: var(--transition);
+  }
+  
+  .youtube-card:hover .yt-stats strong {
+    transform: scale(1.1);
+  }
+  
+  .channel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 15px rgba(76, 110, 245, 0.4);
+  }
+  
+  .channel-btn i {
+    margin-left: 8px;
+    transition: var(--transition);
+  }
+  
+  .channel-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(76, 110, 245, 0.6);
+  }
+  
+  .channel-btn:hover i {
+    transform: translateX(3px);
+  }
+  
+  .channel-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .channel-btn:hover::before {
+    left: 100%;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  
+  .social-link {
+    color: var(--text-secondary);
+    font-size: 20px;
+    transition: var(--transition);
+  }
+  
+  .social-link:hover {
+    color: var(--primary);
+    transform: translateY(-3px) scale(1.2);
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(76, 110, 245, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(76, 110, 245, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(76, 110, 245, 0);
+    }
+  }
 </style>
-  
-  
-  
-  
-  <div class="youtube-card-wrapper">
-  <div class="youtube-card" data-aos="fade-up">
-    <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Profile Pic" class="profile-img">
+
+<div class="floating-icons" id="floating-icons"></div>
+
+<div class="youtube-card-wrapper">
+  <div class="youtube-card pulse">
+    <div class="profile-img-container">
+      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Profile Pic" class="profile-img">
+    </div>
     <h2 class="channel-name">Exonova-Aditya Jha</h2>
     <p class="username">@Exonovaaditya-1104</p>
     <div class="yt-stats">
       <span><strong>08</strong> Subscribers</span>
       <span><strong>5</strong> Videos</span>
     </div>
-    <a href="https://youtube.com/@Exonovaaditya-1104" target="_blank" class="channel-btn">View Channel</a>
+    <a href="https://youtube.com/@Exonovaaditya-1104" target="_blank" class="channel-btn">
+      View Channel <i class="fab fa-youtube"></i>
+    </a>
+    <div class="social-links">
+      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+    </div>
   </div>
 </div>
 
+<script>
+  // Create floating icons
+  const floatingIconsContainer = document.getElementById('floating-icons');
+  const icons = ['fa-heart', 'fa-star', 'fa-thumbs-up', 'fa-youtube', 'fa-bolt', 'fa-music'];
+  
+  for (let i = 0; i < 30; i++) {
+    const icon = document.createElement('i');
+    icon.className = `floating-icon fas ${icons[Math.floor(Math.random() * icons.length)]}`;
+    
+    // Random position
+    icon.style.left = `${Math.random() * 100}%`;
+    icon.style.top = `${Math.random() * 100}%`;
+    
+    // Random animation duration and delay
+    const duration = 15 + Math.random() * 15;
+    const delay = Math.random() * 10;
+    icon.style.animation = `float ${duration}s ${delay}s infinite linear`;
+    
+    // Random size
+    const size = 0.5 + Math.random() * 2;
+    icon.style.fontSize = `${size}rem`;
+    
+    floatingIconsContainer.appendChild(icon);
+  }
+  
+  // Interactive cursor effect
+  document.addEventListener('mousemove', (e) => {
+    const card = document.querySelector('.youtube-card');
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const angleX = (y - centerY) / 20;
+    const angleY = (centerX - x) / 20;
+    
+    card.style.transform = `translateY(-10px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+  });
+  
+  // Reset rotation when mouse leaves
+  document.querySelector('.youtube-card-wrapper').addEventListener('mouseleave', () => {
+    const card = document.querySelector('.youtube-card');
+    card.style.transform = 'translateY(-10px) rotateX(0deg) rotateY(0deg)';
+  });
+</script>
   
   <!-- End of YT -->
   
