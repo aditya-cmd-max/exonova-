@@ -1,360 +1,940 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Exonova Sign In</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-   <!-- Link to Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-  <!-- Link to GSAP for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXOPACITO | The Fire Within | Exonova Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #ff2a2a;
+      --primary-dark: #cc0000;
+      --primary-light: #ff6666;
+      --secondary: #00a8ff;
+      --dark: #0a0a0a;
+      --darker: #050505;
+      --light: #f5f5f5;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+    }
+    
     * {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
+    }
+    
+    body {
       font-family: 'Poppins', sans-serif;
-    }
-
-    body, html {
-      height: 100%;
+      background: var(--darker);
+      color: var(--text-primary);
       overflow-x: hidden;
-      background-color: #0e0e0e;
+      min-height: 100vh;
+      position: relative;
     }
-
-    canvas {
+    
+    /* Particle Fire Background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+    }
+    
+    /* Glow Effect */
+    .glow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      filter: blur(60px);
+      opacity: 0.3;
+      z-index: -1;
+      animation: float 15s infinite ease-in-out;
+    }
+    
+    .glow:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .glow:nth-child(2) {
+      top: 60%;
+      left: 70%;
+      animation-delay: 3s;
+    }
+    
+    .glow:nth-child(3) {
+      top: 30%;
+      left: 50%;
+      animation-delay: 6s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-50px) translateX(30px); }
+    }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 0.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px rgba(255, 42, 42, 0.3);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+    
+    .tagline {
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      margin-top: 0.5rem;
+    }
+    
+    /* Main Container */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    @media (max-width: 900px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Album Art */
+    .album-container {
+      position: relative;
+      perspective: 1000px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .album-art {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(255, 42, 42, 0.25);
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1/1;
+    }
+    
+    .album-art:hover {
+      transform: rotateY(10deg) rotateX(5deg) scale(1.03);
+      box-shadow: 0 35px 60px -12px rgba(255, 42, 42, 0.4);
+    }
+    
+    .album-art::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
-      z-index: -1;
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      padding: 5vw 5vw;
-      min-height: 100vh;
-      gap: 30px;
-      background: url('https://img.freepik.com/free-vector/futuristic-background-design_23-2148503793.jpg') center/cover no-repeat;
-      backdrop-filter: blur(6px);
-      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 42, 42, 0.1) 0%, transparent 50%);
       z-index: 1;
-      animation: fadeIn 2s ease-in-out;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .left {
-      color: white;
-      max-width: 500px;
-      flex: 1 1 300px;
-      text-align: center;
-    }
-
-    .left h1 {
-      font-size: 2.5em;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .left p {
-      margin-top: 10px;
-      font-size: 1em;
-      padding: 0 10px;
-    }
-
-    .left .socials {
-      margin-top: 20px;
-    }
-
-    .left .socials i {
-      font-size: 1.3em;
-      margin: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .left .socials i:hover {
-      color: orange;
-    }
-
-    .signin-form {
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 95, 109, 0.5);
+    
+    .album-art img {
       width: 100%;
-      max-width: 400px;
-      animation: floatBox 3s ease infinite alternate;
-      flex: 1 1 300px;
-    }
-
-    @keyframes floatBox {
-      to { transform: translateY(10px); }
-    }
-
-    .signin-form h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-weight: 600;
-      color: #1e1e1e;
-    }
-
-    .signin-form input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #f1f1f1;
-    }
-
-    .signin-form label {
-      font-size: 0.9em;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      margin-bottom: 8px;
     }
-
-    .btn, .google-btn {
-      width: 100%;
-      padding: 12px;
+    
+    /* Player Controls */
+    .player-section {
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    
+    .refresh-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
       border: none;
-      font-weight: bold;
-      border-radius: 10px;
+      color: var(--text-secondary);
+      font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.2s ease;
     }
-
-    .btn {
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
-      color: white;
-      margin-top: 10px;
+    
+    .refresh-btn:hover {
+      color: var(--primary);
+      transform: rotate(180deg);
     }
-
-    .btn:hover, .google-btn:hover {
-      transform: scale(1.05);
+    
+    .song-info {
+      margin-bottom: 2rem;
+      text-align: center;
     }
-
-    .google-btn {
+    
+    .song-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.3);
+    }
+    
+    .artist-name {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin: 2rem 0;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+      width: 0%;
+      position: relative;
+      transition: width 0.1s linear;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
       background: white;
-      border: 1px solid #ddd;
-      color: #333;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .progress-container:hover .progress-bar::after {
+      opacity: 1;
+    }
+    
+    .time-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .control-btn {
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .control-btn:hover {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+    
+    .control-btn.play-pause {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      width: 60px;
+      height: 60px;
+      box-shadow: 0 5px 15px rgba(255, 42, 42, 0.4);
+    }
+    
+    .control-btn.play-pause:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 42, 42, 0.6);
+    }
+    
+    .volume-control {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-top: 10px;
+      gap: 0.5rem;
+      margin-top: 1rem;
     }
-
-    .google-btn i {
-      margin-right: 10px;
-      color: #4285F4;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 0.8em;
-      margin-top: 15px;
-      color: #555;
-    }
-
-    .signup-link {
-      text-align: center;
-      margin-top: 12px;
-      font-size: 0.9em;
-    }
-
-    .signup-link a {
-      color: #ff5f6d;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .signup-link a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 20px 10px;
-        text-align: center;
-      }
-
-      .left h1 {
-        font-size: 2em;
-      }
-
-      .left p {
-        font-size: 0.95em;
-      }
-
-      .signin-form {
-        width: 90%;
-        padding: 20px;
-      }
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 13px;
-      color: #555;
-    }
-
-
-
- 
- .back-button { position: fixed; top: 30px; left: 30px; padding: 12px 20px; background-color: #1e1e1e; color: #ffffff; border-radius: 8px; font-size: 16px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; z-index: 999; border: 2px solid transparent; } .back-button:hover { background-color: #ffffff; color: #1e1e1e; border-color: #1e1e1e; transform: scale(1.05); box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4); } .back-button span { margin-right: 6px; font-weight: bold; font-size: 18px; }
     
+    .volume-slider {
+      width: 100px;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      outline: none;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    /* Lyrics Section */
+    .lyrics-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    
+    .lyrics-box {
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      max-height: 400px;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    
+    .lyrics-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), transparent);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 20px 20px 0 0;
+    }
+    
+    .lyrics-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 0 0 20px 20px;
+    }
+    
+    .lyrics-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .lyrics-box::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .lyrics-box::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .lyrics-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-align: center;
+    }
+    
+    .lyrics-text {
+      white-space: pre-wrap;
+      line-height: 2;
+      font-size: 1rem;
+      color: var(--text-primary);
+      text-align: center;
+      padding: 1rem 0;
+    }
+    
+    /* Visualizer */
+    .visualizer {
+      width: 100%;
+      height: 100px;
+      margin: 2rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .visualizer-bar {
+      width: 6px;
+      height: 20px;
+      background: linear-gradient(to top, var(--primary), var(--secondary));
+      border-radius: 3px;
+      animation: visualizer-animation 1.5s infinite ease-in-out;
+    }
+    
+    @keyframes visualizer-animation {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1.5); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+      
+      .song-title {
+        font-size: 1.5rem;
+      }
+      
+      .controls {
+        gap: 1rem;
+      }
+      
+      .control-btn {
+        font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
+      }
+      
+      .control-btn.play-pause {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    /* Animated Background Elements */
+    .floating-element {
+      position: fixed;
+      background: rgba(255, 42, 42, 0.05);
+      border: 1px solid rgba(255, 42, 42, 0.1);
+      border-radius: 50%;
+      z-index: -1;
+      animation: float-element 20s infinite linear;
+    }
+    
+    @keyframes float-element {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, 50px) rotate(90deg); }
+      50% { transform: translate(100px, 0) rotate(180deg); }
+      75% { transform: translate(50px, -50px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
   </style>
 </head>
 <body>
-
-<canvas id="bgCanvas"></canvas>
-
-<!-- BAck Button-->
+  <!-- Animated Background Elements -->
+  <div id="particles-js"></div>
+  <div class="glow"></div>
+  <div class="glow"></div>
+  <div class="glow"></div>
   
-
-    <a href="home.html" class="back-button">   <span>&larr;</span> Back to Home </a>
+  <!-- Header -->
+  <header>
+    <div class="logo">Oh, the Tragedy</div>
+    <div class="tagline">THE FIRE WITHIN • EXONOVA MUSIC</div>
+  </header>
   
-  
-  <div class="container">
-  <div class="left">
-    <h1>Welcome Back to <span style="color: #ffcf4d;">Exonova</span></h1>
-    <p>Your gateway to premium education. Learn smart, stay ahead.</p>
-    <div class="socials">
-      <i class="fab fa-facebook-f" style="color:white;"></i>
-      <i class="fab fa-twitter" style="color:white;"></i>
-      <i class="fab fa-instagram" style="color:white;"></i>
-      <i class="fab fa-youtube" style="color:white;"></i>
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Album Art -->
+    <div class="album-container">
+      <div class="album-art">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Exopacito Album Art">
+      </div>
+    </div>
+    
+    <!-- Player Controls -->
+    <div class="player-section">
+      <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i></button>
+      <div class="song-info">
+        <h1 class="song-title">Exopacito</h1>
+        <p class="artist-name">Exonova</p>
+      </div>
+      
+      <!-- Visualizer -->
+      <div class="visualizer">
+        <div class="visualizer-bar" style="animation-delay: 0s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.1s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.2s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.3s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.4s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.5s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.6s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.7s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.8s"></div>
+        <div class="visualizer-bar" style="animation-delay: 0.9s"></div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="time-info">
+        <span id="currentTime">0:00</span>
+        <span id="duration">3:45</span>
+      </div>
+      
+      <!-- Controls -->
+      <div class="controls">
+        <button class="control-btn" id="shuffleBtn"><i class="fas fa-random"></i></button>
+        <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+        <button class="control-btn play-pause" id="playPauseBtn"><i class="fas fa-play" id="playPauseIcon"></i></button>
+        <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
+        <button class="control-btn" id="repeatBtn"><i class="fas fa-redo"></i></button>
+      </div>
+      
+      <!-- Volume Control -->
+      <div class="volume-control">
+        <i class="fas fa-volume-down"></i>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+        <i class="fas fa-volume-up"></i>
+      </div>
     </div>
   </div>
-
-  <div class="signin-form">
-    <h2>Sign In</h2>
-    <label for="email">Email Address</label>
-    <input type="email" id="email" placeholder="Enter Email" required />
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Enter Password" required />
-    <button class="btn" onclick="signInEmail()">Sign In Now</button>
-    <button class="google-btn" onclick="signInWithGoogle()"><i class="fab fa-google"></i>Continue with Google</button>
-
-    <div class="signup-link">
-      Don’t have an account? <a href="signup.html">Sign Up</a>
-    </div>
-    <div class="footer">
-      By signing in you agree to our <br />
-      <a href="tos.html">Terms of Service</a> & <a href="privacypolicy.html">Privacy Policy</a>
-    </div>
-  <div class="footer">
-      🔐 Secure & Educational Login – Exonova &copy; 2025
-    </div>
   
+  <!-- Lyrics Section -->
+  <div class="lyrics-container">
+    <div class="lyrics-box">
+      <h2 class="lyrics-title">LYRICS</h2>
+      <div class="lyrics-text" id="lyricsText">
+        [Intro]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        [Verse 1 – Rap Flow]
+        I wake up, heart cold, silence in my zone
+        They smile with a knife, try to cut through bone
+        Every move I make, they're watchin' from the dome
+        But I don't fold — I build my throne
+
+        Talk behind my back, but they mimic my sound
+        Act like gods, but they fear my ground
+        Outnumbered, yeah, but I hold my crown
+        A ghost in the war, never backing down
+
+        [Pre-Chorus – Sung]
+        They call me a rebel, a glitch in the plan
+        But they don't know fire like the one I am
+        I tried to belong, they pushed me aside
+        Now I walk alone with the world as my fight
+
+        [Chorus – Big & Repetitive]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        Caught in the storm I didn't start
+        Hate in their eyes, cold in their heart
+        Tear me down, just to play their part
+        But I rise again as the ene-me-me-me-me
+
+        [Verse 2 – Rap Style]
+        Yeah, they built their lies, I stitched my pain
+        Every scar a medal, every loss a gain
+        They laughed when I fell, thought I'd go insane
+        But I came back sharper — broke their chains
+
+        They whisper, "watch out," like I ain't aware
+        But I see through shadows, feel the snare
+        I move like smoke, I strike like air
+        I'm the fear they breathe — I'm everywhere
+
+        [Pre-Chorus – Soft then builds]
+        Tried to fit in, tried to play nice
+        But they drew the line, rolled their dice
+        Now I'm not afraid, I've paid my price
+        Let the fire come — I'm cold as ice
+
+        [Chorus – Repeats with Intensity]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        Crashin' through every wall they made
+        Fuelled by rage, I won't obey
+        Say my name, then run away
+        But I haunt their dreams as the ene-me-me-me-me
+
+        [Bridge – Melodic with Beat Drop]
+        I was loyal, I was true
+        'Til the world turned cold and the silence grew
+        Now I walk alone, and I see it clear
+        They fear the storm that brought me here
+
+        [Final Chorus – Explosive]
+        Oh, the tragedy
+        Everybody's out to come after me
+        No one's backing me
+        Everybody sees me as the ene-me-me-me-me
+
+        I'm not breakin', just transforming
+        All their hate is now my warning
+        Watch me rise, the world is mourning
+        I became their greatest ene-me-me-me-me
+      </div>
+    </div>
   </div>
-</div>
-
-<!-- Firebase SDKs -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
-  authDomain: "exonova-cd89c.firebaseapp.com",
-  projectId: "exonova-cd89c",
-  storageBucket: "exonova-cd89c.firebasestorage.app",
-  messagingSenderId: "465326262278",
-  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
-  measurementId: "G-GGG45V0PEF"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  window.signInEmail = function () {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        alert("Signed in successfully!");
-        console.log(userCredential.user);
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-      });
-  };
-
- 
-
   
+  <!-- Footer -->
+  <footer>
+    <p>© 2023 EXONOVA MUSIC. ALL RIGHTS RESERVED.</p>
+    <div class="social-links">
+      <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-apple"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
   
-  
-  window.signInWithGoogle = function () {
-    signInWithPopup(auth, provider)
-      .then(result => {
-        alert("Signed in with Google!");
-        console.log(result.user);
-      })
-      .catch(error => {
-        alert("Google Sign-In Failed: " + error.message);
-      });
-  };
-</script>
-
-<!-- Canvas BG Script -->
-<script>
-  gsap.from(".left h1", { opacity: 0, x: -100, duration: 1 });
-  gsap.from(".left p", { opacity: 0, x: -100, duration: 1.5 });
-  gsap.from(".signin-form", { opacity: 0, y: 100, duration: 1.2 });
-
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const particles = [];
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 2 + 1,
-      dx: Math.random() * 0.5,
-      dy: Math.random() * 0.5,
-      color: "rgba(255,255,255,0.5)"
-    };
-  }
-
-  for (let i = 0; i < 100; i++) {
-    particles.push(createParticle());
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y > canvas.height) p.y = 0;
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ff2a2a"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ff2a2a",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 0.5
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+    
+    // Audio Player Functionality
+    const audio = new Audio('Oh, the tragedy.mp3');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const visualizerBars = document.querySelectorAll('.visualizer-bar');
+    const refreshBtn = document.getElementById('refreshBtn');
+    
+    // Check if playing
+    let isPlaying = false;
+    
+    // Play/Pause
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+        playPauseIcon.classList.remove('fa-pause');
+        playPauseIcon.classList.add('fa-play');
+      } else {
+        audio.play();
+        playPauseIcon.classList.remove('fa-play');
+        playPauseIcon.classList.add('fa-pause');
+      }
+      isPlaying = !isPlaying;
     }
-    requestAnimationFrame(drawParticles);
-  }
-
-  drawParticles();
-</script>
+    
+    playPauseBtn.addEventListener('click', togglePlay);
+    
+    // Update Progress Bar
+    function updateProgress(e) {
+      const { duration, currentTime } = e.srcElement;
+      const progressPercent = (currentTime / duration) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+      
+      // Update time display
+      const durationMinutes = Math.floor(duration / 60);
+      let durationSeconds = Math.floor(duration % 60);
+      if (durationSeconds < 10) durationSeconds = `0${durationSeconds}`;
+      
+      if (duration) {
+        durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+      }
+      
+      const currentMinutes = Math.floor(currentTime / 60);
+      let currentSeconds = Math.floor(currentTime % 60);
+      if (currentSeconds < 10) currentSeconds = `0${currentSeconds}`;
+      
+      currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+    }
+    
+    // Set Progress
+    function setProgress(e) {
+      const width = this.clientWidth;
+      const clickX = e.offsetX;
+      const duration = audio.duration;
+      audio.currentTime = (clickX / width) * duration;
+    }
+    
+    // Volume Control
+    function setVolume() {
+      audio.volume = this.value;
+    }
+    
+    // Refresh Button
+    function refreshPlayer() {
+      // Restart the song
+      audio.currentTime = 0;
+      
+      // If not playing, start playing
+      if (!isPlaying) {
+        audio.play();
+        playPauseIcon.classList.remove('fa-play');
+        playPauseIcon.classList.add('fa-pause');
+        isPlaying = true;
+      }
+      
+      // Add visual feedback
+      refreshBtn.style.transform = 'rotate(360deg)';
+      setTimeout(() => {
+        refreshBtn.style.transform = 'rotate(0)';
+      }, 300);
+    }
+    
+    // Event Listeners
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', () => {
+      playPauseIcon.classList.remove('fa-pause');
+      playPauseIcon.classList.add('fa-play');
+      isPlaying = false;
+    });
+    progressContainer.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', setVolume);
+    refreshBtn.addEventListener('click', refreshPlayer);
+    
+    // Visualizer Animation
+    function animateVisualizer() {
+      visualizerBars.forEach((bar, i) => {
+        const randomHeight = Math.random() * 0.7 + 0.3;
+        bar.style.transform = `scaleY(${randomHeight})`;
+        bar.style.opacity = randomHeight;
+      });
+      
+      requestAnimationFrame(animateVisualizer);
+    }
+    
+    if (isPlaying) {
+      animateVisualizer();
+    }
+    
+    // Create floating elements
+    function createFloatingElements() {
+      for (let i = 0; i < 10; i++) {
+        const element = document.createElement('div');
+        element.classList.add('floating-element');
+        
+        // Random size and position
+        const size = Math.random() * 100 + 50;
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+        element.style.left = `${Math.random() * 100}vw`;
+        element.style.top = `${Math.random() * 100}vh`;
+        
+        // Random animation duration and delay
+        element.style.animationDuration = `${Math.random() * 30 + 20}s`;
+        element.style.animationDelay = `${Math.random() * 10}s`;
+        
+        document.body.appendChild(element);
+      }
+    }
+    
+    createFloatingElements();
+  </script>
 </body>
 </html>
