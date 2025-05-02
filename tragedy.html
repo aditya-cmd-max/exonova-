@@ -187,38 +187,6 @@
       display: block;
     }
     
-    .vinyl {
-      position: absolute;
-      width: 40%;
-      height: 40%;
-      background: radial-gradient(circle, #111 30%, #000 70%);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.5s ease;
-    }
-    
-    .vinyl::before {
-      content: '';
-      position: absolute;
-      width: 15%;
-      height: 15%;
-      background: #333;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .album-container:hover .vinyl {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-    
     /* Player Controls */
     .player-section {
       background: rgba(10, 10, 10, 0.7);
@@ -227,6 +195,24 @@
       padding: 2rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    
+    .refresh-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .refresh-btn:hover {
+      color: var(--primary);
+      transform: rotate(180deg);
     }
     
     .song-info {
@@ -553,13 +539,13 @@
     <!-- Album Art -->
     <div class="album-container">
       <div class="album-art">
-        <img src="Gradient Colorful Minimalist Coming  Soon Banner.png" alt="Exopacito Album Art">
-        <div class="vinyl"></div>
+        <img src="https://aditya-cmd-max.github.io/exonova-/tragedybanner.png" alt="Exopacito Album Art">
       </div>
     </div>
     
     <!-- Player Controls -->
     <div class="player-section">
+      <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i></button>
       <div class="song-info">
         <h1 class="song-title">Exopacito</h1>
         <p class="artist-name">Exonova</p>
@@ -825,6 +811,7 @@
     const durationEl = document.getElementById('duration');
     const volumeSlider = document.getElementById('volumeSlider');
     const visualizerBars = document.querySelectorAll('.visualizer-bar');
+    const refreshBtn = document.getElementById('refreshBtn');
     
     // Check if playing
     let isPlaying = false;
@@ -880,6 +867,26 @@
       audio.volume = this.value;
     }
     
+    // Refresh Button
+    function refreshPlayer() {
+      // Restart the song
+      audio.currentTime = 0;
+      
+      // If not playing, start playing
+      if (!isPlaying) {
+        audio.play();
+        playPauseIcon.classList.remove('fa-play');
+        playPauseIcon.classList.add('fa-pause');
+        isPlaying = true;
+      }
+      
+      // Add visual feedback
+      refreshBtn.style.transform = 'rotate(360deg)';
+      setTimeout(() => {
+        refreshBtn.style.transform = 'rotate(0)';
+      }, 300);
+    }
+    
     // Event Listeners
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', () => {
@@ -889,6 +896,7 @@
     });
     progressContainer.addEventListener('click', setProgress);
     volumeSlider.addEventListener('input', setVolume);
+    refreshBtn.addEventListener('click', refreshPlayer);
     
     // Visualizer Animation
     function animateVisualizer() {
