@@ -3081,7 +3081,7 @@
 
 <!--BELL start-->
 
-  <style>
+   <style>
         :root {
             --primary-accent: #4361ee;
             --blog-color: #3a86ff;
@@ -3094,7 +3094,7 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Bell Icon Button */
+        /* Floating Notification Bell */
         .updates-bell {
             position: fixed;
             bottom: 30px;
@@ -3111,7 +3111,7 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            z-index: 999;
+            z-index: 1000;
             transition: var(--transition);
         }
 
@@ -3149,7 +3149,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 999;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -3410,13 +3410,13 @@
     </style>
 </head>
 <body>
-    <!-- Floating Notification Bell -->
+    <!-- Floating Notification Bell (Fixed Position) -->
     <button class="updates-bell" id="updatesBell">
         <i class="fas fa-bell"></i>
         <span class="notification-badge">3</span>
     </button>
 
-    <!-- Updates Popup (hidden by default) -->
+    <!-- Updates Popup -->
     <div class="updates-popup" id="updatesPopup">
         <div class="updates-container">
             <button class="close-btn" id="closePopup">
@@ -3500,11 +3500,12 @@
             const updateItems = document.querySelectorAll('.update-item');
             
             // Toggle popup
-            bell.addEventListener('click', function() {
-                popup.classList.toggle('active');
-                document.body.style.overflow = popup.classList.contains('active') ? 'hidden' : '';
+            bell.addEventListener('click', function(e) {
+                e.stopPropagation();
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 
-                // Mark as read (remove badge)
+                // Mark as read
                 const badge = this.querySelector('.notification-badge');
                 if (badge) badge.style.display = 'none';
             });
@@ -3517,7 +3518,7 @@
             
             // Close when clicking outside
             popup.addEventListener('click', function(e) {
-                if (e.target === popup) {
+                if (e.target === this) {
                     popup.classList.remove('active');
                     document.body.style.overflow = '';
                 }
@@ -3537,26 +3538,19 @@
             // Filter functionality
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
                     categoryBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
                     this.classList.add('active');
                     
                     const filter = this.dataset.filter;
-                    
                     updateItems.forEach(item => {
-                        if (filter === 'all' || item.dataset.category === filter) {
-                            item.style.display = 'flex';
-                        } else {
-                            item.style.display = 'none';
-                        }
+                        item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'flex' : 'none';
                     });
                 });
             });
             
             // Initialize relative times
             updateRelativeTimes();
-            setInterval(updateRelativeTimes, 60000); // Update every minute
+            setInterval(updateRelativeTimes, 60000);
             
             // ESC key closes popup
             document.addEventListener('keydown', function(e) {
@@ -3573,40 +3567,25 @@
                 const timestamp = element.getAttribute('data-timestamp');
                 const postTime = new Date(timestamp);
                 const now = new Date();
-                
                 const seconds = Math.floor((now - postTime) / 1000);
                 
-                let interval = Math.floor(seconds / 31536000);
-                if (interval >= 1) {
-                    element.textContent = `${interval} year${interval === 1 ? '' : 's'} ago`;
-                    return;
+                let interval, text;
+                
+                if ((interval = Math.floor(seconds / 31536000)) >= 1) {
+                    text = `${interval} year${interval === 1 ? '' : 's'} ago`;
+                } else if ((interval = Math.floor(seconds / 2592000)) >= 1) {
+                    text = `${interval} month${interval === 1 ? '' : 's'} ago`;
+                } else if ((interval = Math.floor(seconds / 86400)) >= 1) {
+                    text = `${interval} day${interval === 1 ? '' : 's'} ago`;
+                } else if ((interval = Math.floor(seconds / 3600)) >= 1) {
+                    text = `${interval} hour${interval === 1 ? '' : 's'} ago`;
+                } else if ((interval = Math.floor(seconds / 60)) >= 1) {
+                    text = `${interval} minute${interval === 1 ? '' : 's'} ago`;
+                } else {
+                    text = 'Just now';
                 }
                 
-                interval = Math.floor(seconds / 2592000);
-                if (interval >= 1) {
-                    element.textContent = `${interval} month${interval === 1 ? '' : 's'} ago`;
-                    return;
-                }
-                
-                interval = Math.floor(seconds / 86400);
-                if (interval >= 1) {
-                    element.textContent = `${interval} day${interval === 1 ? '' : 's'} ago`;
-                    return;
-                }
-                
-                interval = Math.floor(seconds / 3600);
-                if (interval >= 1) {
-                    element.textContent = `${interval} hour${interval === 1 ? '' : 's'} ago`;
-                    return;
-                }
-                
-                interval = Math.floor(seconds / 60);
-                if (interval >= 1) {
-                    element.textContent = `${interval} minute${interval === 1 ? '' : 's'} ago`;
-                    return;
-                }
-                
-                element.textContent = `Just now`;
+                element.textContent = text;
             });
         }
     </script>
