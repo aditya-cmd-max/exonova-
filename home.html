@@ -3252,203 +3252,341 @@
 <!--Major Footer Start-->
 
 
-    <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+   <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
 
-    body {
-      background: linear-gradient(145deg, #111827, #0f172a);
-      color: white;
-      overflow-x: hidden;
-    }
+  body {
+    background: linear-gradient(145deg, #111827, #0f172a);
+    color: white;
+    overflow-x: hidden;
+  }
 
+  .footer {
+    padding: 70px 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px 30px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 75% 25%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .footer-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(90deg, #ffffff, #38bdf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .footer h1 img {
+    height: 50px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  .footer h1:hover img {
+    transform: rotate(10deg) scale(1.1);
+  }
+
+  .footer-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+
+  .footer-contact a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .footer-contact a:hover {
+    color: #38bdf8;
+    transform: translateY(-2px);
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-column h4 {
+    margin-bottom: 20px;
+    color: #f97316;
+    font-weight: 600;
+    font-size: 1.2rem;
+    position: relative;
+    padding-bottom: 8px;
+  }
+
+  .footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #f97316, transparent);
+  }
+
+  .footer-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-column ul li {
+    list-style: none;
+  }
+
+  .footer-column ul li a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-column ul li a::before {
+    content: '→';
+    color: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .footer-column ul li a:hover {
+    color: #38bdf8;
+    transform: translateX(5px);
+  }
+
+  .footer-column ul li a:hover::before {
+    color: #38bdf8;
+  }
+
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .footer-social a:hover {
+    background: #38bdf8;
+    color: #0f172a;
+    transform: translateY(-5px) scale(1.1);
+  }
+
+  .footer-bottom {
+    width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @media(max-width: 768px) {
     .footer {
-      padding: 50px 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 50px 20px 30px;
       gap: 40px;
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px 20px 0 0;
-      animation: fadeIn 2s ease-in-out;
     }
-
-    .footer h1 {
-      font-size: 32px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer h1 img {
-      height: 40px;
-      border-radius: 10px;
-    }
-
+    
     .footer-columns {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 60px;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
     }
+    
+    .footer h1 {
+      font-size: 2rem;
+    }
+  }
 
+  @media(max-width: 480px) {
+    .footer-columns {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
     .footer-column {
-      min-width: 180px;
+      align-items: center;
+      text-align: center;
     }
-
-    .footer-column h4 {
-      margin-bottom: 20px;
-      color: #f97316;
-      font-weight: 600;
+    
+    .footer-column h4::after {
+      left: 50%;
+      transform: translateX(-50%);
     }
+  }
+</style>
 
-    .footer-column ul li {
-      list-style: none;
-      margin-bottom: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .footer-column ul li a {
-      text-decoration: none;
-      color: white;
-      transition: color 0.3s;
-    }
-
-    .footer-column ul li:hover {
-      transform: translateX(5px);
-    }
-
-    .footer-column ul li a:hover {
-      color: #38bdf8;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 15px;
-    }
-
-    .social-icons a {
-      color: white;
-      font-size: 20px;
-      transition: 0.3s;
-    }
-
-    .social-icons a:hover {
-      color: #facc15;
-      transform: scale(1.2);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    html, body {
-      cursor: url('https://aditya-cmd-max.github.io/exonova-/exonova-logo.png'), auto;
-    }
-
-    @media(max-width: 768px) {
-      .footer-columns {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <footer class="footer" data-aos="fade-up">
+<footer class="footer">
+  <div class="footer-header">
     <h1>
       <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
-      Exonova by Aditya Jha
+      Exonova
     </h1>
-
-    
-    
-    <div style="text-align: center; font-size: 16px; margin-top: 10px;">
-  <i class="fas fa-envelope" style="color: #38bdf8; margin-right: 8px;"></i>
-  <a href="exonova1104@gmail.com" style="color: white; text-decoration: none;">
-    exonova1104@gmail.com
-  </a>
-</div>
-
-    
-    
-    
-    
-    
-    
-    
-    <div class="footer-columns">
-      <div class="footer-column">
-        <h4>RESOURCES</h4>
-        <ul>
-          <li><a href="blogs.html">Exonova Blog</a></li>
-          <li><a href="facts.html">Scientific Facts</a></li>
-          <li><a href="about.html">About Us</a></li>
-         
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>PRICING</h4>
-        <ul>
-          <li><a href="whatwewilloffer">What we Offer</a></li>
-          <li><a href="comingplans">Coming Plans</a></li>
-          <li><a href="newfeatures">New Features</a></li>
-          <li><a href="promotions">Promotions</a></li>
-              <li><a href="suggestions">Suggestions</a></li>
-           <li><a href="freebooks">Freebooks</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>COMPANY</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="blogs.html">Blog</a></li>
-          <li><a href="studynova">Studynova</a></li>
-          
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>SOCIAL</h4>
-        <ul>
-          <li><a href="https://www.youtube.com/@Exonovaaditya-1104">YouTube</a></li>
-          <li><a href="#">Twitter</a></li>
-       
-        </ul>
-      </div>
+    <div class="footer-contact">
+      <a href="mailto:exonova1104@gmail.com">
+        <i class="fas fa-envelope"></i>
+        exonova1104@gmail.com
+      </a>
     </div>
+  </div>
 
-    <div class="social-icons">
-      
-     
+  <div class="footer-columns">
+    <div class="footer-column">
+      <h4>RESOURCES</h4>
+      <ul>
+        <li><a href="blogs.html"><i class="fas fa-blog"></i> Exonova Blog</a></li>
+        <li><a href="facts.html"><i class="fas fa-flask"></i> Scientific Facts</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      </ul>
     </div>
-  </footer>
+    
+    <div class="footer-column">
+      <h4>PRICING</h4>
+      <ul>
+        <li><a href="whatwewilloffer"><i class="fas fa-gift"></i> What we Offer</a></li>
+        <li><a href="comingplans"><i class="fas fa-calendar-alt"></i> Coming Plans</a></li>
+        <li><a href="newfeatures"><i class="fas fa-star"></i> New Features</a></li>
+        <li><a href="promotions"><i class="fas fa-tag"></i> Promotions</a></li>
+        <li><a href="suggestions"><i class="fas fa-lightbulb"></i> Suggestions</a></li>
+        <li><a href="freebooks"><i class="fas fa-book-open"></i> Freebooks</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>COMPANY</h4>
+      <ul>
+        <li><a href="about.html"><i class="fas fa-users"></i> About Us</a></li>
+        <li><a href="blogs.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+        <li><a href="studynova"><i class="fas fa-graduation-cap"></i> Studynova</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>SOCIAL</h4>
+      <ul>
+        <li><a href="https://www.youtube.com/@Exonovaaditya-1104"><i class="fab fa-youtube"></i> YouTube</a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+      </ul>
+    </div>
+  </div>
 
-  <script>
-    AOS.init();
+  <div class="footer-social">
+    <a href="https://www.youtube.com/@Exonovaaditya-1104" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="mailto:exonova1104@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+  </div>
 
-    // Scroll trigger fade-in
-    gsap.from(".footer-column", {
-      scrollTrigger: {
-        trigger: ".footer",
-        start: "top bottom",
-      },
-      y: 20,
-      opacity: 0,
-      stagger: 0.2,
-      duration: 1
+  <div class="footer-bottom">
+    &copy; 2023 Exonova by Aditya Jha. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Add Font Awesome if not already loaded
+  if (!document.querySelector('link[href*="font-awesome"]')) {
+    const fa = document.createElement('link');
+    fa.rel = 'stylesheet';
+    fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(fa);
+  }
+
+  // Simple animation on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector('.footer');
+    const columns = document.querySelectorAll('.footer-column');
+    
+    // Initial state
+    footer.style.opacity = '0';
+    footer.style.transform = 'translateY(20px)';
+    columns.forEach(col => {
+      col.style.opacity = '0';
+      col.style.transform = 'translateY(10px)';
     });
-  </script>
-</body>
-
+    
+    // Animate in
+    setTimeout(() => {
+      footer.style.transition = 'all 0.8s ease-out';
+      footer.style.opacity = '1';
+      footer.style.transform = 'translateY(0)';
+      
+      columns.forEach((col, i) => {
+        setTimeout(() => {
+          col.style.transition = 'all 0.5s ease-out';
+          col.style.opacity = '1';
+          col.style.transform = 'translateY(0)';
+        }, i * 100);
+      });
+    }, 300);
+  });
+</script>
 
   <!--Major Footer End-->
 
