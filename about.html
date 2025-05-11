@@ -6,7 +6,9 @@
   <title>About Us • Exonova</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unica+One&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,10 +37,11 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       background-color: var(--dark);
       color: var(--text-light);
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
     .floating-icons {
@@ -105,6 +108,10 @@
       position: relative;
       padding: 0.5rem 0;
       transition: all 0.3s ease;
+      font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
     }
 
     .nav-links a::before {
@@ -169,6 +176,7 @@
       transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       border-radius: 20px;
       overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 247, 255, 0.2);
     }
 
     .photo-frame:hover {
@@ -179,6 +187,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: grayscale(20%) contrast(110%);
+      transition: filter 0.5s ease;
+    }
+
+    .photo-frame:hover img {
+      filter: grayscale(0%) contrast(120%);
     }
 
     .glow-effect {
@@ -238,19 +252,37 @@
 
     .about-content h1 {
       font-size: clamp(2rem, 5vw, 3.5rem);
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Unica One', cursive;
       margin-bottom: 1.5rem;
       background: linear-gradient(90deg, var(--primary), var(--text-light));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       line-height: 1.2;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .about-content h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
     }
 
     .about-content h1 span {
       display: block;
       font-size: 0.7em;
       color: var(--text-light);
+      font-family: 'Syne', sans-serif;
+      text-transform: none;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
     }
 
     .about-content p {
@@ -263,6 +295,49 @@
     .highlight {
       color: var(--primary);
       font-weight: 600;
+      position: relative;
+    }
+
+    .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .highlight:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: var(--dark);
+      transform: translateY(-3px);
     }
 
     footer {
@@ -276,12 +351,22 @@
     footer p {
       color: var(--primary);
       font-size: 1rem;
+      font-family: 'Syne', sans-serif;
+      letter-spacing: 1px;
       animation: glowText 3s ease-in-out infinite alternate;
     }
 
     @keyframes glowText {
       0% { text-shadow: 0 0 10px var(--primary); }
       100% { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      background: rgba(0, 247, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     @media (max-width: 992px) {
@@ -295,6 +380,16 @@
         position: relative;
         bottom: 0;
         margin-top: 30px;
+        justify-content: center;
+      }
+
+      .about-content h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+      }
+
+      .social-links {
         justify-content: center;
       }
     }
@@ -335,7 +430,7 @@
       <nav>
         <ul class="nav-links">
           <li><a href="home.html">Home</a></li>
-           <li><a href="blogs.html">Blog</a></li>
+          <li><a href="blogs.html">Blog</a></li>
           <li><a href="about.html" class="active">About</a></li>
           <li><a href="signin.html">Sign In</a></li>
         </ul>
@@ -349,30 +444,30 @@
   </header>
 
   <section class="about-container">
-    <div class="photo-container">
+    <div class="photo-container" data-aos="fade-right" data-aos-duration="800">
       <div class="photo-frame">
         <img src="https://aditya-cmd-max.github.io/exonova-/IMG_20241118_072414.jpg" alt="Team Photo">
         <div class="glow-effect"></div>
       </div>
-      
+     
     </div>
 
-    <div class="about-content">
+    <div class="about-content" data-aos="fade-left" data-aos-duration="800">
       <h1>About <span>Aditya Jha</span></h1>
-      <p>Hi I'am <span class="highlight">Aditya Jha</span>,the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts.
-</p>
+      <p>Hi I'm <span class="highlight">Aditya Jha</span>, the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts.</p>
       
-      <p>
-      From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.  
-      </p>
+      <p>From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.</p>
       
-      <p>
-        I dream of becoming a software engineer and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like Reverbit Messenger, Studynova and many more.
-      </p>
+      <p>I dream of becoming a software engineer and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like Reverbit Messenger, Studynova and many more.</p>
       
-      <p>
-       Let's learn. Let's grow. Let's revolutionize the digital world – together. 
-      </p>
+      <p>Let's learn. Let's grow. Let's revolutionize the digital world – together.</p>
+
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+      </div>
     </div>
   </section>
 
@@ -386,18 +481,49 @@
 
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
     });
 
     // Floating Icons
     const floatingIcons = document.querySelector('.floating-icons');
+    const icons = ['fa-code', 'fa-atom', 'fa-microchip', 'fa-rocket', 'fa-bolt'];
+    
     for (let i = 0; i < 30; i++) {
       const icon = document.createElement('i');
-      icon.className = 'fas fa-call floating-icon';
+      icon.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} floating-icon`;
       icon.style.left = `${Math.random() * 100}%`;
       icon.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      icon.style.animationDelay = `${Math.random() * 5}s`;
       floatingIcons.appendChild(icon);
+    }
+
+    // Create floating particles
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      const size = Math.random() * 5 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      
+      const duration = Math.random() * 20 + 10;
+      particle.style.animation = `floatIcon ${duration}s linear infinite`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      
+      floatingIcons.appendChild(particle);
     }
   </script>
 
+  <!-- Initialize AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      easing: 'ease-out-quart'
+    });
+  </script>
 </body>
 </html>
