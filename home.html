@@ -45,7 +45,99 @@
 
   <div data-barba="container" data-barba-namespace="home">
 
+<!--OFFILINE detector START-->
 
+
+ <style>
+    #offlineAlert {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff4444;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    #offlineAlert i {
+      font-size: 24px;
+    }
+    
+    .alert-content {
+      line-height: 1.5;
+    }
+    
+    .alert-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    
+    .alert-message {
+      font-size: 14px;
+    }
+    
+    .connection-status {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff9999;
+      margin-left: 8px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <div id="offlineAlert">
+    <i class="fas fa-wifi-slash"></i>
+    <div class="alert-content">
+      <div class="alert-title">Connection Lost <span class="connection-status"></span></div>
+      <div class="alert-message">Trying to reconnect...</div>
+    </div>
+  </div>
+
+  <script>
+    function updateConnectionStatus() {
+      const alert = document.getElementById("offlineAlert");
+      
+      if (!navigator.onLine) {
+        alert.style.display = "flex";
+      } else {
+        alert.style.display = "none";
+      }
+    }
+
+    // Initial check
+    updateConnectionStatus();
+
+    // Event listeners
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', updateConnectionStatus);
+
+    // Additional check every 5 seconds
+    setInterval(updateConnectionStatus, 5000);
+  </script>
+</body>
+
+    <!-- OFFLINE END-->
+    
  
  <!-- Navabr Start -->
   
