@@ -4,105 +4,419 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Science Facts | Exonova</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unica+One&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS (Animate On Scroll) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  
   <style>
+    :root {
+      --primary: #00f7ff;
+      --secondary: #7b2dff;
+      --accent: #ff2d7b;
+      --dark: #0a0f1f;
+      --darker: #050917;
+      --text-light: #ffffff;
+      --text-muted: #a0a8c0;
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Quicksand', sans-serif;
     }
+    
     body {
-      background-color: #0f172a;
-      color: white;
+      background-color: var(--dark);
+      color: var(--text-light);
+      font-family: 'Space Grotesk', sans-serif;
       padding: 40px 20px;
       overflow-x: hidden;
+      line-height: 1.6;
     }
+    
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 15, 31, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+      z-index: 1000;
+      padding: 1rem 5%;
+      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 50px;
+      transition: all 0.4s ease;
+    }
+    
+    .logo:hover img {
+      transform: rotate(-10deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+    
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+    
+    .nav-links a:hover::before,
+    .nav-links a.active::before {
+      width: 100%;
+    }
+    
     h1 {
       text-align: center;
-      font-size: 3em;
-      color: #a78bfa;
-      margin-bottom: 30px;
-      animation: fadeInDown 1s ease-in-out;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--primary);
+      margin: 2rem 0 3rem;
+      font-family: 'Unica One', cursive;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      width: 100%;
     }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+    
     .facts-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
-    }
-    .fact-card {
-      background: #1e293b;
-      border-radius: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 20px;
-      max-width: 300px;
+    }
+    
+    .fact-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 350px;
       flex: 1 1 300px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 247, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
+    
+    .fact-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,247,255,0.1) 0%, rgba(0,247,255,0) 70%);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+    
     .fact-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(255,255,255,0.1);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 247, 255, 0.2);
+      border-color: rgba(0, 247, 255, 0.3);
     }
+    
+    .fact-card:hover::before {
+      opacity: 1;
+      animation: shine 1.5s ease infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: rotate(45deg) translate(-30%, -30%); }
+      100% { transform: rotate(45deg) translate(30%, 30%); }
+    }
+    
     .fact-card img {
       width: 100%;
-      height: 180px;
+      height: 200px;
       object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      transition: transform 0.4s ease;
+      filter: brightness(0.9) contrast(1.1);
     }
+    
+    .fact-card:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) contrast(1.2);
+    }
+    
     .fact-text {
       font-size: 1.1em;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 2;
     }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .fact-category {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 247, 255, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      font-family: 'Syne', sans-serif;
+    }
+    
+    footer {
+      background: rgba(10, 15, 31, 0.8);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 5rem;
+      border-top: 1px solid rgba(0, 247, 255, 0.1);
+    }
+    
+    footer p {
+      color: var(--primary);
+      font-size: 1rem;
+      font-family: 'Syne', sans-serif;
+      letter-spacing: 1px;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glowText {
+      0% { text-shadow: 0 0 10px var(--primary); }
+      100% { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary); }
+    }
+    
+    /* Floating particles */
+    .floating-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .floating-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      color: rgba(0, 247, 255, 0.1);
+      animation: floatIcon linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes floatIcon {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); }
+      100% { transform: translateY(-100px) translateX(100px) rotate(360deg); }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 80px;
+        right: 5%;
+        flex-direction: column;
+        background: rgba(10, 15, 31, 0.95);
+        width: 200px;
+        border: 1px solid rgba(0, 247, 255, 0.2);
+        padding: 1rem;
+        display: none;
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .fact-card {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
-<body>
 
-  <h1 data-aos="fade-down"> Science Facts</h1>
+<body>
+  <div class="floating-icons"></div>
+  
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="science-facts.html" class="active">Science Facts</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="signin.html">Sign In</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <h1 data-aos="fade-down">Science Facts</h1>
 
   <div class="facts-container">
     <div class="fact-card" data-aos="fade-up">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXBut3QLVZy-1qYDVy4vegEB8oxMA1MqyBYA&s/300x200/?galaxy" alt="Galaxy">
-      <p class="fact-text">There are more stars in the universe than grains of sand on Earth.</p>
+      <span class="fact-category">Astronomy</span>
+      <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Galaxy">
+      <p class="fact-text">There are more stars in the universe than grains of sand on all Earth's beaches combined - about 70 sextillion (7×10²²) stars versus approximately 7.5×10¹⁸ grains of sand.</p>
     </div>
+    
     <div class="fact-card" data-aos="fade-up" data-aos-delay="100">
-      <img src="https://i0.wp.com/primaryscienceonline.org.uk/wp-content/uploads/2021/08/atoms_1630427598-1024x682.png?ssl=1" alt="Atom">
-      <p class="fact-text">An atom is about 99.9999999999996% empty space.</p>
+      <span class="fact-category">Physics</span>
+      <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Atom">
+      <p class="fact-text">An atom is about 99.9999999999996% empty space. If an atom's nucleus were the size of a peanut, the electrons would orbit about a kilometer away.</p>
     </div>
+    
     <div class="fact-card" data-aos="fade-up" data-aos-delay="200">
-      <img src="https://images.hindustantimes.com/img/2021/10/17/550x309/_b5ad3d52-fb95-11e8-b0ae-a79201e85078_1634487261905.jpg" alt="Brain">
-      <p class="fact-text">The human brain generates more electrical impulses in a day than all telephones combined.</p>
+      <span class="fact-category">Biology</span>
+      <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Brain">
+      <p class="fact-text">The human brain generates about 12-25 watts of electricity - enough to power a low-wattage LED light bulb. It processes information at speeds up to 120 meters per second.</p>
     </div>
+    
     <div class="fact-card" data-aos="fade-up" data-aos-delay="300">
-      <img src="https://cdn.dnaindia.com/sites/default/files/2016/11/05/516761-dna.jpg?im=FitAndFill=(1200,900)/300x200/?dna" alt="DNA">
-      <p class="fact-text">If uncoiled, the DNA in all the cells in your body would stretch 10 billion miles.</p>
+      <span class="fact-category">Genetics</span>
+      <img src="https://images.unsplash.com/photo-1553787499-6f9133860278?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="DNA">
+      <p class="fact-text">If uncoiled, the DNA in all your body's cells would stretch about 10 billion miles - that's from Earth to Pluto and back several times over.</p>
     </div>
+    
     <div class="fact-card" data-aos="fade-up" data-aos-delay="400">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjlv4G3YzJjfuf1nAwaj67RqY-Co_L8aF7g&s/300x200/?volcano" alt="Volcano">
-      <p class="fact-text">The largest volcano in the solar system is Olympus Mons on Mars.</p>
+      <span class="fact-category">Planetary</span>
+      <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Volcano">
+      <p class="fact-text">Olympus Mons on Mars is the largest volcano in our solar system - about 370 miles in diameter (size of Arizona) and 16 miles high (3x Everest).</p>
     </div>
+    
     <div class="fact-card" data-aos="fade-up" data-aos-delay="500">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqND36M83_8mw7FOzdH6g4nJsxxMD7-H0LSA&s/300x200/?blackhole" alt="Black Hole">
-      <p class="fact-text">A black hole’s gravity is so strong that not even light can escape it.</p>
+      <span class="fact-category">Astrophysics</span>
+      <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Black Hole">
+      <p class="fact-text">A black hole's gravity warps spacetime so severely that not even light can escape. The largest known black hole (TON 618) has 66 billion solar masses.</p>
     </div>
   </div>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <footer>
+    <p>© 2025 Exonova. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
+    // Initialize AOS animation
     AOS.init({
-      duration: 1200,
+      duration: 1000,
       once: true,
+      easing: 'ease-out-quart'
     });
+    
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+    
+    // Create floating icons
+    const floatingIcons = document.querySelector('.floating-icons');
+    const icons = ['fa-atom', 'fa-rocket', 'fa-dna', 'fa-microscope', 'fa-meteor'];
+    
+    for (let i = 0; i < 30; i++) {
+      const icon = document.createElement('i');
+      icon.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} floating-icon`;
+      icon.style.left = `${Math.random() * 100}%`;
+      icon.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      icon.style.animationDelay = `${Math.random() * 5}s`;
+      floatingIcons.appendChild(icon);
+    }
+    
+    // Create floating particles
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      const size = Math.random() * 5 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      
+      const duration = Math.random() * 20 + 10;
+      particle.style.animation = `floatIcon ${duration}s linear infinite`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      
+      floatingIcons.appendChild(particle);
+    }
   </script>
-
-
-
-
 </body>
 </html>
