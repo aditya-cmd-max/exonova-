@@ -143,8 +143,7 @@
   
  
 
-  <style>
-    /* Your full CSS here — already correct */
+ <style>
     :root {
       --primary: #00f7ff;
       --secondary: #7b2dff;
@@ -153,50 +152,78 @@
       --darker: #050917;
       --text-light: #ffffff;
       --text-muted: #a0a8c0;
+      --nav-height: 80px;
+      --nav-height-scrolled: 70px;
+      --mobile-menu-width: 300px;
+      --transition-speed: 0.3s;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       color: var(--text-light);
       overflow-x: hidden;
-      padding-top: 80px;
+      padding-top: var(--nav-height);
     }
+    
+    /* Main Navbar Styles */
     .navbar {
-      position: sticky;
-      top: 0; left: 0;
+      position: fixed;
+      top: 0; 
+      left: 0;
       width: 100%;
-      height: 80px;
+      height: var(--nav-height);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 5%;
       background: rgba(10, 15, 31, 0.96);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0, 247, 255, 0.1);
-      z-index: 9999;
+      z-index: 1000;
       box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all var(--transition-speed) ease;
     }
+    
     .navbar.scrolled {
-      height: 70px;
+      height: var(--nav-height-scrolled);
       box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
       background: rgba(5, 9, 23, 0.98);
     }
-    .logo { height: 50px; }
+    
+    /* Logo Styles */
+    .logo { 
+      height: 50px; 
+      display: flex;
+      align-items: center;
+      z-index: 1002;
+    }
+    
     .logo img {
       height: 100%;
-      transition: transform 0.4s ease;
+      transition: transform 0.3s ease;
     }
+    
     .logo:hover img {
       transform: rotate(-10deg) scale(1.1);
       filter: drop-shadow(0 0 10px var(--primary));
     }
+    
+    /* Desktop Navigation */
     .nav-links {
       display: flex;
       gap: 30px;
       align-items: center;
+      list-style: none;
     }
+    
     .nav-link {
       position: relative;
       color: var(--text-light);
@@ -204,30 +231,31 @@
       font-weight: 500;
       font-size: 1.1rem;
       padding: 8px 0;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
+      transition: all var(--transition-speed) ease;
     }
-    .nav-link::before {
+    
+    .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
+      bottom: 0; 
+      left: 0;
+      width: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+      transition: width var(--transition-speed) ease;
     }
+    
     .nav-link:hover,
     .nav-link.active {
       color: var(--primary);
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
     }
-    .nav-link:hover::before,
-    .nav-link.active::before {
-      transform: scaleX(1);
-      transform-origin: left;
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
     }
+    
+    /* Mobile Menu Button */
     .menu-btn {
       display: none;
       flex-direction: column;
@@ -235,130 +263,214 @@
       width: 30px;
       height: 21px;
       cursor: pointer;
-      z-index: 10000;
-      position: relative;
+      z-index: 1002;
+      background: transparent;
+      border: none;
+      padding: 0;
     }
+    
     .menu-btn span {
       display: block;
       width: 100%;
       height: 3px;
       background: var(--primary);
       border-radius: 3px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: left center;
+      transition: all var(--transition-speed) ease;
     }
+    
     .menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(4px, -1px);
-      width: 110%;
+      transform: translateY(9px) rotate(45deg);
     }
+    
     .menu-btn.active span:nth-child(2) {
       opacity: 0;
-      transform: translateX(-10px);
     }
+    
     .menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(4px, 1px);
-      width: 110%;
+      transform: translateY(-9px) rotate(-45deg);
     }
+    
+    /* Mobile Menu Styles */
     @media (max-width: 992px) {
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 400px;
-        height: 100vh;
-        background: rgba(5, 9, 23, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        gap: 40px;
-        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        border-left: 1px solid rgba(0, 247, 255, 0.1);
-      }
-      .nav-links.active {
-        right: 0;
-      }
       .menu-btn {
         display: flex;
       }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: calc(-1 * var(--mobile-menu-width));
+        width: var(--mobile-menu-width);
+        height: 100vh;
+        background: var(--darker);
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        transition: right var(--transition-speed) ease;
+        z-index: 1001;
+        padding-top: var(--nav-height);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 1.2rem;
+      }
+      
+      .nav-link::after {
+        width: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 80%;
+      }
     }
+    
+    /* Mobile Menu Overlay */
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-speed) ease;
+    }
+    
+    .nav-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    /* Scroll Indicator */
     .scroll-indicator {
-      position: sticky;
+      position: fixed;
       top: 0;
       left: 0;
       height: 3px;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
-      z-index: 10000;
-      transition: width 0.2s ease-out;
+      z-index: 1002;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    
+    /* Focus styles for accessibility */
+    button:focus,
+    a:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
     }
   </style>
+</head>
+<body>
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator" id="scrollIndicator"></div>
 
+  <!-- Mobile Menu Overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
 
-<!-- Scroll Indicator -->
-<div class="scroll-indicator" id="scrollIndicator"></div>
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <a href="https://aditya-cmd-max.github.io/exonova-/" class="logo">
+      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
+    </a>
+    
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <ul class="nav-links" id="navLinks" role="navigation">
+      <li><a href="home.html" class="nav-link active">Home</a></li>
+      <li><a href="blogs.html" class="nav-link">Blog</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="quiz.html" class="nav-link">Quiz</a></li>
+      <li><a href="signin.html" class="nav-link">Sign In</a></li>
+    </ul>
+  </nav>
 
-<!-- Navbar -->
-<nav class="navbar" id="navbar">
-  <a href="https://aditya-cmd-max.github.io/exonova-/" class="logo" data-aos="fade-right" data-aos-duration="800">
-    <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova">
-  </a>
-  <div class="menu-btn" id="menuBtn" data-aos="fade-left" data-aos-duration="800">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="nav-links" id="navLinks">
-    <a href="home.html" class="nav-link active">Home</a>
-    <a href="blogs.html" class="nav-link">Blog</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="quiz.html" class="nav-link">Quiz</a>
-    <a href="signin.html" class="nav-link">Sign In</a>
-  </div>
-</nav>
-
-<!-- Main Content -->
-
-
-<!-- AOS Animation Script -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<script>
-  AOS.init({
-    duration: 800,
-    once: false,
-    mirror: true
-  });
-
-  const menuBtn = document.getElementById('menuBtn');
-  const navLinks = document.getElementById('navLinks');
-
-  menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-  });
-
-  // Close mobile menu when clicking a nav link
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 992) {
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('menuBtn');
+      const navLinks = document.getElementById('navLinks');
+      const navOverlay = document.getElementById('navOverlay');
+      const navbar = document.getElementById('navbar');
+      const scrollIndicator = document.getElementById('scrollIndicator');
+      
+      // Toggle mobile menu
+      function toggleMenu() {
+        const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+        document.body.style.overflow = isExpanded ? '' : 'hidden';
+        menuBtn.setAttribute('aria-expanded', !isExpanded);
+      }
+      
+      menuBtn.addEventListener('click', toggleMenu);
+      
+      // Close menu when clicking overlay or link
+      function closeMenu() {
         menuBtn.classList.remove('active');
         navLinks.classList.remove('active');
+        navOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        menuBtn.setAttribute('aria-expanded', 'false');
       }
+      
+      navOverlay.addEventListener('click', closeMenu);
+      
+      // Close menu when clicking a nav link (mobile only)
+      document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 992) {
+            closeMenu();
+          }
+        });
+      });
+      
+      // Scroll indicator
+      window.addEventListener('scroll', function() {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPosition = window.scrollY;
+        const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+        scrollIndicator.style.width = scrollPercentage + '%';
+        
+        // Navbar scroll effect
+        navbar.classList.toggle('scrolled', scrollPosition > 50);
+      });
+      
+      // Close menu when resizing to desktop
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 992) {
+          closeMenu();
+        }
+      });
+      
+      // Close menu with ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+          closeMenu();
+          menuBtn.focus();
+        }
+      });
     });
-  });
-
-  // Scroll Indicator
-  const scrollIndicator = document.getElementById('scrollIndicator');
-  window.addEventListener('scroll', () => {
-    const maxHeight = document.body.scrollHeight - window.innerHeight;
-    const percentage = (window.scrollY / maxHeight) * 100;
-    scrollIndicator.style.width = percentage + '%';
-  });
-</script>
-
+  </script>
 </body>
-
 
   <!--NAvbr End -->
  
