@@ -49,13 +49,14 @@
 
     <!--NOtification satrt-->
 
-    <style>
+      <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
         
         .notification-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 1000;
             font-family: 'Inter', sans-serif;
         }
@@ -67,15 +68,17 @@
             color: #333;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            transform: translateX(120%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .notification-card.visible {
-            transform: translateX(0);
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .notification-title {
@@ -167,11 +170,9 @@
         <div class="notification-card" id="notification">
             <div class="close-icon" id="closeButton"></div>
             <div class="notification-title">Latest Updates!</div>
-            <div class="notification-message">Check out our latest blog post for updates and insights.
-          <p>New blog uploaded just now :</div>
+            <div class="notification-message">Check out our latest blog post for updates and insights.</div>
             <a href="https://aditya-cmd-max.github.io/exonova-/blog4" class="blog-button">BLOG 4</a>
-          <h2>Pakistan-India War: Is It WW3? (Part 1)</h2>
-          <p>In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
+          <h2>Pakistan-India War: Is It WW3? (Part 1)</h2><p>In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
         </div>
     </div>
 
