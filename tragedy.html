@@ -321,6 +321,11 @@
       box-shadow: 0 8px 20px rgba(255, 42, 42, 0.6);
     }
     
+    .control-btn.active {
+      color: var(--primary);
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.5);
+    }
+    
     .volume-control {
       display: flex;
       align-items: center;
@@ -571,16 +576,16 @@
       </div>
       <div class="time-info">
         <span id="currentTime">0:00</span>
-        <span id="duration">3:59</span>
+        <span id="duration">0:00</span>
       </div>
       
       <!-- Controls -->
       <div class="controls">
-        <button class="control-btn" id="shuffleBtn"><i class="fas fa-random"></i></button>
-        <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
-        <button class="control-btn play-pause" id="playPauseBtn"><i class="fas fa-play" id="playPauseIcon"></i></button>
-        <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
-        <button class="control-btn" id="repeatBtn"><i class="fas fa-redo"></i></button>
+        <button class="control-btn" id="shuffleBtn" title="Shuffle"><i class="fas fa-random"></i></button>
+        <button class="control-btn" id="prevBtn" title="Previous"><i class="fas fa-step-backward"></i></button>
+        <button class="control-btn play-pause" id="playPauseBtn" title="Play/Pause"><i class="fas fa-play" id="playPauseIcon"></i></button>
+        <button class="control-btn" id="nextBtn" title="Next"><i class="fas fa-step-forward"></i></button>
+        <button class="control-btn" id="repeatBtn" title="Repeat"><i class="fas fa-redo"></i></button>
       </div>
       
       <!-- Volume Control -->
@@ -683,11 +688,11 @@
   <footer>
     <p>© 2023 EXONOVA MUSIC. ALL RIGHTS RESERVED.</p>
     <div class="social-links">
-      <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
-      <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-      <a href="#" class="social-link"><i class="fab fa-apple"></i></a>
-      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-link" title="Spotify"><i class="fab fa-spotify"></i></a>
+      <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="#" class="social-link" title="Apple Music"><i class="fab fa-apple"></i></a>
+      <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
   </footer>
   
@@ -812,9 +817,31 @@
     const volumeSlider = document.getElementById('volumeSlider');
     const visualizerBars = document.querySelectorAll('.visualizer-bar');
     const refreshBtn = document.getElementById('refreshBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const repeatBtn = document.getElementById('repeatBtn');
+    const socialLinks = document.querySelectorAll('.social-link');
     
-    // Check if playing
+    // Player state
     let isPlaying = false;
+    let isShuffled = false;
+    let isRepeating = false;
+    let animationFrameId = null;
+    
+    // Format time (handles unlimited duration)
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+      
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    // Update duration display when metadata is loaded
+    audio.addEventListener('loadedmetadata', () => {
+      durationEl.textContent = formatTime(audio.duration);
+    });
     
     // Play/Pause
     function togglePlay() {
@@ -822,10 +849,12 @@
         audio.pause();
         playPauseIcon.classList.remove('fa-pause');
         playPauseIcon.classList.add('fa-play');
+        cancelAnimationFrame(animationFrameId);
       } else {
         audio.play();
         playPauseIcon.classList.remove('fa-play');
         playPauseIcon.classList.add('fa-pause');
+        animateVisualizer();
       }
       isPlaying = !isPlaying;
     }
@@ -839,19 +868,12 @@
       progressBar.style.width = `${progressPercent}%`;
       
       // Update time display
-      const durationMinutes = Math.floor(duration / 60);
-      let durationSeconds = Math.floor(duration % 60);
-      if (durationSeconds < 10) durationSeconds = `0${durationSeconds}`;
+      currentTimeEl.textContent = formatTime(currentTime);
       
-      if (duration) {
-        durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+      // Update duration if it changes (for live streams)
+      if (!isNaN(duration)) {
+        durationEl.textContent = formatTime(duration);
       }
-      
-      const currentMinutes = Math.floor(currentTime / 60);
-      let currentSeconds = Math.floor(currentTime % 60);
-      if (currentSeconds < 10) currentSeconds = `0${currentSeconds}`;
-      
-      currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
     }
     
     // Set Progress
@@ -859,7 +881,10 @@
       const width = this.clientWidth;
       const clickX = e.offsetX;
       const duration = audio.duration;
-      audio.currentTime = (clickX / width) * duration;
+      
+      if (!isNaN(duration)) {
+        audio.currentTime = (clickX / width) * duration;
+      }
     }
     
     // Volume Control
@@ -869,15 +894,14 @@
     
     // Refresh Button
     function refreshPlayer() {
-      // Restart the song
       audio.currentTime = 0;
       
-      // If not playing, start playing
       if (!isPlaying) {
         audio.play();
         playPauseIcon.classList.remove('fa-play');
         playPauseIcon.classList.add('fa-pause');
         isPlaying = true;
+        animateVisualizer();
       }
       
       // Add visual feedback
@@ -887,16 +911,55 @@
       }, 300);
     }
     
-    // Event Listeners
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', () => {
-      playPauseIcon.classList.remove('fa-pause');
-      playPauseIcon.classList.add('fa-play');
-      isPlaying = false;
-    });
-    progressContainer.addEventListener('click', setProgress);
-    volumeSlider.addEventListener('input', setVolume);
-    refreshBtn.addEventListener('click', refreshPlayer);
+    // Toggle Shuffle
+    function toggleShuffle() {
+      isShuffled = !isShuffled;
+      shuffleBtn.classList.toggle('active', isShuffled);
+      // In a real app, you would implement shuffle logic here
+    }
+    
+    // Toggle Repeat
+    function toggleRepeat() {
+      isRepeating = !isRepeating;
+      repeatBtn.classList.toggle('active', isRepeating);
+      audio.loop = isRepeating;
+    }
+    
+    // Previous Track
+    function prevTrack() {
+      // In a real app, you would implement previous track logic here
+      audio.currentTime = 0;
+      if (!isPlaying) {
+        audio.play();
+        playPauseIcon.classList.remove('fa-play');
+        playPauseIcon.classList.add('fa-pause');
+        isPlaying = true;
+        animateVisualizer();
+      }
+    }
+    
+    // Next Track
+    function nextTrack() {
+      // In a real app, you would implement next track logic here
+      audio.currentTime = 0;
+      if (!isPlaying) {
+        audio.play();
+        playPauseIcon.classList.remove('fa-play');
+        playPauseIcon.classList.add('fa-pause');
+        isPlaying = true;
+        animateVisualizer();
+      }
+    }
+    
+    // Handle song end
+    function handleSongEnd() {
+      if (!isRepeating) {
+        playPauseIcon.classList.remove('fa-pause');
+        playPauseIcon.classList.add('fa-play');
+        isPlaying = false;
+        cancelAnimationFrame(animationFrameId);
+      }
+    }
     
     // Visualizer Animation
     function animateVisualizer() {
@@ -906,12 +969,30 @@
         bar.style.opacity = randomHeight;
       });
       
-      requestAnimationFrame(animateVisualizer);
+      if (isPlaying) {
+        animationFrameId = requestAnimationFrame(animateVisualizer);
+      }
     }
     
-    if (isPlaying) {
-      animateVisualizer();
+    // Social Links
+    function handleSocialClick(e) {
+      e.preventDefault();
+      const platform = e.currentTarget.title.toLowerCase();
+      // In a real app, you would link to actual social media pages
+      alert(`Redirecting to ${platform} (simulated)`);
     }
+    
+    // Event Listeners
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', handleSongEnd);
+    progressContainer.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', setVolume);
+    refreshBtn.addEventListener('click', refreshPlayer);
+    shuffleBtn.addEventListener('click', toggleShuffle);
+    prevBtn.addEventListener('click', prevTrack);
+    nextBtn.addEventListener('click', nextTrack);
+    repeatBtn.addEventListener('click', toggleRepeat);
+    socialLinks.forEach(link => link.addEventListener('click', handleSocialClick));
     
     // Create floating elements
     function createFloatingElements() {
@@ -919,14 +1000,11 @@
         const element = document.createElement('div');
         element.classList.add('floating-element');
         
-        // Random size and position
         const size = Math.random() * 100 + 50;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         element.style.left = `${Math.random() * 100}vw`;
         element.style.top = `${Math.random() * 100}vh`;
-        
-        // Random animation duration and delay
         element.style.animationDuration = `${Math.random() * 30 + 20}s`;
         element.style.animationDelay = `${Math.random() * 10}s`;
         
@@ -935,6 +1013,11 @@
     }
     
     createFloatingElements();
+    
+    // Initialize with correct duration if already loaded
+    if (audio.readyState > 0) {
+      durationEl.textContent = formatTime(audio.duration);
+    }
   </script>
 </body>
 </html>
