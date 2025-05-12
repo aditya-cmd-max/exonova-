@@ -524,6 +524,44 @@
       color: var(--primary);
       transform: translateY(-3px);
     }
+  
+  /* BACK */
+
+      .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      border: 2px solid black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      cursor: pointer;
+      z-index: 1000; /* ensures it stays on top but doesn’t block content */
+    }
+
+    .back-button::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-left: 2px solid black;
+      border-bottom: 2px solid black;
+      transform: rotate(45deg);
+      margin-left: 2px;
+    }
+
+    .back-button:hover {
+      background-color: #f0f0f0;
+    }
+
+    
+  
+  
+  
   </style>
 </head>
 <body>
@@ -532,6 +570,14 @@
   <div class="glow"></div>
   <div class="glow"></div>
   <div class="glow"></div>
+  
+ 
+  <!-- BACK START-->
+
+<div class="back-button" onclick="history.back()"></div>
+
+  <!bACK END-->
+  
   
   <!-- Header -->
   <header>
