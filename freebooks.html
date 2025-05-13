@@ -3,174 +3,481 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exonova Books</title>
+  <title>Exonova Books - Digital Learning Resources</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --dark-bg: #1a1a2e;
+      --dark-card: #16213e;
+      --light-bg: #f8f9ff;
+      --light-card: #ffffff;
+      --text-dark: #e6e6e6;
+      --text-light: #333333;
+      --accent-color: #4cc9f0;
+      --border-radius: 12px;
+      --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    
     body {
-      background-color: #121212;
-      color: #fff;
-      transition: background 0.5s, color 0.5s;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-dark);
+      transition: all 0.4s ease;
+      line-height: 1.6;
     }
+    
     .light-mode {
-      background-color: #f8f9fa;
-      color: #000;
+      background-color: var(--light-bg);
+      color: var(--text-light);
     }
-    .glow {
-      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-    }
+    
     .navbar {
-      transition: background 0.5s;
+      background-color: var(--dark-card) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
     }
-    .navbar-dark.bg-primary {
-      background-color: #1f1f1f !important;
+    
+    .light-mode .navbar {
+      background-color: var(--light-card) !important;
     }
-    .navbar-light {
-      background-color: #e3f2fd;
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-color) !important;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
+    
+    .nav-link {
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      background-color: rgba(76, 201, 240, 0.1);
+      color: var(--accent-color) !important;
+    }
+    
     .book-card {
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-      background-color: #1e1e1e;
-      color: #fff;
+      background-color: var(--dark-card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
+    
     .light-mode .book-card {
-      background-color: #fff;
-      color: #000;
+      background-color: var(--light-card);
     }
+    
     .book-card:hover {
-      transform: scale(1.03);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     }
+    
+    .book-card img {
+      object-fit: cover;
+      height: 220px;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .light-mode .book-card img {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .book-card-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .book-title {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--accent-color);
+    }
+    
+    .light-mode .book-title {
+      color: var(--primary-color);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      font-weight: 500;
+      border-radius: var(--border-radius);
+      padding: 0.5rem 1.25rem;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+    
+    .btn-success {
+      border-radius: var(--border-radius);
+      padding: 0.5rem 1.25rem;
+      font-weight: 500;
+    }
+    
+    .search-box {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+    
+    .search-box input {
+      border-radius: var(--border-radius) !important;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: var(--dark-card);
+      color: var(--text-dark);
+    }
+    
+    .light-mode .search-box input {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background-color: var(--light-card);
+      color: var(--text-light);
+    }
+    
+    .search-box .input-group-text {
+      background-color: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: none;
+      color: var(--accent-color);
+    }
+    
+    .light-mode .search-box .input-group-text {
+      background-color: var(--light-card);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--primary-color);
+    }
+    
+    footer {
+      background-color: var(--dark-card);
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+    
+    .light-mode footer {
+      background-color: var(--light-card);
+    }
+    
+    .footer-text {
+      color: var(--text-dark);
+      font-weight: 300;
+    }
+    
+    .light-mode .footer-text {
+      color: var(--text-light);
+    }
+    
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
     .toggle-switch {
-      width: 60px;
-      height: 30px;
+      width: 50px;
+      height: 26px;
       background: #444;
       border-radius: 30px;
       position: relative;
       cursor: pointer;
+      transition: background 0.3s;
     }
+    
+    .light-mode .toggle-switch {
+      background: #ddd;
+    }
+    
     .toggle-circle {
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
       background: #fff;
       border-radius: 50%;
       position: absolute;
-      top: 2px;
-      left: 2px;
+      top: 3px;
+      left: 3px;
       transition: 0.3s;
     }
-    .toggle-switch.active {
-      background: #ddd;
+    
+    .light-mode .toggle-circle {
+      left: 27px;
+      background: #333;
     }
-    .toggle-switch.active .toggle-circle {
-      left: 32px;
-      background: #000;
+    
+    .toggle-label {
+      font-weight: 500;
+      font-size: 0.9rem;
     }
-    .search-box {
-      max-width: 600px;
-      margin: auto;
-      padding-top: 30px;
-    }
-    .search-box input {
-      border-radius: 30px;
-      padding: 12px 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      border: none;
-    }
-    .search-box .input-group-text {
-      border-radius: 30px 0 0 30px;
-      background: #ffffff;
-      border: none;
-    }
+    
     .modal-content {
-      background-color: #1e1e1e;
-      color: #fff;
+      background-color: var(--dark-card);
+      border-radius: var(--border-radius);
+      border: none;
     }
+    
     .light-mode .modal-content {
-      background-color: #fff;
-      color: #000;
+      background-color: var(--light-card);
+    }
+    
+    .btn-close {
+      filter: invert(1);
+    }
+    
+    .light-mode .btn-close {
+      filter: invert(0);
+    }
+    
+    .guide-btn {
+      background-color: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      border-radius: var(--border-radius);
+      padding: 0.5rem 1.25rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .light-mode .guide-btn {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .guide-btn:hover {
+      background-color: var(--accent-color);
+      color: var(--dark-bg);
+    }
+    
+    .light-mode .guide-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-weight: 700;
+      display: inline-block;
+      position: relative;
+      color: var(--accent-color);
+    }
+    
+    .light-mode .section-title h2 {
+      color: var(--primary-color);
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 3px;
+      background: var(--accent-color);
+      bottom: -10px;
+      left: 20%;
+    }
+    
+    .light-mode .section-title h2::after {
+      background: var(--primary-color);
     }
   </style>
 </head>
 <body class="dark-mode">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand glow" href="freebooks">📚 Exonova Books</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="freebooks">
+        <i class="fas fa-book-open"></i> Exonova Books
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link glow" href="home">Home</a></li>
-          <li class="nav-item"><a class="nav-link glow" href="blogs">Blogs</a></li>
-          <li class="nav-item"><a class="nav-link glow" href="about">About</a></li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="home"><i class="fas fa-home me-1"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blogs"><i class="fas fa-blog me-1"></i> Blogs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about"><i class="fas fa-info-circle me-1"></i> About</a>
+          </li>
         </ul>
-      </div>
-      <div class="d-flex align-items-center">
-        <button class="btn btn-light me-2" onclick="showGuide()">📖 Guide</button>
-        <div class="toggle-switch" id="themeToggle" onclick="toggleDarkMode()">
-          <div class="toggle-circle"></div>
+        <div class="d-flex align-items-center">
+          <button class="guide-btn me-3" onclick="showGuide()">
+            <i class="fas fa-question-circle me-1"></i> Guide
+          </button>
+          <div class="theme-toggle" onclick="toggleDarkMode()">
+            <div class="toggle-switch">
+              <div class="toggle-circle"></div>
+            </div>
+            <span class="toggle-label">Theme</span>
+          </div>
         </div>
       </div>
     </div>
   </nav>
 
-  <div class="container search-box">
+  <div class="search-box">
     <div class="input-group">
       <span class="input-group-text"><i class="fas fa-search"></i></span>
-      <input type="text" class="form-control" id="searchInput" placeholder="Search for books, notes..." onkeyup="filterBooks()">
+      <input type="text" class="form-control" id="searchInput" placeholder="Search for books, notes, resources..." onkeyup="filterBooks()">
     </div>
   </div>
 
   <div class="container py-5">
+    <div class="section-title">
+      <h2>Featured Resources</h2>
+    </div>
     <div class="row g-4" id="bookList">
-      <div class="col-md-4 book-item">
-        <div class="p-4 book-card">
-          <img src="https://ncert.nic.in/textbook/pdf/iemh1cc.jpg" class="img-fluid mb-3 rounded" alt="Book Thumbnail">
-          <h5 class="glow">Maths Book Class 9</h5>
-          <button class="btn btn-primary me-2" onclick="showDescription('Maths Book Class 9', 'This book covers the full NCERT Class 9 Maths syllabus.')">Description</button>
-          <a href="https://ncert.nic.in/textbook/pdf/iemh1ps.pdf" target="_blank" class="btn btn-success">View PDF</a>
+      <div class="col-lg-4 col-md-6 book-item">
+        <div class="book-card">
+          <img src="https://ncert.nic.in/textbook/pdf/iemh1cc.jpg" class="card-img-top" alt="Maths Book Class 9">
+          <div class="book-card-body">
+            <h5 class="book-title">Maths Book Class 9</h5>
+            <p class="card-text mb-3">Comprehensive NCERT textbook covering all topics for Class 9 Mathematics.</p>
+            <div class="mt-auto d-flex gap-2">
+              <button class="btn btn-primary" onclick="showDescription('Maths Book Class 9', 'This book covers the full NCERT Class 9 Maths syllabus including Number Systems, Coordinate Geometry, Linear Equations, Euclid\'s Geometry, and more. Perfect for CBSE and other board students.')">
+                <i class="fas fa-info-circle me-1"></i> Details
+              </button>
+              <a href="https://ncert.nic.in/textbook/pdf/iemh1ps.pdf" target="_blank" class="btn btn-success">
+                <i class="fas fa-file-pdf me-1"></i> View PDF
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 book-item">
-        <div class="p-4 book-card">
-           <img src="https://m.media-amazon.com/images/I/71BDusrYnXL._UF1000,1000_QL80_.jpg" class="img-fluid mb-3 rounded" alt="Book Thumbnail">
-          <h5 class="glow">Math Book RS Aggarwal</h5>
-          <button class="btn btn-primary me-2" onclick="showDescription('Math Book RS Aggarwal', 'Detailed book for Class 9 Maths problems and practice.')">Description</button>
-          <a href="/books/class9-maths-rsaggarwal.pdf" target="_blank" class="btn btn-success">View PDF</a>
+      <div class="col-lg-4 col-md-6 book-item">
+        <div class="book-card">
+          <img src="https://m.media-amazon.com/images/I/71BDusrYnXL._UF1000,1000_QL80_.jpg" class="card-img-top" alt="RS Aggarwal Maths Book">
+          <div class="book-card-body">
+            <h5 class="book-title">Math Book RS Aggarwal</h5>
+            <p class="card-text mb-3">Detailed reference book with extensive practice problems for Class 9.</p>
+            <div class="mt-auto d-flex gap-2">
+              <button class="btn btn-primary" onclick="showDescription('Math Book RS Aggarwal', 'This comprehensive reference book by RS Aggarwal contains detailed explanations and extensive practice problems for Class 9 Mathematics. Ideal for competitive exam preparation and additional practice beyond NCERT.')">
+                <i class="fas fa-info-circle me-1"></i> Details
+              </button>
+              <a href="/books/class9-maths-rsaggarwal.pdf" target="_blank" class="btn btn-success">
+                <i class="fas fa-file-pdf me-1"></i> View PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Additional book placeholder -->
+      <div class="col-lg-4 col-md-6 book-item">
+        <div class="book-card">
+          <img src="https://m.media-amazon.com/images/I/71Vr3WZ3lVL._AC_UF1000,1000_QL80_.jpg" class="card-img-top" alt="Science Book Class 9">
+          <div class="book-card-body">
+            <h5 class="book-title">Science Book Class 9</h5>
+            <p class="card-text mb-3">NCERT Science textbook covering Physics, Chemistry, and Biology.</p>
+            <div class="mt-auto d-flex gap-2">
+              <button class="btn btn-primary" onclick="showDescription('Science Book Class 9', 'The NCERT Science textbook for Class 9 covers fundamental concepts in Physics, Chemistry, and Biology. Includes chapters on Matter, Atoms, Tissues, Motion, and more.')">
+                <i class="fas fa-info-circle me-1"></i> Details
+              </button>
+              <a href="#" class="btn btn-success disabled">
+                <i class="fas fa-file-pdf me-1"></i> Coming Soon
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer class="bg-dark text-light text-center py-3">
-    © <span id="year"></span> Exonova. Made by ❤ by Aditya jha 🚀
+  <footer class="bg-dark text-center">
+    <div class="container py-4">
+      <p class="footer-text mb-2">© <span id="year"></span> Exonova Books - Digital Learning Resources</p>
+      <p class="footer-text mb-0">Made with <i class="fas fa-heart text-danger"></i> by Aditya Jha</p>
+    </div>
   </footer>
 
+  <!-- Description Modal -->
   <div class="modal fade" id="descModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="descTitle"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="descBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Guide Modal -->
   <div class="modal fade" id="guideModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">📘 Guide</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <h5 class="modal-title"><i class="fas fa-question-circle me-2"></i> User Guide</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>✅ Click "View PDF" to open the book.</p>
-          <p>✅ Click "Description" to know about the book.</p>
-          <p>✅ Toggle dark/light mode from the switch in navbar.</p>
+          <div class="d-flex align-items-start mb-3">
+            <div class="me-3 text-primary">
+              <i class="fas fa-search fa-lg"></i>
+            </div>
+            <div>
+              <h6 class="mb-1">Search Functionality</h6>
+              <p class="mb-0">Use the search bar to quickly find specific books or resources by title or subject.</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mb-3">
+            <div class="me-3 text-success">
+              <i class="fas fa-file-pdf fa-lg"></i>
+            </div>
+            <div>
+              <h6 class="mb-1">Viewing Resources</h6>
+              <p class="mb-0">Click "View PDF" to open any book in your browser. Some resources may be available for download.</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start mb-3">
+            <div class="me-3 text-info">
+              <i class="fas fa-info-circle fa-lg"></i>
+            </div>
+            <div>
+              <h6 class="mb-1">Book Details</h6>
+              <p class="mb-0">Click "Details" to see more information about each resource including content description.</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start">
+            <div class="me-3 text-warning">
+              <i class="fas fa-adjust fa-lg"></i>
+            </div>
+            <div>
+              <h6 class="mb-1">Theme Toggle</h6>
+              <p class="mb-0">Switch between light and dark mode using the theme toggle in the navigation bar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
         </div>
       </div>
     </div>
@@ -178,35 +485,46 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Initialize modals
     const descModal = new bootstrap.Modal(document.getElementById('descModal'));
     const guideModal = new bootstrap.Modal(document.getElementById('guideModal'));
     const body = document.body;
-    const toggle = document.getElementById('themeToggle');
 
+    // Show book description
     function showDescription(title, bodyText) {
       document.getElementById('descTitle').innerText = title;
       document.getElementById('descBody').innerText = bodyText;
       descModal.show();
     }
 
+    // Show user guide
     function showGuide() {
       guideModal.show();
     }
 
+    // Toggle dark/light mode
     function toggleDarkMode() {
       body.classList.toggle('light-mode');
-      toggle.classList.toggle('active');
+      localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
     }
 
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'light') {
+      body.classList.add('light-mode');
+    }
+
+    // Filter books based on search input
     function filterBooks() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const books = document.querySelectorAll('.book-item');
+      
       books.forEach(book => {
-        const title = book.innerText.toLowerCase();
-        book.style.display = title.includes(input) ? '' : 'none';
+        const title = book.querySelector('.book-title').innerText.toLowerCase();
+        book.style.display = title.includes(input) ? 'block' : 'none';
       });
     }
 
+    // Set current year in footer
     document.getElementById("year").innerText = new Date().getFullYear();
   </script>
 </body>
