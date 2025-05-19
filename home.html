@@ -978,146 +978,188 @@
  <!--ALERT Start-->
 
   <!-- Add this to your homepage where you want the link to appear -->
-<a href="https://aditya-cmd-max.github.io/exonova-/trailer.html" class="song-link">
-  <div class="song-link-container">
-    <div class="song-link-icon">
-      <i class="fas fa-music"></i>
+<a href="https://aditya-cmd-max.github.io/exonova-/trailer.html" class="video-link">
+  <div class="video-link-container">
+    <div class="video-link-icon">
+      <i class="fas fa-play-circle"></i>
     </div>
-    <div class="song-link-text">
-      <span class="song-link-title">Checkout <strong>A short trailer to Exonova</strong></span>
-      <span class="song-link-subtitle">Exonova</span>
+    <div class="video-link-text">
+      <span class="video-link-title">Watch <strong>Exonova Trailer</strong></span>
+      <span class="video-link-subtitle">Official Preview</span>
     </div>
-    <div class="song-link-arrow">
+    <div class="video-link-arrow">
       <i class="fas fa-chevron-right"></i>
     </div>
   </div>
 </a>
 
 <style>
-  /* Song Link Styles */
-  .song-link {
+  /* Video Link Styles */
+  :root {
+    --video-primary: #e63946; /* Vibrant red */
+    --video-secondary: #457b9d; /* Ocean blue */
+    --video-dark: #1d3557; /* Dark blue */
+    --video-light: #f1faee; /* Light cream */
+    --video-bg: #0f0f0f; /* Dark background */
+    --video-text-secondary: rgba(255, 255, 255, 0.7);
+  }
+  
+  .video-link {
     display: inline-block;
     text-decoration: none;
     margin: 20px;
-    max-width: 300px;
+    max-width: 320px;
+    width: 100%;
   }
   
-  .song-link-container {
+  .video-link-container {
     display: flex;
     align-items: center;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 15px;
-    border: 1px solid rgba(255, 42, 42, 0.3);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(230, 57, 70, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
     position: relative;
   }
   
-  .song-link-container::before {
+  .video-link-container::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 5px;
     height: 100%;
-    background: linear-gradient(to bottom, var(--primary), var(--secondary));
-    transition: all 0.3s ease;
+    background: linear-gradient(to bottom, var(--video-primary), var(--video-secondary));
+    transition: all 0.4s ease;
   }
   
-  .song-link:hover .song-link-container {
+  .video-link:hover .video-link-container {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(255, 42, 42, 0.2);
-    border-color: var(--primary);
+    box-shadow: 0 12px 28px rgba(230, 57, 70, 0.25);
+    border-color: var(--video-primary);
+    background: rgba(20, 20, 20, 0.9);
   }
   
-  .song-link:hover .song-link-container::before {
+  .video-link:hover .video-link-container::before {
     width: 8px;
   }
   
-  .song-link-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 42, 42, 0.2);
+  .video-link-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(230, 57, 70, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
+    margin-right: 16px;
     transition: all 0.3s ease;
   }
   
-  .song-link:hover .song-link-icon {
-    background: var(--primary);
-    transform: rotate(15deg) scale(1.1);
+  .video-link:hover .video-link-icon {
+    background: var(--video-primary);
+    transform: scale(1.1);
   }
   
-  .song-link-icon i {
-    color: var(--primary);
-    font-size: 1.2rem;
+  .video-link-icon i {
+    color: var(--video-primary);
+    font-size: 1.4rem;
     transition: all 0.3s ease;
   }
   
-  .song-link:hover .song-link-icon i {
+  .video-link:hover .video-link-icon i {
     color: white;
   }
   
-  .song-link-text {
+  .video-link-text {
     flex: 1;
   }
   
-  .song-link-title {
+  .video-link-title {
     display: block;
     color: white;
     font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 3px;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
     transition: all 0.3s ease;
+    letter-spacing: 0.3px;
   }
   
-  .song-link-subtitle {
+  .video-link-title strong {
+    font-weight: 700;
+    color: var(--video-primary);
+  }
+  
+  .video-link-subtitle {
     display: block;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--video-text-secondary);
+    font-size: 0.92rem;
     transition: all 0.3s ease;
   }
   
-  .song-link:hover .song-link-title {
-    color: var(--primary);
+  .video-link:hover .video-link-subtitle {
+    color: rgba(255, 255, 255, 0.9);
   }
   
-  .song-link-arrow {
-    color: var(--text-secondary);
+  .video-link-arrow {
+    color: var(--video-text-secondary);
+    font-size: 1rem;
     transition: all 0.3s ease;
+    margin-left: 8px;
   }
   
-  .song-link:hover .song-link-arrow {
-    color: var(--primary);
+  .video-link:hover .video-link-arrow {
+    color: var(--video-primary);
     transform: translateX(5px);
   }
   
   /* Animation */
   @keyframes pulse-glow {
-    0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 42, 42, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(230, 57, 70, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
   }
   
-  .song-link.pulse {
+  .video-link.pulse {
     animation: pulse-glow 2s infinite;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .video-link {
+      margin: 15px 0;
+      max-width: 100%;
+    }
+    
+    .video-link-container {
+      padding: 14px;
+      border-radius: 14px;
+    }
+    
+    .video-link-icon {
+      width: 48px;
+      height: 48px;
+      margin-right: 14px;
+    }
+    
+    .video-link-title {
+      font-size: 1.1rem;
+    }
   }
 </style>
 
 <script>
   // Optional: Add pulse animation on page load
   document.addEventListener('DOMContentLoaded', function() {
-    const songLink = document.querySelector('.song-link');
-    songLink.classList.add('pulse');
+    const videoLink = document.querySelector('.video-link');
+    videoLink.classList.add('pulse');
     
     setTimeout(() => {
-      songLink.classList.remove('pulse');
+      videoLink.classList.remove('pulse');
     }, 4000);
   });
 </script>
