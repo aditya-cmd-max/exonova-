@@ -977,21 +977,22 @@
 
  <!--ALERT Start-->
 
-  <!-- Add this to your homepage where you want the link to appear -->
-<a href="https://aditya-cmd-max.github.io/exonova-/trailer.html" class="video-link">
-  <div class="video-link-container">
-    <div class="video-link-icon">
-      <i class="fas fa-play-circle"></i>
+<div class="video-link-wrapper">
+  <a href="https://aditya-cmd-max.github.io/exonova-/trailer.html" class="video-link">
+    <div class="video-link-container">
+      <div class="video-link-icon">
+        <i class="fas fa-play-circle"></i>
+      </div>
+      <div class="video-link-text">
+        <span class="video-link-title">Watch <strong>Exonova Trailer</strong></span>
+        <span class="video-link-subtitle">Official Preview</span>
+      </div>
+      <div class="video-link-arrow">
+        <i class="fas fa-chevron-right"></i>
+      </div>
     </div>
-    <div class="video-link-text">
-      <span class="video-link-title">Watch <strong>Exonova Trailer</strong></span>
-      <span class="video-link-subtitle">Official Preview</span>
-    </div>
-    <div class="video-link-arrow">
-      <i class="fas fa-chevron-right"></i>
-    </div>
-  </div>
-</a>
+  </a>
+</div>
 
 <style>
   /* Video Link Styles */
@@ -1004,12 +1005,20 @@
     --video-text-secondary: rgba(255, 255, 255, 0.7);
   }
   
+  .video-link-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
   .video-link {
     display: inline-block;
     text-decoration: none;
-    margin: 20px;
-    max-width: 320px;
+    max-width: 380px;
     width: 100%;
+    transition: transform 0.3s ease;
   }
   
   .video-link-container {
@@ -1018,7 +1027,7 @@
     background: rgba(15, 15, 15, 0.8);
     backdrop-filter: blur(12px);
     border-radius: 16px;
-    padding: 16px;
+    padding: 18px 20px;
     border: 1px solid rgba(230, 57, 70, 0.3);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -1037,6 +1046,10 @@
     transition: all 0.4s ease;
   }
   
+  .video-link:hover {
+    transform: scale(1.02);
+  }
+  
   .video-link:hover .video-link-container {
     transform: translateY(-5px);
     box-shadow: 0 12px 28px rgba(230, 57, 70, 0.25);
@@ -1049,14 +1062,14 @@
   }
   
   .video-link-icon {
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     background: rgba(230, 57, 70, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: 18px;
     transition: all 0.3s ease;
   }
   
@@ -1067,7 +1080,7 @@
   
   .video-link-icon i {
     color: var(--video-primary);
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     transition: all 0.3s ease;
   }
   
@@ -1083,8 +1096,8 @@
     display: block;
     color: white;
     font-weight: 600;
-    font-size: 1.15rem;
-    margin-bottom: 4px;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
     transition: all 0.3s ease;
     letter-spacing: 0.3px;
   }
@@ -1092,12 +1105,17 @@
   .video-link-title strong {
     font-weight: 700;
     color: var(--video-primary);
+    transition: all 0.3s ease;
+  }
+  
+  .video-link:hover .video-link-title strong {
+    text-shadow: 0 0 8px rgba(230, 57, 70, 0.4);
   }
   
   .video-link-subtitle {
     display: block;
     color: var(--video-text-secondary);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
   }
   
@@ -1107,9 +1125,9 @@
   
   .video-link-arrow {
     color: var(--video-text-secondary);
-    font-size: 1rem;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
-    margin-left: 8px;
+    margin-left: 10px;
   }
   
   .video-link:hover .video-link-arrow {
@@ -1124,30 +1142,49 @@
     100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
   }
   
-  .video-link.pulse {
+  .video-link.pulse .video-link-container {
     animation: pulse-glow 2s infinite;
   }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
+    .video-link-wrapper {
+      padding: 15px;
+    }
+    
     .video-link {
-      margin: 15px 0;
       max-width: 100%;
     }
     
     .video-link-container {
-      padding: 14px;
+      padding: 16px;
       border-radius: 14px;
     }
     
     .video-link-icon {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
+      margin-right: 16px;
+    }
+    
+    .video-link-title {
+      font-size: 1.15rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .video-link-icon {
+      width: 46px;
+      height: 46px;
       margin-right: 14px;
     }
     
     .video-link-title {
       font-size: 1.1rem;
+    }
+    
+    .video-link-subtitle {
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -1156,11 +1193,13 @@
   // Optional: Add pulse animation on page load
   document.addEventListener('DOMContentLoaded', function() {
     const videoLink = document.querySelector('.video-link');
-    videoLink.classList.add('pulse');
-    
-    setTimeout(() => {
-      videoLink.classList.remove('pulse');
-    }, 4000);
+    if (videoLink) {
+      videoLink.classList.add('pulse');
+      
+      setTimeout(() => {
+        videoLink.classList.remove('pulse');
+      }, 4000);
+    }
   });
 </script>
   <!--ALERT End-->
