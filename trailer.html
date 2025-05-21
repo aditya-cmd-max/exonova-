@@ -259,7 +259,7 @@
             cursor: pointer;
         }
         
-        .speed-btn, .quality-btn, .info-btn {
+        .settings-btn, .info-btn {
             position: relative;
         }
         
@@ -580,6 +580,12 @@
                 opacity: 1;
             }
             
+            /* Hide skip buttons on mobile */
+            .video-container.mobile #skipBackBtn,
+            .video-container.mobile #skipForwardBtn {
+                display: none;
+            }
+            
             /* Notification toast for mobile */
             .notification-toast {
                 bottom: 70px;
@@ -663,26 +669,6 @@
             user-select: none;
         }
         
-        /* Captions/subtitles */
-        .captions {
-            position: absolute;
-            bottom: 80px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black;
-            padding: 0 20px;
-            z-index: 5;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .video-container.show-captions .captions {
-            opacity: 1;
-        }
-        
         /* Theater mode */
         .video-container.theater {
             max-width: 100%;
@@ -693,6 +679,42 @@
         .control-btn:focus-visible {
             outline: 2px solid var(--primary-color);
             outline-offset: 2px;
+        }
+        
+        /* Double tap indicators */
+        .double-tap-indicator {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .double-tap-indicator.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .double-tap-indicator.left {
+            left: 20%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .double-tap-indicator.right {
+            right: 20%;
+            top: 50%;
+            transform: translate(50%, -50%);
         }
     </style>
 </head>
@@ -709,6 +731,14 @@
         
         <div class="notification-toast" id="notificationToast"></div>
         
+        <!-- Double tap indicators -->
+        <div class="double-tap-indicator left" id="leftTapIndicator">
+            <i class="fas fa-rotate-left"></i>
+        </div>
+        <div class="double-tap-indicator right" id="rightTapIndicator">
+            <i class="fas fa-rotate-right"></i>
+        </div>
+        
         <button class="big-play-btn" id="bigPlayBtn">
             <i class="fas fa-play"></i>
         </button>
@@ -717,8 +747,6 @@
             <source src="https://aditya-cmd-max.github.io/exonova-/EXONOVA (1) (1).mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        
-        <div class="captions" id="captions"></div>
         
         <div class="video-controls" id="videoControls">
             <div class="progress-container" id="progressContainer">
@@ -752,14 +780,11 @@
                 </div>
                 
                 <div class="right-controls">
-                    <button class="control-btn" id="captionsBtn" title="Subtitles (c)">
-                        <i class="fas fa-closed-captioning"></i>
-                        <span class="tooltip">Subtitles (c)</span>
-                    </button>
-                    <div class="speed-btn control-btn" id="speedBtn">
-                        <i class="fas fa-gauge-high"></i>
-                        <span class="tooltip">Playback speed</span>
-                        <div class="dropdown-menu" id="speedMenu">
+                    <div class="settings-btn control-btn" id="settingsBtn">
+                        <i class="fas fa-cog"></i>
+                        <span class="tooltip">Settings</span>
+                        <div class="dropdown-menu" id="settingsMenu">
+                            <div class="dropdown-menu-section">Playback Speed</div>
                             <a href="#" class="dropdown-item" data-speed="0.25">0.25x</a>
                             <a href="#" class="dropdown-item" data-speed="0.5">0.5x</a>
                             <a href="#" class="dropdown-item" data-speed="0.75">0.75x</a>
@@ -767,12 +792,8 @@
                             <a href="#" class="dropdown-item" data-speed="1.25">1.25x</a>
                             <a href="#" class="dropdown-item" data-speed="1.5">1.5x</a>
                             <a href="#" class="dropdown-item" data-speed="2">2x</a>
-                        </div>
-                    </div>
-                    <div class="quality-btn control-btn" id="qualityBtn">
-                        <i class="fas fa-hd"></i>
-                        <span class="tooltip">Quality</span>
-                        <div class="dropdown-menu" id="qualityMenu">
+                            <div class="dropdown-menu-divider"></div>
+                            <div class="dropdown-menu-section">Quality</div>
                             <a href="#" class="dropdown-item active" data-quality="auto">Auto</a>
                             <a href="#" class="dropdown-item" data-quality="1080">1080p</a>
                             <a href="#" class="dropdown-item" data-quality="720">720p</a>
@@ -821,7 +842,6 @@
                 <li>Keyboard shortcuts for all controls</li>
                 <li>Fully responsive design for all devices</li>
                 <li>Smooth touch controls for mobile</li>
-                <li>Subtitles support (coming soon)</li>
             </ul>
             <p class="modal-text">
                 "Embrace the Path of Endless Liberty"
@@ -847,10 +867,8 @@
             const progressContainer = document.getElementById('progressContainer');
             const currentTimeDisplay = document.getElementById('currentTime');
             const durationDisplay = document.getElementById('duration');
-            const speedBtn = document.getElementById('speedBtn');
-            const speedMenu = document.getElementById('speedMenu');
-            const qualityBtn = document.getElementById('qualityBtn');
-            const qualityMenu = document.getElementById('qualityMenu');
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsMenu = document.getElementById('settingsMenu');
             const infoBtn = document.getElementById('infoBtn');
             const infoModal = document.getElementById('infoModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
@@ -859,11 +877,11 @@
             const fullscreenIcon = document.getElementById('fullscreenIcon');
             const bigPlayBtn = document.getElementById('bigPlayBtn');
             const loadingSpinner = document.getElementById('loadingSpinner');
-            const captionsBtn = document.getElementById('captionsBtn');
-            const captions = document.getElementById('captions');
             const theaterBtn = document.getElementById('theaterBtn');
             const theaterIcon = document.getElementById('theaterIcon');
             const notificationToast = document.getElementById('notificationToast');
+            const leftTapIndicator = document.getElementById('leftTapIndicator');
+            const rightTapIndicator = document.getElementById('rightTapIndicator');
             
             // Detect mobile devices
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -876,6 +894,10 @@
                 // Make volume slider always visible on mobile
                 volumeSlider.style.opacity = '1';
                 volumeSlider.style.width = '60px';
+                
+                // Hide skip buttons on mobile
+                skipBackBtn.style.display = 'none';
+                skipForwardBtn.style.display = 'none';
             }
             
             // Show notification message
@@ -1006,26 +1028,26 @@
                 if (isMobile) showControls();
             });
             
-            // Speed control
-            speedBtn.addEventListener('click', () => {
-                speedMenu.classList.toggle('show');
-                qualityMenu.classList.remove('show');
+            // Settings menu
+            settingsBtn.addEventListener('click', () => {
+                settingsMenu.classList.toggle('show');
                 if (isMobile) showControls();
             });
             
-            document.querySelectorAll('#speedMenu .dropdown-item').forEach(item => {
+            // Speed control in settings menu
+            document.querySelectorAll('#settingsMenu .dropdown-item[data-speed]').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const speed = parseFloat(item.dataset.speed);
                     videoPlayer.playbackRate = speed;
                     
                     // Update active item
-                    document.querySelectorAll('#speedMenu .dropdown-item').forEach(i => {
+                    document.querySelectorAll('#settingsMenu .dropdown-item[data-speed]').forEach(i => {
                         i.classList.remove('active');
                     });
                     item.classList.add('active');
                     
-                    speedMenu.classList.remove('show');
+                    settingsMenu.classList.remove('show');
                     if (isMobile) showControls();
                     
                     // Show notification
@@ -1033,26 +1055,20 @@
                 });
             });
             
-            // Quality control (simulated)
-            qualityBtn.addEventListener('click', () => {
-                qualityMenu.classList.toggle('show');
-                speedMenu.classList.remove('show');
-                if (isMobile) showControls();
-            });
-            
-            document.querySelectorAll('#qualityMenu .dropdown-item').forEach(item => {
+            // Quality control in settings menu (simulated)
+            document.querySelectorAll('#settingsMenu .dropdown-item[data-quality]').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     
                     // In a real implementation, you would switch video sources here
                     // For this demo, we'll just update the UI
                     
-                    document.querySelectorAll('#qualityMenu .dropdown-item').forEach(i => {
+                    document.querySelectorAll('#settingsMenu .dropdown-item[data-quality]').forEach(i => {
                         i.classList.remove('active');
                     });
                     item.classList.add('active');
                     
-                    qualityMenu.classList.remove('show');
+                    settingsMenu.classList.remove('show');
                     if (isMobile) showControls();
                     
                     // Show notification
@@ -1111,9 +1127,7 @@
                                 enterMobileFullscreen();
                             }
                         });
-                    } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
-                        videoContainer.webkitRequestFullscreen();
-                    } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+                                      } else if (videoContainer.msRequestFullscreen) { /* IE11 */
                         videoContainer.msRequestFullscreen();
                     } else if (isMobile) {
                         enterMobileFullscreen();
@@ -1121,392 +1135,403 @@
                     fullscreenIcon.className = 'fas fa-compress';
                 } else {
                     if (document.exitFullscreen) {
-document.exitFullscreen();
-} else if (document.webkitExitFullscreen) { /* Safari /
-document.webkitExitFullscreen();
-} else if (document.msExitFullscreen) { / IE11 */
-document.msExitFullscreen();
-}
-fullscreenIcon.className = 'fas fa-expand';
-}
-if (isMobile) showControls();
-}        // Mobile fullscreen fallback
-        function enterMobileFullscreen() {
-            videoContainer.classList.add('fullscreen');
-            // Lock orientation if supported
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(e => console.log('Orientation lock failed:', e));
-            }
-            showNotification('Entered fullscreen mode');
-        }
-        
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                videoContainer.classList.add('fullscreen');
-                fullscreenIcon.className = 'fas fa-compress';
-            } else {
-                videoContainer.classList.remove('fullscreen');
-                fullscreenIcon.className = 'fas fa-expand';
-                // Unlock orientation
-                if (screen.orientation && screen.orientation.unlock) {
-                    screen.orientation.unlock();
-                }
-            }
-        });
-        
-        // Captions button (placeholder for future functionality)
-        captionsBtn.addEventListener('click', () => {
-            videoContainer.classList.toggle('show-captions');
-            if (isMobile) showControls();
-            showNotification(videoContainer.classList.contains('show-captions') ? 'Subtitles enabled' : 'Subtitles disabled');
-        });
-        
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!speedBtn.contains(e.target)) {
-                speedMenu.classList.remove('show');
-            }
-            
-            if (!qualityBtn.contains(e.target)) {
-                qualityMenu.classList.remove('show');
-            }
-        });
-        
-        // Mobile touch controls
-        if (isMobile) {
-            let controlsTimeout;
-            let lastTapTime = 0;
-            let touchStartX = 0;
-            let touchStartY = 0;
-            let isSeeking = false;
-            
-            // Show controls on tap
-            videoContainer.addEventListener('touchstart', function(e) {
-                if (e.touches.length === 1) {
-                    touchStartX = e.touches[0].clientX;
-                    touchStartY = e.touches[0].clientY;
-                    
-                    // Double tap to play/pause
-                    const currentTime = new Date().getTime();
-                    const tapLength = currentTime - lastTapTime;
-                    if (tapLength < 300 && tapLength > 0) {
-                        togglePlayPause();
-                        e.preventDefault();
-                        return;
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) { /* Safari */
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) { /* IE11 */
+                        document.msExitFullscreen();
                     }
-                    lastTapTime = currentTime;
-                    
-                    // Show controls
-                    showControls();
-                    
-                    // Start seeking if touch is on progress bar
-                    const rect = progressContainer.getBoundingClientRect();
-                    if (e.touches[0].clientY > rect.top && e.touches[0].clientY < rect.bottom) {
-                        isSeeking = true;
+                    fullscreenIcon.className = 'fas fa-expand';
+                }
+                if (isMobile) showControls();
+            }
+
+            // Mobile fullscreen fallback
+            function enterMobileFullscreen() {
+                videoContainer.classList.add('fullscreen');
+                // Lock orientation if supported
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(e => console.log('Orientation lock failed:', e));
+                }
+                showNotification('Entered fullscreen mode');
+            }
+            
+            document.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    videoContainer.classList.add('fullscreen');
+                    fullscreenIcon.className = 'fas fa-compress';
+                } else {
+                    videoContainer.classList.remove('fullscreen');
+                    fullscreenIcon.className = 'fas fa-expand';
+                    // Unlock orientation
+                    if (screen.orientation && screen.orientation.unlock) {
+                        screen.orientation.unlock();
+                    }
+                }
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!settingsBtn.contains(e.target)) {
+                    settingsMenu.classList.remove('show');
+                }
+            });
+            
+            // Mobile touch controls
+            if (isMobile) {
+                let controlsTimeout;
+                let lastTapTime = 0;
+                let lastTapPosition = null;
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let isSeeking = false;
+                
+                // Show controls on tap
+                videoContainer.addEventListener('touchstart', function(e) {
+                    if (e.touches.length === 1) {
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                        
+                        const currentTime = new Date().getTime();
+                        const tapLength = currentTime - lastTapTime;
+                        const tapPosition = e.touches[0].clientX < window.innerWidth / 2 ? 'left' : 'right';
+                        
+                        // Double tap detection
+                        if (tapLength < 300 && tapLength > 0 && lastTapPosition === tapPosition) {
+                            // Double tap detected
+                            e.preventDefault();
+                            
+                            // Show visual feedback
+                            const indicator = tapPosition === 'left' ? leftTapIndicator : rightTapIndicator;
+                            indicator.classList.add('show');
+                            setTimeout(() => {
+                                indicator.classList.remove('show');
+                            }, 300);
+                            
+                            // Perform skip action
+                            if (tapPosition === 'left') {
+                                videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
+                                showNotification('Rewinded 10 seconds');
+                            } else {
+                                videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
+                                showNotification('Forwarded 10 seconds');
+                            }
+                            
+                            lastTapTime = 0; // Reset to prevent triple-tap detection
+                            return;
+                        }
+                        
+                        lastTapTime = currentTime;
+                        lastTapPosition = tapPosition;
+                        
+                        // Show controls
+                        showControls();
+                        
+                        // Start seeking if touch is on progress bar
+                        const rect = progressContainer.getBoundingClientRect();
+                        if (e.touches[0].clientY > rect.top && e.touches[0].clientY < rect.bottom) {
+                            isSeeking = true;
+                            handleSeek(e.touches[0].clientX);
+                        }
+                    }
+                }, { passive: false });
+                
+                videoContainer.addEventListener('touchmove', function(e) {
+                    if (e.touches.length === 1 && isSeeking) {
+                        e.preventDefault();
                         handleSeek(e.touches[0].clientX);
                     }
-                }
-            }, { passive: false });
-            
-            videoContainer.addEventListener('touchmove', function(e) {
-                if (e.touches.length === 1 && isSeeking) {
-                    e.preventDefault();
-                    handleSeek(e.touches[0].clientX);
-                }
-            }, { passive: false });
-            
-            videoContainer.addEventListener('touchend', function(e) {
-                if (e.changedTouches.length === 1) {
-                    isSeeking = false;
-                    
-                    // Check if it was a swipe
-                    const touchEndX = e.changedTouches[0].clientX;
-                    const touchEndY = e.changedTouches[0].clientY;
-                    const dx = touchEndX - touchStartX;
-                    const dy = touchEndY - touchStartY;
-                    
-                    // Horizontal swipe (left/right)
-                    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
-                        if (dx > 0) { // Swipe right
-                            videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
-                            showNotification('Rewinded 10 seconds');
-                        } else { // Swipe left
-                            videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
-                            showNotification('Forwarded 10 seconds');
+                }, { passive: false });
+                
+                videoContainer.addEventListener('touchend', function(e) {
+                    if (e.changedTouches.length === 1) {
+                        isSeeking = false;
+                        
+                        // Check if it was a swipe
+                        const touchEndX = e.changedTouches[0].clientX;
+                        const touchEndY = e.changedTouches[0].clientY;
+                        const dx = touchEndX - touchStartX;
+                        const dy = touchEndY - touchStartY;
+                        
+                        // Horizontal swipe (left/right)
+                        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
+                            if (dx > 0) { // Swipe right
+                                videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
+                                showNotification('Rewinded 10 seconds');
+                            } else { // Swipe left
+                                videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
+                                showNotification('Forwarded 10 seconds');
+                            }
                         }
-                    }
-                    // Vertical swipe (up/down) - right side for volume
-                    else if (Math.abs(dy) > 30 && touchStartX > window.innerWidth * 0.6) {
-                        if (dy > 0) { // Swipe down (volume down)
-                            videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
-                            updateVolumeIcon();
-                            showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
-                        } else { // Swipe up (volume up)
-                            videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
-                            updateVolumeIcon();
-                            showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
+                        // Vertical swipe (up/down) - right side for volume
+                        else if (Math.abs(dy) > 30 && touchStartX > window.innerWidth * 0.6) {
+                            if (dy > 0) { // Swipe down (volume down)
+                                videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+                                updateVolumeIcon();
+                                showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
+                            } else { // Swipe up (volume up)
+                                videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+                                updateVolumeIcon();
+                                showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
+                            }
                         }
+                        
+                        // Hide controls after delay
+                        resetControlsTimeout();
                     }
-                    
-                    // Hide controls after delay
+                });
+                
+                function handleSeek(clientX) {
+                    const rect = progressContainer.getBoundingClientRect();
+                    let pos = (clientX - rect.left) / rect.width;
+                    pos = Math.max(0, Math.min(1, pos)); // Clamp between 0 and 1
+                    videoPlayer.currentTime = pos * videoPlayer.duration;
+                    updateProgressBar();
+                }
+                
+                function showControls() {
+                    videoContainer.classList.remove('hide-controls');
+                    videoContainer.classList.add('show-controls');
                     resetControlsTimeout();
                 }
-            });
-            
-            function handleSeek(clientX) {
-                const rect = progressContainer.getBoundingClientRect();
-                let pos = (clientX - rect.left) / rect.width;
-                pos = Math.max(0, Math.min(1, pos)); // Clamp between 0 and 1
-                videoPlayer.currentTime = pos * videoPlayer.duration;
-                updateProgressBar();
-            }
-            
-            function showControls() {
-                videoContainer.classList.remove('hide-controls');
-                videoContainer.classList.add('show-controls');
-                resetControlsTimeout();
-            }
-            
-            function hideControls() {
-                if (!videoPlayer.paused) {
-                    videoContainer.classList.add('hide-controls');
-                }
-            }
-            
-            function resetControlsTimeout() {
-                clearTimeout(controlsTimeout);
-                controlsTimeout = setTimeout(hideControls, 3000);
-            }
-            
-            // Show controls when interacting with them
-            videoControls.addEventListener('touchstart', function(e) {
-                showControls();
-                e.stopPropagation();
-            });
-            
-            // Initial show of controls
-            showControls();
-        } else {
-            // Desktop controls
-            videoContainer.addEventListener('mouseenter', () => {
-                videoContainer.classList.add('show-controls');
-            });
-            
-            videoContainer.addEventListener('mouseleave', () => {
-                if (!videoPlayer.paused) {
-                    videoContainer.classList.remove('show-controls');
-                }
-            });
-            
-            // Show big play button when paused
-            videoPlayer.addEventListener('pause', () => {
-                if (!videoContainer.classList.contains('show-controls')) {
-                    videoContainer.classList.add('show-controls');
-                }
-            });
-        }
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Ignore if focused on input elements
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
-                return;
-            }
-            
-            switch (e.key.toLowerCase()) {
-                case ' ':
-                case 'k':
-                    togglePlayPause();
-                    e.preventDefault();
-                    break;
-                case 'arrowleft':
-                case 'j':
-                    videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
-                    showNotification('Rewinded 5 seconds');
-                    e.preventDefault();
-                    break;
-                case 'arrowright':
-                case 'l':
-                    videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 5);
-                    showNotification('Forwarded 5 seconds');
-                    e.preventDefault();
-                    break;
-                case 'arrowup':
-                    videoPlayer.volume = Math.min(videoPlayer.volume + 0.1, 1);
-                    volumeSlider.value = videoPlayer.volume;
-                    updateVolumeIcon();
-                    showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
-                    e.preventDefault();
-                    break;
-                case 'arrowdown':
-                    videoPlayer.volume = Math.max(videoPlayer.volume - 0.1, 0);
-                    volumeSlider.value = videoPlayer.volume;
-                    updateVolumeIcon();
-                    showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
-                    e.preventDefault();
-                    break;
-                case 'f':
-                    toggleFullscreen();
-                    e.preventDefault();
-                    break;
-                case 't':
-                    toggleTheaterMode();
-                    e.preventDefault();
-                    break;
-                case 'm':
-                    videoPlayer.muted = !videoPlayer.muted;
-                    updateVolumeIcon();
-                    showNotification(videoPlayer.muted ? 'Muted' : 'Unmuted');
-                    e.preventDefault();
-                    break;
-                case 'c':
-                    videoContainer.classList.toggle('show-captions');
-                    showNotification(videoContainer.classList.contains('show-captions') ? 'Subtitles enabled' : 'Subtitles disabled');
-                    e.preventDefault();
-                    break;
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                    // Jump to percentage of video (e.g., 5 goes to 50%)
-                    const percentage = parseInt(e.key) / 10;
-                    videoPlayer.currentTime = videoPlayer.duration * percentage;
-                    showNotification(`Jumped to ${percentage * 100}% of video`);
-                    e.preventDefault();
-                    break;
-                case '>':
-                case '.':
-                    // Frame step forward when paused
-                    if (videoPlayer.paused) {
-                        videoPlayer.currentTime += 1/30; // Approximate frame step
-                    }
-                    e.preventDefault();
-                    break;
-                case '<':
-                case ',':
-                    // Frame step backward when paused
-                    if (videoPlayer.paused) {
-                        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 1/30);
-                    }
-                    e.preventDefault();
-                    break;
-            }
-        });
-        
-        // iOS specific fixes
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            // Workaround for iOS not firing play events properly
-            document.body.addEventListener('touchstart', function() {}, false);
-            
-            // iOS sometimes doesn't fire the play event properly
-            videoPlayer.addEventListener('play', function() {
-                playPauseIcon.className = 'fas fa-pause';
-                videoContainer.classList.add('playing');
-            });
-            
-            videoPlayer.addEventListener('pause', function() {
-                playPauseIcon.className = 'fas fa-play';
-                videoContainer.classList.remove('playing');
-            });
-            
-            // iOS volume control workaround
-            volumeSlider.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-            }, { passive: true });
-        }
-        
-        // Show loading spinner when buffering
-        videoPlayer.addEventListener('waiting', function() {
-            videoContainer.classList.add('loading');
-        });
-        
-        videoPlayer.addEventListener('playing', function() {
-            videoContainer.classList.remove('loading');
-        });
-        
-        // Initialize volume icon
-        updateVolumeIcon();
-        
-        // Show controls when video starts playing
-        videoPlayer.addEventListener('play', function() {
-            showControls();
-        });
-        
-        // Auto-hide controls after delay
-        let hideControlsTimeout;
-        function showControls() {
-            videoContainer.classList.add('show-controls');
-            clearTimeout(hideControlsTimeout);
-            if (!videoPlayer.paused) {
-                hideControlsTimeout = setTimeout(() => {
-                    videoContainer.classList.remove('show-controls');
-                }, 3000);
-            }
-        }
-        
-        // Show controls when hovering over video container
-        videoContainer.addEventListener('mousemove', function() {
-            if (!isMobile) {
-                showControls();
-            }
-        });
-        
-        // Show big play button when video ends
-        videoPlayer.addEventListener('ended', function() {
-            videoContainer.classList.remove('playing');
-            playPauseIcon.className = 'fas fa-play';
-            showControls();
-        });
-        
-        // Picture-in-Picture mode (if supported)
-        if ('pictureInPictureEnabled' in document) {
-            const pipBtn = document.createElement('button');
-            pipBtn.className = 'control-btn';
-            pipBtn.innerHTML = '<i class="fas fa-clone"></i><span class="tooltip">Picture-in-Picture</span>';
-            pipBtn.addEventListener('click', togglePictureInPicture);
-            rightControls.insertBefore(pipBtn, fullscreenBtn);
-            
-            async function togglePictureInPicture() {
-                try {
-                    if (document.pictureInPictureElement) {
-                        await document.exitPictureInPicture();
-                        showNotification('Exited Picture-in-Picture');
-                    } else {
-                        await videoPlayer.requestPictureInPicture();
-                        showNotification('Entered Picture-in-Picture');
-                    }
-                } catch (error) {
-                    console.error('Picture-in-Picture error:', error);
-                    showNotification('Picture-in-Picture not available');
-                }
-            }
-        }
-        
-        // Auto-quality selection based on network (simulated)
-        function simulateQualitySelection() {
-            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-            if (connection) {
-                const effectiveType = connection.effectiveType;
-                const saveData = connection.saveData;
                 
-                if (saveData || effectiveType.includes('2g') || effectiveType.includes('3g')) {
-                    // Select lower quality for slow connections
-                    const lowQualityItem = document.querySelector('#qualityMenu .dropdown-item[data-quality="480"]');
-                    if (lowQualityItem) {
-                        lowQualityItem.click();
-                        showNotification('Auto quality set to 480p for slower connection');
+                function hideControls() {
+                    if (!videoPlayer.paused) {
+                        videoContainer.classList.add('hide-controls');
+                    }
+                }
+                
+                function resetControlsTimeout() {
+                    clearTimeout(controlsTimeout);
+                    controlsTimeout = setTimeout(hideControls, 3000);
+                }
+                
+                // Show controls when interacting with them
+                videoControls.addEventListener('touchstart', function(e) {
+                    showControls();
+                    e.stopPropagation();
+                });
+                
+                // Initial show of controls
+                showControls();
+            } else {
+                // Desktop controls
+                videoContainer.addEventListener('mouseenter', () => {
+                    videoContainer.classList.add('show-controls');
+                });
+                
+                videoContainer.addEventListener('mouseleave', () => {
+                    if (!videoPlayer.paused) {
+                        videoContainer.classList.remove('show-controls');
+                    }
+                });
+                
+                // Show big play button when paused
+                videoPlayer.addEventListener('pause', () => {
+                    if (!videoContainer.classList.contains('show-controls')) {
+                        videoContainer.classList.add('show-controls');
+                    }
+                });
+            }
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Ignore if focused on input elements
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+                    return;
+                }
+                
+                switch (e.key.toLowerCase()) {
+                    case ' ':
+                    case 'k':
+                        togglePlayPause();
+                        e.preventDefault();
+                        break;
+                    case 'arrowleft':
+                    case 'j':
+                        videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
+                        showNotification('Rewinded 5 seconds');
+                        e.preventDefault();
+                        break;
+                    case 'arrowright':
+                    case 'l':
+                        videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 5);
+                        showNotification('Forwarded 5 seconds');
+                        e.preventDefault();
+                        break;
+                    case 'arrowup':
+                        videoPlayer.volume = Math.min(videoPlayer.volume + 0.1, 1);
+                        volumeSlider.value = videoPlayer.volume;
+                        updateVolumeIcon();
+                        showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
+                        e.preventDefault();
+                        break;
+                    case 'arrowdown':
+                        videoPlayer.volume = Math.max(videoPlayer.volume - 0.1, 0);
+                        volumeSlider.value = videoPlayer.volume;
+                        updateVolumeIcon();
+                        showNotification(`Volume ${Math.round(videoPlayer.volume * 100)}%`);
+                        e.preventDefault();
+                        break;
+                    case 'f':
+                        toggleFullscreen();
+                        e.preventDefault();
+                        break;
+                    case 't':
+                        toggleTheaterMode();
+                        e.preventDefault();
+                        break;
+                    case 'm':
+                        videoPlayer.muted = !videoPlayer.muted;
+                        updateVolumeIcon();
+                        showNotification(videoPlayer.muted ? 'Muted' : 'Unmuted');
+                        e.preventDefault();
+                        break;
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        // Jump to percentage of video (e.g., 5 goes to 50%)
+                        const percentage = parseInt(e.key) / 10;
+                        videoPlayer.currentTime = videoPlayer.duration * percentage;
+                        showNotification(`Jumped to ${percentage * 100}% of video`);
+                        e.preventDefault();
+                        break;
+                    case '>':
+                    case '.':
+                        // Frame step forward when paused
+                        if (videoPlayer.paused) {
+                            videoPlayer.currentTime += 1/30; // Approximate frame step
+                        }
+                        e.preventDefault();
+                        break;
+                    case '<':
+                    case ',':
+                        // Frame step backward when paused
+                        if (videoPlayer.paused) {
+                            videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 1/30);
+                        }
+                        e.preventDefault();
+                        break;
+                }
+            });
+            
+            // iOS specific fixes
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // Workaround for iOS not firing play events properly
+                document.body.addEventListener('touchstart', function() {}, false);
+                
+                // iOS sometimes doesn't fire the play event properly
+                videoPlayer.addEventListener('play', function() {
+                    playPauseIcon.className = 'fas fa-pause';
+                    videoContainer.classList.add('playing');
+                });
+                
+                videoPlayer.addEventListener('pause', function() {
+                    playPauseIcon.className = 'fas fa-play';
+                    videoContainer.classList.remove('playing');
+                });
+                
+                // iOS volume control workaround
+                volumeSlider.addEventListener('touchstart', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
+            }
+            
+            // Show loading spinner when buffering
+            videoPlayer.addEventListener('waiting', function() {
+                videoContainer.classList.add('loading');
+            });
+            
+            videoPlayer.addEventListener('playing', function() {
+                videoContainer.classList.remove('loading');
+            });
+            
+            // Initialize volume icon
+            updateVolumeIcon();
+            
+            // Show controls when video starts playing
+            videoPlayer.addEventListener('play', function() {
+                showControls();
+            });
+            
+            // Auto-hide controls after delay
+            let hideControlsTimeout;
+            function showControls() {
+                videoContainer.classList.add('show-controls');
+                clearTimeout(hideControlsTimeout);
+                if (!videoPlayer.paused) {
+                    hideControlsTimeout = setTimeout(() => {
+                        videoContainer.classList.remove('show-controls');
+                    }, 3000);
+                }
+            }
+            
+            // Show controls when hovering over video container
+            videoContainer.addEventListener('mousemove', function() {
+                if (!isMobile) {
+                    showControls();
+                }
+            });
+            
+            // Show big play button when video ends
+            videoPlayer.addEventListener('ended', function() {
+                videoContainer.classList.remove('playing');
+                playPauseIcon.className = 'fas fa-play';
+                showControls();
+            });
+            
+            // Picture-in-Picture mode (if supported)
+            if ('pictureInPictureEnabled' in document) {
+                const pipBtn = document.createElement('button');
+                pipBtn.className = 'control-btn';
+                pipBtn.innerHTML = '<i class="fas fa-clone"></i><span class="tooltip">Picture-in-Picture</span>';
+                pipBtn.addEventListener('click', togglePictureInPicture);
+                document.querySelector('.right-controls').insertBefore(pipBtn, fullscreenBtn);
+                
+                async function togglePictureInPicture() {
+                    try {
+                        if (document.pictureInPictureElement) {
+                            await document.exitPictureInPicture();
+                            showNotification('Exited Picture-in-Picture');
+                        } else {
+                            await videoPlayer.requestPictureInPicture();
+                            showNotification('Entered Picture-in-Picture');
+                        }
+                    } catch (error) {
+                        console.error('Picture-in-Picture error:', error);
+                        showNotification('Picture-in-Picture not available');
                     }
                 }
             }
-        }
-        
-        // Run quality simulation after a short delay
-        setTimeout(simulateQualitySelection, 2000);
-    });
-</script>
+            
+            // Auto-quality selection based on network (simulated)
+            function simulateQualitySelection() {
+                const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                if (connection) {
+                    const effectiveType = connection.effectiveType;
+                    const saveData = connection.saveData;
+                    
+                    if (saveData || effectiveType.includes('2g') || effectiveType.includes('3g')) {
+                        // Select lower quality for slow connections
+                        const lowQualityItem = document.querySelector('#settingsMenu .dropdown-item[data-quality="480"]');
+                        if (lowQualityItem) {
+                            lowQualityItem.click();
+                            showNotification('Auto quality set to 480p for slower connection');
+                        }
+                    }
+                }
+            }
+            
+            // Run quality simulation after a short delay
+            setTimeout(simulateQualitySelection, 2000);
+        });
+    </script>
+</body>
+</html>
