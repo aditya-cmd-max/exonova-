@@ -11,15 +11,13 @@
   <meta name="author" content="Aditya Jha">
   <meta name="robots" content="index, follow">
   
-  
-   <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aditya-cmd-max.github.io/exonova-/">
   <meta property="og:title" content="Exonova - Science Education Platform | Fun Learning with Aditya Jha">
   <meta property="og:description" content="Discover engaging science facts, interactive quizzes, and inspiring educational content at Exonova - India's innovative learning platform.">
   <meta property="og:image" content="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png">
   <meta property="og:image:alt" content="Exonova Logo - Science Education Platform">
-
 
   <!-- Google Site Verification -->
   <meta name="google-site-verification" content="gVm_Dk4QJW6bhd3nyT3WJPIzHXt9SEgn8Z43IU2t27Y"> 
@@ -55,6 +53,7 @@
     
     html {
       scroll-behavior: smooth;
+      font-size: 100%;
     }
     
     body {
@@ -65,6 +64,7 @@
       background-image: 
         radial-gradient(circle at 10% 20%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(123, 45, 255, 0.05) 0%, transparent 20%);
+      line-height: 1.6;
     }
     
     /* Floating Particles Background */
@@ -76,6 +76,7 @@
       height: 100%;
       z-index: -1;
       overflow: hidden;
+      pointer-events: none;
     }
     
     .particle {
@@ -126,10 +127,14 @@
     .logo {
       height: 50px;
       transition: transform 0.4s ease;
+      display: flex;
+      align-items: center;
     }
     
     .logo img {
       height: 100%;
+      max-height: 50px;
+      width: auto;
       transition: transform 0.4s ease;
     }
     
@@ -142,6 +147,7 @@
       display: flex;
       gap: 30px;
       align-items: center;
+      list-style: none;
     }
     
     .nav-link {
@@ -149,7 +155,7 @@
       color: var(--text-light);
       text-decoration: none;
       font-weight: 500;
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 1.1vw, 1.1rem);
       padding: 8px 0;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
@@ -239,6 +245,10 @@
       .menu-btn {
         display: flex;
       }
+      
+      .nav-link {
+        font-size: 1.2rem;
+      }
     }
     
     .scroll-indicator {
@@ -271,7 +281,7 @@
     }
     
     header h1 {
-      font-size: 4rem;
+      font-size: clamp(2.5rem, 6vw, 4rem);
       margin-bottom: 1rem;
       font-family: 'Paprika', sans-serif;
       background: linear-gradient(to right, var(--primary), var(--text-light));
@@ -279,6 +289,7 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
       animation: glow 2s ease-in-out infinite alternate;
+      line-height: 1.2;
     }
     
     @keyframes glow {
@@ -292,7 +303,7 @@
     
     header p {
       color: var(--text-muted);
-      font-size: 1.3rem;
+      font-size: clamp(1rem, 1.3vw, 1.3rem);
       max-width: 700px;
       margin: 0 auto;
       position: relative;
@@ -310,11 +321,10 @@
     
     /* Blogs Container */
     .blogs-container {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
-      justify-content: center;
-      padding: 3rem 2rem;
+      padding: 3rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -322,12 +332,14 @@
     .blog-card {
       background: rgba(255, 255, 255, 0.05);
       border-radius: 15px;
-      width: 350px;
       overflow: hidden;
       backdrop-filter: blur(10px);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       border: 1px solid rgba(0, 247, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     
     .blog-card::before {
@@ -356,6 +368,7 @@
       position: relative;
       overflow: hidden;
       height: 200px;
+      width: 100%;
     }
     
     .blog-img {
@@ -372,14 +385,18 @@
     .blog-content {
       padding: 1.5rem;
       position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .blog-title {
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 1.5vw, 1.5rem);
       font-weight: 600;
       color: var(--primary);
       margin-bottom: 0.8rem;
       transition: all 0.3s ease;
+      line-height: 1.3;
     }
     
     .blog-card:hover .blog-title {
@@ -390,6 +407,8 @@
       color: var(--text-muted);
       margin-bottom: 1.2rem;
       line-height: 1.6;
+      font-size: clamp(0.9rem, 1vw, 1rem);
+      flex: 1;
     }
     
     .read-more {
@@ -401,6 +420,8 @@
       font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
+      font-size: 0.95rem;
+      margin-top: auto;
     }
     
     .read-more::after {
@@ -431,7 +452,7 @@
       align-items: center;
       gap: 6px;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-top: 1rem;
     }
     
@@ -527,17 +548,60 @@
     
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.5rem;
+      body {
+        padding-top: 70px;
       }
       
-      header p {
-        font-size: 1.1rem;
+      .navbar {
+        height: 70px;
+        padding: 0 3%;
+      }
+      
+      .logo {
+        height: 40px;
+      }
+      
+      header {
+        padding: 4rem 1.5rem 3rem;
+      }
+      
+      header p::after {
+        width: 70px;
+        margin: 1rem auto 0;
+      }
+      
+      .blogs-container {
+        padding: 2rem 5%;
+        grid-template-columns: 1fr;
       }
       
       .blog-card {
-        width: 100%;
-        max-width: 400px;
+        max-width: 100%;
+      }
+      
+      .back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 3rem 1rem 2rem;
+      }
+      
+      .blog-img-container {
+        height: 180px;
+      }
+      
+      .blog-content {
+        padding: 1.2rem;
+      }
+      
+      .social-links {
+        gap: 15px;
       }
     }
   </style>
@@ -629,31 +693,32 @@
       </div>
     </div>
     
-    <!-- Blog Card 4 - Example of additional blog card -->
+    <!-- Blog Card 4 -->
     <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
       <div class="blog-img-container">
         <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
       </div>
       <div class="blog-content">
-        <h2 class="blog-title">Part 1 : India-Pakistan war: Is it WW3? </h2>
+        <h2 class="blog-title">Part 1: India-Pakistan war: Is it WW3?</h2>
         <p class="blog-desc">In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
         <div class="blog-date">
           <i class="far fa-calendar-alt"></i>
           <span>May 11, 2025</span>
         </div>
         <a href="https://aditya-cmd-max.github.io/exonova-/blog4" class="read-more">
-          read More <i class="fas fa-arrow-right"></i>
+          Read More <i class="fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
-<!-- Blog 5-->
-     <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+    
+    <!-- Blog Card 5 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="500">
       <div class="blog-img-container">
-        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Economics" class="blog-img">
+        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
       </div>
       <div class="blog-content">
-        <h2 class="blog-title">Dark Reality of Academic Pressure.</h2>
-        <p class="blog-desc">Get an overview of the world of economics, exploring how individuals and societies make choices with limited resources.</p>
+        <h2 class="blog-title">Dark Reality of Academic Pressure</h2>
+        <p class="blog-desc">Understanding the impact of academic stress on students and strategies to cope with it effectively.</p>
         <div class="blog-date">
           <i class="far fa-calendar-alt"></i>
           <span>May 23, 2025</span>
@@ -662,16 +727,16 @@
           Read More <i class="fas fa-arrow-right"></i>
         </a>
       </div>
+    </div>
 
-       <!--Blog 6-->
-
-       <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+    <!-- Blog Card 6 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="600">
       <div class="blog-img-container">
-        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Economics" class="blog-img">
+        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Middle Class Life" class="blog-img">
       </div>
       <div class="blog-content">
-        <h2 class="blog-title">The story of a Middle Class Boy.</h2>
-        <p class="blog-desc">Get a glimpse of life of an individeual boy called teenager at every home.</p>
+        <h2 class="blog-title">The Story of a Middle Class Boy</h2>
+        <p class="blog-desc">Get a glimpse of life of an individual boy called teenager at every home.</p>
         <div class="blog-date">
           <i class="far fa-calendar-alt"></i>
           <span>May 31, 2025</span>
@@ -680,15 +745,14 @@
           Read More <i class="fas fa-arrow-right"></i>
         </a>
       </div>
-      
-       </section>
+    </div>
+  </section>
   
   <footer>
     <div class="footer-content">
       <div class="social-links">
-        <a href="https://www.youtube.com/@Exonovaaditya-1104" class="social-link"><i class="fab fa-youtube"></i></a>
-        
-       
+        <a href="https://www.youtube.com/@Exonovaaditya-1104" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
       <p class="copyright">
         &copy; 2025 <a href="https://aditya-cmd-max.github.io/exonova-/">Exonova</a> | Designed with <i class="fas fa-heart" style="color: #ff2d7b;"></i> by Aditya Jha
       </p>
@@ -696,7 +760,7 @@
   </footer>
   
   <!-- Back to Top Button -->
-  <a href="#" class="back-to-top" id="backToTop">
+  <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </a>
   
@@ -751,7 +815,7 @@
     
     // Create floating particles
     const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
+    const particleCount = Math.min(30, Math.floor(window.innerWidth / 20)); // Adjust count based on screen size
     
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
@@ -788,6 +852,11 @@
       } else {
         navbar.classList.remove('scrolled');
       }
+    });
+    
+    // Responsive adjustments on resize
+    window.addEventListener('resize', () => {
+      // You can add responsive adjustments here if needed
     });
   </script>
 </body>
