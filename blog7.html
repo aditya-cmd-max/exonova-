@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="The complete evolution of Google from Backrub to global tech giant">
-  <meta name="keywords" content="Google, evolution, history, Larry Page, Sergey Brin, Sundar Pichai, Alphabet, search engine, tech giant, logo evolution">
+  <meta name="keywords" content="Google, evolution, history, Larry Page, Sergey Brin, Sundar Pichai, Alphabet, search engine, tech giant, logo evolution, Google I/O">
   <meta name="author" content="Aditya Jha">
   <meta name="google-site-verification" content="gVm_Dk4QJW6bhd3nyT3WJPIzHXt9SEgn8Z43IU2t27Y" />
   <!-- Open Graph -->
@@ -27,6 +27,7 @@
       color: #fff;
       line-height: 1.7;
       overflow-x: hidden;
+      background-image: radial-gradient(circle at 10% 20%, rgba(66, 133, 244, 0.05) 0%, rgba(66, 133, 244, 0.01) 90%);
     }
     h1, h2, h3 {
       font-family: 'Product Sans', sans-serif;
@@ -40,6 +41,23 @@
       background-position: center;
       background-blend-mode: overlay;
       border-bottom: 1px solid #333;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%234285F4" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+      opacity: 0.05;
+      z-index: 0;
+    }
+    .header-content {
+      position: relative;
+      z-index: 1;
     }
     h1 {
       font-size: 3.5rem;
@@ -47,6 +65,16 @@
       text-shadow: 0 0 10px rgba(66, 133, 244, 0.3);
       letter-spacing: -1px;
       margin-bottom: 1rem;
+      background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .published {
       font-size: 1rem;
@@ -358,6 +386,118 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Founders Section */
+    .founders-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .founder-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 20px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      border: 1px solid #333;
+    }
+    
+    .founder-card:hover {
+      transform: translateY(-10px);
+      border-color: #4285F4;
+    }
+    
+    .founder-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 15px;
+      border: 3px solid #4285F4;
+    }
+    
+    /* Sundar Pichai Section */
+    .sundar-section {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin: 5rem 0;
+      background: linear-gradient(to right, #1a1a1a, #0f0f0f);
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid #333;
+    }
+    
+    .sundar-image {
+      flex: 1;
+      max-width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .sundar-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .sundar-content {
+      flex: 2;
+    }
+    
+    /* Google I/O Section */
+    .io-section {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      padding: 3rem;
+      border-radius: 15px;
+      margin: 4rem 0;
+      border: 1px solid #333;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .io-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23FBBC05" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+      opacity: 0.05;
+      z-index: 0;
+    }
+    
+    .io-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .io-logo {
+      max-width: 300px;
+      margin: 0 auto 2rem;
+    }
+    
+    .io-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 3rem 0;
+    }
+    
+    .io-highlight {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #FBBC05;
+    }
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -390,10 +530,10 @@
         top: -10px;
         left: 20px;
       }
-      .doodle-section {
+      .doodle-section, .sundar-section {
         flex-direction: column;
       }
-      .doodle-image {
+      .doodle-image, .sundar-image {
         max-width: 100%;
       }
     }
@@ -401,10 +541,12 @@
 </head>
 <body>
   <header>
-    <div class="blog-number">Blog#7</div>
-    <h1 data-aos="zoom-in">The Evolution of Google</h1>
-    <p class="published">Published on 15th June, 2025</p>
-    <p class="published" style="font-size: 1.2rem; color: #bbb; margin-top: 0.5rem;">Series: Tech Titans</p>
+    <div class="header-content">
+      <div class="blog-number">Blog#7</div>
+      <h1 data-aos="zoom-in">The Evolution of Google</h1>
+      <p class="published">Published on 15th June, 2025</p>
+      <p class="published" style="font-size: 1.2rem; color: #bbb; margin-top: 0.5rem;">Series: Tech Titans</p>
+    </div>
   </header>
 
   <div class="content">
@@ -414,6 +556,25 @@
 
     <div class="info-box" data-aos="fade-up" data-aos-delay="200">
       <strong>Fun Fact:</strong> The domain google.com was registered on September 15, 1997, but the company wasn't officially incorporated until September 4, 1998—in a Menlo Park garage that later became famous as Google's first office.
+    </div>
+
+    <!-- Founders Section -->
+    <div data-aos="fade-up" data-aos-delay="250">
+      <h2>The Visionary Founders</h2>
+      <div class="founders-section">
+        <div class="founder-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Larry_Page_in_the_European_Parliament%2C_17.06.2009_%28cropped%29.jpg" alt="Larry Page" class="founder-image">
+          <h3>Larry Page</h3>
+          <p>Co-founder & Former CEO</p>
+          <p style="color: #bbb; font-size: 0.9rem;">Developed PageRank algorithm</p>
+        </div>
+        <div class="founder-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Sergey_Brin_%28cropped%29.jpg" alt="Sergey Brin" class="founder-image">
+          <h3>Sergey Brin</h3>
+          <p>Co-founder & Former President</p>
+          <p style="color: #bbb; font-size: 0.9rem;">Pioneered data mining techniques</p>
+        </div>
+      </div>
     </div>
 
     <!-- Extended Startup Story Section -->
@@ -489,13 +650,35 @@
       </div>
     </div>
 
-    <h2 data-aos="fade-up" data-aos-delay="900">Google's Product Ecosystem</h2>
+    <!-- Sundar Pichai Section -->
+    <div class="sundar-section" data-aos="fade-up" data-aos-delay="900">
+      <div class="sundar-image">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Sundar_pichai.png" alt="Sundar Pichai">
+      </div>
+      <div class="sundar-content">
+        <h2>Sundar Pichai: The Architect of Google's Modern Era</h2>
+        <p>Sundar Pichai joined Google in 2004 and quickly rose through the ranks by leading successful projects like Chrome and Android. Born in Chennai, India, Pichai's journey from a modest upbringing to CEO of one of the world's most valuable companies is a testament to his technical acumen and leadership skills.</p>
+        
+        <p>Key milestones under Pichai's leadership:</p>
+        <ul>
+          <li>Oversaw the development and launch of Google Chrome, now the world's most popular browser</li>
+          <li>Led Android to become the dominant mobile OS with over 3 billion active devices</li>
+          <li>Spearheaded Google's transition to AI-first computing</li>
+          <li>Managed Google's restructuring into Alphabet in 2015</li>
+          <li>Became CEO of Alphabet in 2019 while remaining Google CEO</li>
+        </ul>
+        
+        <p>Pichai's leadership philosophy emphasizes long-term thinking, empowering teams, and maintaining Google's culture of innovation while scaling globally.</p>
+      </div>
+    </div>
+
+    <h2 data-aos="fade-up" data-aos-delay="1000">Google's Product Ecosystem</h2>
     
-    <p data-aos="fade-up" data-aos-delay="1000">
+    <p data-aos="fade-up" data-aos-delay="1100">
       From a single search engine, Google has built an interconnected ecosystem that touches nearly every aspect of digital life:
     </p>
     
-    <div class="product-grid" data-aos="fade-up" data-aos-delay="1100">
+    <div class="product-grid" data-aos="fade-up" data-aos-delay="1200">
       <div class="product-card">
         <img src="https://cdn-icons-png.flaticon.com/512/3128/3128287.png" alt="Search" class="product-icon">
         <h3>Search</h3>
@@ -528,13 +711,39 @@
       </div>
     </div>
 
-    <h2 data-aos="fade-up" data-aos-delay="1200">The Alphabet Era & Beyond</h2>
+    <!-- Google I/O Section -->
+    <div class="io-section" data-aos="fade-up" data-aos-delay="1300">
+      <div class="io-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_I-O_2023_Logo.svg/1200px-Google_I-O_2023_Logo.svg.png" alt="Google I/O Logo" class="io-logo">
+        <h2>Google I/O: Shaping the Future of Technology</h2>
+        <p>Google I/O (Input/Output) is the company's annual developer conference that showcases new technologies, products, and software updates. Since its inception in 2008, I/O has become one of the most anticipated tech events globally.</p>
+        
+        <div class="io-highlights">
+          <div class="io-highlight">
+            <h3>Historic Announcements</h3>
+            <p>Android 4.1 Jelly Bean (2012), Google Glass (2012), Google Assistant (2016), and Google Bard (2023) all debuted at I/O</p>
+          </div>
+          <div class="io-highlight">
+            <h3>Developer Focus</h3>
+            <p>Provides deep technical sessions, hands-on learning, and early access to new APIs and tools</p>
+          </div>
+          <div class="io-highlight">
+            <h3>Global Reach</h3>
+            <p>Streamed to millions worldwide with satellite events in multiple countries</p>
+          </div>
+        </div>
+        
+        <p>The conference embodies Google's developer-first philosophy and commitment to open platforms that drive innovation across the tech industry.</p>
+      </div>
+    </div>
+
+    <h2 data-aos="fade-up" data-aos-delay="1400">The Alphabet Era & Beyond</h2>
     
-    <p data-aos="fade-up" data-aos-delay="1300">
+    <p data-aos="fade-up" data-aos-delay="1500">
       In 2015, Google underwent a historic restructuring, creating Alphabet as its parent company. This allowed Google to focus on its core internet products while ambitious "moonshot" projects operated as separate entities:
     </p>
     
-    <div class="timeline" data-aos="fade-up" data-aos-delay="1400">
+    <div class="timeline" data-aos="fade-up" data-aos-delay="1600">
       <div class="timeline-item left">
         <div class="timeline-content">
           <h3>August 2015</h3>
@@ -561,10 +770,12 @@
       </div>
     </div>
 
-    <div class="info-box" data-aos="fade-up" data-aos-delay="1500">
-      <strong>Current Leadership:</strong> Sundar Pichai, who joined Google in 2004, now leads both Google and Alphabet. Under his leadership, Google has expanded into AI, quantum computing, and health tech while maintaining its core mission to organize the world's information.
+       <div class="info-box" data-aos="fade-up" data-aos-delay="1700">
+      <strong>Current Leadership:</strong> Sundar Pichai, who joined Google in 2004, now leads both Google and Alphabet. Under his leadership, Google has expanded into AI, quantum computing, and health tech while maintaining dominance in search and advertising.
     </div>
 
+    
+    
     <h2 data-aos="fade-up" data-aos-delay="1600">Google's Physical Footprint</h2>
     
     <p data-aos="fade-up" data-aos-delay="1700">
@@ -585,56 +796,108 @@
         <p>Largest engineering hub outside the US with 10,000+ employees</p>
       </div>
     </div>
-
-    <h2 data-aos="fade-up" data-aos-delay="1900">Google in 2025: Shaping the Future</h2>
     
-    <p data-aos="fade-up" data-aos-delay="2000">
-      As Google approaches its third decade, it continues pushing boundaries in:
+    
+    
+    
+    <h2 data-aos="fade-up" data-aos-delay="1800">Google's Cultural Impact</h2>
+    
+    <p data-aos="fade-up" data-aos-delay="1900">
+      Beyond technology, Google has profoundly influenced global culture and language:
     </p>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 2rem 0;" data-aos="fade-up" data-aos-delay="2100">
-      <div style="background: rgba(66, 133, 244, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #4285F4;">
-        <h4 style="margin: 0 0 10px; color: #4285F4;">🤖 AI & Machine Learning</h4>
-        <p style="margin: 0; font-size: 0.9rem;">Google Bard, Gemini, and next-gen AI assistants</p>
+    <div class="info-box" data-aos="fade-up" data-aos-delay="2000">
+      <strong>Did you know?</strong> The verb "to google" was added to the Oxford English Dictionary in 2006, defined as "to use the Google search engine to obtain information on the Internet."
+    </div>
+    
+    <p data-aos="fade-up" data-aos-delay="2100">
+      Google's famous "Don't be evil" motto (later changed to "Do the right thing") reflected its early idealistic culture. The company pioneered many workplace innovations that became Silicon Valley standards:
+    </p>
+    
+    <ul data-aos="fade-up" data-aos-delay="2200">
+      <li>20% time policy allowing engineers to work on passion projects (led to Gmail, Adsense)</li>
+      <li>Free gourmet meals and micro-kitchens throughout campuses</li>
+      <li>Transparent TGIF meetings where employees could question executives</li>
+      <li>Colorful, playful office designs with themed conference rooms</li>
+    </ul>
+    
+    <img src="https://static1.thetravelimages.com/wordpress/wp-content/uploads/2023/04/google-headquarters-mountain-view-california.jpg" alt="Googleplex headquarters" class="curved-img" data-aos="fade-up" data-aos-delay="2300">
+
+   
+
+    <h2 data-aos="fade-up" data-aos-delay="2800">The Future of Google</h2>
+    
+    <p data-aos="fade-up" data-aos-delay="2900">
+      As Google enters its third decade, several key initiatives are shaping its future:
+    </p>
+    
+    <div class="product-grid" data-aos="fade-up" data-aos-delay="3000">
+      <div class="product-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="AI" class="product-icon">
+        <h3>AI First</h3>
+        <p>Integrating Gemini AI across all products and services</p>
       </div>
-      <div style="background: rgba(234, 67, 53, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #EA4335;">
-        <h4 style="margin: 0 0 10px; color: #EA4335;">🧠 Quantum Computing</h4>
-        <p style="margin: 0; font-size: 0.9rem;">Practical quantum processors solving real-world problems</p>
+      <div class="product-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2489/2489076.png" alt="Quantum" class="product-icon">
+        <h3>Quantum Computing</h3>
+        <p>Developing practical quantum applications with Sycamore</p>
       </div>
-      <div style="background: rgba(251, 188, 5, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #FBBC05;">
-        <h4 style="margin: 0 0 10px; color: #FBBC05;">🏥 Health Tech</h4>
-        <p style="margin: 0; font-size: 0.9rem;">AI-powered diagnostics and wearable integration</p>
+      <div class="product-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1584/1584892.png" alt="Health" class="product-icon">
+        <h3>Health Tech</h3>
+        <p>Verily and Fitbit advancing personalized medicine</p>
       </div>
-      <div style="background: rgba(52, 168, 83, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #34A853;">
-        <h4 style="margin: 0 0 10px; color: #34A853;">🌍 Sustainability</h4>
-        <p style="margin: 0; font-size: 0.9rem;">Carbon-neutral operations since 2007, now aiming for carbon-free</p>
+      <div class="product-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Sustainability" class="product-icon">
+        <h3>Sustainability</h3>
+        <p>Carbon-neutral since 2007, aiming for 24/7 carbon-free energy</p>
       </div>
     </div>
+    
+    <div class="info-box" data-aos="fade-up" data-aos-delay="3100">
+      <strong>Google's Mission in 2025:</strong> "To organize the world's information and make it universally accessible and useful" has evolved to include "...responsibly creating intelligence to improve lives."
+    </div>
 
-    <img src="https://static1.thetravelimages.com/wordpress/wp-content/uploads/2023/04/google-headquarters-mountain-view-california.jpg" alt="Google office in 2025" class="curved-img" data-aos="zoom-in" data-aos-delay="2200"/>
-
-    <p data-aos="fade-up" data-aos-delay="2300" style="font-size: 1.3rem; line-height: 1.8; text-align: center; max-width: 800px; margin: 4rem auto; position: relative;">
-      <span style="font-size: 3rem; position: absolute; left: -50px; top: -20px; color: #4285F4;">"</span>
-      From organizing the world's information to shaping the future of computing, Google's evolution represents one of the most extraordinary journeys in technological history—a testament to the power of ambitious ideas executed with precision and scale.
-      <span style="font-size: 3rem; position: absolute; right: -50px; bottom: -40px; color: #4285F4;">"</span>
+    <h2 data-aos="fade-up" data-aos-delay="3200">Conclusion: The Never-Ending Evolution</h2>
+    
+    <p data-aos="fade-up" data-aos-delay="3300">
+      From a Stanford research project to a verb in the dictionary, Google's journey represents the most remarkable success story of the internet age. What began as a better way to search has transformed into:
     </p>
-
-    <div style="text-align: center;">
-      <a href="blogs.html" class="back-button" data-aos="fade-up" data-aos-delay="2400">← Back to Blogs</a>
+    
+    <ul data-aos="fade-up" data-aos-delay="3400">
+      <li>The world's most valuable brand (over $300 billion valuation)</li>
+      <li>A leader in artificial intelligence and machine learning</li>
+      <li>The developer of the most popular mobile operating system (Android)</li>
+      <li>The operator of the second most visited website (YouTube)</li>
+      <li>A pioneer in moonshot technologies through Alphabet subsidiaries</li>
+    </ul>
+    
+    <p data-aos="fade-up" data-aos-delay="3500">
+      As Google continues evolving under Alphabet's structure, one thing remains constant—its relentless drive to innovate while tackling increasingly complex challenges at the intersection of technology and society.
+    </p>
+    
+    <div style="text-align: center; margin-top: 4rem;" data-aos="fade-up" data-aos-delay="3600">
+      <a href="https://aditya-cmd-max.github.io/exonova-/blogs.html" class="back-button">← Back to All Blogs</a>
     </div>
   </div>
 
+  
+  
   <footer>
     <div style="text-align: center; padding: 3rem;">
       <p style="color: #bbb; font-size: 1rem; margin-top: 2rem;">Made with ❤ by Aditya Jha | &copy; Exonova</p>
     </div>
   </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
+  
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> 
   <script>
     AOS.init({
       duration: 1000,
-      once: true
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
     });
   </script>
 </body>
