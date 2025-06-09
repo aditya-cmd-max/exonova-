@@ -42,6 +42,9 @@
       --text-light: #ffffff;
       --text-muted: #a0a8c0;
       --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-hover-bg: rgba(255, 255, 255, 0.08);
     }
     
     * {
@@ -319,6 +322,201 @@
       border-radius: 3px;
     }
     
+    /* Search Bar Styles */
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+      position: relative;
+    }
+    
+    .search-bar {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: var(--text-light);
+      font-size: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      padding-left: 3.5rem;
+    }
+    
+    .search-bar:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.2);
+      border-color: var(--primary);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+    
+    .search-results-count {
+      text-align: center;
+      margin: -1.5rem 0 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    /* Latest Blogs Section */
+    .latest-blogs {
+      max-width: 1400px;
+      margin: 0 auto 4rem;
+      padding: 0 5%;
+    }
+    
+    .section-title {
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      font-family: 'Paprika', sans-serif;
+      color: var(--primary);
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 3px;
+    }
+    
+    .latest-blogs-container {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+    
+    .latest-blogs-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .latest-blogs-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .latest-blogs-container::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 6px;
+    }
+    
+    .latest-blog-card {
+      min-width: 280px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 247, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .latest-blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 247, 255, 0.2);
+      background: var(--card-hover-bg);
+    }
+    
+    .latest-blog-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 160px;
+      width: 100%;
+    }
+    
+    .latest-blog-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .latest-blog-card:hover .latest-blog-img {
+      transform: scale(1.05);
+    }
+    
+    .latest-blog-content {
+      padding: 1.2rem;
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .latest-blog-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      line-height: 1.3;
+    }
+    
+    .latest-blog-date {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .latest-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.9rem;
+      margin-top: auto;
+      width: fit-content;
+    }
+    
+    .latest-read-more::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    .latest-read-more:hover {
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+      gap: 12px;
+    }
+    
+    .latest-read-more:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
     /* Blogs Container */
     .blogs-container {
       display: grid;
@@ -330,7 +528,7 @@
     }
     
     .blog-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--card-bg);
       border-radius: 15px;
       overflow: hidden;
       backdrop-filter: blur(10px);
@@ -357,7 +555,7 @@
     .blog-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 30px rgba(0, 247, 255, 0.2);
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--card-hover-bg);
     }
     
     .blog-card:hover::before {
@@ -456,6 +654,47 @@
       margin-top: 1rem;
     }
     
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 2rem;
+      padding: 0 5%;
+    }
+    
+    .category-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-light);
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .category-btn:hover {
+      background: rgba(0, 247, 255, 0.1);
+      color: var(--primary);
+    }
+    
+    .category-btn.active {
+      background: var(--gradient);
+      color: var(--dark);
+      font-weight: 600;
+      border-color: transparent;
+    }
+    
+    /* No Results Message */
+    .no-results {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+    
     /* Footer Styles */
     footer {
       text-align: center;
@@ -546,6 +785,27 @@
       box-shadow: 0 8px 25px rgba(0, 247, 255, 0.4);
     }
     
+    /* Loading Animation */
+    .loader {
+      display: none;
+      width: 48px;
+      height: 48px;
+      margin: 2rem auto;
+      border: 5px solid rgba(0, 247, 255, 0.2);
+      border-bottom-color: var(--primary);
+      border-radius: 50%;
+      animation: rotation 1s linear infinite;
+    }
+    
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       body {
@@ -579,6 +839,19 @@
         max-width: 100%;
       }
       
+      .latest-blog-card {
+        min-width: 240px;
+      }
+      
+      .search-bar {
+        padding: 0.8rem 1.2rem;
+        padding-left: 3rem;
+      }
+      
+      .search-icon {
+        left: 2.2rem;
+      }
+      
       .back-to-top {
         width: 45px;
         height: 45px;
@@ -602,6 +875,14 @@
       
       .social-links {
         gap: 15px;
+      }
+      
+      .latest-blogs-container {
+        gap: 1rem;
+      }
+      
+      .latest-blog-card {
+        min-width: 200px;
       }
     }
   </style>
@@ -638,11 +919,103 @@
     <p>Explore the universe of knowledge with us</p>
   </header>
   
-  <section class="blogs-container">
+  <!-- Search Bar -->
+  <div class="search-container" data-aos="fade-up">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search blogs by title, description, or date...">
+  </div>
+  <div id="searchResultsCount" class="search-results-count"></div>
+  
+  <!-- Latest Blogs Section -->
+  <section class="latest-blogs" data-aos="fade-up">
+    <h2 class="section-title">Our Latest Blogs</h2>
+    <div class="latest-blogs-container">
+      <!-- Latest Blog 1 -->
+      <div class="latest-blog-card">
+        <div class="latest-blog-img-container">
+          <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Google Evolution" class="latest-blog-img">
+        </div>
+        <div class="latest-blog-content">
+          <h3 class="latest-blog-title">The Evolution of Google</h3>
+          <div class="latest-blog-date">
+            <i class="far fa-calendar-alt"></i>
+            <span>June 9, 2025</span>
+          </div>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blog7.html" class="latest-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Latest Blog 2 -->
+      <div class="latest-blog-card">
+        <div class="latest-blog-img-container">
+          <img src="https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-cba0-622f-a39a-e9f7e2ced03e/raw?se=2025-05-31T09%3A10%3A22Z&sp=r&sv=2024-08-04&sr=b&scid=c992fc0d-5785-57ed-95c3-4242b1086810&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T22%3A47%3A31Z&ske=2025-05-31T22%3A47%3A31Z&sks=b&skv=2024-08-04&sig=BpEQV3RgkLQupqW41Ve/gXACQnSNYIFBdQxdAu/cm60%3D" alt="Middle Class Life" class="latest-blog-img">
+        </div>
+        <div class="latest-blog-content">
+          <h3 class="latest-blog-title">The Story of a Middle Class Boy</h3>
+          <div class="latest-blog-date">
+            <i class="far fa-calendar-alt"></i>
+            <span>May 31, 2025</span>
+          </div>
+          <a href="blog6.html" class="latest-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Latest Blog 3 -->
+      <div class="latest-blog-card">
+        <div class="latest-blog-img-container">
+          <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="latest-blog-img">
+        </div>
+        <div class="latest-blog-content">
+          <h3 class="latest-blog-title">Dark Reality of Academic Pressure</h3>
+          <div class="latest-blog-date">
+            <i class="far fa-calendar-alt"></i>
+            <span>May 23, 2025</span>
+          </div>
+          <a href="blog5.html" class="latest-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Latest Blog 4 -->
+      <div class="latest-blog-card">
+        <div class="latest-blog-img-container">
+          <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="India-Pakistan" class="latest-blog-img">
+        </div>
+        <div class="latest-blog-content">
+          <h3 class="latest-blog-title">India-Pakistan war: Is it WW3?</h3>
+          <div class="latest-blog-date">
+            <i class="far fa-calendar-alt"></i>
+            <span>May 11, 2025</span>
+          </div>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blog4" class="latest-read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Category Filter -->
+  <div class="category-filter" data-aos="fade-up">
+    <button class="category-btn active" data-category="all">All</button>
+    <button class="category-btn" data-category="science">Science</button>
+    <button class="category-btn" data-category="education">Education</button>
+    <button class="category-btn" data-category="history">History</button>
+    <button class="category-btn" data-category="technology">Technology</button>
+    <button class="category-btn" data-category="personal">Personal</button>
+  </div>
+  
+  <!-- Blogs Container -->
+  <section class="blogs-container" id="blogsContainer">
     <!-- Blog Card 1 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="100" data-categories="science education" data-search="The Science of Sleep sleep science youth health">
       <div class="blog-img-container">
-        <img src="https://www.baptisthealth.com/-/media/images/migrated/blog-images/teaser-images/man-sleeping.jpg?rev=fdc7ec3b04df47d4a7e3700081675352" alt="Sleep Science" class="blog-img">
+               <img src="https://www.baptisthealth.com/-/media/images/migrated/blog-images/teaser-images/man-sleeping.jpg?rev=fdc7ec3b04df47d4a7e3700081675352" alt="Sleep Science" class="blog-img">
       </div>
       <div class="blog-content">
         <h2 class="blog-title">The Science of Sleep</h2>
@@ -658,7 +1031,7 @@
     </div>
     
     <!-- Blog Card 2 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="200" data-categories="education" data-search="Top 5 Scientific Study Hacks study techniques productivity learning">
       <div class="blog-img-container">
         <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
       </div>
@@ -676,7 +1049,7 @@
     </div>
     
     <!-- Blog Card 3 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="300" data-categories="education history" data-search="Introduction to Economics economics resources choices society">
       <div class="blog-img-container">
         <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
       </div>
@@ -694,7 +1067,7 @@
     </div>
     
     <!-- Blog Card 4 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="400" data-categories="history" data-search="Part 1: India-Pakistan war: Is it WW3? conflict war politics">
       <div class="blog-img-container">
         <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
       </div>
@@ -712,7 +1085,7 @@
     </div>
     
     <!-- Blog Card 5 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="500">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="500" data-categories="education personal" data-search="Dark Reality of Academic Pressure stress students coping mental health">
       <div class="blog-img-container">
         <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
       </div>
@@ -730,7 +1103,7 @@
     </div>
 
     <!-- Blog Card 6 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="personal" data-search="The Story of a Middle Class Boy life teenager family">
       <div class="blog-img-container">
         <img src="https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-cba0-622f-a39a-e9f7e2ced03e/raw?se=2025-05-31T09%3A10%3A22Z&sp=r&sv=2024-08-04&sr=b&scid=c992fc0d-5785-57ed-95c3-4242b1086810&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T22%3A47%3A31Z&ske=2025-05-31T22%3A47%3A31Z&sks=b&skv=2024-08-04&sig=BpEQV3RgkLQupqW41Ve/gXACQnSNYIFBdQxdAu/cm60%3D" alt="Middle Class Life" class="blog-img">
       </div>
@@ -747,8 +1120,8 @@
       </div>
     </div>
 
-<!-- Blog Card 7 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600">
+    <!-- Blog Card 7 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="technology history" data-search="The Evolution of Google tech giant inspiration story">
       <div class="blog-img-container">
         <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
       </div>
@@ -765,6 +1138,12 @@
       </div>
     </div>
     
+    <!-- No Results Message (Hidden by default) -->
+    <div id="noResults" class="no-results" style="display: none;">
+      <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-muted);"></i>
+      <h3>No blogs found</h3>
+      <p>Try adjusting your search or filter to find what you're looking for.</p>
+    </div>
   </section>
   
   <footer>
@@ -782,6 +1161,9 @@
   <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </a>
+  
+  <!-- Loading Animation -->
+  <div class="loader" id="loader"></div>
   
   <!-- AOS Animation Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -871,6 +1253,151 @@
       } else {
         navbar.classList.remove('scrolled');
       }
+    });
+    
+    // Blog Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const noResults = document.getElementById('noResults');
+    const searchResultsCount = document.getElementById('searchResultsCount');
+    
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      let visibleCount = 0;
+      
+      // Show loader
+      document.getElementById('loader').style.display = 'block';
+      
+      // Simulate loading delay for better UX
+      setTimeout(() => {
+        blogCards.forEach(card => {
+          const title = card.querySelector('.blog-title').textContent.toLowerCase();
+          const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
+          const date = card.querySelector('.blog-date span').textContent.toLowerCase();
+          const searchData = card.getAttribute('data-search').toLowerCase();
+          
+          if (title.includes(searchTerm) || 
+              desc.includes(searchTerm) || 
+              date.includes(searchTerm) ||
+              searchData.includes(searchTerm)) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Update results count
+        if (searchTerm.length > 0) {
+          searchResultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
+          searchResultsCount.style.display = 'block';
+        } else {
+          searchResultsCount.style.display = 'none';
+        }
+        
+        // Show no results message if needed
+        if (visibleCount === 0 && searchTerm.length > 0) {
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+        }
+        
+        // Hide loader
+        document.getElementById('loader').style.display = 'none';
+      }, 300);
+    });
+    
+    // Category Filter Functionality
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Update active state
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.getAttribute('data-category');
+        
+        // Show loader
+        document.getElementById('loader').style.display = 'block';
+        
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+          let visibleCount = 0;
+          
+          blogCards.forEach(card => {
+            const categories = card.getAttribute('data-categories');
+            
+            if (category === 'all' || categories.includes(category)) {
+              card.style.display = 'flex';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          // Show no results message if needed
+          if (visibleCount === 0) {
+            noResults.style.display = 'block';
+          } else {
+            noResults.style.display = 'none';
+          }
+          
+          // Hide loader
+          document.getElementById('loader').style.display = 'none';
+        }, 300);
+      });
+    });
+    
+    // Combined search and filter functionality
+    function filterBlogs() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+      let visibleCount = 0;
+      
+      blogCards.forEach(card => {
+        const title = card.querySelector('.blog-title').textContent.toLowerCase();
+        const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
+        const date = card.querySelector('.blog-date span').textContent.toLowerCase();
+        const searchData = card.getAttribute('data-search').toLowerCase();
+        const categories = card.getAttribute('data-categories');
+        
+        const matchesSearch = searchTerm.length === 0 || 
+                            title.includes(searchTerm) || 
+                            desc.includes(searchTerm) || 
+                            date.includes(searchTerm) ||
+                            searchData.includes(searchTerm);
+        
+        const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
+        
+        if (matchesSearch && matchesCategory) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Update results count
+      if (searchTerm.length > 0) {
+        searchResultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
+        searchResultsCount.style.display = 'block';
+      } else {
+        searchResultsCount.style.display = 'none';
+      }
+      
+      // Show no results message if needed
+      if (visibleCount === 0 && (searchTerm.length > 0 || activeCategory !== 'all')) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+    
+    // Event listeners for combined functionality
+    searchInput.addEventListener('input', filterBlogs);
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', filterBlogs);
     });
     
     // Responsive adjustments on resize
