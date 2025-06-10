@@ -156,26 +156,25 @@
  
  /* Style fot The loader (Mixed with Offline dtector) ----- The style for Offline dtector is Ended up here*/
  
-
-    body {
+body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    }
+
+    .no-scroll {
       overflow: hidden;
+      height: 100vh;
     }
 
     .loader-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
       background-color: #121212;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       z-index: 999;
@@ -197,12 +196,14 @@
     }
 
     .content {
-      display: none;
+      padding: 2rem;
       color: white;
-      text-align: center;
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
 
+    .dummy-content {
+      height: 2000px; /* For scroll test */
+    }
  
  
  
@@ -245,7 +246,19 @@
     
 <!--Loader Start-->
 
+<div class="loader-container" id="loader">
+    <div class="spinner"></div>
+  </div>
 
+ 
+
+  <script>
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+      document.body.classList.remove("no-scroll");
+    }, 2000); // Loader visible for 2 seconds
+  </script>
     
 <!--Loader End-->
     
