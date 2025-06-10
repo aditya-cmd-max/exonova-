@@ -156,10 +156,34 @@
  
  /* Style fot The loader (Mixed with Offline dtector) ----- The style for Offline dtector is Ended up here*/
  
-  body {
+  :root {
+      --quantum-blue: #00f0ff;
+      --neon-purple: #8a2be2;
+      --plasma-pink: #ff00aa;
+      --dark-space: #0a0a12;
+      --star-dust: rgba(255, 255, 255, 0.8);
+      --text-glow: 0 0 10px var(--quantum-blue), 0 0 20px var(--quantum-blue);
+      --transition-all: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    @font-face {
+      font-family: 'Quantum';
+      src: url('https://fonts.cdnfonts.com/css/sf-mono') format('woff2');
+    }
+
+    * {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #121212;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quantum', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-space);
+      color: var(--star-dust);
+      overflow: hidden;
+      perspective: 1000px;
     }
 
     .no-scroll {
@@ -167,66 +191,222 @@
       height: 100vh;
     }
 
-    .loader-container {
+    /* Cosmic Background */
+    .cosmic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      overflow: hidden;
+    }
+
+    /* Stars */
+    @keyframes animStar {
+      from { transform: translateY(0); }
+      to { transform: translateY(-2000px); }
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stars::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="1" fill="white" opacity="0.7"/></svg>') repeat top center;
+      animation: animStar 200s linear infinite;
+    }
+
+    /* Quantum Loader Container */
+    .quantum-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      width: 100vw;
-      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      position: fixed;
+      z-index: 9999;
+      background: rgba(10, 10, 18, 0.8);
+      backdrop-filter: blur(5px);
+    }
+
+    /* Quantum Spheres */
+    .quantum-sphere {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 40px;
+      transform-style: preserve-3d;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .core {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, 
+        var(--quantum-blue) 0%, 
+        rgba(0, 240, 255, 0.1) 70%);
+      box-shadow: 0 0 30px var(--quantum-blue);
+      filter: blur(1px);
+      animation: pulse 4s ease infinite;
+    }
+
+    .ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: var(--quantum-blue);
+      border-right-color: var(--neon-purple);
+      border-bottom-color: var(--plasma-pink);
+      animation: spin 3s linear infinite, colorShift 8s ease infinite;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+    }
+
+    .ring:nth-child(2) {
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+      animation-delay: -0.5s;
+    }
+
+    .ring:nth-child(3) {
+      width: 60%;
+      height: 60%;
+      top: 20%;
+      left: 20%;
+      animation-delay: -1s;
+    }
+
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--quantum-blue);
+      opacity: 0;
+    }
+
+    /* Quantum Text */
+    .quantum-text {
+      font-size: 1.8rem;
+      font-weight: 300;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .quantum-text::before {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--quantum-blue), transparent);
+      transition: var(--transition-all);
+    }
+
+    .quantum-text span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(2px);
+    }
+
+    /* Progress Bar */
+    .quantum-progress {
+      width: 300px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      position: absolute;
       top: 0;
       left: 0;
-      z-index: 999;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--neon-purple), var(--quantum-blue));
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--quantum-blue);
     }
 
-    .spinner {
-      width: 80px;
-      height: 80px;
-      border: 8px solid transparent;
-      border-top: 8px solid #00c6ff;
-      border-right: 8px solid #0072ff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 25px rgba(0, 198, 255, 0.6);
-      margin-bottom: 30px;
-    }
-
+    /* Animations */
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      0% { transform: rotateX(60deg) rotateZ(0); }
+      100% { transform: rotateX(60deg) rotateZ(360deg); }
     }
 
-    .typewriter {
-      font-size: 1.2rem;
-      white-space: nowrap;
-      border-right: 2px solid #00c6ff;
-      width: 26ch;
-      overflow: hidden;
-      animation: typing 3s steps(26), blink 0.7s step-end infinite;
+    @keyframes colorShift {
+      0%, 100% { border-top-color: var(--quantum-blue); border-right-color: var(--neon-purple); border-bottom-color: var(--plasma-pink); }
+      33% { border-top-color: var(--plasma-pink); border-right-color: var(--quantum-blue); border-bottom-color: var(--neon-purple); }
+      66% { border-top-color: var(--neon-purple); border-right-color: var(--plasma-pink); border-bottom-color: var(--quantum-blue); }
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 26ch; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
     }
 
-    @keyframes blink {
-      50% { border-color: transparent; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
 
-    .content {
-      padding: 2rem;
-      color: white;
-      font-size: 1.6rem;
-      text-align: center;
+    @keyframes particleBurst {
+      0% { transform: scale(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
     }
-
-    .dummy-content {
-      height: 2000px;
+   
+    /* Responsive */
+    @media (max-width: 768px) {
+      .quantum-sphere {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .quantum-text {
+        font-size: 1.2rem;
+      }
+      
+      .quantum-progress {
+        width: 200px;
+      }
     }
- 
  
  
  
@@ -268,20 +448,130 @@
     
 <!--Loader Start-->
 
- <div class="loader-container" id="loader">
-    <div class="spinner"></div>
-    <div class="typewriter">Embrace the Path of Endless Liberty</div>
+ <body class="no-scroll">
+
+  <!-- Cosmic Background -->
+  <div class="cosmic-bg">
+    <div class="stars"></div>
   </div>
 
+  <!-- Quantum Loader -->
+  <div class="quantum-loader" id="loader">
+    <div class="quantum-sphere">
+      <div class="core"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="particles" id="particles"></div>
+    </div>
+    
+    <div class="quantum-progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="quantum-text" id="quantumText">
+      <span>E</span>
+      <span>X</span>
+      <span>O</span>
+      <span>N</span>
+      <span>O</span>
+      <span>V</span>
+      <span>A</span>
+      <span>&nbsp;</span>
+      <span>B</span>
+      <span>Y</span>
+      <span>&nbsp;</span>
+      <span>A</span>
+      <span>D</span>
+      <span>I</span>
+      <span>T</span>
+      <span>Y</span>
+      <span>A</span>
+      
+      <span>&nbsp;</span>
+      <span>J</span>
+      <span>H</span>
+      <span>A</span>
+      
  
+    
+    
+    </div>
+  </div>
 
+  <!-- Main Content -->
+  
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
-    setTimeout(() => {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
-      document.body.classList.remove("no-scroll");
-    }, 3000); // 3 seconds delay
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-quart',
+      once: true
+    });
+
+    // Create particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animation = `particleBurst ${2 + Math.random() * 3}s ease infinite ${Math.random() * 5}s`;
+      particle.style.width = `${3 + Math.random() * 5}px`;
+      particle.style.height = particle.style.width;
+      particlesContainer.appendChild(particle);
+    }
+
+    // Animate text letters
+    const textLetters = document.querySelectorAll('.quantum-text span');
+    textLetters.forEach((letter, index) => {
+      letter.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
+    });
+
+    // Simulate loading progress
+    const progressBar = document.getElementById('progressBar');
+    const quantumText = document.getElementById('quantumText');
+    let progress = 0;
+    
+    const loadingInterval = setInterval(() => {
+      progress += Math.random() * 10;
+      if (progress > 100) progress = 100;
+      progressBar.style.width = `${progress}%`;
+      
+      // Change text glow based on progress
+      quantumText.style.textShadow = `0 0 ${progress / 10}px var(--quantum-blue)`;
+      
+      if (progress === 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+          document.getElementById("loader").style.opacity = "0";
+          document.getElementById("loader").style.pointerEvents = "none";
+          document.body.classList.remove("no-scroll");
+          
+          // Show content with animation
+          const content = document.getElementById("mainContent");
+          content.style.display = "block";
+          setTimeout(() => {
+            content.classList.add("show");
+          }, 50);
+        }, 500);
+      }
+    }, 100);
+
+    // Add custom animation for text letters
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fadeIn {
+        to { opacity: 1; transform: translateY(0); filter: blur(0); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
+</body>
 <!--Loader End-->
     
  <!-- Navabr Start -->
