@@ -1,4 +1,8 @@
+# robots.txt for Exonova
 User-agent: *
 Allow: /
+# Optional: Delay crawling to reduce server load (if needed)
+# Crawl-delay: 10
 
+# Sitemap location
 Sitemap: https://aditya-cmd-max.github.io/exonova-/sitemap.xml
