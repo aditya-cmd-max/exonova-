@@ -156,7 +156,7 @@
  
  /* Style fot The loader (Mixed with Offline dtector) ----- The style for Offline dtector is Ended up here*/
  
-body {
+  body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
@@ -169,11 +169,13 @@ body {
 
     .loader-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       width: 100vw;
-      background-color: #121212;
+      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+      color: white;
       position: fixed;
       top: 0;
       left: 0;
@@ -181,28 +183,48 @@ body {
     }
 
     .spinner {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border: 8px solid transparent;
       border-top: 8px solid #00c6ff;
       border-right: 8px solid #0072ff;
       border-radius: 50%;
       animation: spin 1s linear infinite;
       box-shadow: 0 0 25px rgba(0, 198, 255, 0.6);
+      margin-bottom: 30px;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
 
+    .typewriter {
+      font-size: 1.2rem;
+      white-space: nowrap;
+      border-right: 2px solid #00c6ff;
+      width: 26ch;
+      overflow: hidden;
+      animation: typing 3s steps(26), blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 26ch; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
     .content {
       padding: 2rem;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+      text-align: center;
     }
 
     .dummy-content {
-      height: 2000px; /* For scroll test */
+      height: 2000px;
     }
  
  
@@ -246,8 +268,9 @@ body {
     
 <!--Loader Start-->
 
-<div class="loader-container" id="loader">
+ <div class="loader-container" id="loader">
     <div class="spinner"></div>
+    <div class="typewriter">Embrace the Path of Endless Liberty</div>
   </div>
 
  
@@ -257,9 +280,8 @@ body {
       document.getElementById("loader").style.display = "none";
       document.getElementById("mainContent").style.display = "block";
       document.body.classList.remove("no-scroll");
-    }, 2000); // Loader visible for 2 seconds
+    }, 3000); // 3 seconds delay
   </script>
-    
 <!--Loader End-->
     
  <!-- Navabr Start -->
