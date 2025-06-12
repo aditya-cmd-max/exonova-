@@ -468,128 +468,21 @@
     
 <!--Loader Start-->
 
- <body class="no-scroll">
-
   
+<div class="spinner-container">
+  <div class="spinner"></div>
+</div>
 
-  <!-- Quantum Loader -->
-  <div class="quantum-loader" id="loader">
-    <div class="quantum-sphere">
-      <div class="core"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="particles" id="particles"></div>
-    </div>
     
-    <div class="quantum-progress">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-    
-    <div class="quantum-text" id="quantumText">
-      <span>E</span>
-      <span>X</span>
-      <span>O</span>
-      <span>N</span>
-      <span>O</span>
-      <span>V</span>
-      <span>A</span>
-      <span>&nbsp;</span>
-      <span>B</span>
-      <span>Y</span>
-      <span>&nbsp;</span>
-      <span>A</span>
-      <span>D</span>
-      <span>I</span>
-      <span>T</span>
-      <span>Y</span>
-      <span>A</span>
-      
-      <span>&nbsp;</span>
-      <span>J</span>
-      <span>H</span>
-      <span>A</span>
-      
- 
+    <script>
+  window.addEventListener("load", () => {
+    document.querySelector(".spinner-container").style.display = "none";
+  });
+
+</script>
     
     
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  
-
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out-quart',
-      once: true
-    });
-
-    // Create particles
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 20;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      particle.style.animation = `particleBurst ${2 + Math.random() * 3}s ease infinite ${Math.random() * 5}s`;
-      particle.style.width = `${3 + Math.random() * 5}px`;
-      particle.style.height = particle.style.width;
-      particlesContainer.appendChild(particle);
-    }
-
-    // Animate text letters
-    const textLetters = document.querySelectorAll('.quantum-text span');
-    textLetters.forEach((letter, index) => {
-      letter.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
-    });
-
-    // Simulate loading progress
-    const progressBar = document.getElementById('progressBar');
-    const quantumText = document.getElementById('quantumText');
-    let progress = 0;
-    
-    const loadingInterval = setInterval(() => {
-      progress += Math.random() * 10;
-      if (progress > 100) progress = 100;
-      progressBar.style.width = `${progress}%`;
-      
-      // Change text glow based on progress
-      quantumText.style.textShadow = `0 0 ${progress / 10}px var(--quantum-blue)`;
-      
-      if (progress === 100) {
-        clearInterval(loadingInterval);
-        setTimeout(() => {
-          document.getElementById("loader").style.opacity = "0";
-          document.getElementById("loader").style.pointerEvents = "none";
-          document.body.classList.remove("no-scroll");
-          
-          // Show content with animation
-          const content = document.getElementById("mainContent");
-          content.style.display = "block";
-          setTimeout(() => {
-            content.classList.add("show");
-          }, 50);
-        }, 500);
-      }
-    }, 100);
-
-    // Add custom animation for text letters
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes fadeIn {
-        to { opacity: 1; transform: translateY(0); filter: blur(0); }
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
-</body>
-<!--Loader End-->
+    <!--Loader End-->
     
  <!-- Navabr Start -->
   
@@ -837,7 +730,7 @@
   <!-- Navigation Bar -->
   <nav class="navbar" id="navbar">
     <a href="https://aditya-cmd-max.github.io/exonova-/" class="logo">
-      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
+      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" loading = "lazy" alt="Exonova Logo">
     </a>
     
     <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
@@ -1056,7 +949,7 @@
 </style>
 
 <div class="exonova-container" data-aos="fade-up">
-  <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" 
+  <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" loading = "lazy" alt= "Exo Logo">
        alt="Exonova Logo" 
        class="exonova-logo" 
        loading="lazy" />
