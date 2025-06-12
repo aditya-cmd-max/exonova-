@@ -215,7 +215,7 @@
   
  
 
- <style>
+  <style>
     :root {
       --primary: #00f7ff;
       --secondary: #7b2dff;
@@ -229,26 +229,33 @@
       --mobile-menu-width: 300px;
       --transition-speed: 0.3s;
     }
-    
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--dark);
       color: var(--text-light);
       overflow-x: hidden;
-      padding-top: var(--nav-height);
     }
-    
-    /* Main Navbar Styles */
+
+    .scroll-indicator {
+      position: sticky;
+      top: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 1002;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
     .navbar {
       position: sticky;
-      top: 0; 
-      left: 0;
+      top: 0;
       width: 100%;
       height: var(--nav-height);
       display: flex;
@@ -257,45 +264,42 @@
       padding: 0 5%;
       background: rgba(10, 15, 31, 0.96);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0, 247, 255, 0.1);
       z-index: 1000;
       box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
       transition: all var(--transition-speed) ease;
     }
-    
+
     .navbar.scrolled {
       height: var(--nav-height-scrolled);
       box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
       background: rgba(5, 9, 23, 0.98);
     }
-    
-    /* Logo Styles */
-    .logo { 
-      height: 50px; 
+
+    .logo {
+      height: 50px;
       display: flex;
       align-items: center;
       z-index: 1002;
     }
-    
+
     .logo img {
       height: 100%;
       transition: transform 0.3s ease;
     }
-    
+
     .logo:hover img {
       transform: rotate(-10deg) scale(1.1);
       filter: drop-shadow(0 0 10px var(--primary));
     }
-    
-    /* Desktop Navigation */
+
     .nav-links {
       display: flex;
       gap: 30px;
       align-items: center;
       list-style: none;
     }
-    
+
     .nav-link {
       position: relative;
       color: var(--text-light);
@@ -305,29 +309,28 @@
       padding: 8px 0;
       transition: all var(--transition-speed) ease;
     }
-    
+
     .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0; 
+      bottom: 0;
       left: 0;
       width: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       transition: width var(--transition-speed) ease;
     }
-    
+
     .nav-link:hover,
     .nav-link.active {
       color: var(--primary);
     }
-    
+
     .nav-link:hover::after,
     .nav-link.active::after {
       width: 100%;
     }
-    
-    /* Mobile Menu Button */
+
     .menu-btn {
       display: none;
       flex-direction: column;
@@ -340,7 +343,7 @@
       border: none;
       padding: 0;
     }
-    
+
     .menu-btn span {
       display: block;
       width: 100%;
@@ -349,29 +352,28 @@
       border-radius: 3px;
       transition: all var(--transition-speed) ease;
     }
-    
+
     .menu-btn.active span:nth-child(1) {
       transform: translateY(9px) rotate(45deg);
     }
-    
+
     .menu-btn.active span:nth-child(2) {
       opacity: 0;
     }
-    
+
     .menu-btn.active span:nth-child(3) {
       transform: translateY(-9px) rotate(-45deg);
     }
-    
-    /* Mobile Menu Styles */
+
     @media (max-width: 992px) {
       .menu-btn {
         display: flex;
       }
-      
+
       .nav-links {
         position: fixed;
         top: 0;
-        right: calc(-1 * var(--mobile-menu-width));
+        right: -300px;
         width: var(--mobile-menu-width);
         height: 100vh;
         background: var(--darker);
@@ -381,33 +383,29 @@
         transition: right var(--transition-speed) ease;
         z-index: 1001;
         padding-top: var(--nav-height);
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
       }
-      
+
       .nav-links.active {
         right: 0;
       }
-      
+
       .nav-link {
         width: 100%;
         text-align: center;
-        padding: 12px 0;
         font-size: 1.2rem;
       }
-      
+
       .nav-link::after {
-        width: 0;
         left: 50%;
         transform: translateX(-50%);
       }
-      
+
       .nav-link:hover::after,
       .nav-link.active::after {
         width: 80%;
       }
     }
-    
-    /* Mobile Menu Overlay */
+
     .nav-overlay {
       position: fixed;
       top: 0;
@@ -420,25 +418,12 @@
       pointer-events: none;
       transition: opacity var(--transition-speed) ease;
     }
-    
+
     .nav-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
-    
-    /* Scroll Indicator */
-    .scroll-indicator {
-      position: sticky;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      z-index: 1002;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-    
-    /* Focus styles for accessibility */
+
     button:focus,
     a:focus {
       outline: 2px solid var(--accent);
@@ -448,24 +433,21 @@
   </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
   <div class="scroll-indicator" id="scrollIndicator"></div>
 
-  <!-- Mobile Menu Overlay -->
   <div class="nav-overlay" id="navOverlay"></div>
 
-  <!-- Navigation Bar -->
   <nav class="navbar" id="navbar">
     <a href="https://aditya-cmd-max.github.io/exonova-/" class="logo">
-      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" loading = "lazy" alt="Exonova Logo">
+      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" loading="lazy" alt="Exonova Logo">
     </a>
-    
+
     <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
-    
+
     <ul class="nav-links" id="navLinks" role="navigation">
       <li><a href="home.html" class="nav-link active">Home</a></li>
       <li><a href="blogs.html" class="nav-link">Blog</a></li>
@@ -474,7 +456,7 @@
       <li><a href="signin.html" class="nav-link">Sign In</a></li>
     </ul>
   </nav>
-  <div class="scroll-indicator" id="scrollIndicator"></div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const menuBtn = document.getElementById('menuBtn');
@@ -482,8 +464,7 @@
       const navOverlay = document.getElementById('navOverlay');
       const navbar = document.getElementById('navbar');
       const scrollIndicator = document.getElementById('scrollIndicator');
-      
-      // Toggle mobile menu
+
       function toggleMenu() {
         const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
         menuBtn.classList.toggle('active');
@@ -492,10 +473,7 @@
         document.body.style.overflow = isExpanded ? '' : 'hidden';
         menuBtn.setAttribute('aria-expanded', !isExpanded);
       }
-      
-      menuBtn.addEventListener('click', toggleMenu);
-      
-      // Close menu when clicking overlay or link
+
       function closeMenu() {
         menuBtn.classList.remove('active');
         navLinks.classList.remove('active');
@@ -503,37 +481,32 @@
         document.body.style.overflow = '';
         menuBtn.setAttribute('aria-expanded', 'false');
       }
-      
+
+      menuBtn.addEventListener('click', toggleMenu);
       navOverlay.addEventListener('click', closeMenu);
-      
-      // Close menu when clicking a nav link (mobile only)
-      document.querySelectorAll('.nav-link').forEach(function(link) {
-        link.addEventListener('click', function() {
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
           if (window.innerWidth <= 992) {
             closeMenu();
           }
         });
       });
-      
-      // Scroll indicator
-      window.addEventListener('scroll', function() {
+
+      window.addEventListener('scroll', () => {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPosition = window.scrollY;
         const scrollPercentage = (scrollPosition / scrollHeight) * 100;
         scrollIndicator.style.width = scrollPercentage + '%';
-        
-        // Navbar scroll effect
         navbar.classList.toggle('scrolled', scrollPosition > 50);
       });
-      
-      // Close menu when resizing to desktop
-      window.addEventListener('resize', function() {
+
+      window.addEventListener('resize', () => {
         if (window.innerWidth > 992) {
           closeMenu();
         }
       });
-      
-      // Close menu with ESC key
+
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && navLinks.classList.contains('active')) {
           closeMenu();
@@ -543,6 +516,8 @@
     });
   </script>
 </body>
+</html>
+
 
   <!--NAvbr End -->
  
