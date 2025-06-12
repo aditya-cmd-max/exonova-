@@ -97,97 +97,99 @@
     <!--OFFILINE detector START-->
 
 
- <style>
-    #offlineAlert {
-      display: none;
-      position: sticky;
-      bottom: 20px;
-      right: 20px;
-      background: #ff4444;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      align-items: center;
-      gap: 12px;
-      z-index: 9999;
-      animation: fadeIn 0.3s ease-out;
-    }
-    
-    #offlineAlert i {
-      font-size: 24px;
-    }
-    
-    .alert-content {
-      line-height: 1.5;
-    }
-    
-    .alert-title {
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-    
-    .alert-message {
-      font-size: 14px;
-    }
-    
-    .connection-status {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ff9999;
-      margin-left: 8px;
-      animation: pulse 1.5s infinite;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
-    }
-
- 
- 
- 
- </style>
-</head>
-<body>
-  <div id="offlineAlert">
-    <i class="fas fa-wifi-slash"></i>
-    <div class="alert-content">
-      <div class="alert-title">Connection Lost <span class="connection-status"></span></div>
-      <div class="alert-message">Trying to reconnect...</div>
-    </div>
+ <!-- ✅ OFFLINE ALERT HTML -->
+<div id="offlineAlert">
+  <i class="fas fa-wifi-slash icon"></i>
+  <div class="alert-content">
+    <div class="alert-title">Connection Lost <span class="connection-status">Offline</span></div>
+    <div class="alert-message">Trying to reconnect...</div>
   </div>
+</div>
 
-  <script>
-    function updateConnectionStatus() {
-      const alert = document.getElementById("offlineAlert");
-      
-      if (!navigator.onLine) {
-        alert.style.display = "flex";
-      } else {
-        alert.style.display = "none";
-      }
+<!-- ✅ CSS STYLES -->
+<style>
+  #offlineAlert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    color: white;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    animation: slideDown 0.4s ease;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .icon {
+    font-size: 24px;
+    animation: pulse 1.2s infinite;
+  }
+
+  .alert-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .alert-message {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  @keyframes slideDown {
+    from {
+      top: -50px;
+      opacity: 0;
     }
+    to {
+      top: 20px;
+      opacity: 1;
+    }
+  }
 
-    // Initial check
-    updateConnectionStatus();
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
 
-    // Event listeners
-    window.addEventListener('online', updateConnectionStatus);
-    window.addEventListener('offline', updateConnectionStatus);
+<!-- ✅ JAVASCRIPT -->
+<script>
+  function updateConnectionStatus() {
+    const alert = document.getElementById("offlineAlert");
+    const statusText = document.querySelector(".connection-status");
 
-    // Additional check every 5 seconds
-    setInterval(updateConnectionStatus, 5000);
-  </script>
-</body>
+    if (!navigator.onLine) {
+      alert.style.display = "flex";
+      statusText.textContent = "(Offline)";
+    } else {
+      alert.style.display = "none";
+    }
+  }
+
+  // Initial check
+  updateConnectionStatus();
+
+  // Event listeners
+  window.addEventListener("online", updateConnectionStatus);
+  window.addEventListener("offline", updateConnectionStatus);
+
+  // Extra Check
+  setInterval(updateConnectionStatus, 5000);
+</script>
 
     <!-- OFFLINE END-->
     
