@@ -391,3 +391,32 @@ footer p {
   }
 }
 
+
+
+  /* Real oader */
+
+
+
+   .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0d0d0d; /* Dark background */
+  }
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #00ffcc;
+    border-top: 6px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
