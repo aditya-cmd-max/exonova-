@@ -3,7 +3,7 @@ self.addEventListener('install', (event) => {
     caches.open('exonova-cache').then((cache) => {
       return cache.addAll([
         '/',
-        '/offline.html',
+        '/exonova-/offline.html',
       ]);
     })
   );
@@ -12,7 +12,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request).catch(() => {
-      return caches.match('/offline.html');
+      return caches.match('/exonova-/offline.html');
     })
   );
 });
