@@ -43,12 +43,12 @@
   <a href="/">Go Back Home</a>
 
   <script>
-    // Register the service worker from inside the offline page itself
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/exonova-/sw.js')
-        .then(reg => console.log('Service worker registered!', reg))
-        .catch(err => console.error('Service worker error:', err));
-    }
-  </script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/exonova-/sw.js', { scope: '/exonova-/' })
+      .then(reg => console.log('Service Worker registered:', reg))
+      .catch(err => console.error('SW registration failed:', err));
+  }
+</script>
+
 </body>
 </html>
