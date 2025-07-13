@@ -2,8 +2,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('exonova-cache').then((cache) => {
       return cache.addAll([
-        '/',
-        '/exonova-/offline.html',
+        '/exonova-/',                   // home page of your repo
+        '/exonova-/offline.html',       // offline page
       ]);
     })
   );
