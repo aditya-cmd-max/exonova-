@@ -45,7 +45,7 @@
   <script>
     // Register the service worker from inside the offline page itself
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('/exonova-/sw.js')
         .then(reg => console.log('Service worker registered!', reg))
         .catch(err => console.error('Service worker error:', err));
     }
