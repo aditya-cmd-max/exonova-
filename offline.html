@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline - Exonova</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+    h1 {
+      color: #00e676;
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+    a {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #ff4081;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    a:hover {
+      background: #f50057;
+    }
+  </style>
+</head>
+<body>
+  <h1>Oops! You're Offline.</h1>
+  <p>It seems your internet connection is gone.</p>
+  <a href="/">Go Back Home</a>
+
+  <script>
+    // Register the service worker from inside the offline page itself
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service worker registered!', reg))
+        .catch(err => console.error('Service worker error:', err));
+    }
+  </script>
+</body>
+</html>
