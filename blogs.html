@@ -45,6 +45,8 @@
       --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
       --card-bg: rgba(255, 255, 255, 0.05);
       --card-hover-bg: rgba(255, 255, 255, 0.08);
+      --latest-badge: #ff3a3a;
+      --weekly-badge: #FFD700;
     }
     
     * {
@@ -368,6 +370,39 @@
       font-size: 0.9rem;
     }
     
+    /* Search Suggestions */
+    .search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--darker);
+      border-radius: 0 0 15px 15px;
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: none;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      border-top: none;
+    }
+    
+    .search-suggestion {
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+    }
+    
+    .search-suggestion:hover {
+      background: rgba(0, 247, 255, 0.1);
+      color: var(--primary);
+    }
+    
+    .search-suggestion:last-child {
+      border-bottom: none;
+    }
+    
     /* Latest Blogs Section */
     .latest-blogs {
       max-width: 1400px;
@@ -428,6 +463,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      position: relative;
     }
     
     .latest-blog-card:hover {
@@ -515,6 +551,42 @@
     .latest-read-more:hover::after {
       transform: scaleX(1);
       transform-origin: left;
+    }
+    
+    /* Blog Badges */
+    .blog-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 2;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .latest-badge {
+      background-color: var(--latest-badge);
+      color: white;
+      animation: pulse 2s infinite;
+    }
+    
+    .weekly-badge {
+      background-color: var(--weekly-badge);
+      color: #333;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 58, 58, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(255, 58, 58, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 58, 58, 0);
+      }
     }
     
     /* Blogs Container */
@@ -806,6 +878,56 @@
       }
     }
     
+    /* Featured Blog Highlight */
+    .featured-highlight {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(123, 45, 255, 0.1));
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      margin-bottom: 2rem;
+    }
+    
+    .featured-content {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .featured-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .featured-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+    
+    .featured-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.8rem 1.5rem;
+      background: var(--gradient);
+      color: var(--dark);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .featured-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+    }
+    
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       body {
@@ -857,6 +979,10 @@
         height: 45px;
         bottom: 20px;
         right: 20px;
+      }
+      
+      .featured-highlight {
+        flex-direction: column;
       }
     }
     
@@ -922,21 +1048,37 @@
   <!-- Search Bar -->
   <div class="search-container" data-aos="fade-up">
     <i class="fas fa-search search-icon"></i>
-    <input type="text" id="searchInput" class="search-bar" placeholder="Search blogs by title, description, or date...">
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search blogs by title, description, or date..." autocomplete="off">
+    <div class="search-suggestions" id="searchSuggestions"></div>
   </div>
   <div id="searchResultsCount" class="search-results-count"></div>
+  
+  <!-- Featured Blog Highlight -->
+  <section class="blogs-container" data-aos="fade-up">
+    <div class="featured-highlight">
+      <div class="blog-img-container">
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured Blog" class="blog-img">
+        <div class="blog-badge weekly-badge">Weekly Special</div>
+      </div>
+      <div class="featured-content">
+        <h2 class="featured-title">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired</h2>
+        <p class="featured-desc">Discover the fascinating science behind this common phenomenon and learn how fatigue affects your grip strength and coordination.</p>
+        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="featured-link">
+          Read Now <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
   
   <!-- Latest Blogs Section -->
   <section class="latest-blogs" data-aos="fade-up">
     <h2 class="section-title">Our Latest Blogs</h2>
     <div class="latest-blogs-container">
-     
-      
-     
       <!-- Blog 10 -->
       <div class="latest-blog-card">
         <div class="latest-blog-img-container">
           <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slips" class="latest-blog-img">
+          <div class="blog-badge latest-badge">New</div>
         </div>
         <div class="latest-blog-content">
           <h3 class="latest-blog-title">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired</h3>
@@ -950,20 +1092,11 @@
         </div>
       </div> 
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <!-- Blog 9 -->
       <div class="latest-blog-card">
         <div class="latest-blog-img-container">
           <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="Google Evolution" class="latest-blog-img">
+          <div class="blog-badge latest-badge">New</div>
         </div>
         <div class="latest-blog-content">
           <h3 class="latest-blog-title">AI Flight 171 Crash Explained</h3>
@@ -977,12 +1110,11 @@
         </div>
       </div> 
       
-      
-      
       <!-- Blog 8 -->
       <div class="latest-blog-card">
         <div class="latest-blog-img-container">
           <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Google Evolution" class="latest-blog-img">
+          <div class="blog-badge latest-badge">New</div>
         </div>
         <div class="latest-blog-content">
           <h3 class="latest-blog-title">Bananas are Radioactive</h3>
@@ -996,12 +1128,11 @@
         </div>
       </div>
       
-      
-      
       <!-- Latest Blog 1 -->
       <div class="latest-blog-card">
         <div class="latest-blog-img-container">
           <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Google Evolution" class="latest-blog-img">
+          <div class="blog-badge weekly-badge">Weekly Special</div>
         </div>
         <div class="latest-blog-content">
           <h3 class="latest-blog-title">The Evolution of Google</h3>
@@ -1048,23 +1179,6 @@
           </a>
         </div>
       </div>
-      
-      <!-- Latest Blog 4 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="India-Pakistan" class="latest-blog-img">
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">India-Pakistan war: Is it WW3?</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>May 11, 2025</span>
-          </div>
-          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog4" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
     </div>
   </section>
   
@@ -1083,7 +1197,7 @@
     <!-- Blog Card 1 -->
     <div class="blog-card" data-aos="fade-up" data-aos-delay="100" data-categories="science education" data-search="The Science of Sleep sleep science youth health">
       <div class="blog-img-container">
-               <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
+        <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
       </div>
       <div class="blog-content">
         <h2 class="blog-title">The Science of Sleep</h2>
@@ -1189,9 +1303,10 @@
     </div>
 
     <!-- Blog Card 7 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="technology history" data-search="The Evolution of Google tech giant inspiration story">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="700" data-categories="technology history" data-search="The Evolution of Google tech giant inspiration story">
       <div class="blog-img-container">
         <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
+        <div class="blog-badge weekly-badge">Weekly Special</div>
       </div>
       <div class="blog-content">
         <h2 class="blog-title">The Evolution of Google</h2>
@@ -1206,10 +1321,11 @@
       </div>
     </div>
 
-  <!-- Blog Card 8 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="technology history" data-search="The Evolution of Google tech giant inspiration story">
+    <!-- Blog Card 8 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="800" data-categories="science" data-search="Bananas are Radioactive potassium-40 radiation food science">
       <div class="blog-img-container">
-        <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Middle Class Life" class="blog-img">
+        <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
+        <div class="blog-badge latest-badge">New</div>
       </div>
       <div class="blog-content">
         <h2 class="blog-title">Bananas are Radioactive</h2>
@@ -1225,9 +1341,10 @@
     </div>
 
     <!-- Blog Card 9 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="technology history" data-search="AI flight 171 Crash">
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="900" data-categories="technology science" data-search="AI flight 171 Crash aviation accident Boeing 787 investigation">
       <div class="blog-img-container">
-        <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="Middle Class Life" class="blog-img">
+        <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
+        <div class="blog-badge latest-badge">New</div>
       </div>
       <div class="blog-content">
         <h2 class="blog-title">AI Flight 171 Crash Explained</h2>
@@ -1242,10 +1359,11 @@
       </div>
     </div>
 
-     <!-- Blog Card 10 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="technology history" data-search="Sleep, BIzzare physicsWhy Your Phone Slips from Your Hand More When You're Tired,">
+    <!-- Blog Card 10 -->
+    <div class="blog-card" data-aos="fade-up" data-aos-delay="1000" data-categories="science" data-search="Phone slips when tired physics grip strength fatigue coordination">
       <div class="blog-img-container">
-        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Middle Class Life" class="blog-img">
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
+        <div class="blog-badge latest-badge">New</div>
       </div>
       <div class="blog-content">
         <h2 class="blog-title">Why Your Phone Slips from Your Hand More When You're Tired</h2>
@@ -1379,12 +1497,120 @@
     
     // Blog Search Functionality
     const searchInput = document.getElementById('searchInput');
+    const searchSuggestions = document.getElementById('searchSuggestions');
     const blogCards = document.querySelectorAll('.blog-card');
     const noResults = document.getElementById('noResults');
     const searchResultsCount = document.getElementById('searchResultsCount');
     
+    // Generate search suggestions based on blog data
+    const blogData = Array.from(blogCards).map(card => {
+      return {
+        title: card.querySelector('.blog-title').textContent,
+        desc: card.querySelector('.blog-desc').textContent,
+        date: card.querySelector('.blog-date span').textContent,
+        searchData: card.getAttribute('data-search'),
+        categories: card.getAttribute('data-categories'),
+        element: card
+      };
+    });
+    
+    // Generate search suggestions
+    function generateSuggestions(term) {
+      if (term.length < 2) return [];
+      
+      const suggestions = [];
+      const termLower = term.toLowerCase();
+      
+      // Search in titles
+      blogData.forEach(blog => {
+        if (blog.title.toLowerCase().includes(termLower)) {
+          suggestions.push({
+            text: blog.title,
+            type: 'Title',
+            element: blog.element
+          });
+        }
+      });
+      
+      // Search in descriptions
+      blogData.forEach(blog => {
+        if (blog.desc.toLowerCase().includes(termLower) && 
+            !suggestions.some(s => s.text === blog.title)) {
+          suggestions.push({
+            text: blog.desc,
+            type: 'Description',
+            element: blog.element
+          });
+        }
+      });
+      
+      // Search in search data
+      blogData.forEach(blog => {
+        if (blog.searchData.toLowerCase().includes(termLower) && 
+            !suggestions.some(s => s.text === blog.title || s.text === blog.desc)) {
+          const matchingTerm = blog.searchData.split(' ')
+            .find(word => word.toLowerCase().includes(termLower));
+          suggestions.push({
+            text: matchingTerm,
+            type: 'Keyword',
+            element: blog.element
+          });
+        }
+      });
+      
+      return suggestions.slice(0, 5); // Limit to 5 suggestions
+    }
+    
+    // Show search suggestions
     searchInput.addEventListener('input', function() {
-      const searchTerm = this.value.toLowerCase();
+      const term = this.value.trim();
+      searchSuggestions.innerHTML = '';
+      
+      if (term.length < 2) {
+        searchSuggestions.style.display = 'none';
+        return;
+      }
+      
+      const suggestions = generateSuggestions(term);
+      
+      if (suggestions.length > 0) {
+        suggestions.forEach(suggestion => {
+          const suggestionEl = document.createElement('div');
+          suggestionEl.className = 'search-suggestion';
+          suggestionEl.innerHTML = `
+            <strong>${suggestion.type}:</strong> ${suggestion.text}
+          `;
+          suggestionEl.addEventListener('click', () => {
+            searchInput.value = suggestion.text.split(' ')[0]; // Use first word as search term
+            filterBlogs();
+            searchSuggestions.style.display = 'none';
+            // Scroll to the suggested blog
+            suggestion.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Highlight the blog temporarily
+            suggestion.element.style.boxShadow = '0 0 0 3px rgba(0, 247, 255, 0.5)';
+            setTimeout(() => {
+              suggestion.element.style.boxShadow = '';
+            }, 2000);
+          });
+          searchSuggestions.appendChild(suggestionEl);
+        });
+        searchSuggestions.style.display = 'block';
+      } else {
+        searchSuggestions.style.display = 'none';
+      }
+    });
+    
+    // Hide suggestions when clicking outside
+document.addEventListener('click', (e) => {
+  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+    searchSuggestions.style.display = 'none';
+  }
+});
+    
+    // Filter blogs based on search and category
+    function filterBlogs() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
       let visibleCount = 0;
       
       // Show loader
@@ -1397,11 +1623,17 @@
           const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
           const date = card.querySelector('.blog-date span').textContent.toLowerCase();
           const searchData = card.getAttribute('data-search').toLowerCase();
+          const categories = card.getAttribute('data-categories');
           
-          if (title.includes(searchTerm) || 
-              desc.includes(searchTerm) || 
-              date.includes(searchTerm) ||
-              searchData.includes(searchTerm)) {
+          const matchesSearch = searchTerm.length === 0 || 
+                              title.includes(searchTerm) || 
+                              desc.includes(searchTerm) || 
+                              date.includes(searchTerm) ||
+                              searchData.includes(searchTerm);
+          
+          const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
+          
+          if (matchesSearch && matchesCategory) {
             card.style.display = 'flex';
             visibleCount++;
           } else {
@@ -1410,7 +1642,7 @@
         });
         
         // Update results count
-        if (searchTerm.length > 0) {
+        if (searchTerm.length > 0 || activeCategory !== 'all') {
           searchResultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
           searchResultsCount.style.display = 'block';
         } else {
@@ -1418,7 +1650,7 @@
         }
         
         // Show no results message if needed
-        if (visibleCount === 0 && searchTerm.length > 0) {
+        if (visibleCount === 0 && (searchTerm.length > 0 || activeCategory !== 'all')) {
           noResults.style.display = 'block';
         } else {
           noResults.style.display = 'none';
@@ -1427,105 +1659,157 @@
         // Hide loader
         document.getElementById('loader').style.display = 'none';
       }, 300);
-    });
-    
-    // Category Filter Functionality
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    
-    categoryBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Update active state
-        categoryBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        const category = this.getAttribute('data-category');
-        
-        // Show loader
-        document.getElementById('loader').style.display = 'block';
-        
-        // Simulate loading delay for better UX
-        setTimeout(() => {
-          let visibleCount = 0;
-          
-          blogCards.forEach(card => {
-            const categories = card.getAttribute('data-categories');
-            
-            if (category === 'all' || categories.includes(category)) {
-              card.style.display = 'flex';
-              visibleCount++;
-            } else {
-              card.style.display = 'none';
-            }
-          });
-          
-          // Show no results message if needed
-          if (visibleCount === 0) {
-            noResults.style.display = 'block';
-          } else {
-            noResults.style.display = 'none';
-          }
-          
-          // Hide loader
-          document.getElementById('loader').style.display = 'none';
-        }, 300);
-      });
-    });
-    
-    // Combined search and filter functionality
-    function filterBlogs() {
-      const searchTerm = searchInput.value.toLowerCase();
-      const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-      let visibleCount = 0;
-      
-      blogCards.forEach(card => {
-        const title = card.querySelector('.blog-title').textContent.toLowerCase();
-        const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
-        const date = card.querySelector('.blog-date span').textContent.toLowerCase();
-        const searchData = card.getAttribute('data-search').toLowerCase();
-        const categories = card.getAttribute('data-categories');
-        
-        const matchesSearch = searchTerm.length === 0 || 
-                            title.includes(searchTerm) || 
-                            desc.includes(searchTerm) || 
-                            date.includes(searchTerm) ||
-                            searchData.includes(searchTerm);
-        
-        const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
-        
-        if (matchesSearch && matchesCategory) {
-          card.style.display = 'flex';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-      
-      // Update results count
-      if (searchTerm.length > 0) {
-        searchResultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
-        searchResultsCount.style.display = 'block';
-      } else {
-        searchResultsCount.style.display = 'none';
-      }
-      
-      // Show no results message if needed
-      if (visibleCount === 0 && (searchTerm.length > 0 || activeCategory !== 'all')) {
-        noResults.style.display = 'block';
-      } else {
-        noResults.style.display = 'none';
-      }
     }
     
-    // Event listeners for combined functionality
+    // Event listeners for search and filter
     searchInput.addEventListener('input', filterBlogs);
-    categoryBtns.forEach(btn => {
+    document.querySelectorAll('.category-btn').forEach(btn => {
       btn.addEventListener('click', filterBlogs);
     });
     
-    // Responsive adjustments on resize
-    window.addEventListener('resize', () => {
-      // You can add responsive adjustments here if needed
+    // Initialize with all blogs visible
+    filterBlogs();
+    
+    // Keyboard navigation for search suggestions
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const suggestions = document.querySelectorAll('.search-suggestion');
+        if (suggestions.length === 0) return;
+        
+        e.preventDefault();
+        
+        let currentFocus = -1;
+        suggestions.forEach((suggestion, index) => {
+          if (suggestion === document.activeElement) {
+            currentFocus = index;
+          }
+        });
+        
+        if (e.key === 'ArrowDown') {
+          currentFocus = (currentFocus + 1) % suggestions.length;
+        } else if (e.key === 'ArrowUp') {
+          currentFocus = (currentFocus - 1 + suggestions.length) % suggestions.length;
+        }
+        
+        suggestions[currentFocus].focus();
+      } else if (e.key === 'Enter' && searchSuggestions.style.display === 'block') {
+        const focusedSuggestion = document.querySelector('.search-suggestion:focus');
+        if (focusedSuggestion) {
+          focusedSuggestion.click();
+        }
+      }
     });
+    
+    // Add visual feedback when hovering over blog cards
+    blogCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px)';
+        card.style.boxShadow = '0 15px 30px rgba(0, 247, 255, 0.2)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        if (card.style.display !== 'none') {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        }
+      });
+    });
+    
+    // Add date-based highlighting for latest blogs (within last 7 days)
+    function highlightLatestBlogs() {
+      const now = new Date();
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      
+      blogCards.forEach(card => {
+        const dateText = card.querySelector('.blog-date span').textContent;
+        const blogDate = new Date(dateText);
+        
+        if (blogDate > sevenDaysAgo) {
+          const badge = document.createElement('div');
+          badge.className = 'blog-badge latest-badge';
+          badge.textContent = 'New';
+          card.querySelector('.blog-img-container').appendChild(badge);
+        }
+      });
+    }
+    
+    // Call the function to highlight latest blogs
+    highlightLatestBlogs();
+    
+    // Add weekly special badge to selected blogs
+    function markWeeklySpecials() {
+      // For demo purposes, we'll mark the Google Evolution blog as weekly special
+      const weeklySpecials = [
+        "The Evolution of Google",
+        "The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired"
+      ];
+      
+      blogCards.forEach(card => {
+        const title = card.querySelector('.blog-title').textContent;
+        if (weeklySpecials.includes(title)) {
+          const badge = document.createElement('div');
+          badge.className = 'blog-badge weekly-badge';
+          badge.textContent = 'Weekly Special';
+          card.querySelector('.blog-img-container').appendChild(badge);
+        }
+      });
+    }
+    
+    // Call the function to mark weekly specials
+    markWeeklySpecials();
+    
+    // Add a subtle parallax effect to the header
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      const scrollPosition = window.scrollY;
+      header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+    });
+    
+    // Add a confetti effect when clicking the weekly special badge
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('weekly-badge')) {
+        const confettiCount = 30;
+        const container = e.target.closest('.blog-card');
+        
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = `${Math.random() * 100}%`;
+          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+          container.appendChild(confetti);
+          
+          setTimeout(() => {
+            confetti.remove();
+          }, 3000);
+        }
+      }
+    });
+    
+    // Add style for confetti
+    const style = document.createElement('style');
+    style.textContent = `
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        animation: confetti-fall linear forwards;
+        z-index: 10;
+      }
+      
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(300px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
