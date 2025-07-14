@@ -680,7 +680,6 @@
 
   body .exonova-highlighted:hover {
     color: #ffd700;
-    cursor: pointer;
   }
 
   body .exonova-highlighted:hover::after {
@@ -795,7 +794,7 @@
   
   <!-- Logo Container with both logos -->
   <div class="exonova-logo-container">
-    <img src="https://i.postimg.cc/bYSFMstV/the-lakshya-high-resolution-logo-transparent.png"
+    <img src="https://i.postimg.cc/bYSFMstV/the-lakshya-high-resolution-logo-transparent.png" 
          alt="The Lakhya by Exonova" 
          class="lakhya-logo" 
          loading="lazy" />
@@ -865,19 +864,8 @@
         createParticles();
       }, 250);
     });
-    
-    // Add click effect to highlighted text
-    const highlighted = document.querySelector('.exonova-highlighted');
-    if (highlighted) {
-      highlighted.addEventListener('click', function() {
-        this.style.animation = 'none';
-        void this.offsetWidth; // Trigger reflow
-        this.style.animation = 'exonova-slideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards';
-      });
-    }
   });
 </script>
-
   
   <!-- Hero End-->
 
