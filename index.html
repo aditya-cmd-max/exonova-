@@ -519,11 +519,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2) format('woff2');
   }
 
   body .exonova-container {
-    background: linear-gradient(to bottom, #000000, #1a1a2e);
+    background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #0f0c29 100%);
     color: white;
     overflow-x: hidden;
     min-height: 100vh;
@@ -535,6 +549,47 @@
     padding: 2rem;
     text-align: center;
     isolation: isolate;
+    position: relative;
+  }
+
+  /* Particle Effect */
+  body .exonova-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  body .exonova-particle {
+    position: absolute;
+    background: rgba(138, 43, 226, 0.5);
+    border-radius: 50%;
+    animation: exonova-float linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes exonova-float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Logo Container */
+  body .exonova-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
   }
 
   /* Logo Styles */
@@ -542,34 +597,56 @@
     width: 120px;
     max-width: 20vw;
     height: auto;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px rgba(106, 13, 173, 0.5));
   }
 
   body .exonova-logo:hover {
-    transform: rotate(10deg) scale(1.1);
+    transform: rotate(5deg) scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.8));
+  }
+
+  /* Lakhya Logo Styles */
+  body .lakhya-logo {
+    width: 180px;
+    max-width: 25vw;
+    height: auto;
+    transition: all 0.4s ease;
+    opacity: 0.9;
+  }
+
+  body .lakhya-logo:hover {
+    transform: translateY(-5px);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
   }
 
   /* Title Styles */
   body .exonova-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
     line-height: 1.2;
     width: 100%;
     max-width: 1200px;
     padding: 0 1rem;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
-  /* Highlighted Text - Now fully visible */
+  /* Highlighted Text */
   body .exonova-highlighted {
     position: relative;
     display: inline-block;
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 3.2rem;
+    font-weight: 800;
     color: #ffffff;
     z-index: 1;
     padding: 0 0.2em;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
   }
 
   body .exonova-highlighted::before {
@@ -582,8 +659,23 @@
     background: linear-gradient(90deg, #6a0dad, #8a2be2);
     transform: skew(-12deg);
     z-index: -1;
-    animation: exonova-slideIn 1.2s ease-out forwards;
+    animation: exonova-slideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4);
+  }
+
+  body .exonova-highlighted::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 10px);
+    border: 2px solid transparent;
+    border-image: linear-gradient(90deg, #6a0dad, #8a2be2) 1;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   body .exonova-highlighted:hover {
@@ -591,60 +683,128 @@
     cursor: pointer;
   }
 
+  body .exonova-highlighted:hover::after {
+    opacity: 1;
+  }
+
   @keyframes exonova-slideIn {
     from { 
       width: 0;
       opacity: 0;
+      transform: skew(-12deg) translateX(-20px);
     }
     to { 
       width: 100%;
       opacity: 1;
+      transform: skew(-12deg) translateX(0);
     }
   }
 
-  /* Description with full width utilization */
+  /* Description with enhanced styling */
   body .exonova-description {
     width: 100%;
     max-width: 800px;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-    background: rgba(26, 26, 46, 0.7);
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(15, 12, 41, 0.7);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  body .exonova-description::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #6a0dad, #8a2be2, #6a0dad);
+    z-index: -1;
+    border-radius: 18px;
+    opacity: 0.3;
+  }
+
+  body .exonova-description:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 
   /* Media Query for responsiveness */
   @media screen and (max-width: 768px) {
+    body .exonova-logo-container {
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
     body .exonova-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       padding: 0 0.5rem;
     }
 
     body .exonova-highlighted {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
     }
 
     body .exonova-description {
-      font-size: 1rem;
-      padding: 1rem;
-      margin: 1rem 0.5rem;
+      font-size: 1.05rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0.5rem;
     }
 
     body .exonova-logo {
-      width: 80px;
+      width: 90px;
       max-width: 25vw;
+    }
+
+    body .lakhya-logo {
+      width: 140px;
+      max-width: 30vw;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    body .exonova-logo-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    body .exonova-title {
+      font-size: 1.8rem;
+    }
+
+    body .exonova-highlighted {
+      font-size: 2rem;
+    }
+
+    body .exonova-description {
+      padding: 1.2rem;
     }
   }
 </style>
 
 <div class="exonova-container" data-aos="fade-up">
-  <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png"  
-       alt="Exonova Logo" 
-       class="exonova-logo" 
-       loading="lazy" />
+  <!-- Particle Effect Canvas -->
+  <div class="exonova-particles" id="particles-js"></div>
+  
+  <!-- Logo Container with both logos -->
+  <div class="exonova-logo-container">
+    <img src="https://i.postimg.cc/bYSFMstV/the-lakshya-high-resolution-logo-transparent.png"
+         alt="The Lakhya by Exonova" 
+         class="lakhya-logo" 
+         loading="lazy" />
+    <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png"  
+         alt="Exonova Logo" 
+         class="exonova-logo" 
+         loading="lazy" />
+  </div>
+  
   <h1 class="exonova-title">
     Welcome to <span class="exonova-highlighted">Exonova</span>
   </h1>
@@ -658,10 +818,65 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Animation initialization code would go here
+    // Create particle effect
+    function createParticles() {
+      const container = document.getElementById('particles-js');
+      const particleCount = window.innerWidth < 768 ? 30 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('exonova-particle');
+        
+        // Random properties
+        const size = Math.random() * 8 + 2;
+        const posX = Math.random() * window.innerWidth;
+        const posY = Math.random() * window.innerHeight;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * -20;
+        const opacity = Math.random() * 0.6 + 0.2;
+        
+        // Apply styles
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}px`;
+        particle.style.top = `${posY}px`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.opacity = opacity;
+        
+        // Random color variation
+        const hue = 270 + Math.random() * 30 - 15; // Purple range
+        particle.style.background = `hsla(${hue}, 80%, 60%, ${opacity})`;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    // Initialize particles
+    createParticles();
+    
+    // Recreate particles on resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        const container = document.getElementById('particles-js');
+        container.innerHTML = '';
+        createParticles();
+      }, 250);
+    });
+    
+    // Add click effect to highlighted text
+    const highlighted = document.querySelector('.exonova-highlighted');
+    if (highlighted) {
+      highlighted.addEventListener('click', function() {
+        this.style.animation = 'none';
+        void this.offsetWidth; // Trigger reflow
+        this.style.animation = 'exonova-slideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+      });
+    }
   });
 </script>
-
 
   
   <!-- Hero End-->
