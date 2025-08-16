@@ -2,337 +2,263 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Exonova Sign Up</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://unpkg.com/@barba/core"></script>
   <style>
-    * {
-      margin: 0; padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f6f8ff, #e8f0fe, #d5e3ff);
     }
-
-    body, html {
-      height: 100%;
-      overflow-x: hidden;
-      background-color: #0e0e0e;
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
     }
-
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
+    .exonova-gradient {
+      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
     }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      padding: 5vw 5vw;
-      min-height: 100vh;
-      gap: 30px;
-      background: url('https://img.freepik.com/free-vector/futuristic-background-design_23-2148503793.jpg') center/cover no-repeat;
-      backdrop-filter: blur(6px);
-      position: relative;
-      z-index: 1;
-      animation: fadeIn 2s ease-in-out;
+    .exonova-gradient-text {
+      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .exonova-btn {
+      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+      transition: all 0.3s ease;
     }
-
-    .left {
-      color: white;
-      max-width: 500px;
-      flex: 1 1 300px;
-      text-align: center;
-    }
-
-    .left h1 {
-      font-size: 2.5em;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .left p {
-      margin-top: 10px;
-      font-size: 1em;
-      padding: 0 10px;
-    }
-
-    .left .socials {
-      margin-top: 20px;
-    }
-
-    .left .socials i {
-      font-size: 1.3em;
-      margin: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .left .socials i:hover {
-      color: orange;
-    }
-
-    .signup-form {
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 95, 109, 0.5);
-      width: 100%;
-      max-width: 400px;
-      animation: floatBox 3s ease infinite alternate;
-      flex: 1 1 300px;
-    }
-
-    @keyframes floatBox {
-      to { transform: translateY(10px); }
-    }
-
-    .signup-form h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-weight: 600;
-      color: #1e1e1e;
-    }
-
-    .signup-form input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #f1f1f1;
-    }
-
-    .signup-form label {
-      font-size: 0.9em;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .btn, .google-btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    .btn {
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
-      color: white;
-      margin-top: 10px;
-    }
-
-    .btn:hover, .google-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .google-btn {
-      background: white;
-      border: 1px solid #ddd;
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .google-btn i {
-      margin-right: 10px;
-      color: #4285F4;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 0.8em;
-      margin-top: 15px;
-      color: #555;
-    }
-
-    .signin-link {
-      text-align: center;
-      margin-top: 12px;
-      font-size: 0.9em;
-    }
-
-    .signin-link a {
-      color: #ff5f6d;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .signin-link a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 20px 10px;
-        text-align: center;
-      }
-
-      .left h1 {
-        font-size: 2em;
-      }
-
-      .left p {
-        font-size: 0.95em;
-      }
-
-      .signup-form {
-        width: 90%;
-        padding: 20px;
-      }
+    .exonova-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(58, 123, 213, 0.3);
     }
   </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center p-4" data-barba="wrapper">
+  <main data-barba="container" data-barba-namespace="signup">
+    <div class="w-full max-w-4xl bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row animate__animated animate__fadeIn fade-in">
+      <!-- Left Side (Image) -->
+      <div class="hidden md:block md:w-1/2 relative">
+        <div class="absolute inset-0 exonova-gradient opacity-90"></div>
+        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e" alt="Sign Up Side" class="h-full w-full object-cover" />
+        <div class="absolute bottom-10 left-10 text-white">
+          <h2 class="text-3xl font-bold mb-2">Exonova</h2>
+          <p class="text-lg opacity-90">Join our innovative community</p>
+        </div>
+      </div>
 
-<canvas id="bgCanvas"></canvas>
+      <!-- Right Side (Sign Up Form) -->
+      <div class="w-full md:w-1/2 p-10 relative z-10 bg-white">
+        <div class="flex items-center space-x-3 mb-8">
+          <!-- Replace this with your actual Exonova logo -->
+          <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo" class="h-10" />
+        </div>
 
-<div class="container">
-  <div class="left">
-    <h1>Welcome to <span style="color: #ffcf4d;">Exonova</span></h1>
-    <p>Your gateway to premium education. Learn smart, stay ahead.</p>
-    <div class="socials">
-      <i class="fab fa-facebook-f" style="color:white;"></i>
-      <i class="fab fa-twitter" style="color:white;"></i>
-      <i class="fab fa-instagram" style="color:white;"></i>
-      <i class="fab fa-youtube" style="color:white;"></i>
+        <h3 class="text-3xl font-bold text-gray-800 mb-2">Create an account</h3>
+        <p class="text-gray-500 mb-8">Join the Exonova Universe today</p>
+
+        <form id="signup-form" class="space-y-5">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent transition-all" required />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent transition-all" required />
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <div class="relative">
+              <input type="password" id="password" placeholder="Create a password" class="w-full border border-gray-200 rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent transition-all" required />
+              <button type="button" id="togglePassword" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <div class="relative">
+              <input type="password" id="confirm-password" placeholder="Confirm your password" class="w-full border border-gray-200 rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent transition-all" required />
+              <button type="button" id="toggleConfirmPassword" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center text-sm">
+            <label class="flex items-center gap-2 text-gray-600">
+              <input type="checkbox" class="form-checkbox rounded border-gray-300 text-blue-500 focus:ring-blue-400" required /> 
+              I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button type="submit" class="w-full exonova-btn text-white py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+            <span>Create account</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </button>
+
+          <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-200"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+            </div>
+          </div>
+
+          <button type="button" onclick="googleSignIn()" class="w-full border border-gray-200 py-2.5 rounded-xl flex justify-center items-center gap-3 shadow-sm hover:bg-gray-50 transition-colors">
+            <img src="https://brandlogo.org/wp-content/uploads/2025/05/Google-G-Icon-2025.png.webp" alt="Google" class="w-5 h-5" />
+            <span class="font-medium text-gray-700">Google</span>
+          </button>
+
+          <div class="text-sm mt-6 text-center text-gray-500">
+            Already have an account? <a href="login.html" class="text-blue-600 hover:underline font-medium">Sign in</a>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
 
-  <div class="signup-form">
-    <h2>Create an Account</h2>
-    <label for="email">Email Address</label>
-    <input type="email" id="email" placeholder="Enter Email" required />
-    
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Enter Password" required />
-    
-    <label for="confirm-password">Confirm Password</label>
-    <input type="password" id="confirm-password" placeholder="Confirm Password" required />
-    
-    <button class="btn" onclick="signUpEmail()">Sign Up Now</button>
-    <button class="google-btn" onclick="signUpWithGoogle()"><i class="fab fa-google"></i>Continue with Google</button>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const firebaseConfig = {
+        apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+        authDomain: "exonova-cd89c.firebaseapp.com",
+        projectId: "exonova-cd89c",
+        storageBucket: "exonova-cd89c.firebasestorage.app",
+        messagingSenderId: "465326262278",
+        appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+        measurementId: "G-GGG45V0PEF"
+      };
 
-    <div class="signin-link">
-      Already have an account? <a href="signin.html">Sign In</a>
-    </div>
-    <div class="footer">
-      By signing up you agree to our <br />
-      <a href="tos.html">Terms of Service</a> & <a href="privacypolicy.html">Privacy Policy</a>
-    </div>
-  </div>
-</div>
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
 
-<!-- Firebase SDKs -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
-  authDomain: "exonova-cd89c.firebaseapp.com",
-  projectId: "exonova-cd89c",
-  storageBucket: "exonova-cd89c.firebasestorage.app",
-  messagingSenderId: "465326262278",
-  appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
-  measurementId: "G-GGG45V0PEF"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  window.signUpEmail = function () {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        alert("Account created successfully!");
-        console.log(userCredential.user);
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
+      // Form submission
+      document.getElementById('signup-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        
+        if (password !== confirmPassword) {
+          alert("Passwords don't match!");
+          return;
+        }
+        
+        // Add loading state
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<span>Creating account...</span>';
+        submitBtn.disabled = true;
+        
+        try {
+          const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+          // Update user profile with name
+          await userCredential.user.updateProfile({
+            displayName: name
+          });
+          
+          // Simulate success (replace with actual redirect)
+          submitBtn.innerHTML = '<span>Success! Redirecting...</span>';
+          setTimeout(() => {
+            alert('Account created successfully!');
+            submitBtn.innerHTML = '<span>Create account</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>';
+            submitBtn.disabled = false;
+          }, 1500);
+        } catch (error) {
+          alert(error.message);
+          submitBtn.innerHTML = '<span>Create account</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>';
+          submitBtn.disabled = false;
+        }
       });
-  };
 
-  window.signUpWithGoogle = function () {
-    signInWithPopup(auth, provider)
-      .then(result => {
-        alert("Signed up with Google!");
-        console.log(result.user);
-      })
-      .catch(error => {
-        alert("Google Sign-Up Failed: " + error.message);
+      // Google sign in
+      window.googleSignIn = function () {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+          .then(result => {
+            alert(`Welcome, ${result.user.displayName}`);
+          })
+          .catch(error => alert(error.message));
+      }
+
+      // Show/Hide Password
+      function setupPasswordToggle(buttonId, fieldId) {
+        const toggleButton = document.getElementById(buttonId);
+        const passwordField = document.getElementById(fieldId);
+        
+        toggleButton.addEventListener('click', () => {
+          if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            toggleButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+              </svg>
+            `;
+          } else {
+            passwordField.type = 'password';
+            toggleButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            `;
+          }
+        });
+      }
+
+      setupPasswordToggle('togglePassword', 'password');
+      setupPasswordToggle('toggleConfirmPassword', 'confirm-password');
+
+      // Animate page entrance
+      anime({
+        targets: '.fade-in',
+        opacity: [0, 1],
+        translateY: [30, 0],
+        delay: 200,
+        duration: 800,
+        easing: 'easeOutExpo'
       });
-  };
-</script>
 
-<!-- Canvas BG Script -->
-<script>
-  gsap.from(".left h1", { opacity: 0, x: -100, duration: 1 });
-  gsap.from(".left p", { opacity: 0, x: -100, duration: 1.5 });
-  gsap.from(".signup-form", { opacity: 0, y: 100, duration: 1.2 });
-
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const particles = [];
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 2 + 1,
-      dx: Math.random() * 0.5,
-      dy: Math.random() * 0.5,
-      color: "rgba(255,255,255,0.5)"
-    };
-  }
-
-  for (let i = 0; i < 100; i++) {
-    particles.push(createParticle());
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y > canvas.height) p.y = 0;
-    }
-    requestAnimationFrame(drawParticles);
-  }
-
-  drawParticles();
-</script>
-
+      // Barba page transition (optional if SPA)
+      barba.init({
+        transitions: [{
+          name: 'default-transition',
+          leave(data) {
+            return anime({
+              targets: data.current.container,
+              opacity: [1, 0],
+              duration: 500,
+              easing: 'easeInOutQuad'
+            }).finished;
+          },
+          enter(data) {
+            return anime({
+              targets: data.next.container,
+              opacity: [0, 1],
+              duration: 500,
+              easing: 'easeInOutQuad'
+            }).finished;
+          }
+        }]
+      });
+    });
+  </script>
 </body>
 </html>
