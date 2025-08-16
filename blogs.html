@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,70 +6,56 @@
   <title>Exonova • Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Primary Meta Tags -->
+  <!-- Meta Tags -->
   <meta name="description" content="Exonova is an innovative Indian educational platform offering engaging science facts, interactive quizzes, and inspiring blogs to make learning fun and accessible for everyone.">
   <meta name="keywords" content="Exonova, science education, learning platform, educational quizzes, science facts, Aditya Jha, Indian education, STEM learning, fun science, knowledge hub">
   <meta name="author" content="Aditya Jha">
-  <meta name="robots" content="index, follow">
   
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aditya-cmd-max.github.io/exonova-/">
-  <meta property="og:title" content="Exonova - Science Education Platform | Fun Learning with Aditya Jha">
-  <meta property="og:description" content="Discover engaging science facts, interactive quizzes, and inspiring educational content at Exonova - India's innovative learning platform.">
-  <meta property="og:image" content="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png">
-  <meta property="og:image:alt" content="Exonova Logo - Science Education Platform">
-
-  <!-- Google Site Verification -->
-  <meta name="google-site-verification" content="gVm_Dk4QJW6bhd3nyT3WJPIzHXt9SEgn8Z43IU2t27Y"> 
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Cookie&family=Gabriela&family=Oswald:wght@200..700&family=Paprika&display=swap" rel="stylesheet">
-  <!-- AOS Animate on Scroll -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-  <!-- Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Animation -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
   
   <style>
     :root {
-      --primary: #00f7ff;
-      --secondary: #7b2dff;
-      --accent: #ff2d7b;
-      --dark: #0a0f1f;
-      --darker: #050917;
-      --text-light: #ffffff;
-      --text-muted: #a0a8c0;
+      --primary: #ec4899;
+      --primary-light: #f472b6;
+      --secondary: #3b82f6;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-subtle: #6b7280;
       --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
       --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-hover-bg: rgba(255, 255, 255, 0.08);
-      --latest-badge: #ff3a3a;
-      --weekly-badge: #FFD700;
+      --glass-bg: rgba(15, 23, 42, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(30, 41, 59, 0.5);
+      --card-hover: rgba(30, 41, 59, 0.8);
+      --badge-new: #ff3a3a;
+      --badge-featured: #FFD700;
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-      font-size: 100%;
     }
     
     body {
-      background-color: var(--dark);
-      color: var(--text-light);
+      font-family: 'Space Grotesk', sans-serif;
+      background: radial-gradient(circle at 10% 20%, var(--darker), var(--dark));
+      color: var(--text-primary);
+      min-height: 100vh;
       overflow-x: hidden;
-      padding-top: 80px;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(123, 45, 255, 0.05) 0%, transparent 20%);
       line-height: 1.6;
     }
     
@@ -80,7 +67,6 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      overflow: hidden;
       pointer-events: none;
     }
     
@@ -88,23 +74,48 @@
       position: absolute;
       background: var(--primary);
       border-radius: 50%;
-      opacity: 0.3;
+      opacity: 0.15;
       animation: float linear infinite;
     }
     
     @keyframes float {
-      0% {
-        transform: translateY(0) translateX(0);
-      }
-      50% {
-        transform: translateY(-100px) translateX(50px);
-      }
-      100% {
-        transform: translateY(0) translateX(0);
-      }
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-100px) translateX(50px); }
+      100% { transform: translateY(0) translateX(0); }
     }
     
-    /* Navbar Styles */
+    /* Glass Panel Effect */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--darker);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient);
+      border-radius: 10px;
+    }
+    
+    /* Navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -115,80 +126,74 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 5%;
-      background: rgba(10, 15, 31, 0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
-      z-index: 9999;
-      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      transition: all 0.4s ease;
     }
     
     .navbar.scrolled {
       height: 70px;
-      box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
-      background: rgba(5, 9, 23, 0.98);
+      background: rgba(2, 6, 23, 0.95);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
     
     .logo {
-      height: 50px;
-      transition: transform 0.4s ease;
       display: flex;
       align-items: center;
+      gap: 10px;
     }
     
-    .logo img {
-      height: 100%;
-      max-height: 50px;
+    .logo-img {
+      height: 40px;
       width: auto;
-      transition: transform 0.4s ease;
+      transition: transform 0.3s ease;
     }
     
-    .logo:hover img {
-      transform: rotate(-10deg) scale(1.1);
-      filter: drop-shadow(0 0 10px var(--primary));
+    .logo:hover .logo-img {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     .nav-links {
       display: flex;
       gap: 30px;
-      align-items: center;
-      list-style: none;
     }
     
     .nav-link {
-      position: relative;
-      color: var(--text-light);
+      color: var(--text-primary);
       text-decoration: none;
       font-weight: 500;
-      font-size: clamp(0.9rem, 1.1vw, 1.1rem);
-      padding: 8px 0;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
     }
     
-    .nav-link::before {
+    .nav-link::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 100%;
+      width: 0;
       height: 2px;
       background: var(--gradient);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+      transition: width 0.3s ease;
     }
     
     .nav-link:hover,
     .nav-link.active {
       color: var(--primary);
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
     }
     
-    .nav-link:hover::before,
-    .nav-link.active::before {
-      transform: scaleX(1);
-      transform-origin: left;
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
     }
     
     .menu-btn {
@@ -198,418 +203,221 @@
       width: 30px;
       height: 21px;
       cursor: pointer;
-      z-index: 10000;
-      position: relative;
+      z-index: 1001;
     }
     
     .menu-btn span {
       display: block;
       width: 100%;
       height: 3px;
-      background: var(--primary);
+      background: var(--text-primary);
       border-radius: 3px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: left center;
+      transition: all 0.3s ease;
     }
     
     .menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(4px, -1px);
-      width: 110%;
+      transform: rotate(45deg) translate(5px, 5px);
     }
     
     .menu-btn.active span:nth-child(2) {
       opacity: 0;
-      transform: translateX(-10px);
     }
     
     .menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(4px, 1px);
-      width: 110%;
+      transform: rotate(-45deg) translate(5px, -5px);
     }
     
-    @media (max-width: 992px) {
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 400px;
-        height: 100vh;
-        background: rgba(5, 9, 23, 0.98);
-        flex-direction: column;
-        justify-content: center;
-        gap: 40px;
-        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        border-left: 1px solid rgba(0, 247, 255, 0.1);
-      }
-      
-      .nav-links.active {
-        right: 0;
-      }
-      
-      .menu-btn {
-        display: flex;
-      }
-      
-      .nav-link {
-        font-size: 1.2rem;
-      }
-    }
-    
-    .scroll-indicator {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: var(--gradient);
-      z-index: 10000;
-      transition: width 0.2s ease-out;
-    }
-    
-    /* Header Styles */
-    header {
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 6rem 2rem 4rem;
+      padding: 120px 5% 80px;
       position: relative;
       overflow: hidden;
     }
     
-    header::before {
+    .hero::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, rgba(10, 15, 31, 0.9), rgba(36, 59, 85, 0.9));
+      background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1), transparent 70%);
       z-index: -1;
     }
     
-    header h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 1rem;
-      font-family: 'Paprika', sans-serif;
-      background: linear-gradient(to right, var(--primary), var(--text-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
-      animation: glow 2s ease-in-out infinite alternate;
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1.5rem;
       line-height: 1.2;
+      animation: glow 2s ease-in-out infinite alternate;
     }
     
     @keyframes glow {
-      from {
-        text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-      }
-      to {
-        text-shadow: 0 0 20px rgba(0, 247, 255, 0.8), 0 0 30px rgba(0, 247, 255, 0.3);
-      }
+      from { text-shadow: 0 0 10px rgba(236, 72, 153, 0.5); }
+      to { text-shadow: 0 0 20px rgba(236, 72, 153, 0.8), 0 0 30px rgba(59, 130, 246, 0.5); }
     }
     
-    header p {
-      color: var(--text-muted);
-      font-size: clamp(1rem, 1.3vw, 1.3rem);
+    .hero p {
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      color: var(--text-secondary);
       max-width: 700px;
-      margin: 0 auto;
-      position: relative;
+      margin: 0 auto 2.5rem;
     }
     
-    header p::after {
-      content: '';
-      display: block;
-      width: 100px;
-      height: 3px;
+    .hero-cta {
+      display: flex;
+      gap: 15px;
+      margin-top: 2rem;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
       background: var(--gradient);
-      margin: 1.5rem auto 0;
-      border-radius: 3px;
+      color: var(--light);
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
     }
     
-    /* Search Bar Styles */
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
+    }
+    
+    .btn-secondary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(236, 72, 153, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    /* Search Bar */
     .search-container {
-      max-width: 800px;
+      max-width: 700px;
+      width: 100%;
       margin: 0 auto 3rem;
-      padding: 0 2rem;
       position: relative;
     }
     
     .search-bar {
       width: 100%;
-      padding: 1rem 1.5rem;
+      padding: 15px 25px 15px 50px;
       border-radius: 50px;
       border: none;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: var(--text-light);
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--text-primary);
       font-size: 1rem;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
-      border: 1px solid rgba(0, 247, 255, 0.2);
-      padding-left: 3.5rem;
+      border: 1px solid rgba(236, 72, 153, 0.3);
     }
     
     .search-bar:focus {
       outline: none;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.2);
-      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3);
+      background: rgba(30, 41, 59, 0.9);
     }
     
     .search-icon {
       position: absolute;
-      left: 2.5rem;
+      left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 1.2rem;
+      color: var(--text-secondary);
     }
     
-    .search-results-count {
-      text-align: center;
-      margin: -1.5rem 0 2rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-    
-    /* Search Suggestions */
-    .search-suggestions {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--darker);
-      border-radius: 0 0 15px 15px;
-      max-height: 300px;
-      overflow-y: auto;
-      z-index: 100;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      display: none;
-      border: 1px solid rgba(0, 247, 255, 0.2);
-      border-top: none;
-    }
-    
-    .search-suggestion {
-      padding: 12px 20px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
-    }
-    
-    .search-suggestion:hover {
-      background: rgba(0, 247, 255, 0.1);
-      color: var(--primary);
-    }
-    
-    .search-suggestion:last-child {
-      border-bottom: none;
-    }
-    
-    /* Latest Blogs Section */
-    .latest-blogs {
-      max-width: 1400px;
-      margin: 0 auto 4rem;
-      padding: 0 5%;
-    }
-    
-    .section-title {
-      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-      margin-bottom: 2rem;
+    /* Featured Blog */
+    .featured-blog {
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 3rem;
       position: relative;
-      display: inline-block;
-      font-family: 'Paprika', sans-serif;
-      color: var(--primary);
     }
     
-    .section-title::after {
+    .featured-blog::before {
       content: '';
       position: absolute;
-      bottom: -8px;
+      top: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      background: var(--gradient);
-      border-radius: 3px;
-    }
-    
-    .latest-blogs-container {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary) transparent;
-    }
-    
-    .latest-blogs-container::-webkit-scrollbar {
-      height: 6px;
-    }
-    
-    .latest-blogs-container::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    
-    .latest-blogs-container::-webkit-scrollbar-thumb {
-      background-color: var(--primary);
-      border-radius: 6px;
-    }
-    
-    .latest-blog-card {
-      min-width: 280px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 247, 255, 0.1);
-      display: flex;
-      flex-direction: column;
       height: 100%;
-      position: relative;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
+      z-index: -1;
     }
     
-    .latest-blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 247, 255, 0.2);
-      background: var(--card-hover-bg);
-    }
-    
-    .latest-blog-img-container {
-      position: relative;
-      overflow: hidden;
-      height: 160px;
+    .featured-img {
       width: 100%;
-    }
-    
-    .latest-blog-img {
-      width: 100%;
-      height: 100%;
+      height: 400px;
       object-fit: cover;
-      transition: transform 0.5s ease;
     }
     
-    .latest-blog-card:hover .latest-blog-img {
-      transform: scale(1.05);
+    .featured-content {
+      padding: 2rem;
     }
     
-    .latest-blog-content {
-      padding: 1.2rem;
-      position: relative;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .latest-blog-title {
-      font-size: 1.1rem;
+    .featured-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--badge-featured);
+      color: #333;
+      padding: 5px 15px;
+      border-radius: 20px;
       font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+    
+    .featured-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 1rem;
       line-height: 1.3;
     }
     
-    .latest-blog-date {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-bottom: 0.8rem;
+    .featured-desc {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
     }
     
-    .latest-read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      position: relative;
-      font-size: 0.9rem;
-      margin-top: auto;
-      width: fit-content;
-    }
-    
-    .latest-read-more::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--gradient);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
-    }
-    
-    .latest-read-more:hover {
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-      gap: 12px;
-    }
-    
-    .latest-read-more:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    
-    /* Blog Badges */
-    .blog-badge {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      z-index: 2;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .latest-badge {
-      background-color: var(--latest-badge);
-      color: white;
-      animation: pulse 2s infinite;
-    }
-    
-    .weekly-badge {
-      background-color: var(--weekly-badge);
-      color: #333;
-    }
-    
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 58, 58, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(255, 58, 58, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 58, 58, 0);
-      }
-    }
-    
-    /* Blogs Container */
-    .blogs-container {
+    /* Blog Grid */
+    .blogs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
-      padding: 3rem 5%;
+      padding: 0 5% 5rem;
       max-width: 1400px;
       margin: 0 auto;
     }
     
     .blog-card {
-      background: var(--card-bg);
       border-radius: 15px;
       overflow: hidden;
-      backdrop-filter: blur(10px);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      border: 1px solid rgba(0, 247, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3);
     }
     
     .blog-card::before {
@@ -619,31 +427,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0, 247, 255, 0.1) 0%, transparent 100%);
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
       opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    .blog-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 247, 255, 0.2);
-      background: var(--card-hover-bg);
+      transition: opacity 0.3s ease;
     }
     
     .blog-card:hover::before {
       opacity: 1;
     }
     
-    .blog-img-container {
-      position: relative;
-      overflow: hidden;
-      height: 200px;
-      width: 100%;
-    }
-    
     .blog-img {
       width: 100%;
-      height: 100%;
+      height: 200px;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
@@ -654,31 +449,26 @@
     
     .blog-content {
       padding: 1.5rem;
-      position: relative;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
     }
     
     .blog-title {
-      font-size: clamp(1.2rem, 1.5vw, 1.5rem);
-      font-weight: 600;
-      color: var(--primary);
+      font-size: 1.3rem;
       margin-bottom: 0.8rem;
-      transition: all 0.3s ease;
       line-height: 1.3;
     }
     
-    .blog-card:hover .blog-title {
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    .blog-desc {
+      color: var(--text-secondary);
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
     }
     
-    .blog-desc {
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-      line-height: 1.6;
-      font-size: clamp(0.9rem, 1vw, 1rem);
-      flex: 1;
+    .blog-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-subtle);
+      font-size: 0.85rem;
     }
     
     .read-more {
@@ -689,41 +479,34 @@
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
-      position: relative;
-      font-size: 0.95rem;
-      margin-top: auto;
-    }
-    
-    .read-more::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--gradient);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
     }
     
     .read-more:hover {
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
       gap: 12px;
+      color: var(--secondary);
     }
     
-    .read-more:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    .badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
     }
     
-    .blog-date {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 1rem;
+    .badge-new {
+      background: var(--badge-new);
+      color: white;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 58, 58, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 58, 58, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 58, 58, 0); }
     }
     
     /* Category Filter */
@@ -732,49 +515,38 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 2rem;
+      margin: 2rem auto;
       padding: 0 5%;
+      max-width: 800px;
     }
     
     .category-btn {
-      padding: 0.5rem 1.2rem;
+      padding: 8px 16px;
       border-radius: 50px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-light);
-      border: 1px solid rgba(0, 247, 255, 0.2);
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--text-primary);
+      border: 1px solid rgba(236, 72, 153, 0.3);
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 0.9rem;
     }
     
     .category-btn:hover {
-      background: rgba(0, 247, 255, 0.1);
-      color: var(--primary);
+      background: rgba(236, 72, 153, 0.2);
     }
     
     .category-btn.active {
       background: var(--gradient);
-      color: var(--dark);
-      font-weight: 600;
+      color: white;
       border-color: transparent;
     }
     
-    /* No Results Message */
-    .no-results {
-      text-align: center;
-      grid-column: 1 / -1;
-      padding: 3rem;
-      color: var(--text-muted);
-    }
-    
-    /* Footer Styles */
+    /* Footer */
     footer {
       text-align: center;
       padding: 3rem 2rem;
-      background-color: rgba(5, 9, 23, 0.8);
-      margin-top: 4rem;
+      background: rgba(2, 6, 23, 0.8);
       position: relative;
-      overflow: hidden;
     }
     
     footer::before {
@@ -787,11 +559,6 @@
       background: var(--gradient);
     }
     
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
     .social-links {
       display: flex;
       justify-content: center;
@@ -800,32 +567,22 @@
     }
     
     .social-link {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-size: 1.5rem;
       transition: all 0.3s ease;
     }
     
     .social-link:hover {
       color: var(--primary);
-      transform: translateY(-5px) scale(1.2);
+      transform: translateY(-5px);
     }
     
     .copyright {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
     
-    .copyright a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .copyright a:hover {
-      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-    }
-    
-    /* Back to Top Button */
+    /* Back to Top */
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -837,10 +594,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--dark);
-      font-size: 1.2rem;
+      color: white;
       text-decoration: none;
-      box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
+      box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
@@ -853,183 +609,105 @@
     }
     
     .back-to-top:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 247, 255, 0.4);
+      transform: translateY(-5px) scale(1.1);
     }
     
-    /* Loading Animation */
-    .loader {
-      display: none;
-      width: 48px;
-      height: 48px;
-      margin: 2rem auto;
-      border: 5px solid rgba(0, 247, 255, 0.2);
-      border-bottom-color: var(--primary);
-      border-radius: 50%;
-      animation: rotation 1s linear infinite;
-    }
-    
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    /* Featured Blog Highlight */
-    .featured-highlight {
-      grid-column: 1 / -1;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), rgba(123, 45, 255, 0.1));
-      border-radius: 15px;
-      overflow: hidden;
-      border: 1px solid rgba(0, 247, 255, 0.2);
-      margin-bottom: 2rem;
-    }
-    
-    .featured-content {
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .featured-title {
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-    
-    .featured-desc {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      max-width: 800px;
-    }
-    
-    .featured-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0.8rem 1.5rem;
-      background: var(--gradient);
-      color: var(--dark);
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .featured-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      body {
-        padding-top: 70px;
-      }
-      
-      .navbar {
-        height: 70px;
-        padding: 0 3%;
-      }
-      
-      .logo {
-        height: 40px;
-      }
-      
-      header {
-        padding: 4rem 1.5rem 3rem;
-      }
-      
-      header p::after {
-        width: 70px;
-        margin: 1rem auto 0;
-      }
-      
-      .blogs-container {
-        padding: 2rem 5%;
-        grid-template-columns: 1fr;
-      }
-      
-      .blog-card {
-        max-width: 100%;
-      }
-      
-      .latest-blog-card {
-        min-width: 240px;
-      }
-      
-      .search-bar {
-        padding: 0.8rem 1.2rem;
-        padding-left: 3rem;
-      }
-      
-      .search-icon {
-        left: 2.2rem;
-      }
-      
-      .back-to-top {
-        width: 45px;
-        height: 45px;
-        bottom: 20px;
-        right: 20px;
-      }
-      
-      .featured-highlight {
+    /* Responsive */
+    @media (max-width: 992px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--darker);
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: all 0.5s ease;
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .menu-btn {
+        display: flex;
+      }
+      
+      .hero {
+        padding: 100px 5% 60px;
+      }
+      
+      .featured-img {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 5% 40px;
+      }
+      
+      .featured-blog {
+        flex-direction: column;
+      }
+      
+      .featured-img {
+        height: 250px;
+      }
+      
+      .blogs-grid {
+        grid-template-columns: 1fr;
       }
     }
     
     @media (max-width: 480px) {
-      header {
-        padding: 3rem 1rem 2rem;
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
       }
       
-      .blog-img-container {
-        height: 180px;
+      .btn {
+        width: 100%;
+        justify-content: center;
       }
       
-      .blog-content {
-        padding: 1.2rem;
-      }
-      
-      .social-links {
-        gap: 15px;
-      }
-      
-      .latest-blogs-container {
-        gap: 1rem;
-      }
-      
-      .latest-blog-card {
-        min-width: 200px;
+      .featured-img {
+        height: 200px;
       }
     }
+    
+    .read-more {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.blog-content {
+    position: relative;
+    z-index: 5;
+}
   </style>
 </head>
 <body>
   <!-- Floating Particles Background -->
   <div class="particles" id="particles"></div>
   
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator" id="scrollIndicator"></div>
-  
   <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <a href="#" class="logo" data-aos="fade-right" data-aos-duration="800">
-      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova">
+  <nav class="navbar glass-panel" id="navbar">
+    <a href="#" class="logo" data-aos="fade-right">
+      <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova" class="logo-img">
+      <span class="logo-text">Exonova</span>
     </a>
-    <div class="menu-btn" id="menuBtn" data-aos="fade-left" data-aos-duration="800">
+    
+    <div class="menu-btn" id="menuBtn">
       <span></span>
       <span></span>
       <span></span>
     </div>
+    
     <div class="nav-links" id="navLinks">
       <a href="https://aditya-cmd-max.github.io/exonova-/index.html" class="nav-link">Home</a>
       <a href="https://aditya-cmd-max.github.io/exonova-/blogs.html" class="nav-link active">Blog</a>
@@ -1039,145 +717,37 @@
     </div>
   </nav>
   
-  <!-- Main Content -->
-  <header data-aos="fade-down">
-    <h1>Exonova Blogs</h1>
-    <p>Explore the universe of knowledge with us</p>
-  </header>
-  
-  <!-- Search Bar -->
-  <div class="search-container" data-aos="fade-up">
-    <i class="fas fa-search search-icon"></i>
-    <input type="text" id="searchInput" class="search-bar" placeholder="Search blogs by title, description, or date..." autocomplete="off">
-    <div class="search-suggestions" id="searchSuggestions"></div>
-  </div>
-  <div id="searchResultsCount" class="search-results-count"></div>
-  
-  <!-- Featured Blog Highlight -->
-  <section class="blogs-container" data-aos="fade-up">
-    <div class="featured-highlight">
-      <div class="blog-img-container">
-        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured Blog" class="blog-img">
-        <div class="blog-badge weekly-badge">Weekly Special</div>
-      </div>
-      <div class="featured-content">
-        <h2 class="featured-title">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired</h2>
-        <p class="featured-desc">Discover the fascinating science behind this common phenomenon and learn how fatigue affects your grip strength and coordination.</p>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="featured-link">
-          Read Now <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero" data-aos="fade-in">
+    <h1 class="gradient-text">Discover <span>Exonova</span> Blogs</h1>
+    <p>Explore the universe of knowledge with our collection of engaging and informative articles</p>
+    
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" class="search-bar glass-panel" placeholder="Search blogs by title, topic, or keyword...">
+    </div>
+    
+    <div class="hero-cta">
+      <a href="#featured" class="btn btn-primary">
+        <i class="fas fa-book-open"></i> Read Featured
+      </a>
+      <a href="#blogs" class="btn btn-secondary">
+        <i class="fas fa-newspaper"></i> Browse All
+      </a>
     </div>
   </section>
   
-  <!-- Latest Blogs Section -->
-  <section class="latest-blogs" data-aos="fade-up">
-    <h2 class="section-title">Our Latest Blogs</h2>
-    <div class="latest-blogs-container">
-      <!-- Blog 10 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slips" class="latest-blog-img">
-          <div class="blog-badge latest-badge">New</div>
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>July 07, 2025</span>
-          </div>
-          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div> 
-      
-      <!-- Blog 9 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="Google Evolution" class="latest-blog-img">
-          <div class="blog-badge latest-badge">New</div>
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">AI Flight 171 Crash Explained</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>June 21, 2025</span>
-          </div>
-          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog9.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div> 
-      
-      <!-- Blog 8 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Google Evolution" class="latest-blog-img">
-          <div class="blog-badge latest-badge">New</div>
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">Bananas are Radioactive</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>June 19, 2025</span>
-          </div>
-          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog8.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Latest Blog 1 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Google Evolution" class="latest-blog-img">
-          <div class="blog-badge weekly-badge">Weekly Special</div>
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">The Evolution of Google</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>June 9, 2025</span>
-          </div>
-          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog7.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Latest Blog 2 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="latest-blog-img">
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">The Story of a Middle Class Boy</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>May 31, 2025</span>
-          </div>
-          <a href="blogs/blog6.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Latest Blog 3 -->
-      <div class="latest-blog-card">
-        <div class="latest-blog-img-container">
-          <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="latest-blog-img">
-        </div>
-        <div class="latest-blog-content">
-          <h3 class="latest-blog-title">Dark Reality of Academic Pressure</h3>
-          <div class="latest-blog-date">
-            <i class="far fa-calendar-alt"></i>
-            <span>May 23, 2025</span>
-          </div>
-          <a href="blogs/blog5.html" class="latest-read-more">
-            Read More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
+  <!-- Featured Blog -->
+  <section id="featured" class="container" data-aos="fade-up">
+    <div class="featured-blog glass-panel">
+      <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured Blog" class="featured-img">
+      <div class="featured-badge">Featured</div>
+      <div class="featured-content">
+        <h2 class="featured-title gradient-text">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired</h2>
+        <p class="featured-desc">Discover the fascinating science behind this common phenomenon and learn how fatigue affects your grip strength and coordination.</p>
+        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="btn btn-primary">
+          Read Now <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
   </section>
@@ -1192,259 +762,233 @@
     <button class="category-btn" data-category="personal">Personal</button>
   </div>
   
-  <!-- Blogs Container -->
-  <section class="blogs-container" id="blogsContainer">
-    <!-- Blog Card 1 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="100" data-categories="science education" data-search="The Science of Sleep sleep science youth health">
-      <div class="blog-img-container">
-        <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
-      </div>
+  <!-- Blog Grid -->
+  <section id="blogs" class="blogs-grid">
+    <!-- Blog 1 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-categories="science education">
+      <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
+      <div class="badge badge-new">New</div>
       <div class="blog-content">
-        <h2 class="blog-title">The Science of Sleep</h2>
+        <h3 class="blog-title">The Science of Sleep</h3>
         <p class="blog-desc">Explore how sleep is very much important for the youth all over the world.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>April 09, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> April 09, 2025</span>
+          <a href="blogs/blog1.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="blogs/blog1.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
     
-    <!-- Blog Card 2 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="200" data-categories="education" data-search="Top 5 Scientific Study Hacks study techniques productivity learning">
-      <div class="blog-img-container">
-        <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
-      </div>
+    <!-- Blog 2 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="100" data-categories="education">
+      <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
       <div class="blog-content">
-        <h2 class="blog-title">Top 5 Scientific Study Hacks</h2>
-        <p class="blog-desc">Learn 5 brain-based study techniques that turn your study time into a productivity powerhouse — backed by science, not guesswork.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>April 13, 2025</span>
+        <h3 class="blog-title">Top 5 Scientific Study Hacks</h3>
+        <p class="blog-desc">Learn 5 brain-based study techniques that turn your study time into a productivity powerhouse.</p>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> April 13, 2025</span>
+          <a href="blogs/blog2.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="blogs/blog2.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
     
-    <!-- Blog Card 3 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="300" data-categories="education history" data-search="Introduction to Economics economics resources choices society">
-      <div class="blog-img-container">
-        <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
-      </div>
+    <!-- Blog 3 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="200" data-categories="education history">
+      <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
       <div class="blog-content">
-        <h2 class="blog-title">Introduction to Economics</h2>
+        <h3 class="blog-title">Introduction to Economics</h3>
         <p class="blog-desc">Get an overview of the world of economics, exploring how individuals and societies make choices with limited resources.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>April 18, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> April 18, 2025</span>
+          <a href="blogs/blog3.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="blogs/blog3.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
     
-    <!-- Blog Card 4 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="400" data-categories="history" data-search="Part 1: India-Pakistan war: Is it WW3? conflict war politics">
-      <div class="blog-img-container">
-        <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
-      </div>
+    <!-- Blog 4 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="300" data-categories="history">
+      <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
       <div class="blog-content">
-        <h2 class="blog-title">Part 1: India-Pakistan war: Is it WW3?</h2>
+        <h3 class="blog-title">Part 1: India-Pakistan war: Is it WW3?</h3>
         <p class="blog-desc">In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>May 11, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> May 11, 2025</span>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog4" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog4" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
     
-    <!-- Blog Card 5 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="500" data-categories="education personal" data-search="Dark Reality of Academic Pressure stress students coping mental health">
-      <div class="blog-img-container">
-        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
-      </div>
+    <!-- Blog 5 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="400" data-categories="education personal">
+      <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
       <div class="blog-content">
-        <h2 class="blog-title">Dark Reality of Academic Pressure</h2>
+        <h3 class="blog-title">Dark Reality of Academic Pressure</h3>
         <p class="blog-desc">Understanding the impact of academic stress on students and strategies to cope with it effectively.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>May 23, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> May 23, 2025</span>
+          <a href="blogs/blog5.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="blogs/blog5.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
 
-    <!-- Blog Card 6 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="600" data-categories="personal" data-search="The Story of a Middle Class Boy life teenager family">
-      <div class="blog-img-container">
-        <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="blog-img">
-      </div>
+    <!-- Blog 6 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="500" data-categories="personal">
+      <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="blog-img">
       <div class="blog-content">
-        <h2 class="blog-title">The Story of a Middle Class Boy</h2>
+        <h3 class="blog-title">The Story of a Middle Class Boy</h3>
         <p class="blog-desc">Get a glimpse of life of an individual boy called teenager at every home.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>May 31, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> May 31, 2025</span>
+          <a href="blogs/blog6.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="blogs/blog6.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
 
-    <!-- Blog Card 7 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="700" data-categories="technology history" data-search="The Evolution of Google tech giant inspiration story">
-      <div class="blog-img-container">
-        <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
-        <div class="blog-badge weekly-badge">Weekly Special</div>
-      </div>
+    <!-- Blog 7 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="600" data-categories="technology history">
+      <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
+      <div class="badge" style="background: var(--badge-featured); color: #333;">Featured</div>
       <div class="blog-content">
-        <h2 class="blog-title">The Evolution of Google</h2>
+        <h3 class="blog-title">The Evolution of Google</h3>
         <p class="blog-desc">Must Read.. get the inspiration story of the biggest Tech-Giant Google.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>June 9, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> June 9, 2025</span>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog7.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog7.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
 
-    <!-- Blog Card 8 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="800" data-categories="science" data-search="Bananas are Radioactive potassium-40 radiation food science">
-      <div class="blog-img-container">
-        <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
-        <div class="blog-badge latest-badge">New</div>
-      </div>
+    <!-- Blog 8 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="700" data-categories="science">
+      <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
+      <div class="badge badge-new">New</div>
       <div class="blog-content">
-        <h2 class="blog-title">Bananas are Radioactive</h2>
+        <h3 class="blog-title">Bananas are Radioactive</h3>
         <p class="blog-desc">Get the Fact about Bananas are Radioactive but are Safe to consume.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>June 19, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> June 19, 2025</span>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog8.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog8.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
 
-    <!-- Blog Card 9 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="900" data-categories="technology science" data-search="AI flight 171 Crash aviation accident Boeing 787 investigation">
-      <div class="blog-img-container">
-        <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
-        <div class="blog-badge latest-badge">New</div>
-      </div>
+    <!-- Blog 9 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="800" data-categories="technology science">
+      <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
+      <div class="badge badge-new">New</div>
       <div class="blog-content">
-        <h2 class="blog-title">AI Flight 171 Crash Explained</h2>
+        <h3 class="blog-title">AI Flight 171 Crash Explained</h3>
         <p class="blog-desc">Get the probably scientific reasons for the crash of AI 171 Boeing 787- Dreamliner.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>June 21, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> June 21, 2025</span>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog9.html" class="read-more">
+            Read <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog9.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
 
-    <!-- Blog Card 10 -->
-    <div class="blog-card" data-aos="fade-up" data-aos-delay="1000" data-categories="science" data-search="Phone slips when tired physics grip strength fatigue coordination">
-      <div class="blog-img-container">
-        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
-        <div class="blog-badge latest-badge">New</div>
-      </div>
+    <!-- Blog 10 -->
+    <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="900" data-categories="science">
+      <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
+      <div class="badge badge-new">New</div>
       <div class="blog-content">
-        <h2 class="blog-title">Why Your Phone Slips from Your Hand More When You're Tired</h2>
+        <h3 class="blog-title">Why Your Phone Slips When Tired</h3>
         <p class="blog-desc">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired.</p>
-        <div class="blog-date">
-          <i class="far fa-calendar-alt"></i>
-          <span>July 07, 2025</span>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> July 07, 2025</span>
+          <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="read-more">
+            Read now <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/blog10.html" class="read-more">
-          Read More <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
-    </div>
-    
-    <!-- No Results Message (Hidden by default) -->
-    <div id="noResults" class="no-results" style="display: none;">
-      <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-muted);"></i>
-      <h3>No blogs found</h3>
-      <p>Try adjusting your search or filter to find what you're looking for.</p>
     </div>
   </section>
   
+  <!-- Footer -->
   <footer>
-    <div class="footer-content">
+       <div class="footer-content" data-aos="fade-up">
+      <h3 class="gradient-text">Exonova</h3>
+      <p>Empowering minds through knowledge and innovation</p>
+      
       <div class="social-links">
-        <a href="https://www.youtube.com/@Exonovaaditya-1104" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
       </div>
-      <p class="copyright">
-        &copy; 2025 <a href="https://aditya-cmd-max.github.io/exonova-/">Exonova</a> | Designed with <i class="fas fa-heart" style="color: #ff2d7b;"></i> by Aditya Jha
-      </p>
+      
+      <div class="footer-links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Contact Us</a>
+        <a href="#" class="footer-link">FAQ</a>
+      </div>
+      
+      <p class="copyright">© 2025 Exonova. All rights reserved. Created by Aditya Jha</p>
     </div>
   </footer>
   
   <!-- Back to Top Button -->
-  <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <a href="#" class="back-to-top" id="backToTop">
     <i class="fas fa-arrow-up"></i>
   </a>
   
-  <!-- Loading Animation -->
-  <div class="loader" id="loader"></div>
-  
-  <!-- AOS Animation Script -->
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
-    // Initialize AOS
+    // Initialize AOS animation
     AOS.init({
       duration: 800,
-      once: false,
-      mirror: true
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
     });
     
-    // Navbar toggle for mobile
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
     
     menuBtn.addEventListener('click', () => {
       menuBtn.classList.toggle('active');
       navLinks.classList.toggle('active');
-      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
     });
     
-    // Close mobile menu when clicking a nav link
+    // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 992) {
-          menuBtn.classList.remove('active');
-          navLinks.classList.remove('active');
-          document.body.style.overflow = '';
-        }
+        menuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
       });
     });
     
-    // Scroll Indicator
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    window.addEventListener('scroll', () => {
-      const maxHeight = document.body.scrollHeight - window.innerHeight;
-      const percentage = (window.scrollY / maxHeight) * 100;
-      scrollIndicator.style.width = percentage + '%';
-    });
-    
-    // Back to Top Button
+    // Back to top button
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
@@ -1456,360 +1000,75 @@
     
     // Create floating particles
     const particlesContainer = document.getElementById('particles');
-    const particleCount = Math.min(30, Math.floor(window.innerWidth / 20)); // Adjust count based on screen size
+    const particleCount = 30;
     
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
       
-      // Random properties
-      const size = Math.random() * 5 + 2;
-      const posX = Math.random() * 100;
-      const posY = Math.random() * 100;
-      const duration = Math.random() * 20 + 10;
-      const delay = Math.random() * 5;
-      
+      // Random size between 3px and 8px
+      const size = Math.random() * 5 + 3;
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
-      particle.style.left = `${posX}%`;
-      particle.style.top = `${posY}%`;
+      
+      // Random position
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      
+      // Random animation duration between 10s and 20s
+      const duration = Math.random() * 10 + 10;
       particle.style.animationDuration = `${duration}s`;
-      particle.style.animationDelay = `${delay}s`;
+      
+      // Random delay
+      particle.style.animationDelay = `${Math.random() * 10}s`;
       
       // Random color variation
-      const colors = ['#00f7ff', '#7b2dff', '#ff2d7b'];
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.background = randomColor;
-      particle.style.opacity = Math.random() * 0.3 + 0.1;
+      const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
       
       particlesContainer.appendChild(particle);
     }
     
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-    
-    // Blog Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    const searchSuggestions = document.getElementById('searchSuggestions');
+    // Category filter functionality
+    const categoryBtns = document.querySelectorAll('.category-btn');
     const blogCards = document.querySelectorAll('.blog-card');
-    const noResults = document.getElementById('noResults');
-    const searchResultsCount = document.getElementById('searchResultsCount');
     
-    // Generate search suggestions based on blog data
-    const blogData = Array.from(blogCards).map(card => {
-      return {
-        title: card.querySelector('.blog-title').textContent,
-        desc: card.querySelector('.blog-desc').textContent,
-        date: card.querySelector('.blog-date span').textContent,
-        searchData: card.getAttribute('data-search'),
-        categories: card.getAttribute('data-categories'),
-        element: card
-      };
-    });
-    
-    // Generate search suggestions
-    function generateSuggestions(term) {
-      if (term.length < 2) return [];
-      
-      const suggestions = [];
-      const termLower = term.toLowerCase();
-      
-      // Search in titles
-      blogData.forEach(blog => {
-        if (blog.title.toLowerCase().includes(termLower)) {
-          suggestions.push({
-            text: blog.title,
-            type: 'Title',
-            element: blog.element
-          });
-        }
-      });
-      
-      // Search in descriptions
-      blogData.forEach(blog => {
-        if (blog.desc.toLowerCase().includes(termLower) && 
-            !suggestions.some(s => s.text === blog.title)) {
-          suggestions.push({
-            text: blog.desc,
-            type: 'Description',
-            element: blog.element
-          });
-        }
-      });
-      
-      // Search in search data
-      blogData.forEach(blog => {
-        if (blog.searchData.toLowerCase().includes(termLower) && 
-            !suggestions.some(s => s.text === blog.title || s.text === blog.desc)) {
-          const matchingTerm = blog.searchData.split(' ')
-            .find(word => word.toLowerCase().includes(termLower));
-          suggestions.push({
-            text: matchingTerm,
-            type: 'Keyword',
-            element: blog.element
-          });
-        }
-      });
-      
-      return suggestions.slice(0, 5); // Limit to 5 suggestions
-    }
-    
-    // Show search suggestions
-    searchInput.addEventListener('input', function() {
-      const term = this.value.trim();
-      searchSuggestions.innerHTML = '';
-      
-      if (term.length < 2) {
-        searchSuggestions.style.display = 'none';
-        return;
-      }
-      
-      const suggestions = generateSuggestions(term);
-      
-      if (suggestions.length > 0) {
-        suggestions.forEach(suggestion => {
-          const suggestionEl = document.createElement('div');
-          suggestionEl.className = 'search-suggestion';
-          suggestionEl.innerHTML = `
-            <strong>${suggestion.type}:</strong> ${suggestion.text}
-          `;
-          suggestionEl.addEventListener('click', () => {
-            searchInput.value = suggestion.text.split(' ')[0]; // Use first word as search term
-            filterBlogs();
-            searchSuggestions.style.display = 'none';
-            // Scroll to the suggested blog
-            suggestion.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Highlight the blog temporarily
-            suggestion.element.style.boxShadow = '0 0 0 3px rgba(0, 247, 255, 0.5)';
-            setTimeout(() => {
-              suggestion.element.style.boxShadow = '';
-            }, 2000);
-          });
-          searchSuggestions.appendChild(suggestionEl);
-        });
-        searchSuggestions.style.display = 'block';
-      } else {
-        searchSuggestions.style.display = 'none';
-      }
-    });
-    
-    // Hide suggestions when clicking outside
-document.addEventListener('click', (e) => {
-  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
-    searchSuggestions.style.display = 'none';
-  }
-});
-    
-    // Filter blogs based on search and category
-    function filterBlogs() {
-      const searchTerm = searchInput.value.toLowerCase();
-      const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
-      let visibleCount = 0;
-      
-      // Show loader
-      document.getElementById('loader').style.display = 'block';
-      
-      // Simulate loading delay for better UX
-      setTimeout(() => {
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const category = btn.dataset.category;
+        
+        // Filter blog cards
         blogCards.forEach(card => {
-          const title = card.querySelector('.blog-title').textContent.toLowerCase();
-          const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
-          const date = card.querySelector('.blog-date span').textContent.toLowerCase();
-          const searchData = card.getAttribute('data-search').toLowerCase();
-          const categories = card.getAttribute('data-categories');
-          
-          const matchesSearch = searchTerm.length === 0 || 
-                              title.includes(searchTerm) || 
-                              desc.includes(searchTerm) || 
-                              date.includes(searchTerm) ||
-                              searchData.includes(searchTerm);
-          
-          const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
-          
-          if (matchesSearch && matchesCategory) {
-            card.style.display = 'flex';
-            visibleCount++;
+          if (category === 'all' || card.dataset.categories.includes(category)) {
+            card.style.display = 'block';
           } else {
             card.style.display = 'none';
           }
         });
-        
-        // Update results count
-        if (searchTerm.length > 0 || activeCategory !== 'all') {
-          searchResultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
-          searchResultsCount.style.display = 'block';
-        } else {
-          searchResultsCount.style.display = 'none';
-        }
-        
-        // Show no results message if needed
-        if (visibleCount === 0 && (searchTerm.length > 0 || activeCategory !== 'all')) {
-          noResults.style.display = 'block';
-        } else {
-          noResults.style.display = 'none';
-        }
-        
-        // Hide loader
-        document.getElementById('loader').style.display = 'none';
-      }, 300);
-    }
-    
-    // Event listeners for search and filter
-    searchInput.addEventListener('input', filterBlogs);
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', filterBlogs);
-    });
-    
-    // Initialize with all blogs visible
-    filterBlogs();
-    
-    // Keyboard navigation for search suggestions
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        const suggestions = document.querySelectorAll('.search-suggestion');
-        if (suggestions.length === 0) return;
-        
-        e.preventDefault();
-        
-        let currentFocus = -1;
-        suggestions.forEach((suggestion, index) => {
-          if (suggestion === document.activeElement) {
-            currentFocus = index;
-          }
-        });
-        
-        if (e.key === 'ArrowDown') {
-          currentFocus = (currentFocus + 1) % suggestions.length;
-        } else if (e.key === 'ArrowUp') {
-          currentFocus = (currentFocus - 1 + suggestions.length) % suggestions.length;
-        }
-        
-        suggestions[currentFocus].focus();
-      } else if (e.key === 'Enter' && searchSuggestions.style.display === 'block') {
-        const focusedSuggestion = document.querySelector('.search-suggestion:focus');
-        if (focusedSuggestion) {
-          focusedSuggestion.click();
-        }
-      }
-    });
-    
-    // Add visual feedback when hovering over blog cards
-    blogCards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
-        card.style.boxShadow = '0 15px 30px rgba(0, 247, 255, 0.2)';
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        if (card.style.display !== 'none') {
-          card.style.transform = '';
-          card.style.boxShadow = '';
-        }
       });
     });
     
-    // Add date-based highlighting for latest blogs (within last 7 days)
-    function highlightLatestBlogs() {
-      const now = new Date();
-      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    // Search functionality
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.addEventListener('input', () => {
+      const searchTerm = searchBar.value.toLowerCase();
       
       blogCards.forEach(card => {
-        const dateText = card.querySelector('.blog-date span').textContent;
-        const blogDate = new Date(dateText);
+        const title = card.querySelector('.blog-title').textContent.toLowerCase();
+        const desc = card.querySelector('.blog-desc').textContent.toLowerCase();
         
-        if (blogDate > sevenDaysAgo) {
-          const badge = document.createElement('div');
-          badge.className = 'blog-badge latest-badge';
-          badge.textContent = 'New';
-          card.querySelector('.blog-img-container').appendChild(badge);
+        if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
         }
       });
-    }
-    
-    // Call the function to highlight latest blogs
-    highlightLatestBlogs();
-    
-    // Add weekly special badge to selected blogs
-    function markWeeklySpecials() {
-      // For demo purposes, we'll mark the Google Evolution blog as weekly special
-      const weeklySpecials = [
-        "The Evolution of Google",
-        "The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired"
-      ];
-      
-      blogCards.forEach(card => {
-        const title = card.querySelector('.blog-title').textContent;
-        if (weeklySpecials.includes(title)) {
-          const badge = document.createElement('div');
-          badge.className = 'blog-badge weekly-badge';
-          badge.textContent = 'Weekly Special';
-          card.querySelector('.blog-img-container').appendChild(badge);
-        }
-      });
-    }
-    
-    // Call the function to mark weekly specials
-    markWeeklySpecials();
-    
-    // Add a subtle parallax effect to the header
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      const scrollPosition = window.scrollY;
-      header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
     });
-    
-    // Add a confetti effect when clicking the weekly special badge
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('weekly-badge')) {
-        const confettiCount = 30;
-        const container = e.target.closest('.blog-card');
-        
-        for (let i = 0; i < confettiCount; i++) {
-          const confetti = document.createElement('div');
-          confetti.className = 'confetti';
-          confetti.style.left = `${Math.random() * 100}%`;
-          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-          container.appendChild(confetti);
-          
-          setTimeout(() => {
-            confetti.remove();
-          }, 3000);
-        }
-      }
-    });
-    
-    // Add style for confetti
-    const style = document.createElement('style');
-    style.textContent = `
-      .confetti {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        animation: confetti-fall linear forwards;
-        z-index: 10;
-      }
-      
-      @keyframes confetti-fall {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(300px) rotate(360deg);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
   </script>
 </body>
 </html>
