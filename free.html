@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova - Powerful AI Completely Free</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6e45e2;
+      --primary-light: #9d65c9;
+      --secondary: #88d3ce;
+      --accent: #ffd166;
+      --dark: #0f0f1a;
+      --darker: #050510;
+      --light: #f0f4ff;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --gradient-reverse: linear-gradient(135deg, var(--secondary), var(--primary));
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --text-primary: #ffffff;
+      --text-secondary: #c9d6ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 10% 20%, var(--darker), var(--dark));
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.2;
+      filter: blur(1px);
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-100px) translateX(50px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
+    /* Glass Panel Effect */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      z-index: 1000;
+      transition: all 0.4s ease;
+    }
+
+    .navbar.scrolled {
+      height: 80px;
+      background: rgba(5, 5, 16, 0.98);
+      box-shadow: 0 5px 30px rgba(110, 69, 226, 0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 42px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-img {
+      transform: rotate(-10deg) scale(1.1);
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+    }
+
+    .nav-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 8px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-light);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 32px;
+      height: 24px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--light);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 150px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(110, 69, 226, 0.15), transparent 70%);
+      z-index: -1;
+      animation: pulse 15s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.2; }
+      50% { transform: scale(1.2); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 0.2; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      animation: floatText 3s ease-in-out infinite;
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .free-badge {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(110, 69, 226, 0.4);
+      animation: pulseBadge 2s infinite;
+    }
+
+    @keyframes pulseBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      opacity: 0.9;
+    }
+
+    /* Features Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 5%;
+    }
+
+    .feature-card {
+      padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(110, 69, 226, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .feature-desc {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+    }
+
+    /* Comparison Section */
+    .comparison {
+      padding: 6rem 5%;
+      background: radial-gradient(circle at 70% 50%, rgba(136, 211, 206, 0.1), transparent 70%);
+    }
+
+    .comparison-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .comparison-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .comparison-card {
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .comparison-card.exonova {
+      background: rgba(110, 69, 226, 0.1);
+      border: 1px solid rgba(110, 69, 226, 0.3);
+    }
+
+    .comparison-card.others {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-card-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .comparison-card.exonova .comparison-card-title {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .comparison-features {
+      text-align: left;
+      margin-top: 2rem;
+    }
+
+    .comparison-feature {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-feature-icon {
+      font-size: 1.2rem;
+    }
+
+    .comparison-card.exonova .comparison-feature .comparison-feature-icon {
+      color: var(--primary);
+    }
+
+    .comparison-card.others .comparison-feature .comparison-feature-icon {
+      color: var(--text-secondary);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 6rem 5%;
+      background: radial-gradient(circle at 30% 50%, rgba(255, 209, 102, 0.1), transparent 70%);
+    }
+
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(110, 69, 226, 0.2);
+    }
+
+    .testimonial-content {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .testimonial-content::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -20px;
+      left: -10px;
+      opacity: 0.2;
+      color: var(--primary);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .author-info p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 5%;
+      text-align: center;
+      background: radial-gradient(circle at 50% 50%, rgba(110, 69, 226, 0.2), transparent 70%);
+    }
+
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .cta-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    /* CTA Buttons */
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 4px 20px rgba(110, 69, 226, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(110, 69, 226, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      margin-top: 5rem;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    .made-with-love {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    .made-with-love i {
+      color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(5, 5, 16, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .menu-btn {
+        display: flex;
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 120px 5% 60px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Particles Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="logo" data-aos="fade-right">
+      <img src="https://via.placeholder.com/42x42" alt="Exonova Logo" class="logo-img">
+      <span class="logo-text">Exonova</span>
+    </a>
+    
+    <div class="menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <div class="nav-links" id="navLinks">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#comparison" class="nav-link">Comparison</a>
+      <a href="#testimonials" class="nav-link">Testimonials</a>
+      <a href="#" class="btn btn-primary">Get Started Free</a>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="free-badge" data-aos="fade-up">
+      <i class="fas fa-crown"></i> 100% FREE FOREVER
+    </div>
+    <h1 data-aos="fade-up"><span>Exonova</span> - AI Without Limits</h1>
+    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+      Experience enterprise-grade AI capabilities with zero cost. No hidden fees, no paywalls - just pure AI power at your fingertips.
+    </p>
+    
+    <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
+      <a href="#" class="btn btn-primary">
+        <i class="fas fa-bolt"></i> Start Using Free
+      </a>
+      <a href="#comparison" class="btn btn-secondary">
+        <i class="fas fa-chart-bar"></i> See Comparison
+      </a>
+    </div>
+    
+    <!-- Features Grid -->
+    <div class="features" id="features">
+      <div class="feature-card glass-panel" data-aos="fade-up">
+        <div class="feature-icon">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3 class="feature-title">Truly Free</h3>
+        <p class="feature-desc">No credit card required. No hidden charges. Access all features without spending a dime.</p>
+      </div>
+      
+      <div class="feature-card glass-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-icon">
+          <i class="fas fa-infinity"></i>
+        </div>
+        <h3 class="feature-title">Unlimited Potential</h3>
+        <p class="feature-desc">Generate as much content as you need with our powerful AI models.</p>
+      </div>
+      
+      <div class="feature-card glass-panel" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3 class="feature-title">No Compromises</h3>
+        <p class="feature-desc">Enterprise-grade quality without the enterprise price tag.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Comparison Section -->
+  <section class="comparison" id="comparison">
+    <div class="comparison-container">
+      <h2 class="comparison-title" data-aos="fade-up">Why Pay When You Can Get More For Free?</h2>
+      
+      <div class="comparison-grid">
+        <div class="comparison-card exonova glass-panel" data-aos="fade-right">
+          <h3 class="comparison-card-title">Exonova</h3>
+          <div class="price">$0/month</div>
+          <div class="comparison-features">
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div>
+                <h4>Unlimited AI Generations</h4>
+                <p>Create as much content as you need</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div>
+                <h4>Advanced AI Models</h4>
+                <p>Access to cutting-edge technology</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div>
+                <h4>No Watermarks</h4>
+                <p>Professional results without branding</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div>
+                <h4>Commercial Rights</h4>
+                <p>Use outputs for business purposes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="comparison-card others glass-panel" data-aos="fade-left">
+          <h3 class="comparison-card-title">Others</h3>
+          <div class="price">$20+/month</div>
+          <div class="comparison-features">
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-times-circle"></i>
+              </div>
+              <div>
+                <h4>Limited Generations</h4>
+                <p>Paywalls after a few uses</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-times-circle"></i>
+              </div>
+              <div>
+                <h4>Basic Models</h4>
+                <p>Advanced features cost extra</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-times-circle"></i>
+              </div>
+              <div>
+                <h4>Watermarked Outputs</h4>
+                <p>Branding on your content</p>
+              </div>
+            </div>
+            <div class="comparison-feature">
+              <div class="comparison-feature-icon">
+                <i class="fas fa-times-circle"></i>
+              </div>
+              <div>
+                <h4>Extra for Commercial Use</h4>
+                <p>Additional fees to use professionally</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-container">
+      <h2 class="testimonials-title" data-aos="fade-up">What Our Users Say</h2>
+      
+      <div class="testimonials-grid">
+        <div class="testimonial-card glass-panel" data-aos="fade-up">
+          <div class="testimonial-content">
+            I can't believe Exonova is free. The quality rivals paid services I've used that cost $50/month. This has completely transformed my content creation workflow.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-avatar">
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>Content Creator</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-content">
+            As a startup founder, Exonova has been a game-changer. The free access to such powerful AI tools has saved us thousands in operational costs.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-avatar">
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p>Startup Founder</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card glass-panel" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-content">
+            I've tried every AI tool out there, and Exonova's free offering beats most paid alternatives. The fact that it's completely free still blows my mind.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" class="author-avatar">
+            <div class="author-info">
+              <h4>Emma Rodriguez</h4>
+              <p>Digital Marketer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container" data-aos="fade-up">
+      <h2 class="cta-title">Ready to Experience Free AI Power?</h2>
+      <p class="cta-subtitle">Join thousands of users who are creating amazing content with Exonova's completely free AI platform.</p>
+      
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i> Sign Up Free
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <i class="fas fa-play-circle"></i> Watch Demo
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <p class="made-with-love">
+      Made with <i class="fas fa-heart"></i> by the Exonova Team
+    </p>
+  </footer>
+  
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animation
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random properties
+      const size = Math.random() * 8 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      
+      // Random color
+      const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.opacity = Math.random() * 0.3 + 0.1;
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Animate hero title
+    const heroTitle = document.querySelector('.hero h1 span');
+    setInterval(() => {
+      heroTitle.style.animation = 'none';
+      void heroTitle.offsetWidth; // Trigger reflow
+      heroTitle.style.animation = 'floatText 3s ease-in-out infinite';
+    }, 8000);
+  </script>
+</body>
+</html>
