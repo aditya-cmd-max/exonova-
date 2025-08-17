@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GS6V9ZCN0K"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GS6V9ZCN0K');
-</script>
-  
-  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GS6V9ZCN0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GS6V9ZCN0K');
+  </script>
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us • Exonova</title>
-
+  <title>About Aditya Jha • Exonova</title>
+  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unica+One&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Google Site Verification -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unica+One&family=Syne:wght@400;500;600;700;800&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Google Site Verification -->
   <meta name="google-site-verification" content="gVm_Dk4QJW6bhd3nyT3WJPIzHXt9SEgn8Z43IU2t27Y">
-
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+  
   <!-- Lottie Animations -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+  
   <style>
     :root {
       --primary: #00f7ff;
+      --primary-dark: #00c4cc;
       --secondary: #7b2dff;
       --accent: #ff2d7b;
       --dark: #0a0f1f;
       --darker: #050917;
+      --darkest: #020617;
       --text-light: #ffffff;
       --text-muted: #a0a8c0;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --gradient-reverse: linear-gradient(135deg, var(--secondary), var(--primary));
     }
 
     * {
@@ -53,13 +56,29 @@
 
     body {
       font-family: 'Space Grotesk', sans-serif;
-      background-color: var(--dark);
+      background-color: var(--darkest);
       color: var(--text-light);
       overflow-x: hidden;
       line-height: 1.6;
     }
 
-    .floating-icons {
+    /* Floating Grid Background */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(var(--glass) 1px, transparent 1px),
+        linear-gradient(90deg, var(--glass) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+      opacity: 0.2;
+    }
+
+    /* Floating Particles */
+    .particles-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -70,39 +89,60 @@
       overflow: hidden;
     }
 
-    .floating-icon {
+    .particle {
       position: absolute;
-      font-size: 1.5rem;
-      color: rgba(0, 247, 255, 0.1);
-      animation: floatIcon linear infinite;
-      z-index: -1;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.15;
+      filter: blur(1px);
+      animation: floatParticle linear infinite;
     }
 
-    @keyframes floatIcon {
+    @keyframes floatParticle {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); }
       100% { transform: translateY(-100px) translateX(100px) rotate(360deg); }
     }
 
+    /* Glow Effects */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary), transparent 70%);
+      filter: blur(40px);
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    /* Header */
     header {
       position: sticky;
       top: 0;
-      background: rgba(10, 15, 31, 0.96);
+      background: rgba(5, 9, 23, 0.96);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+      border-bottom: 1px solid var(--glass-border);
       z-index: 1000;
-      padding: 1rem 5%;
-      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.1);
+      padding: 1.5rem 5%;
+      box-shadow: 0 5px 30px rgba(0, 247, 255, 0.05);
     }
 
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
     .logo img {
-      height: 50px;
-      transition: all 0.4s ease;
+      height: 40px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     .logo:hover img {
@@ -110,9 +150,20 @@
       filter: drop-shadow(0 0 10px var(--primary));
     }
 
+    .logo-text {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       list-style: none;
     }
 
@@ -136,7 +187,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: var(--gradient);
       transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
     }
 
@@ -156,6 +207,7 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 1001;
     }
 
     .hamburger span {
@@ -166,39 +218,48 @@
       transition: all 0.3s ease;
     }
 
-    .about-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 80px);
-      padding: 4rem 5%;
-      gap: 5rem;
-      flex-wrap: wrap;
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
     }
 
-    .photo-container {
+    /* Main Content */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5rem 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* Hero Image */
+    .hero-image-container {
       position: relative;
-      width: 300px;
-      aspect-ratio: 3/4;
       perspective: 1000px;
     }
 
-    .photo-frame {
+    .hero-image {
       width: 100%;
-      height: 100%;
+      max-width: 400px;
+      aspect-ratio: 3/4;
+      border-radius: 20px;
+      overflow: hidden;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 247, 255, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 247, 255, 0.1);
+      border: 1px solid var(--glass-border);
     }
 
-    .photo-frame:hover {
-      transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-    }
-
-    .photo-frame img {
+    .hero-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -206,11 +267,15 @@
       transition: filter 0.5s ease;
     }
 
-    .photo-frame:hover img {
+    .hero-image:hover {
+      transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+    }
+
+    .hero-image:hover img {
       filter: grayscale(0%) contrast(120%);
     }
 
-    .glow-effect {
+    .image-glow {
       position: absolute;
       top: 0;
       left: 0;
@@ -229,9 +294,9 @@
       100% { box-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary); opacity: 1; }
     }
 
-    .tech-icons {
+    .tech-stack {
       position: absolute;
-      bottom: -20px;
+      bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -240,19 +305,19 @@
     }
 
     .tech-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(10, 15, 31, 0.8);
+      width: 50px;
+      height: 50px;
+      background: rgba(5, 9, 23, 0.8);
       backdrop-filter: blur(5px);
-      border-radius: 50%;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: var(--primary);
       border: 1px solid rgba(0, 247, 255, 0.3);
       box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     .tech-icon:hover {
@@ -261,56 +326,64 @@
       box-shadow: 0 0 25px var(--primary);
     }
 
+    /* About Content */
     .about-content {
-      max-width: 600px;
+      position: relative;
     }
 
-    .about-content h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-family: 'Unica One', cursive;
+    .title-tag {
+      display: inline-block;
+      background: var(--gradient);
+      color: var(--darkest);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
       margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Syne', sans-serif;
+      box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+    }
+
+    .about-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-family: 'Clash Display', sans-serif;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      letter-spacing: -1px;
       background: linear-gradient(90deg, var(--primary), var(--text-light));
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
-      line-height: 1.2;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      -webkit-text-fill-color: transparent;
       position: relative;
-      display: inline-block;
     }
 
-    .about-content h1::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), transparent);
-    }
-
-    .about-content h1 span {
+    .about-title span {
       display: block;
-      font-size: 0.7em;
+      font-size: 0.6em;
       color: var(--text-light);
       font-family: 'Syne', sans-serif;
-      text-transform: none;
-      letter-spacing: 1px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
       margin-top: 0.5rem;
+      background: none;
+      -webkit-text-fill-color: var(--text-light);
     }
 
-    .about-content p {
-      margin-bottom: 1.5rem;
+    .about-text {
+      margin-bottom: 2rem;
       line-height: 1.8;
       color: var(--text-muted);
       font-size: 1.1rem;
+      position: relative;
     }
 
     .highlight {
       color: var(--primary);
       font-weight: 600;
       position: relative;
+      display: inline-block;
     }
 
     .highlight::after {
@@ -331,41 +404,252 @@
       transform-origin: left;
     }
 
+    /* Social Links */
     .social-links {
       display: flex;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
 
     .social-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-light);
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
       transition: all 0.3s ease;
+      z-index: -1;
     }
 
     .social-link:hover {
-      background: var(--primary);
-      color: var(--dark);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      color: var(--darkest);
+      box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
     }
 
+    .social-link:hover::before {
+      left: 0;
+    }
+
+    /* Projects Showcase */
+    .projects-showcase {
+      margin-top: 5rem;
+      padding: 5rem 5%;
+      background: linear-gradient(to bottom, transparent, rgba(0, 247, 255, 0.03));
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-family: 'Clash Display', sans-serif;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 247, 255, 0.2);
+    }
+
+    .project-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem;
+      border: 1px solid var(--glass-border);
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-description {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      min-height: 80px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      padding: 0.5rem 0;
+    }
+
+    .project-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .project-link:hover {
+      gap: 1rem;
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+
+    .project-link:hover::after {
+      transform: translateX(0);
+    }
+
+    /* Project Specific Colors */
+    .project-el-futuro:hover {
+      box-shadow: 0 20px 40px rgba(123, 45, 255, 0.3);
+    }
+    .project-skycast:hover {
+      box-shadow: 0 20px 40px rgba(0, 247, 255, 0.3);
+    }
+    .project-popout:hover {
+      box-shadow: 0 20px 40px rgba(255, 45, 123, 0.3);
+    }
+    .project-peo:hover {
+      box-shadow: 0 20px 40px rgba(255, 209, 102, 0.3);
+    }
+
+    /* Project Tags */
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      background: rgba(0, 247, 255, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(0, 247, 255, 0.3);
+    }
+
+    /* Footer */
     footer {
-      background: rgba(10, 15, 31, 0.8);
+      background: rgba(5, 9, 23, 0.8);
       backdrop-filter: blur(10px);
       text-align: center;
-      padding: 2rem;
-      border-top: 1px solid rgba(0, 247, 255, 0.1);
+      padding: 3rem;
+      border-top: 1px solid var(--glass-border);
     }
 
-    footer p {
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo img {
+      height: 40px;
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .footer-copyright {
       color: var(--primary);
-      font-size: 1rem;
       font-family: 'Syne', sans-serif;
       letter-spacing: 1px;
       animation: glowText 3s ease-in-out infinite alternate;
@@ -376,32 +660,23 @@
       100% { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary); }
     }
 
-    /* Floating particles */
-    .particle {
-      position: absolute;
-      background: rgba(0, 247, 255, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    @media (max-width: 992px) {
-      .about-container {
-        flex-direction: column;
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .main-container {
+        grid-template-columns: 1fr;
         gap: 3rem;
         text-align: center;
       }
 
-      .tech-icons {
+      .hero-image {
+        margin: 0 auto;
+      }
+
+      .tech-stack {
         position: relative;
         bottom: 0;
         margin-top: 30px;
         justify-content: center;
-      }
-
-      .about-content h1::after {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
       }
 
       .social-links {
@@ -411,19 +686,22 @@
 
     @media (max-width: 768px) {
       .nav-links {
-        position: absolute;
-        top: 80px;
-        right: 5%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(5, 9, 23, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        background: rgba(10, 15, 31, 0.95);
-        width: 200px;
-        border: 1px solid rgba(0, 247, 255, 0.2);
-        padding: 1rem;
-        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       }
 
       .nav-links.active {
-        display: flex;
+        right: 0;
       }
 
       .hamburger {
@@ -434,14 +712,19 @@
 </head>
 
 <body>
+  <!-- Background Elements -->
+  <div class="grid-background"></div>
+  <div class="particles-container"></div>
+  <div class="glow" style="width: 500px; height: 500px; top: -200px; left: -200px;"></div>
+  <div class="glow" style="width: 800px; height: 800px; bottom: -400px; right: -400px;"></div>
 
-  <div class="floating-icons"></div>
-
+  <!-- Header -->
   <header>
     <div class="navbar">
-      <div class="logo">
+      <a href="https://aditya-cmd-max.github.io/exonova-/index.html" class="logo">
         <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
-      </div>
+        <span class="logo-text">Exonova</span>
+      </a>
       <nav>
         <ul class="nav-links">
           <li><a href="https://aditya-cmd-max.github.io/exonova-/index.html">Home</a></li>
@@ -458,39 +741,133 @@
     </div>
   </header>
 
-  <section class="about-container">
-    <div class="photo-container" data-aos="fade-right" data-aos-duration="800">
-      <div class="photo-frame">
-        <img src="https://aditya-cmd-max.github.io/exonova-/IMG_20241118_072414.jpg" alt="Team Photo">
-        <div class="glow-effect"></div>
+  <!-- Main Content -->
+  <main>
+    <div class="main-container">
+      <div class="hero-image-container" data-aos="fade-right" data-aos-duration="1000">
+        <div class="hero-image">
+          <img src="https://aditya-cmd-max.github.io/exonova-/IMG_20241118_072414.jpg" alt="Aditya Jha">
+          <div class="image-glow"></div>
+        </div>
+        <div class="tech-stack">
+          <div class="tech-icon"><i class="fab fa-js"></i></div>
+          <div class="tech-icon"><i class="fab fa-react"></i></div>
+          <div class="tech-icon"><i class="fab fa-node-js"></i></div>
+          <div class="tech-icon"><i class="fas fa-robot"></i></div>
+        </div>
       </div>
-     
+
+      <div class="about-content" data-aos="fade-left" data-aos-duration="1000">
+        <span class="title-tag">Founder & Creator</span>
+        <h1 class="about-title">Aditya Jha <span>Visionary Developer</span></h1>
+        
+        <p class="about-text">Hi I'm <span class="highlight">Aditya Jha</span>, the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts.</p>
+        
+        <p class="about-text">From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.</p>
+        
+        <p class="about-text">I dream of becoming a software engineer and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like El Futuro AI, SkyCast Pro, and Peo TTS.</p>
+        
+        <p class="about-text">Let's learn. Let's grow. Let's revolutionize the digital world – together.</p>
+
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
     </div>
 
-    <div class="about-content" data-aos="fade-left" data-aos-duration="800">
-      <h1>About <span>Aditya Jha</span></h1>
-      <p>Hi I'm <span class="highlight">Aditya Jha</span>, the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts.</p>
-      
-      <p>From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.</p>
-      
-      <p>I dream of becoming a software engineer and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like Reverbit Messenger, Studynova and many more.</p>
-      
-      <p>Let's learn. Let's grow. Let's revolutionize the digital world – together.</p>
-
-      <div class="social-links">
-        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+    <!-- Projects Showcase -->
+    <section class="projects-showcase">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">My Creations</h2>
+        <p class="section-subtitle">Innovative projects that showcase my technical expertise</p>
       </div>
-    </div>
-  </section>
 
+      <div class="projects-grid">
+        <div class="project-card project-el-futuro" data-aos="fade-up" data-aos-delay="100">
+          <div class="project-header">
+            <img src="https://aditya-cmd-max.github.io/exonovaai/logo.png" alt="El Futuro AI Logo" class="project-logo">
+            <h3 class="project-title">El Futuro AI</h3>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">AI Assistant</span>
+            <span class="project-tag">Chatbot</span>
+            <span class="project-tag">LLM</span>
+          </div>
+          <p class="project-description">An advanced AI assistant with multilingual capabilities, offering human-like conversations and intelligent responses powered by cutting-edge language models.</p>
+          <a href="https://aditya-cmd-max.github.io/exonovaai/" class="project-link">
+            Explore Project <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="project-card project-skycast" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-header">
+            <img src="https://aditya-cmd-max.github.io/exonovaweather/skycast.png" alt="SkyCast Pro Logo" class="project-logo">
+            <h3 class="project-title">SkyCast Pro</h3>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Weather</span>
+            <span class="project-tag">Forecast</span>
+            <span class="project-tag">API</span>
+          </div>
+          <p class="project-description">A hyper-accurate weather forecasting application with beautiful visualizations, severe weather alerts, and predictive analytics for any location worldwide.</p>
+          <a href="https://aditya-cmd-max.github.io/exonovaweather/" class="project-link">
+            View Forecast <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="project-card project-popout" data-aos="fade-up" data-aos-delay="300">
+          <div class="project-header">
+            <img src="https://aditya-cmd-max.github.io/popout/ChatGPT Image Aug 15, 2025, 08_26_20 PM.png" alt="PopOut Pro Logo" class="project-logo">
+            <h3 class="project-title">PopOut Pro</h3>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Productivity</span>
+            <span class="project-tag">Extension</span>
+            <span class="project-tag">Tool</span>
+          </div>
+          <p class="project-description">A basic Image Editor which is fully integrated with AI to give you the best Output.</p>
+          <a href="https://aditya-cmd-max.github.io/popout/" class="project-link">
+            Try It Out <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="project-card project-peo" data-aos="fade-up" data-aos-delay="400">
+          <div class="project-header">
+            <img src="https://aditya-cmd-max.github.io/Peo/tts.png" alt="Peo TTS Logo" class="project-logo">
+            <h3 class="project-title">Peo TTS</h3>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Text-to-Speech</span>
+            <span class="project-tag">AI</span>
+            <span class="project-tag">Voice</span>
+          </div>
+          <p class="project-description">Ultra-realistic text-to-speech platform with 120+ languages and emotional voices powered by advanced AI for natural-sounding speech synthesis.</p>
+          <a href="https://aditya-cmd-max.github.io/Peo/" class="project-link">
+            Listen Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Exonova. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" alt="Exonova Logo">
+        <span class="logo-text">Exonova</span>
+      </div>
+      <p class="footer-text">Empowering the next generation of creators, thinkers, and innovators through technology and education.</p>
+      <p class="footer-copyright">© 2025 Exonova. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
+    // Mobile Menu Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
 
@@ -499,21 +876,18 @@
       hamburger.classList.toggle('active');
     });
 
-    // Floating Icons
-    const floatingIcons = document.querySelector('.floating-icons');
-    const icons = ['fa-code', 'fa-atom', 'fa-microchip', 'fa-rocket', 'fa-bolt'];
-    
-    for (let i = 0; i < 30; i++) {
-      const icon = document.createElement('i');
-      icon.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} floating-icon`;
-      icon.style.left = `${Math.random() * 100}%`;
-      icon.style.animationDuration = `${Math.random() * 20 + 10}s`;
-      icon.style.animationDelay = `${Math.random() * 5}s`;
-      floatingIcons.appendChild(icon);
-    }
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
 
-    // Create floating particles
-    for (let i = 0; i < 50; i++) {
+    // Floating Particles
+    const particlesContainer = document.querySelector('.particles-container');
+    
+    for (let i = 0; i < 100; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
       
@@ -525,11 +899,29 @@
       particle.style.top = `${Math.random() * 100}vh`;
       
       const duration = Math.random() * 20 + 10;
-      particle.style.animation = `floatIcon ${duration}s linear infinite`;
+      particle.style.animation = `floatParticle ${duration}s linear infinite`;
       particle.style.animationDelay = `${Math.random() * 5}s`;
       
-      floatingIcons.appendChild(particle);
+      particle.style.opacity = Math.random() * 0.3 + 0.1;
+      
+      // Random color
+      const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      
+      particlesContainer.appendChild(particle);
     }
+
+    // Project card hover effects
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
   </script>
 
   <!-- Initialize AOS -->
@@ -537,7 +929,8 @@
   <script>
     AOS.init({
       once: true,
-      easing: 'ease-out-quart'
+      easing: 'ease-out-quart',
+      duration: 800
     });
   </script>
 </body>
