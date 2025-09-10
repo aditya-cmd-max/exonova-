@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +38,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,6 +66,7 @@
       --card-hover: rgba(30, 41, 59, 0.8);
       --badge-new: #ff3a3a;
       --badge-featured: #FFD700;
+      --blog-number: #8b5cf6;
     }
     
     * {
@@ -124,6 +124,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
+    font-family: 'Space Grotesk', sans-serif;
     }
     
     /* Scrollbar */
@@ -263,8 +264,8 @@
       padding: 120px 5% 80px;
       position: relative;
       overflow: hidden;
-    }
-    
+     font-family: 'Space Grotesk', sans-serif;
+     }
     .hero::before {
       content: '';
       position: absolute;
@@ -277,6 +278,7 @@
     }
     
     .hero h1 {
+      font-family: 'Space Grotesk', serif;
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       margin-bottom: 1.5rem;
       line-height: 1.2;
@@ -364,7 +366,7 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-secondary);
+      color: #ffffff;
     }
     
     /* Featured Blog */
@@ -412,6 +414,7 @@
     }
     
     .featured-title {
+      font-family: 'Space grotesk', sans serif;
       font-size: clamp(1.8rem, 3vw, 2.5rem);
       margin-bottom: 1rem;
       line-height: 1.3;
@@ -461,9 +464,16 @@
       opacity: 1;
     }
     
-    .blog-img {
+    .blog-img-container {
       width: 100%;
       height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .blog-img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
@@ -474,12 +484,34 @@
     
     .blog-content {
       padding: 1.5rem;
+      position: relative;
+      z-index: 5;
+    }
+    
+    .blog-number {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      background: var(--blog-number);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+      z-index: 10;
     }
     
     .blog-title {
+      font-family: 'Space Grotesk', sans serif;
       font-size: 1.3rem;
       margin-bottom: 0.8rem;
       line-height: 1.3;
+      margin-top: 10px;
     }
     
     .blog-desc {
@@ -504,6 +536,9 @@
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
     }
     
     .read-more:hover {
@@ -702,18 +737,14 @@
       .featured-img {
         height: 200px;
       }
+      
+      .blog-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        top: 10px;
+      }
     }
-    
-    .read-more {
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-.blog-content {
-    position: relative;
-    z-index: 5;
-}
   </style>
 </head>
 <body>
@@ -791,8 +822,11 @@
   <section id="blogs" class="blogs-grid">
     <!-- Blog 1 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-categories="science education">
-      <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg" alt="Sleep Science" class="blog-img">
+      </div>
       <div class="badge badge-new">First Blog</div>
+      <div class="blog-number">01</div>
       <div class="blog-content">
         <h3 class="blog-title">The Science of Sleep</h3>
         <p class="blog-desc">Explore how sleep is very much important for the youth all over the world.</p>
@@ -807,7 +841,10 @@
     
     <!-- Blog 2 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="100" data-categories="education">
-      <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
+      </div>
+      <div class="blog-number">02</div>
       <div class="blog-content">
         <h3 class="blog-title">Top 5 Scientific Study Hacks</h3>
         <p class="blog-desc">Learn 5 brain-based study techniques that turn your study time into a productivity powerhouse.</p>
@@ -822,7 +859,10 @@
     
     <!-- Blog 3 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="200" data-categories="education history">
-      <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
+      </div>
+      <div class="blog-number">03</div>
       <div class="blog-content">
         <h3 class="blog-title">Introduction to Economics</h3>
         <p class="blog-desc">Get an overview of the world of economics, exploring how individuals and societies make choices with limited resources.</p>
@@ -837,7 +877,10 @@
     
     <!-- Blog 4 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="300" data-categories="history">
-      <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
+      </div>
+      <div class="blog-number">04</div>
       <div class="blog-content">
         <h3 class="blog-title">Part 1: India-Pakistan war: Is it WW3?</h3>
         <p class="blog-desc">In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
@@ -852,7 +895,10 @@
     
     <!-- Blog 5 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="400" data-categories="education personal">
-      <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
+      </div>
+      <div class="blog-number">05</div>
       <div class="blog-content">
         <h3 class="blog-title">Dark Reality of Academic Pressure</h3>
         <p class="blog-desc">Understanding the impact of academic stress on students and strategies to cope with it effectively.</p>
@@ -867,7 +913,10 @@
 
     <!-- Blog 6 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="500" data-categories="personal">
-      <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="blog-img">
+      </div>
+      <div class="blog-number">06</div>
       <div class="blog-content">
         <h3 class="blog-title">The Story of a Middle Class Boy</h3>
         <p class="blog-desc">Get a glimpse of life of an individual boy called teenager at every home.</p>
@@ -882,8 +931,11 @@
 
     <!-- Blog 7 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="600" data-categories="technology history">
-      <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://aditya-cmd-max.github.io/exonova-/Untitled design (2).png" alt="Middle Class Life" class="blog-img">
+      </div>
       <div class="badge" style="background: var(--badge-featured); color: #333;">Featured</div>
+      <div class="blog-number">07</div>
       <div class="blog-content">
         <h3 class="blog-title">The Evolution of Google</h3>
         <p class="blog-desc">Must Read.. get the inspiration story of the biggest Tech-Giant Google.</p>
@@ -898,7 +950,10 @@
 
     <!-- Blog 8 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="700" data-categories="science">
-      <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
+      </div>
+      <div class="blog-number">08</div>
       <div class="blog-content">
         <h3 class="blog-title">Bananas are Radioactive</h3>
         <p class="blog-desc">Get the Fact about Bananas are Radioactive but are Safe to consume.</p>
@@ -913,7 +968,10 @@
 
     <!-- Blog 9 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="800" data-categories="technology science">
-      <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
+      </div>
+      <div class="blog-number">09</div>
       <div class="blog-content">
         <h3 class="blog-title">AI Flight 171 Crash Explained</h3>
         <p class="blog-desc">Get the probably scientific reasons for the crash of AI 171 Boeing 787- Dreamliner.</p>
@@ -928,7 +986,10 @@
 
     <!-- Blog 10 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="900" data-categories="science">
-      <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
+      </div>
+      <div class="blog-number">10</div>
       <div class="blog-content">
         <h3 class="blog-title">Why Your Phone Slips When Tired</h3>
         <p class="blog-desc">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired.</p>
@@ -944,8 +1005,11 @@
 
  <!-- Blog 11 -->
     <div class="blog-card glass-panel" data-aos="fade-up" data-aos-delay="900" data-categories="science">
-      <img src="https://aditya-cmd-max.github.io/exonova-/Exonova’s.png" alt="Phone slipping" class="blog-img">
+      <div class="blog-img-container">
+        <img src="https://aditya-cmd-max.github.io/exonova-/Exonova’s.png" alt="Phone slipping" class="blog-img">
+      </div>
       <div class="badge badge-new">New</div>
+      <div class="blog-number">11</div>
       <div class="blog-content">
         <h3 class="blog-title">What if India Never Got Independence?</h3>
         <p class="blog-desc">Exploring the alternate history of a India still under British colonial rule</p>
