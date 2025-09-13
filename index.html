@@ -1331,16 +1331,7 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
     </script>
 
 
-<div id="cookie-banner-placeholder"></div>
-<script>
-  fetch("cookie.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("cookie-banner-placeholder").innerHTML = html;
-      console.log("Cookie banner loaded"); // check this in browser console
-    })
-    .catch(err => console.error("Failed to load cookie banner:", err));
-          </script>
+
     
     
     
@@ -1353,6 +1344,21 @@ document.addEventListener("keydown", event => {
   }
 });
 </script>
+
+    <!-- Cookie banner placeholder -->
+  <div id="cookie-banner-placeholder">
+    <!-- Load cookie banner -->
+<div id="cookie-banner-placeholder"></div>
+<script>
+  fetch("cookie.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("cookie-banner-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Failed to load cookie banner:", err));
+</script>
+      
+  </div>
 </body>
 </html>
 
