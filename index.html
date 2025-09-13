@@ -476,6 +476,18 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
     </style>
 </head>
 <body>
+    
+    <!-- Load cookie banner -->
+<div id="cookie-banner-placeholder"></div>
+<script>
+  fetch("cookie.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("cookie-banner-placeholder").innerHTML = html;
+    });
+</script>
+    
+    
     <!-- Particles Background -->
     <div class="particles" id="particles"></div>
 
