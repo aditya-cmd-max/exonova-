@@ -1338,8 +1338,10 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
     .then(r => r.text())
     .then(html => {
       document.getElementById("cookie-banner-placeholder").innerHTML = html;
-    });
+    })
+    .catch(err => console.error("Failed to load cookie banner:", err));
 </script>
+    
     
        <script>
 document.addEventListener("contextmenu", event => event.preventDefault());
