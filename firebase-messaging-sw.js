@@ -1,10 +1,8 @@
 // firebase-messaging-sw.js
 
-// Import Firebase scripts (classic syntax for service workers)
 importScripts('https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js');
 
-// Initialize Firebase app (make sure no trailing comma)
 firebase.initializeApp({
   apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
   authDomain: "exonova-cd89c.firebaseapp.com",
@@ -14,12 +12,10 @@ firebase.initializeApp({
   appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87"
 });
 
-// Retrieve Firebase Messaging object
 const messaging = firebase.messaging();
 
-// Handle background messages
 messaging.onBackgroundMessage(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  console.log('[firebase-messaging-sw.js] Received background message', payload);
 
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
