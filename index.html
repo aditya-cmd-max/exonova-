@@ -2100,7 +2100,6 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
 
 <!-- Firebase -->
 <script type="module">
-  // Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
 
@@ -2120,35 +2119,46 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
 
-  // Ask for permission
-Notification.requestPermission().then(permission => {
-  if (permission === "granted") {
-    getToken(messaging, { vapidKey: "BEw-5xIQhkB6lqG7vjDClCzUsR0gLXI02koZOb97pKGdwDEdy0HH07-Y9DftCDtJk7Cp6wnixk5ropqJ0lWb1P0" })
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log("✅ FCM Token:", currentToken);
-          alert("Your FCM Token: " + currentToken);
-        } else {
-          console.log("❌ No registration token available.");
-          alert("No FCM token available. Refresh the page and try again.");
-        }
-      })
-      .catch((err) => {
-        console.error("Error getting token", err);
-        alert("Error getting FCM token: " + err.message);
-      });
-  } else {
-    alert("Notification permission not granted.");
-  }
-});
+  // First, register your service worker manually
+  navigator.serviceWorker.register('/exonova-/firebase-messaging-sw.js')
+    .then((registration) => {
+      console.log('✅ Service Worker registered:', registration);
 
+      // Ask permission and get FCM token
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          getToken(messaging, { 
+            vapidKey: "BEw-5xIQhkB6lqG7vjDClCzUsR0gLXI02koZOb97pKGdwDEdy0HH07-Y9DftCDtJk7Cp6wnixk5ropqJ0lWb1P0",
+            serviceWorkerRegistration: registration // tell Firebase to use this SW
+          })
+          .then((currentToken) => {
+            if (currentToken) {
+              console.log("✅ FCM Token:", currentToken);
+              alert("Your FCM Token: " + currentToken);
+            } else {
+              console.log("❌ No registration token available.");
+              alert("No FCM token available. Refresh and try again.");
+            }
+          })
+          .catch((err) => {
+            console.error("Error getting token", err);
+            alert("Error getting FCM token: " + err.message);
+          });
+        } else {
+          alert("Notification permission not granted.");
+        }
+      });
+    })
+    .catch(err => {
+      console.error("Service Worker registration failed:", err);
+    });
 
   // Handle foreground messages
   onMessage(messaging, (payload) => {
-    console.log("Message received. ", payload);
+    console.log("Message received: ", payload);
     new Notification(payload.notification.title, {
       body: payload.notification.body,
-      icon: payload.notification.icon,
+      icon: payload.notification.icon
     });
   });
 </script>
