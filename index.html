@@ -2120,9 +2120,10 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
     const messaging = getMessaging(app);
 
     // Register Service Worker
-    navigator.serviceWorker.register('/exonova-/firebase-messaging-sw.js')
-      .then((registration) => {
-        console.log('✅ Service Worker registered', registration);
+   navigator.serviceWorker.register('/exonova-/firebase-messaging-sw.js')
+  .then(registration => console.log('✅ SW registered', registration))
+  .catch(err => console.error('❌ SW registration failed', err));
+
 
         // Request permission
         Notification.requestPermission().then(permission => {
