@@ -2121,22 +2121,27 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
   const messaging = getMessaging(app);
 
   // Ask for permission
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      getToken(messaging, { vapidKey: "BEw-5xIQhkB6lqG7vjDClCzUsR0gLXI02koZOb97pKGdwDEdy0HH07-Y9DftCDtJk7Cp6wnixk5ropqJ0lWb1P0" })
-        .then((currentToken) => {
-          if (currentToken) {
-            console.log("FCM Token:", currentToken);
-            alert("Notification permission granted!");
-          } else {
-            console.log("No registration token available.");
-          }
-        })
-        .catch((err) => {
-          console.error("Error getting token", err);
-        });
-    }
-  });
+Notification.requestPermission().then(permission => {
+  if (permission === "granted") {
+    getToken(messaging, { vapidKey: "BEw-5xIQhkB6lqG7vjDClCzUsR0gLXI02koZOb97pKGdwDEdy0HH07-Y9DftCDtJk7Cp6wnixk5ropqJ0lWb1P0" })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("✅ FCM Token:", currentToken);
+          alert("Your FCM Token: " + currentToken);
+        } else {
+          console.log("❌ No registration token available.");
+          alert("No FCM token available. Refresh the page and try again.");
+        }
+      })
+      .catch((err) => {
+        console.error("Error getting token", err);
+        alert("Error getting FCM token: " + err.message);
+      });
+  } else {
+    alert("Notification permission not granted.");
+  }
+});
+
 
   // Handle foreground messages
   onMessage(messaging, (payload) => {
