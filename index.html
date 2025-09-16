@@ -2097,6 +2097,59 @@ Whether it’s through blogs, videos, or creative projects, Exonova is all about
       });
     });
   </script>
+
+<!-- Firebase -->
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7F1uRRiGdw489c_18aJeodbxrzsdFb5c",
+    authDomain: "exonova-cd89c.firebaseapp.com",
+    databaseURL: "https://exonova-cd89c-default-rtdb.firebaseio.com",
+    projectId: "exonova-cd89c",
+    storageBucket: "exonova-cd89c.firebasestorage.app",
+    messagingSenderId: "465326262278",
+    appId: "1:465326262278:web:1b7f8f62e1f46c5ca7db87",
+    measurementId: "G-GGG45V0PEF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+
+  // Ask for permission
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      getToken(messaging, { vapidKey: "BEw-5xIQhkB6lqG7vjDClCzUsR0gLXI02koZOb97pKGdwDEdy0HH07-Y9DftCDtJk7Cp6wnixk5ropqJ0lWb1P0" })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log("FCM Token:", currentToken);
+            alert("Notification permission granted!");
+          } else {
+            console.log("No registration token available.");
+          }
+        })
+        .catch((err) => {
+          console.error("Error getting token", err);
+        });
+    }
+  });
+
+  // Handle foreground messages
+  onMessage(messaging, (payload) => {
+    console.log("Message received. ", payload);
+    new Notification(payload.notification.title, {
+      body: payload.notification.body,
+      icon: payload.notification.icon,
+    });
+  });
+</script>
+
+
+      
   </div>
 </body>
 </html>
