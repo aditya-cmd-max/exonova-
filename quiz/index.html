@@ -9,12 +9,31 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@700;800&family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
 
   <link rel="icon" href="https://aditya-cmd-max.github.io/exonova-/exonova-logo.png" type="image/x-icon"> 
   
   <style>
     /* Global Styles */
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --secondary-light: #f472b6;
+      --accent: #06b6d4;
+      --accent-dark: #0891b2;
+      --dark: #0f172a;
+      --darker: #0a0e1a;
+      --light: #f1f5f9;
+      --gray: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    
     * {
       margin: 0;
       padding: 0;
@@ -22,27 +41,82 @@
     }
     
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #fff;
+      font-family: 'Space Grotesk', 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Parallax background elements */
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .parallax-element {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      filter: blur(2px);
+    }
+    
+    .parallax-element-1 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--primary), transparent 70%);
+      top: 10%;
+      left: 5%;
+      animation: float 20s infinite ease-in-out;
+    }
+    
+    .parallax-element-2 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--secondary), transparent 70%);
+      bottom: 15%;
+      right: 10%;
+      animation: float 15s infinite ease-in-out reverse;
+    }
+    
+    .parallax-element-3 {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, var(--accent), transparent 70%);
+      top: 50%;
+      right: 20%;
+      animation: float 25s infinite ease-in-out 2s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-20px) translateX(10px); }
+      50% { transform: translateY(10px) translateX(20px); }
+      75% { transform: translateY(20px) translateX(-10px); }
     }
     
     .container {
       width: 100%;
-      max-width: 800px;
-      background: rgba(13, 17, 28, 0.85);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      max-width: 900px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
     
     .container::before {
@@ -52,61 +126,83 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(67, 124, 205, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
       z-index: -1;
+      animation: rotate 60s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     
     /* Header Styles */
     .header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       position: relative;
     }
     
     .header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.8rem;
+      font-size: 3.5rem;
       font-weight: 800;
-      background: linear-gradient(to right, #00dbde, #fc00ff);
+      background: linear-gradient(to right, var(--accent), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+      margin-bottom: 15px;
       letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
+      border-radius: 2px;
     }
     
     .header p {
-      color: #a0a0d0;
-      font-size: 1.1rem;
-      max-width: 500px;
+      color: var(--gray);
+      font-size: 1.2rem;
+      max-width: 600px;
       margin: 0 auto;
+      line-height: 1.6;
     }
     
     /* Topic Selection */
     .topic-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
     }
     
     .topic-btn {
-      background: linear-gradient(145deg, #1a1f3b, #25294e);
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
       border: none;
-      border-radius: 15px;
-      padding: 20px 15px;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
+      border-radius: 16px;
+      padding: 25px 15px;
+      color: var(--light);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
     
     .topic-btn::before {
@@ -116,14 +212,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to bottom, rgba(72, 76, 173, 0.3), transparent);
+      background: linear-gradient(to bottom, rgba(99, 102, 241, 0.2), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
+      z-index: -1;
     }
     
     .topic-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(92, 70, 195, 0.4);
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
     }
     
     .topic-btn:hover::before {
@@ -131,64 +228,99 @@
     }
     
     .topic-btn i {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      background: linear-gradient(to right, #00dbde, #fc00ff);
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      transition: transform 0.3s ease;
+    }
+    
+    .topic-btn:hover i {
+      transform: scale(1.2);
+    }
+    
+    .topic-btn span {
+      font-size: 1rem;
     }
     
     /* Custom Topic Area */
     .custom-topic-area {
-      background: rgba(27, 32, 56, 0.7);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 30px;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .custom-topic-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--secondary));
     }
     
     .custom-topic-area h3 {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      color: #a0a0d0;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: var(--light);
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
     }
     
     #custom-topic-input {
       width: 100%;
-      background: rgba(18, 22, 41, 0.8);
-      border: 1px solid rgba(92, 70, 195, 0.4);
-      border-radius: 10px;
-      padding: 15px;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      margin-bottom: 15px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      padding: 18px 20px;
+      color: var(--light);
+      font-family: 'Montserrat', sans-serif;
       font-size: 1rem;
+      transition: all 0.3s ease;
     }
     
     #custom-topic-input:focus {
       outline: none;
-      border-color: #7c5cce;
-      box-shadow: 0 0 0 2px rgba(124, 92, 206, 0.3);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
     
     #custom-topic-btn {
       width: 100%;
-      background: linear-gradient(to right, #7c5cce, #4e37a6);
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
       color: white;
       border: none;
-      border-radius: 10px;
-      padding: 15px;
-      font-family: 'Poppins', sans-serif;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
     }
     
     #custom-topic-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(124, 92, 206, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
     }
     
     /* Quiz Container */
@@ -196,100 +328,144 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
     .category-display {
-      background: linear-gradient(to right, #7c5cce, #4e37a6);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
     }
     
     .timer {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background: rgba(255, 255, 255, 0.1);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
     .timer.warning {
-      color: #ff6b6b;
+      color: var(--danger);
       animation: pulse 1s infinite;
     }
     
     @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.7; }
-      100% { opacity: 1; }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     
     .progress-container {
       width: 100%;
-      height: 8px;
+      height: 10px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      margin-bottom: 25px;
+      border-radius: 5px;
+      margin-bottom: 30px;
       overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
     .progress-bar {
       height: 100%;
-      background: linear-gradient(to right, #00dbde, #fc00ff);
-      border-radius: 4px;
-      transition: width 0.3s ease;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
+      border-radius: 5px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-image: linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+      );
+      z-index: 1;
+      background-size: 20px 20px;
+      animation: move 1s linear infinite;
+    }
+    
+    @keyframes move {
+      0% { background-position: 0 0; }
+      100% { background-position: 20px 0; }
     }
     
     .question-container {
-      background: rgba(27, 32, 56, 0.7);
-      padding: 25px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border-left: 4px solid #7c5cce;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      border-left: 5px solid var(--primary);
+      position: relative;
+      overflow: hidden;
     }
     
     .question-text {
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 1.4;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      color: var(--light);
     }
     
     .options-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 15px;
     }
     
     .option-btn {
-      background: rgba(18, 22, 41, 0.8);
-      border: 1px solid rgba(92, 70, 195, 0.3);
-      border-radius: 10px;
-      padding: 15px;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid rgba(99, 102, 241, 0.2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      color: var(--light);
+      font-family: 'Montserrat', sans-serif;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
     
     .option-btn:hover:not(:disabled) {
-      background: rgba(33, 39, 71, 0.9);
-      transform: translateX(5px);
+      background: rgba(30, 41, 59, 0.9);
+      transform: translateX(8px);
+      border-color: var(--primary);
     }
     
     .option-btn.correct {
-      background: linear-gradient(to right, rgba(46, 204, 113, 0.2), rgba(46, 204, 113, 0.3));
-      border-color: #2ecc71;
+      background: linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.3));
+      border-color: var(--success);
     }
     
     .option-btn.wrong {
-      background: linear-gradient(to right, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.3));
-      border-color: #e74c3c;
+      background: linear-gradient(to right, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.3));
+      border-color: var(--danger);
     }
     
     .option-btn:disabled {
@@ -297,29 +473,44 @@
       opacity: 0.8;
     }
     
+    .option-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    
     /* Explanation Area */
     .explanation-area {
-      background: rgba(27, 32, 56, 0.7);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border-left: 4px solid #00dbde;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      border-left: 5px solid var(--accent);
     }
     
     #explain-btn {
       background: transparent;
-      border: 1px solid #00dbde;
-      color: #00dbde;
-      padding: 10px 20px;
-      border-radius: 8px;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 25px;
+      border-radius: 10px;
       cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     #explain-btn:hover:not(:disabled) {
-      background: rgba(0, 219, 222, 0.1);
+      background: rgba(6, 182, 212, 0.1);
     }
     
     #explain-btn:disabled {
@@ -328,11 +519,12 @@
     }
     
     .explanation-content {
-      margin-top: 15px;
-      padding: 15px;
-      background: rgba(0, 219, 222, 0.05);
-      border-radius: 8px;
-      line-height: 1.5;
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(6, 182, 212, 0.05);
+      border-radius: 12px;
+      line-height: 1.6;
+      border-left: 3px solid var(--accent);
     }
     
     /* Controls */
@@ -342,107 +534,131 @@
     }
     
     #next-btn {
-      background: linear-gradient(to right, #00dbde, #fc00ff);
+      background: linear-gradient(to right, var(--accent), var(--secondary));
       color: white;
       border: none;
-      border-radius: 10px;
-      padding: 12px 25px;
-      font-family: 'Poppins', sans-serif;
+      border-radius: 12px;
+      padding: 15px 30px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
     }
     
     #next-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(124, 92, 206, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
     }
     
     /* Score Container */
     .score-container {
       text-align: center;
-      padding: 30px;
+      padding: 40px 30px;
     }
     
     .score-emoji {
-      font-size: 4rem;
-      margin-bottom: 20px;
+      font-size: 5rem;
+      margin-bottom: 25px;
+      animation: bounce 1s ease;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-30px); }
+      60% { transform: translateY(-15px); }
     }
     
     .score-title {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(to right, #00dbde, #fc00ff);
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--accent), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     
     .score-value {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
+      font-size: 1.8rem;
+      margin-bottom: 35px;
+      color: var(--gray);
     }
     
     .score-value span {
-      color: #00dbde;
+      color: var(--accent);
       font-weight: 700;
     }
     
     .score-actions {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 20px;
+      margin-bottom: 30px;
     }
     
     .score-btn {
-      padding: 15px;
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
+      padding: 18px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
     #study-tips-btn {
-      background: linear-gradient(to right, #2ecc71, #27ae60);
+      background: linear-gradient(to right, var(--success), #059669);
       color: white;
     }
     
     #restart-btn {
-      background: linear-gradient(to right, #7c5cce, #4e37a6);
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
       color: white;
     }
     
     .score-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
     
     .study-tips-container {
-      background: rgba(27, 32, 56, 0.7);
-      padding: 20px;
-      border-radius: 15px;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 25px;
+      border-radius: 16px;
       text-align: left;
-      margin-top: 20px;
+      margin-top: 25px;
+      border-left: 5px solid var(--success);
+    }
+    
+    .study-tips-container h4 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     /* Loading Screen */
     .loading-screen {
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 30px;
     }
     
     .loader {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 25px;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
       border: 5px solid rgba(255, 255, 255, 0.1);
-      border-top: 5px solid #00dbde;
+      border-top: 5px solid var(--accent);
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
@@ -455,23 +671,26 @@
     /* Back Button */
     #back-btn {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 40px;
-      height: 40px;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      color: #fff;
+      color: var(--light);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
     #back-btn:hover {
       background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
     
     /* Modal */
@@ -481,34 +700,48 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       padding: 20px;
+      backdrop-filter: blur(5px);
     }
     
     .modal {
-      background: #1a1f3b;
-      border-radius: 15px;
-      padding: 25px;
-      max-width: 400px;
+      background: var(--dark);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 450px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--danger), #dc2626);
     }
     
     .modal h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--light);
     }
     
     .modal p {
-      color: #a0a0d0;
-      margin-bottom: 25px;
-      line-height: 1.5;
+      color: var(--gray);
+      margin-bottom: 30px;
+      line-height: 1.6;
     }
     
     .modal-buttons {
@@ -518,10 +751,10 @@
     
     .modal-btn {
       flex: 1;
-      padding: 12px;
-      border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
+      padding: 15px;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       border: none;
@@ -529,26 +762,33 @@
     
     #modal-cancel-btn {
       background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      color: var(--light);
     }
     
     #modal-confirm-btn {
-      background: linear-gradient(to right, #ff6b6b, #ee5a52);
+      background: linear-gradient(to right, var(--danger), #dc2626);
       color: white;
     }
     
     .modal-btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+    }
+    
+    /* Lottie Animations */
+    .lottie-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
     }
     
     /* Responsive Design */
     @media (max-width: 768px) {
       .container {
-        padding: 20px;
+        padding: 25px;
       }
       
       .header h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
       }
       
       .topic-grid {
@@ -556,13 +796,17 @@
       }
       
       .question-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+      }
+      
+      .modal-buttons {
+        flex-direction: column;
       }
     }
     
     @media (max-width: 480px) {
       .header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
       
       .topic-grid {
@@ -575,8 +819,8 @@
         align-items: flex-start;
       }
       
-      .modal-buttons {
-        flex-direction: column;
+      .question-container {
+        padding: 20px;
       }
     }
     
@@ -584,10 +828,26 @@
     .hidden {
       display: none !important;
     }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Parallax Background Elements -->
+  <div class="parallax-bg">
+    <div class="parallax-element parallax-element-1"></div>
+    <div class="parallax-element parallax-element-2"></div>
+    <div class="parallax-element parallax-element-3"></div>
+  </div>
+  
+  <div class="container fade-in">
     <!-- Back Button -->
     <button id="back-btn" class="hidden">
       <i class="fas fa-arrow-left"></i>
@@ -595,8 +855,15 @@
     
     <!-- Header -->
     <div class="header">
+      <lottie-player 
+        src="https://assets1.lottiefiles.com/packages/lf20_vyL7cR.json" 
+        background="transparent" 
+        speed="1" 
+        style="width: 120px; height: 120px; margin: 0 auto;" 
+        loop autoplay>
+      </lottie-player>
       <h1>Exonova Quiz Zone</h1>
-      <p>Test your knowledge with AI-powered quizzes on any topic</p>
+      <p>Challenge your knowledge with AI-powered quizzes on any topic</p>
     </div>
     
     <!-- Topic Selection Screen -->
@@ -606,8 +873,10 @@
       </div>
       
       <div class="custom-topic-area">
-        <h3>Or create your own quiz</h3>
-        <input type="text" id="custom-topic-input" placeholder="Enter any topic...">
+        <h3><i class="fas fa-magic"></i> Or create your own quiz</h3>
+        <div class="input-group">
+          <input type="text" id="custom-topic-input" placeholder="Enter any topic...">
+        </div>
         <button id="custom-topic-btn">
           <i class="fas fa-plus-circle"></i> Create Custom Quiz
         </button>
@@ -616,7 +885,13 @@
 
     <!-- Loading Screen -->
     <div id="loading-screen" class="hidden loading-screen">
-      <div class="loader"></div>
+      <lottie-player 
+        src="https://assets2.lottiefiles.com/packages/lf20_a7qestee.json" 
+        background="transparent" 
+        speed="1" 
+        style="width: 150px; height: 150px; margin: 0 auto;" 
+        loop autoplay>
+      </lottie-player>
       <p>Generating your quiz on <span id="loading-topic" class="highlight"></span>...</p>
       <p class="text-muted">This might take a moment</p>
     </div>
@@ -671,6 +946,13 @@
   <!-- Confirmation Modal -->
   <div id="confirm-modal" class="hidden modal-overlay">
     <div class="modal">
+      <lottie-player 
+        src="https://assets1.lottiefiles.com/packages/lf20_khtt8ejx.json" 
+        background="transparent" 
+        speed="1" 
+        style="width: 100px; height: 100px; margin: 0 auto;" 
+        loop autoplay>
+      </lottie-player>
       <h3>Are you sure?</h3>
       <p>If you go back now, your quiz progress will be lost.</p>
       <div class="modal-buttons">
@@ -736,6 +1018,21 @@
             showTopicSelection();
         });
         modalCancelBtn.addEventListener('click', () => confirmModal.classList.add('hidden'));
+        
+        // Parallax effect for background elements
+        initParallax();
+    }
+
+    function initParallax() {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        
+        parallaxElements.forEach(element => {
+          const speed = 0.5;
+          element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      });
     }
 
     function renderTopics() {
@@ -831,7 +1128,7 @@
         const tips = await callGemini(prompt, false);
         
         if (tips) {
-            studyTipsContainer.innerHTML = `<h4>Personalized Study Tips:</h4><div>${tips}</div>`;
+            studyTipsContainer.innerHTML = `<h4><i class="fas fa-graduation-cap"></i> Personalized Study Tips:</h4><div>${tips}</div>`;
         } else {
             studyTipsContainer.innerHTML = `<p>Could not generate study tips at this time.</p>`;
         }
@@ -868,10 +1165,16 @@
 
     function showErrorState(message) {
         quizSelectionEl.innerHTML = `
-            <div class="error-state">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff6b6b; margin-bottom: 20px;"></i>
-                <h3>Oops! Something went wrong.</h3>
-                <p>${message}</p>
+            <div class="error-state" style="text-align: center; padding: 30px;">
+                <lottie-player 
+                  src="https://assets1.lottiefiles.com/packages/lf20_gn0to0ta.json" 
+                  background="transparent" 
+                  speed="1" 
+                  style="width: 150px; height: 150px; margin: 0 auto;" 
+                  loop autoplay>
+                </lottie-player>
+                <h3 style="margin: 20px 0 10px; color: #ff6b6b;">Oops! Something went wrong.</h3>
+                <p style="color: #94a3b8; margin-bottom: 25px;">${message}</p>
                 <button onclick="location.reload()" class="score-btn" style="margin-top: 20px;">
                     <i class="fas fa-redo"></i> Try Again
                 </button>
@@ -921,10 +1224,15 @@
         questionEl.textContent = currentQuestion.question;
         
         const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
-        shuffledOptions.forEach(option => {
+        const optionLetters = ['A', 'B', 'C', 'D'];
+        
+        shuffledOptions.forEach((option, index) => {
             const button = document.createElement('button');
-            button.textContent = option;
             button.className = 'option-btn';
+            button.innerHTML = `
+                <div class="option-number">${optionLetters[index]}</div>
+                <div class="option-text">${option}</div>
+            `;
             button.addEventListener('click', () => selectAnswer(button, option));
             optionsEl.appendChild(button);
         });
@@ -974,7 +1282,7 @@
 
         Array.from(optionsEl.children).forEach(button => {
             button.disabled = true;
-            if (button.textContent === correct) button.classList.add('correct');
+            if (button.querySelector('.option-text').textContent === correct) button.classList.add('correct');
         });
         
         explanationArea.classList.remove('hidden');
@@ -985,7 +1293,7 @@
         const correct = questions[currentQuestionIndex].answer;
         Array.from(optionsEl.children).forEach(button => {
             button.disabled = true;
-            if (button.textContent === correct) button.classList.add('correct');
+            if (button.querySelector('.option-text').textContent === correct) button.classList.add('correct');
         });
         explanationArea.classList.remove('hidden');
         nextBtn.classList.remove('hidden');
