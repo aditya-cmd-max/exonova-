@@ -840,7 +840,7 @@
       }
     }
 
-/* Scoped styles with high specificity to prevent conflicts */
+  /* Scoped styles with high specificity to prevent conflicts */
     #exonova-loader-container * {
       margin: 0;
       padding: 0;
@@ -853,7 +853,7 @@
       left: 0;
       width: 100%; 
       height: 100%;
-      background: radial-gradient(ellipse at center, #0a0a14 0%, #000000 70%);
+      background: #0a0a14;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -869,96 +869,77 @@
       visibility: hidden;
     }
 
-    /* Animated gradient background */
-    #exonova-loader-container .gradient-bg {
+    /* Mesh background with irregular squares */
+    #exonova-loader-container .mesh-bg {
       position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+      grid-auto-rows: minmax(40px, auto);
+      gap: 2px;
+      padding: 10px;
+      z-index: 0;
+    }
+
+    @media (max-width: 768px) {
+      #exonova-loader-container .mesh-bg {
+        grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+        grid-auto-rows: minmax(30px, auto);
+        gap: 1.5px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #exonova-loader-container .mesh-bg {
+        grid-template-columns: repeat(auto-fill, minmax(25px, 1fr));
+        grid-auto-rows: minmax(25px, auto);
+        gap: 1px;
+        padding: 6px;
+      }
+    }
+
+    #exonova-loader-container .mesh-square {
+      background: rgba(20, 25, 45, 0.7);
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      animation: exonova-meshPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes exonova-meshPulse {
+      0%, 100% { 
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 0.9;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Animated gradient overlay */
+    #exonova-loader-container .gradient-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       background: 
-        radial-gradient(circle at 30% 30%, rgba(74, 144, 226, 0.2) 0%, transparent 25%),
-        radial-gradient(circle at 70% 70%, rgba(123, 104, 238, 0.2) 0%, transparent 25%),
-        radial-gradient(circle at 40% 80%, rgba(58, 12, 163, 0.15) 0%, transparent 25%);
-      animation: exonova-rotateGradient 30s linear infinite;
+        radial-gradient(circle at 20% 30%, rgba(74, 144, 226, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(123, 104, 238, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 40% 80%, rgba(58, 12, 163, 0.1) 0%, transparent 30%);
+      animation: exonova-rotateGradient 25s linear infinite;
+      z-index: 1;
+      opacity: 0.6;
     }
 
     @keyframes exonova-rotateGradient {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Animated grid overlay */
-    #exonova-loader-container .grid-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(74, 144, 226, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(74, 144, 226, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.4;
-      z-index: 1;
-      animation: exonova-gridMove 20s linear infinite;
-    }
-
-    @keyframes exonova-gridMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 40px 40px; }
-    }
-
-    /* Animated dots pattern */
-    #exonova-loader-container .dots-pattern {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 30px 30px;
-      background-position: 0 0;
-      opacity: 0.3;
-      z-index: 1;
-      animation: exonova-dotsMove 40s linear infinite;
-    }
-
-    @keyframes exonova-dotsMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 30px 30px; }
-    }
-
-    /* Wave animation layer */
-    #exonova-loader-container .wave-layer {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
-      opacity: 0.1;
-      background: 
-        radial-gradient(ellipse at center, rgba(123, 104, 238, 0.3) 0%, transparent 70%);
-      animation: exonova-waveAnimation 15s ease-in-out infinite alternate;
-      z-index: 1;
-    }
-
-    @keyframes exonova-waveAnimation {
-      0% { 
-        transform: translateY(0) scale(1);
-        border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
-      }
-      50% { 
-        transform: translateY(-5%) scale(1.1);
-        border-radius: 50% 50% 60% 40% / 50% 50% 50% 50%;
-      }
-      100% { 
-        transform: translateY(5%) scale(1);
-        border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
-      }
+      from { transform: rotate(0deg) scale(1.2); }
+      to { transform: rotate(360deg) scale(1.2); }
     }
 
     /* Exonova text with enhanced shadows - Responsive */
     #exonova-loader-container .logo {
-      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-size: clamp(2.2rem, 9vw, 4.5rem);
       font-weight: 700;
       letter-spacing: 2px;
       background: linear-gradient(90deg, #4A90E2, #7B68EE, #4A90E2);
@@ -973,10 +954,16 @@
         0 0 15px rgba(123, 104, 238, 0.4),
         0 0 30px rgba(74, 144, 226, 0.3),
         0 0 45px rgba(58, 12, 163, 0.2);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       position: relative;
       text-align: center;
       padding: 0 20px;
+    }
+
+    @media (max-width: 480px) {
+      #exonova-loader-container .logo {
+        margin-bottom: 1rem;
+      }
     }
 
     #exonova-loader-container .logo::after {
@@ -989,7 +976,7 @@
       background: linear-gradient(90deg, #4A90E2, #7B68EE, #4A90E2);
       background-size: 200% 200%;
       z-index: -1;
-      filter: blur(25px);
+      filter: blur(20px);
       opacity: 0.5;
       animation: exonova-textGradient 4s ease infinite;
     }
@@ -1005,49 +992,22 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Particle effects with enhanced shadows */
-    #exonova-loader-container .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    #exonova-loader-container .particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      animation: exonova-particleFloat 8s ease-in-out infinite;
-      box-shadow: 0 0 10px currentColor;
-    }
-
-    @keyframes exonova-particleFloat {
-      0% {
-        opacity: 0;
-        transform: translateY(0) translateX(0) scale(0);
-      }
-      20% {
-        opacity: 0.6;
-      }
-      80% {
-        opacity: 0.4;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(calc(var(--move-y) * -1)) translateX(calc(var(--move-x) * 1)) scale(1);
-      }
-    }
-
     /* Progress bar with glow effect - Responsive */
     #exonova-loader-container .progress-container {
-      width: min(280px, 80%);
+      width: min(260px, 75%);
       height: 3px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
       overflow: hidden;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       z-index: 2;
       box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+    }
+
+    @media (max-width: 480px) {
+      #exonova-loader-container .progress-container {
+        margin-top: 1.2rem;
+      }
     }
 
     #exonova-loader-container .progress-bar {
@@ -1069,7 +1029,7 @@
       top: 0;
       left: 0;
       bottom: 0;
-      width: 50px;
+      width: 40px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
       animation: exonova-progressShine 1.5s ease-in-out infinite;
     }
@@ -1083,120 +1043,83 @@
     }
 
     @keyframes exonova-progressShine {
-      0% { left: -50px; }
-      100% { left: calc(100% + 50px); }
+      0% { left: -40px; }
+      100% { left: calc(100% + 40px); }
     }
 
     /* Floating orbs with dynamic shadows - Responsive sizing */
     #exonova-loader-container .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(40px);
+      filter: blur(35px);
       opacity: 0.3;
       animation: exonova-float 8s ease-in-out infinite;
       z-index: 1;
     }
 
     #exonova-loader-container .orb1 { 
-      width: min(200px, 30vw); 
-      height: min(200px, 30vw); 
+      width: min(160px, 25vw); 
+      height: min(160px, 25vw); 
       background: #4A90E2; 
-      top: 20%; 
-      left: 20%; 
+      top: 15%; 
+      left: 15%; 
       animation-delay: 0s; 
-      box-shadow: 0 0 100px #4A90E2;
+      box-shadow: 0 0 80px #4A90E2;
     }
     
     #exonova-loader-container .orb2 { 
-      width: min(250px, 35vw); 
-      height: min(250px, 35vw); 
+      width: min(200px, 30vw); 
+      height: min(200px, 30vw); 
       background: #7B68EE; 
-      top: 60%; 
-      left: 70%; 
+      top: 65%; 
+      left: 75%; 
       animation-delay: 2s; 
-      box-shadow: 0 0 120px #7B68EE;
+      box-shadow: 0 0 100px #7B68EE;
     }
     
     #exonova-loader-container .orb3 { 
-      width: min(180px, 25vw); 
-      height: min(180px, 25vw); 
+      width: min(140px, 20vw); 
+      height: min(140px, 20vw); 
       background: #5D6DDE; 
-      top: 75%; 
-      left: 15%; 
+      top: 70%; 
+      left: 10%; 
       animation-delay: 4s; 
-      box-shadow: 0 0 90px #5D6DDE;
+      box-shadow: 0 0 70px #5D6DDE;
     }
 
     @keyframes exonova-float {
       0% { transform: translateY(0) translateX(0) scale(1); }
-      33% { transform: translateY(-20px) translateX(15px) scale(1.05); }
-      66% { transform: translateY(10px) translateX(-15px) scale(0.95); }
+      33% { transform: translateY(-15px) translateX(10px) scale(1.05); }
+      66% { transform: translateY(8px) translateX(-10px) scale(0.95); }
       100% { transform: translateY(0) translateX(0) scale(1); }
-    }
-
-    /* Connection lines */
-    #exonova-loader-container .connections {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    #exonova-loader-container .connection {
-      position: absolute;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.5), transparent);
-      transform-origin: left center;
-      animation: exonova-connectionPulse 4s ease-in-out infinite;
-      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-    }
-
-    @keyframes exonova-connectionPulse {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.6; }
     }
 
     /* Footer with enhanced shadow - Responsive */
     #exonova-loader-container .footer {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       color: rgba(255, 255, 255, 0.7);
-      font-size: clamp(0.8rem, 3vw, 1rem);
+      font-size: clamp(0.75rem, 2.5vw, 0.9rem);
       font-weight: 400;
       opacity: 0;
       animation: exonova-fadeIn 1.5s ease forwards;
       animation-delay: 1s;
       z-index: 2;
       letter-spacing: 0.5px;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
       text-align: center;
       width: 100%;
       padding: 0 20px;
     }
 
+    @media (max-width: 480px) {
+      #exonova-loader-container .footer {
+        bottom: 25px;
+      }
+    }
+
     @keyframes exonova-fadeIn {
       to { opacity: 1; }
-    }
-
-    /* Pulse rings animation - Responsive */
-    #exonova-loader-container .pulse-ring {
-      position: absolute;
-      border: 1px solid rgba(74, 144, 226, 0.3);
-      border-radius: 50%;
-      opacity: 0;
-      animation: exonova-pulse 4s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes exonova-pulse {
-      0% {
-        transform: scale(0.5);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scale(3);
-        opacity: 0;
-      }
     }
    
     </style>
@@ -1205,29 +1128,21 @@
  
   
 
-<!-- Exonova Loader Container -->
+  <!-- Exonova Loader Container -->
   <div id="exonova-loader-container">
-    <div class="gradient-bg"></div>
-    <div class="grid-overlay"></div>
-    <div class="dots-pattern"></div>
-    <div class="wave-layer"></div>
+    <div class="mesh-bg" id="exonova-mesh"></div>
+    <div class="gradient-overlay"></div>
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
-    <div class="particles" id="exonova-particles"></div>
-    <div class="connections" id="exonova-connections"></div>
-    <div id="exonova-pulse-rings"></div>
     
     <div class="logo">Exonova</div>
     
     <div class="progress-container">
       <div class="progress-bar"></div>
     </div>
-    
     <div class="footer">Made with ❤ by Aditya Jha</div>
   </div>
-
-
 
  <!-- Particles Background -->
     <div class="particles" id="particles"></div>
@@ -2635,6 +2550,7 @@
     });
   </script>
 
+ 
   <script>
     // Self-executing function to encapsulate everything
     (function() {
@@ -2644,84 +2560,40 @@
       // Lock scrolling initially
       document.body.style.overflow = 'hidden';
       
-      // Create particles
-      const particlesContainer = document.getElementById('exonova-particles');
-      const particleCount = 50;
+      // Create mesh background with irregular squares
+      const meshContainer = document.getElementById('exonova-mesh');
+      const squareCount = window.innerWidth < 768 ? 120 : 200;
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random position and size
-        const size = Math.random() * 4 + 2;
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        
-        // Random movement
-        const moveX = (Math.random() - 0.5) * 100;
-        const moveY = (Math.random() - 0.5) * 60;
-        
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${posX}%`;
-        particle.style.top = `${posY}%`;
-        particle.style.setProperty('--move-x', `${moveX}px`);
-        particle.style.setProperty('--move-y', `${moveY}px`);
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        
-        // Random color from the gradient
-        const colors = ['#4A90E2', '#5D6DDE', '#7B68EE'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.background = color;
-        particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
-        
-        particlesContainer.appendChild(particle);
-      }
+      // Colors for the mesh squares
+      const colors = [
+        'rgba(20, 25, 45, 0.7)',      // Dark blue
+        'rgba(30, 35, 60, 0.7)',      // Medium dark blue
+        'rgba(40, 50, 80, 0.6)',      // Medium blue
+        'rgba(60, 70, 110, 0.5)',     // Light blue
+        'rgba(74, 144, 226, 0.25)',   // Brand blue
+        'rgba(123, 104, 238, 0.25)'   // Brand purple
+      ];
       
-      // Create connection lines
-      const connectionsContainer = document.getElementById('exonova-connections');
-      const connectionCount = 12;
-      
-      for (let i = 0; i < connectionCount; i++) {
-        const connection = document.createElement('div');
-        connection.classList.add('connection');
+      for (let i = 0; i < squareCount; i++) {
+        const square = document.createElement('div');
+        square.classList.add('mesh-square');
         
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        const endX = Math.random() * 100;
-        const endY = Math.random() * 100;
+        // Random color selection
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        square.style.background = colors[colorIndex];
         
-        const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+        // Random animation delay
+        square.style.animationDelay = `${Math.random() * 6}s`;
         
-        connection.style.width = `${length}%`;
-        connection.style.left = `${startX}%`;
-        connection.style.top = `${startY}%`;
-        connection.style.transform = `rotate(${angle}deg)`;
-        connection.style.animationDelay = `${Math.random() * 4}s`;
+        // Random size variation for some squares
+        if (Math.random() > 0.7) {
+          const spanX = Math.floor(Math.random() * 2) + 1;
+          const spanY = Math.floor(Math.random() * 2) + 1;
+          square.style.gridColumnEnd = `span ${spanX}`;
+          square.style.gridRowEnd = `span ${spanY}`;
+        }
         
-        connectionsContainer.appendChild(connection);
-      }
-      
-      // Create pulse rings
-      const pulseRingsContainer = document.getElementById('exonova-pulse-rings');
-      const ringCount = 5;
-      
-      for (let i = 0; i < ringCount; i++) {
-        const ring = document.createElement('div');
-        ring.classList.add('pulse-ring');
-        
-        const size = Math.random() * 100 + 50;
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        
-        ring.style.width = `${size}px`;
-        ring.style.height = `${size}px`;
-        ring.style.left = `${posX}%`;
-        ring.style.top = `${posY}%`;
-        ring.style.animationDelay = `${Math.random() * 4}s`;
-        
-        pulseRingsContainer.appendChild(ring);
+        meshContainer.appendChild(square);
       }
       
       // Hide loader after 3 seconds and enable scrolling
