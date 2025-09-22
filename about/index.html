@@ -13,6 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Aditya Jha • Exonova</title>
+  <meta name="description" content="About Aditya Jha, founder of Exonova. Student, developer, and aspiring innovator passionate about merging AI with education.">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,6 +63,18 @@
       color: var(--text-light);
       overflow-x: hidden;
       line-height: 1.6;
+      transition: background-color 0.3s ease;
+    }
+
+    body.light-mode {
+      --darkest: #f5f7ff;
+      --darker: #e8ecf9;
+      --dark: #dbe2f3;
+      --text-light: #0a0f1f;
+      --text-muted: #2d3748;
+      --glass: rgba(10, 15, 31, 0.05);
+      --glass-border: rgba(10, 15, 31, 0.1);
+      background-color: var(--darkest);
     }
 
     /* Animated Gradient Background */
@@ -117,6 +130,7 @@
       opacity: 0.15;
       filter: blur(1px);
       animation: floatParticle linear infinite;
+      transition: transform 0.3s ease;
     }
 
     @keyframes floatParticle {
@@ -144,6 +158,11 @@
       z-index: 1000;
       padding: 1.5rem 5%;
       box-shadow: 0 5px 30px rgba(242, 56, 84, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    body.light-mode header {
+      background: rgba(245, 247, 255, 0.96);
     }
 
     .navbar {
@@ -186,6 +205,7 @@
       display: flex;
       gap: 2.5rem;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -221,6 +241,26 @@
     .nav-links a:hover::before,
     .nav-links a.active::before {
       width: 100%;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-light);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(242, 56, 84, 0.1);
+      transform: rotate(15deg);
     }
 
     .hamburger {
@@ -288,10 +328,6 @@
       transition: filter 0.5s ease;
     }
 
-    .hero-image:hover {
-      transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-    }
-
     .image-glow {
       position: absolute;
       top: 0;
@@ -309,6 +345,27 @@
     @keyframes glowPulse {
       0% { box-shadow: 0 0 10px var(--primary); opacity: 0.7; }
       100% { box-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary); opacity: 1; }
+    }
+
+    /* Floating Badge */
+    .floating-badge {
+      position: absolute;
+      top: 20px;
+      right: -20px;
+      background: var(--gradient);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      animation: floatBadge 3s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .tech-stack {
@@ -335,12 +392,20 @@
       border: 1px solid rgba(242, 56, 84, 0.3);
       box-shadow: 0 0 15px rgba(242, 56, 84, 0.2);
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      animation: floatIcon 4s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.5s);
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .tech-icon:hover {
       transform: translateY(-10px) scale(1.2);
       background: rgba(242, 56, 84, 0.2);
       box-shadow: 0 0 25px var(--primary);
+      animation: none;
     }
 
     /* About Content */
@@ -374,6 +439,33 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
       position: relative;
+    }
+
+    .typing-text {
+      overflow: hidden;
+      border-right: 2px solid var(--primary);
+      white-space: nowrap;
+      animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--primary) }
+    }
+
+    .fade-in-text {
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      animation-delay: 3s;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     .about-title span {
@@ -419,6 +511,49 @@
     .highlight:hover::after {
       transform: scaleX(1);
       transform-origin: left;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: var(--gradient);
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .timeline-year {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content {
+      color: var(--text-muted);
     }
 
     /* Social Links */
@@ -535,6 +670,19 @@
       opacity: 0.1;
     }
 
+    .featured-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--gradient);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
     .project-header {
       display: flex;
       align-items: center;
@@ -633,6 +781,66 @@
       border: 1px solid rgba(242, 56, 84, 0.3);
     }
 
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 5rem 5%;
+      background: linear-gradient(to top, transparent, rgba(242, 56, 84, 0.03));
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-family: 'Clash Display', sans-serif;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-text {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--gradient);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(242, 56, 84, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(242, 56, 84, 0.4);
+    }
+
+    .cta-button.outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .cta-button.outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
     /* Footer */
     footer {
       background: rgba(5, 9, 23, 0.8);
@@ -640,6 +848,11 @@
       text-align: center;
       padding: 3rem;
       border-top: 1px solid var(--glass-border);
+      transition: background-color 0.3s ease;
+    }
+
+    body.light-mode footer {
+      background: rgba(245, 247, 255, 0.8);
     }
 
     .footer-content {
@@ -717,6 +930,10 @@
         transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       }
 
+      body.light-mode .nav-links {
+        background: rgba(245, 247, 255, 0.98);
+      }
+
       .nav-links.active {
         right: 0;
       }
@@ -727,6 +944,11 @@
       
       .projects-grid {
         grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -753,6 +975,11 @@
           <li><a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blog</a></li>
           <li><a href="https://aditya-cmd-max.github.io/exonova-/about/" class="active">About</a></li>
           <li><a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a></li>
+          <li>
+            <div class="theme-toggle" id="themeToggle">
+              <i class="fas fa-moon"></i>
+            </div>
+          </li>
         </ul>
       </nav>
       <div class="hamburger">
@@ -767,36 +994,55 @@
   <main>
     <div class="main-container">
       <div class="hero-image-container" data-aos="fade-right" data-aos-duration="1000">
-        <div class="hero-image">
+        <div class="hero-image" id="heroImage">
           <img src="https://aditya-cmd-max.github.io/exonova-/adityajha.jpg" alt="Aditya Jha">
           <div class="image-glow"></div>
+          <div class="floating-badge">Student Developer 💻 | Dreaming Big 🚀</div>
         </div>
         <div class="tech-stack">
-          <div class="tech-icon"><i class="fab fa-js"></i></div>
-          <div class="tech-icon"><i class="fab fa-react"></i></div>
-          <div class="tech-icon"><i class="fab fa-node-js"></i></div>
-          <div class="tech-icon"><i class="fas fa-robot"></i></div>
+          <div class="tech-icon" style="--i: 0"><i class="fab fa-js"></i></div>
+          <div class="tech-icon" style="--i: 1"><i class="fab fa-react"></i></div>
+          <div class="tech-icon" style="--i: 2"><i class="fab fa-node-js"></i></div>
+          <div class="tech-icon" style="--i: 3"><i class="fas fa-robot"></i></div>
         </div>
       </div>
 
       <div class="about-content" data-aos="fade-left" data-aos-duration="1000">
         <span class="title-tag">Founder & Creator</span>
-        <h1 class="about-title">Aditya Jha <span>Visionary Developer</span></h1>
+        <h1 class="about-title">
+          <span class="typing-text">Hi, I'm Aditya Jha</span>
+          <span class="fade-in-text">Founder of Exonova</span>
+        </h1>
         
-        <p class="about-text">Hi I'm <span class="highlight">Aditya Jha</span>, the passionate founder of Exonova – a mission to spread knowledge, creativity, and futuristic tech. I started this platform to ignite curiosity among students and tech enthusiasts.</p>
+        <p class="about-text">Hey, I'm <span class="highlight">Aditya Jha</span>, a student and passionate self-taught developer. I started Exonova to blend creativity, technology, and education into something unique. My dream is to build tools that make learning more interactive and accessible for everyone.</p>
         
         <p class="about-text">From informative blogs, science facts, and AI tools to powerful educational content, Exonova is here to help you grow. My vision is to create a community where learning meets innovation.</p>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-content">Started my coding journey and discovered my passion for technology</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-content">Made simple projects <strong>Locally</strong> but never thought of Large Projects</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">Launched Exonova and began building innovative projects</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Future</div>
+            <div class="timeline-content">Building next-generation learning tools that revolutionize education</div>
+          </div>
+        </div>
         
         <p class="about-text">I dream of becoming a software engineer and creating magical digital experiences. Currently mastering programming, animation, and design while building projects like El Futuro AI, SkyCast Pro, and Peo TTS.</p>
         
         <p class="about-text">Let's learn. Let's grow. Let's revolutionize the digital world – together.</p>
 
         <div class="social-links">
-          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+         
         </div>
       </div>
     </div>
@@ -810,6 +1056,7 @@
 
       <div class="projects-grid">
         <div class="project-card project-el-futuro" data-aos="fade-up" data-aos-delay="100">
+          <div class="featured-badge">Featured Project</div>
           <div class="project-header">
             <img src="https://aditya-cmd-max.github.io/exonovaai/logo.png" alt="El Futuro AI Logo" class="project-logo">
             <h3 class="project-title">El Futuro AI</h3>
@@ -874,6 +1121,20 @@
         </div>
       </div>
     </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section" data-aos="fade-up">
+      <h2 class="cta-title">Wanna Contact Aditya? 🚀</h2>
+      <p class="cta-text">I'm always excited to discuss new ideas, collaborate on innovative projects, or simply connect with fellow developers and tech enthusiasts.</p>
+      <div class="cta-buttons">
+        <a href="mailto:exonova1104@gmail.com" class="cta-button">
+         exonova1104@gmail.com
+        </a>
+        <a href="https://github.com/aditya-cmd-max" class="cta-button outline">
+          <i class="fab fa-github"></i> Check my GitHub
+        </a>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -906,7 +1167,38 @@
       });
     });
 
-    // Floating Particles
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      
+      if (document.body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    });
+
+    // Parallax Tilt Effect for Hero Image
+    const heroImage = document.getElementById('heroImage');
+    
+    heroImage.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = heroImage.getBoundingClientRect();
+      const x = (e.clientX - left) / width - 0.5;
+      const y = (e.clientY - top) / height - 0.5;
+      
+      heroImage.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.05)`;
+    });
+    
+    heroImage.addEventListener('mouseleave', () => {
+      heroImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
+    });
+
+    // Floating Particles with Interaction
     const particlesContainer = document.querySelector('.particles-container');
     
     for (let i = 0; i < 100; i++) {
@@ -933,6 +1225,25 @@
       particlesContainer.appendChild(particle);
     }
 
+    // Particle interaction on mouse move
+    document.addEventListener('mousemove', (e) => {
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach(particle => {
+        const rect = particle.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        
+        const distance = Math.sqrt(Math.pow(e.clientX - x, 2) + Math.pow(e.clientY - y, 2));
+        
+        if (distance < 100) {
+          const force = (100 - distance) / 100;
+          const angle = Math.atan2(e.clientY - y, e.clientX - x);
+          
+          particle.style.transform = `translate(${Math.cos(angle) * force * 10}px, ${Math.sin(angle) * force * 10}px)`;
+        }
+      });
+    });
+
     // Project card hover effects
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -943,6 +1254,26 @@
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
       });
+    });
+
+    // Lazy loading for images
+    const images = document.querySelectorAll('img');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.remove('lazy');
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+    
+    images.forEach(img => {
+      if (img.classList.contains('lazy')) {
+        imageObserver.observe(img);
+      }
     });
   </script>
 
