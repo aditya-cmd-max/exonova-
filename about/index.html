@@ -57,6 +57,10 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Space Grotesk', sans-serif;
       background-color: var(--darkest);
@@ -88,6 +92,7 @@
       z-index: -3;
       opacity: 0.15;
       animation: gradientShift 15s ease infinite;
+      background-size: 200% 200%;
     }
 
     @keyframes gradientShift {
@@ -156,7 +161,7 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
       z-index: 1000;
-      padding: 1.5rem 5%;
+      padding: 1rem 5%;
       box-shadow: 0 5px 30px rgba(242, 56, 84, 0.1);
       transition: background-color 0.3s ease;
     }
@@ -178,6 +183,7 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
+      z-index: 1001;
     }
 
     .logo img {
@@ -203,9 +209,10 @@
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       list-style: none;
       align-items: center;
+      transition: all 0.4s ease;
     }
 
     .nav-links a {
@@ -269,6 +276,7 @@
       gap: 5px;
       cursor: pointer;
       z-index: 1001;
+      padding: 5px;
     }
 
     .hamburger span {
@@ -277,6 +285,7 @@
       height: 3px;
       background: var(--primary);
       transition: all 0.3s ease;
+      border-radius: 2px;
     }
 
     .hamburger.active span:nth-child(1) {
@@ -293,10 +302,10 @@
     .main-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 5rem 5%;
+      padding: 3rem 5%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem;
+      gap: 4rem;
       align-items: center;
       min-height: calc(100vh - 80px);
     }
@@ -318,6 +327,7 @@
       transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       box-shadow: 0 20px 50px rgba(242, 56, 84, 0.1);
       border: 1px solid var(--glass-border);
+      margin: 0 auto;
     }
 
     .hero-image img {
@@ -361,6 +371,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       animation: floatBadge 3s ease-in-out infinite;
       z-index: 2;
+      white-space: nowrap;
     }
 
     @keyframes floatBadge {
@@ -376,6 +387,8 @@
       display: flex;
       gap: 15px;
       z-index: 2;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .tech-icon {
@@ -914,12 +927,30 @@
       }
     }
 
+    @media (max-width: 992px) {
+      .nav-links {
+        gap: 1.5rem;
+      }
+      
+      .main-container {
+        padding: 2rem 5%;
+      }
+      
+      .projects-showcase, .cta-section {
+        padding: 3rem 5%;
+      }
+    }
+
     @media (max-width: 768px) {
+      header {
+        padding: 0.8rem 5%;
+      }
+      
       .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 70%;
+        width: 80%;
         height: 100vh;
         background: rgba(5, 9, 23, 0.98);
         backdrop-filter: blur(20px);
@@ -927,7 +958,8 @@
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        padding: 2rem;
       }
 
       body.light-mode .nav-links {
@@ -949,6 +981,59 @@
       .cta-buttons {
         flex-direction: column;
         align-items: center;
+      }
+      
+      .floating-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 1rem auto;
+        display: inline-block;
+      }
+      
+      .tech-stack {
+        position: relative;
+        bottom: 0;
+        margin-top: 2rem;
+      }
+      
+      .hero-image-container {
+        margin-bottom: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      
+      .logo img {
+        height: 35px;
+      }
+      
+      .main-container {
+        padding: 1.5rem 5%;
+      }
+      
+      .about-title {
+        font-size: 2rem;
+      }
+      
+      .section-title, .cta-title {
+        font-size: 2rem;
+      }
+      
+      .project-card {
+        padding: 1.5rem;
+      }
+      
+      .cta-button {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      
+      .nav-links {
+        width: 100%;
       }
     }
   </style>
@@ -1042,7 +1127,7 @@
         <p class="about-text">Let's learn. Let's grow. Let's revolutionize the digital world – together.</p>
 
         <div class="social-links">
-         
+          <!-- Social links can be added here -->
         </div>
       </div>
     </div>
@@ -1157,6 +1242,7 @@
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
     });
 
     // Close menu when clicking a link
@@ -1164,12 +1250,30 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         hamburger.classList.remove('active');
+        document.body.style.overflow = '';
       });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
 
     // Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    }
     
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
@@ -1177,31 +1281,38 @@
       if (document.body.classList.contains('light-mode')) {
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
       } else {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
       }
     });
 
     // Parallax Tilt Effect for Hero Image
     const heroImage = document.getElementById('heroImage');
     
-    heroImage.addEventListener('mousemove', (e) => {
-      const { left, top, width, height } = heroImage.getBoundingClientRect();
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
+    if (window.innerWidth > 768) { // Only on desktop
+      heroImage.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = heroImage.getBoundingClientRect();
+        const x = (e.clientX - left) / width - 0.5;
+        const y = (e.clientY - top) / height - 0.5;
+        
+        heroImage.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.05)`;
+      });
       
-      heroImage.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.05)`;
-    });
-    
-    heroImage.addEventListener('mouseleave', () => {
-      heroImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
-    });
+      heroImage.addEventListener('mouseleave', () => {
+        heroImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
+      });
+    }
 
     // Floating Particles with Interaction
     const particlesContainer = document.querySelector('.particles-container');
     
-    for (let i = 0; i < 100; i++) {
+    // Clear existing particles
+    particlesContainer.innerHTML = '';
+    
+    for (let i = 0; i < 80; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
       
@@ -1225,24 +1336,26 @@
       particlesContainer.appendChild(particle);
     }
 
-    // Particle interaction on mouse move
-    document.addEventListener('mousemove', (e) => {
-      const particles = document.querySelectorAll('.particle');
-      particles.forEach(particle => {
-        const rect = particle.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        
-        const distance = Math.sqrt(Math.pow(e.clientX - x, 2) + Math.pow(e.clientY - y, 2));
-        
-        if (distance < 100) {
-          const force = (100 - distance) / 100;
-          const angle = Math.atan2(e.clientY - y, e.clientX - x);
+    // Particle interaction on mouse move (only on desktop)
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+          const rect = particle.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top + rect.height / 2;
           
-          particle.style.transform = `translate(${Math.cos(angle) * force * 10}px, ${Math.sin(angle) * force * 10}px)`;
-        }
+          const distance = Math.sqrt(Math.pow(e.clientX - x, 2) + Math.pow(e.clientY - y, 2));
+          
+          if (distance < 100) {
+            const force = (100 - distance) / 100;
+            const angle = Math.atan2(e.clientY - y, e.clientX - x);
+            
+            particle.style.transform = `translate(${Math.cos(angle) * force * 10}px, ${Math.sin(angle) * force * 10}px)`;
+          }
+        });
       });
-    });
+    }
 
     // Project card hover effects
     document.querySelectorAll('.project-card').forEach(card => {
@@ -1256,23 +1369,13 @@
       });
     });
 
-    // Lazy loading for images
-    const images = document.querySelectorAll('img');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove('lazy');
-          imageObserver.unobserve(img);
-        }
-      });
-    });
-    
-    images.forEach(img => {
-      if (img.classList.contains('lazy')) {
-        imageObserver.observe(img);
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      // Close mobile menu if open when resizing to desktop
+      if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.style.overflow = '';
       }
     });
   </script>
@@ -1283,7 +1386,8 @@
     AOS.init({
       once: true,
       easing: 'ease-out-quart',
-      duration: 800
+      duration: 800,
+      offset: 100
     });
   </script>
 </body>
