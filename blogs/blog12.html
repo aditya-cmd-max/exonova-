@@ -387,34 +387,331 @@
       }
     }
 
-.top-left-logo {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  width: 60px;
-  height: auto;
-  z-index: 9999;
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.4s ease;
-}
+ /* Navbar container */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            padding: 0 20px;
+        }
 
-/* Hover effect */
-.top-left-logo:hover {
-  transform: scale(1.1);
-}
+        /* Logo section */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 203, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .top-left-logo {
-    width: 50px;
-  }
-}
+        .logo-container:hover {
+            border-color: rgba(67, 203, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
 
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover img {
+            transform: rotate(10deg) scale(1.05);
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #43CBFF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    
+    
+    
+    
+    /* Navigation section */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 203, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container:hover {
+            border-color: rgba(67, 203, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #43CBFF, #9708CC);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #43CBFF;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger menu (hidden by default) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            gap: 5px;
+            position: relative;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(15px);
+            flex-direction: column;
+            padding: 100px 30px 30px;
+            gap: 20px;
+            transition: right 0.4s ease;
+            z-index: 9999;
+            border-left: 1px solid rgba(67, 203, 255, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #43CBFF;
+            background: rgba(67, 203, 255, 0.1);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 900px) {
+            .navbar {
+                width: 100%;
+                padding: 0 15px;
+                top: 15px;
+            }
+            
+            .logo-container, .nav-container {
+                padding: 8px 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 10px;
+            }
+            
+            .logo-container, .nav-container {
+                padding: 6px 12px;
+            }
+            
+            .logo img {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* Hamburger animation */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: #43CBFF;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: #43CBFF;
+        }
+
+        /* Scrolling effect */
+        .navbar.scrolled {
+            top: 10px;
+        }
+        
+        .navbar.scrolled .logo-container,
+        .navbar.scrolled .nav-container {
+            padding: 8px 18px;
+            backdrop-filter: blur(15px);
+            background: rgba(15, 15, 35, 0.95);
+        }
+
+        /* Demo content */
+        .demo-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .demo-content h1 {
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #43CBFF, #9708CC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+        }
+        
+        .demo-content p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        .scroll-indicator {
+            margin-top: 40px;
+            color: #43CBFF;
+            font-size: 1rem;
+        }
 
   </style>
 </head>
 <body>
-<img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo" class="top-left-logo">
+ <nav class="navbar">
+        <!-- Logo section -->
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo">
+            </div>
+            <div class="logo-text">Exonova</div>
+        </div>
+   <!-- Navigation section -->
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="https://aditya-cmd-max.github.io/exonova-/">Home</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blogs</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="https://aditya-cmd-max.github.io/exonova-/">Home</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blogs</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+    </div>
+    
 
  
 
@@ -645,7 +942,88 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
+ <script>
+const logo = document.querySelector('.top-left-logo');
+let lastScroll = 0;
 
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+  if (window.innerWidth <= 768) { // mobile behavior
+    if (currentScroll > lastScroll && currentScroll > 20) {
+      // Scrolling down
+      logo.style.opacity = 0;
+    } else {
+      // Scrolling up
+      logo.style.opacity = 1;
+    }
+  } else {
+    // Desktop: always visible
+    logo.style.opacity = 1;
+  }
+
+  lastScroll = currentScroll <= 0 ? 0 : currentScroll; // reset at top
+});
+</script>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.querySelector('.navbar');
+
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navbar.contains(event.target);
+            const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickInsideMobileMenu && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                // Close mobile menu if open when resizing to desktop
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
 
 </body>
 </html>
