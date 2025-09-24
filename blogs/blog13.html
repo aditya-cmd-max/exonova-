@@ -1001,29 +1001,7 @@
     });
   </script>
   
-  <script>
-const logo = document.querySelector('.top-left-logo');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-  const currentScroll = window.scrollY || document.documentElement.scrollTop;
-
-  if (window.innerWidth <= 768) { // mobile behavior
-    if (currentScroll > lastScroll && currentScroll > 20) {
-      // Scrolling down
-      logo.style.opacity = 0;
-    } else {
-      // Scrolling up
-      logo.style.opacity = 1;
-    }
-  } else {
-    // Desktop: always visible
-    logo.style.opacity = 1;
-  }
-
-  lastScroll = currentScroll <= 0 ? 0 : currentScroll; // reset at top
-});
-</script>
+ 
 
     <script>
         const hamburger = document.getElementById('hamburger');
