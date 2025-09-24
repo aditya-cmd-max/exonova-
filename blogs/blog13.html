@@ -422,9 +422,38 @@
         overflow-x: auto;
       }
     }
+
+.top-left-logo {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 60px;
+  height: auto;
+  z-index: 9999;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.4s ease;
+}
+
+/* Hover effect */
+.top-left-logo:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .top-left-logo {
+    width: 50px;
+  }
+}
+
   </style>
 </head>
 <body>
+ 
+  <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo" class="top-left-logo">
+
+  
+  
   <header>
     <div class="header-content">
       <div class="blog-number">Blog#13</div>
@@ -673,5 +702,30 @@
       offset: 100
     });
   </script>
+  
+  <script>
+const logo = document.querySelector('.top-left-logo');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+  if (window.innerWidth <= 768) { // mobile behavior
+    if (currentScroll > lastScroll && currentScroll > 20) {
+      // Scrolling down
+      logo.style.opacity = 0;
+    } else {
+      // Scrolling up
+      logo.style.opacity = 1;
+    }
+  } else {
+    // Desktop: always visible
+    logo.style.opacity = 1;
+  }
+
+  lastScroll = currentScroll <= 0 ? 0 : currentScroll; // reset at top
+});
+</script>
+
 </body>
 </html>
