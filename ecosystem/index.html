@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exonova Ecosystem</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Product Sans (fallback to Roboto if not available) */
+    @font-face {
+      font-family: 'Product Sans';
+      src: local('Product Sans'), url('https://fonts.cdnfonts.com/s/59106/Product%20Sans.woff') format('woff');
+    }
+
+    :root {
+      --primary-color: #8a2be2;
+      --primary-light: #9d4edd;
+      --text-color: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --bg-dark: #121212;
+      --bg-darker: #0a0a0a;
+      --bg-card: #1e1e1e;
+      --border-color: #333333;
+      --accent-color: #00d4ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Product Sans', 'Roboto', Arial, sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-dark);
+      overflow-x: hidden;
+    }
+
+   /* Navbar container */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            padding: 0 20px;
+        }
+
+        /* Logo section */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 203, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            border-color: rgba(67, 203, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover img {
+            transform: rotate(10deg) scale(1.05);
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #43CBFF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation section */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 203, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container:hover {
+            border-color: rgba(67, 203, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #43CBFF, #9708CC);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #43CBFF;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger menu (hidden by default) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            gap: 5px;
+            position: relative;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(15px);
+            flex-direction: column;
+            padding: 100px 30px 30px;
+            gap: 20px;
+            transition: right 0.4s ease;
+            z-index: 9999;
+            border-left: 1px solid rgba(67, 203, 255, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #43CBFF;
+            background: rgba(67, 203, 255, 0.1);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 900px) {
+            .navbar {
+                width: 100%;
+                padding: 0 15px;
+                top: 15px;
+            }
+            
+            .logo-container, .nav-container {
+                padding: 8px 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 10px;
+            }
+            
+            .logo-container, .nav-container {
+                padding: 6px 12px;
+            }
+            
+            .logo img {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* Hamburger animation */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: #43CBFF;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: #43CBFF;
+        }
+
+        /* Scrolling effect */
+        .navbar.scrolled {
+            top: 10px;
+        }
+        
+        .navbar.scrolled .logo-container,
+        .navbar.scrolled .nav-container {
+            padding: 8px 18px;
+            backdrop-filter: blur(15px);
+            background: rgba(15, 15, 35, 0.95);
+        }
+
+        /* Demo content */
+        .demo-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .demo-content h1 {
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #43CBFF, #9708CC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+        }
+        
+        .demo-content p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        .scroll-indicator {
+            margin-top: 40px;
+            color: #43CBFF;
+            font-size: 1rem;
+        }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+      z-index: -1;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero p {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      max-width: 700px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Product Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border: none;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--text-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Products Section */
+    .products {
+      padding: 100px 5%;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 80px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(50px);
+      position: relative;
+    }
+
+    .product-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(138, 43, 226, 0.2);
+    }
+
+    .product-icon {
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-icon i {
+      font-size: 50px;
+      color: white;
+      z-index: 2;
+    }
+
+    .product-icon::after {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: rotate(45deg) translate(-20%, -50%);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: rotate(45deg) translate(-20%, -50%);
+      }
+      50% {
+        transform: rotate(45deg) translate(100%, 50%);
+      }
+      100% {
+        transform: rotate(45deg) translate(-20%, -50%);
+      }
+    }
+
+    .product-content {
+      padding: 30px;
+    }
+
+    .product-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary-light);
+    }
+
+    .product-description {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .product-features {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .product-features li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .product-features li::before {
+      content: '✓';
+      color: var(--accent-color);
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .product-link {
+      display: inline-block;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .product-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .product-link:hover::after {
+      width: 100%;
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 80px 5%;
+      background: var(--bg-darker);
+      position: relative;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .stat-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 100px 5%;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta h2 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      border-top: 1px solid var(--border-color);
+      padding: 60px 5%;
+      font-size: 16px;
+      overflow: hidden;
+      background-color: var(--bg-darker);
+    }
+
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+      z-index: 0;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 60px;
+      gap: 40px;
+    }
+
+    .footer-top .left {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .footer-top .left p {
+      font-size: 28px;
+      margin: 0 0 10px 0;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .footer-top .left h1 {
+      font-size: 36px;
+      margin: 0 0 25px 0;
+      font-weight: 600;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-top .right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 60px;
+    }
+
+    .footer-top .right ul {
+      list-style: none;
+      padding: 0;
+      min-width: 200px;
+    }
+
+    .footer-top .right ul li {
+      margin-bottom: 14px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .footer-top .right ul li:first-child {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 18px;
+      color: var(--primary-light);
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-top .right ul li:first-child::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .footer-top .right ul:hover li:first-child::after {
+      width: 100%;
+    }
+
+    .footer-top .right ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .footer-top .right ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .footer-top .right ul li a:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .footer-top .right ul li a:hover::after {
+      width: 100%;
+    }
+
+    .footer-brand {
+      font-size: clamp(145px, 10vw, 100px);
+      font-weight: bold;
+      margin: 50px 0 10px 0;
+      letter-spacing: -2px;
+      text-align: center;
+      line-height: 1;
+      white-space: nowrap;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .footer-brand::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 60%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    .brand-credit {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 50px;
+      color: var(--text-muted);
+      font-style: italic;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    .brand-credit::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+      font-size: 16px;
+      font-family: 'Product Sans', sans-serif;
+      gap: 20px;
+    }
+
+    .footer-bottom-left img {
+      height: 40px;
+      filter: brightness(0) invert(1);
+      transition: all 0.3s ease;
+    }
+
+    .footer-bottom-left img:hover {
+      transform: scale(1.05);
+      filter: brightness(0) invert(0.8);
+    }
+
+    .footer-bottom-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-bottom-right a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .footer-bottom-right a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-bottom-right a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .footer-bottom-right a:hover::after {
+      width: 100%;
+    }
+
+    .footer-last {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-last p:first-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-last .heart {
+      color: #ff6b6b;
+      animation: heartbeat 1.5s ease infinite;
+    }
+
+    .footer-last .coffee {
+      color: #8b4513;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .footer-top .right {
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 5%;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .footer {
+        padding: 40px 5%;
+      }
+      
+      .footer-top {
+        flex-direction: column;
+        gap: 40px;
+      }
+      
+      .footer-top .right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .footer-brand {
+        margin: 80px 0 10px 0;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+      
+      .footer-bottom-right {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-top .right {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .footer-top .right ul {
+        min-width: 100%;
+      }
+      
+      .footer-top .left p {
+        font-size: 24px;
+      }
+      
+      .footer-top .left h1 {
+        font-size: 30px;
+      }
+      
+      .footer-brand {
+        font-size: clamp(40px, 15vw, 40px);
+      }
+      
+      .brand-credit {
+        font-size: 16px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+        <!-- Logo section -->
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo">
+            </div>
+            <div class="logo-text">Exonova</div>
+        </div>
+
+        <!-- Navigation section -->
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blogs</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
+                <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#">Home</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blogs</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
+        <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+    </div>
+<br><br><br><br><br><br><br>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Exonova Ecosystem</h1>
+    <p>Discover our suite of innovative products designed to enhance your digital experience with cutting-edge technology and stunning design.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">Explore Products</button>
+      <button class="btn btn-secondary">Get Started</button>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <h2 class="section-title">Our Products</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-icon">
+          <i class="fas fa-cloud-sun"></i>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">SkyCast Pro</h3>
+          <p class="product-description">Advanced weather forecasting with AI-powered predictions and stunning visualizations.</p>
+          <ul class="product-features">
+            <li>Real-time weather updates</li>
+            <li>AI-powered predictions</li>
+            <li>Interactive maps</li>
+            <li>Custom alerts</li>
+          </ul>
+          <a href="https://aditya-cmd-max.github.io/exonovaweather" class="product-link">Learn More →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">MindScribe</h3>
+          <p class="product-description">AI-powered note-taking and organization tool that understands your thoughts.</p>
+          <ul class="product-features">
+            <li>Smart categorization</li>
+            <li>Voice-to-text transcription</li>
+            <li>Cross-platform sync</li>
+            <li>Advanced search</li>
+          </ul>
+          <a href="https://aditya-cmd-max.github.io/mindscribe/" class="product-link">Learn More →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">El Futuro</h3>
+          <p class="product-description">Next-generation AI assistant that adapts to your needs and preferences.</p>
+          <ul class="product-features">
+            <li>Personalized responses</li>
+            <li>Multi-language support</li>
+            <li>Context-aware interactions</li>
+            <li>Seamless integration</li>
+          </ul>
+          <a href="https://aditya-cmd-max.github.io/exonovaai/" class="product-link">Learn More →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon">
+          <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">Peo-TTS</h3>
+          <p class="product-description">Advanced text-to-speech with natural voices and emotional expression.</p>
+          <ul class="product-features">
+            <li>Natural sounding voices</li>
+            <li>Emotional expression</li>
+            <li>Multiple languages</li>
+            <li>Custom voice creation</li>
+          </ul>
+          <a href="https://aditya-cmd-max.github.io/Peo/" class="product-link">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="6">0</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="99">0</div>
+        <div class="stat-label">Uptime %</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="50">0</div>
+        <div class="stat-label">Countries</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>Ready to Transform Your Digital Experience?</h2>
+    <p>Join thousands of users who have already discovered the power of Exonova products.</p>
+    <button class="btn btn-primary">Get Started Now</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-top">
+        <div class="left">
+          <p>Thank You!</p>
+          <h1>For visiting us.</h1>
+          <button class="btn btn-secondary">Get Started</button>
+        </div>
+        <div class="right">
+          <ul>
+            <li>Navigation</li>
+            <li><a href="https://aditya-cmd-max.github.io/exonova-/about/">About</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/exonova-/blogs/">Blogs</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/exonova-/downloadaxis/">Download App</a></li>
+            <li><a href="/community">Community</a></li>
+          </ul>
+          <ul>
+            <li>Other teams and product areas</li>
+            <li><a href="https://aditya-cmd-max.github.io/exonovaai/">El Futuro</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/exonovaweather">SkyCast pro</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/popout/">PopOut Pro</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/Peo/">Peo-TTS</a></li>
+            <li><a href="https://aditya-cmd-max.github.io/mindscribe/">Mindscribe</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-brand">Exonova Ecosystem</div>
+      <div class="brand-credit">By Aditya Jha</div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <a href="#">
+            <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo">
+          </a>
+        </div>
+        <div class="footer-bottom-right">
+          <a href="https://aditya-cmd-max.github.io/exonova-/about/">About</a>
+          <a href="#">Exonova Ecosystem</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/help">Help</a>
+        </div>
+      </div>
+
+      <div class="footer-last">
+        <p>Made with <span class="heart"><i class="fas fa-heart"></i></span> and <span class="coffee"><i class="fas fa-coffee"></i></span> by Aditya Jha</p>
+        <p>© 2025 Exonova. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Animate stats if it's a stat item
+          if (entry.target.classList.contains('stat-item')) {
+            const numberElement = entry.target.querySelector('.stat-number');
+            const target = parseInt(numberElement.getAttribute('data-target'));
+            animateNumber(numberElement, 0, target, 2000);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe product cards and stat items
+    document.querySelectorAll('.product-card, .stat-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Number animation function
+    function animateNumber(element, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Button click animations
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        // Create ripple effect
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add ripple effect styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .btn {
+        position: relative;
+        overflow: hidden;
+      }
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+      }
+      @keyframes ripple-animation {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+  
+  <script>
+    
+     const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.querySelector('.navbar');
+
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navbar.contains(event.target);
+            const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickInsideMobileMenu && mobileMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                // Close mobile menu if open when resizing to desktop
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+  </script>
+</body>
+</html>
