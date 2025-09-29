@@ -2219,12 +2219,13 @@
   </div>
   </center>
 
-   <style>
+    <style>
         /* Isolated styles for the component */
         .exonova-component {
             all: initial;
             font-family: "Product Sans", Arial, sans-serif;
             display: block;
+            width: 100%;
         }
 
         .exonova-component * {
@@ -2239,8 +2240,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 80px 50px;
+            min-height: 40vh; /* Reduced from 100vh */
+            padding: 40px 20px; /* Reduced padding */
             overflow: hidden;
             width: 100%;
         }
@@ -2251,7 +2252,7 @@
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 30px 30px; /* Smaller mesh */
             opacity: 0.05;
             z-index: 0;
             animation: meshMove 20s linear infinite;
@@ -2262,7 +2263,7 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(40px, 40px);
+                transform: translate(30px, 30px);
             }
         }
 
@@ -2270,24 +2271,30 @@
             color: #fff;
             font-family: "Product Sans", Arial, sans-serif;
             font-weight: 700;
-            font-size: clamp(1rem, 8vw, 7rem);
+            font-size: clamp(1.5rem, 4vw, 4rem); /* Adjusted font scaling */
             text-align: center;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
             line-height: 1.1;
-            width: %;
             z-index: 1;
             position: relative;
             white-space: nowrap;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 8px;
+            width: 100%;
+            max-width: 100%;
         }
 
         .exonova-component .tagline-container .hero img {
             height: 1em;
-            vertical-align: -0.15em;
+            vertical-align: middle;
             filter: brightness(-1) invert(1);
             margin: 0;
             padding: 0;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .exonova-component .tagline-container .hero img:hover {
@@ -2296,7 +2303,8 @@
 
         .exonova-component .tagline-container .hero span {
             position: relative;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
         }
 
         .exonova-component .tagline-container .hero span::after {
@@ -2306,28 +2314,42 @@
             top: 0;
             width: 100%;
             color: #fff;
-            filter: blur(15px);
+            filter: blur(10px); /* Reduced blur */
             opacity: 0.2;
             z-index: -1;
         }
 
-        .exonova-component .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
         
+
        
 
+        /* Responsive adjustments */
         @media (max-width: 768px) {
+            .exonova-component .tagline-container {
+                min-height: 30vh; /* Even smaller on mobile */
+                padding: 30px 15px;
+            }
+            
             .exonova-component .tagline-container .hero {
-                font-size: clamp(1.8rem, 10vw, 5rem);
-                white-space: nowrap;
-                overflow: hidden;
+                font-size: clamp(1.2rem, 5vw, 3rem);
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exonova-component .tagline-container {
+                min-height: 25vh;
+                padding: 20px 10px;
+            }
+            
+            .exonova-component .tagline-container .hero {
+                font-size: clamp(1rem, 5.5vw, 2.5rem);
+                gap: 4px;
+                letter-spacing: -0.3px;
+            }
+            
+            .exonova-component .tagline-container .mesh {
+                background-size: 20px 20px; /* Even smaller mesh on mobile */
             }
         }
     </style>
@@ -2348,6 +2370,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30; /* Reduced particle count */
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 4 + 1; /* Smaller particles */
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 15 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        document.addEventListener('DOMContentLoaded', createParticles);
+        
+        // Add scroll effect to mesh
+        window.addEventListener('scroll', function() {
+            const mesh = document.querySelector('.exonova-component .mesh');
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.3; /* Reduced scroll effect */
+            
+            mesh.style.transform = `translateY(${rate}px)`;
+        });
+    </script>
 
   
   
