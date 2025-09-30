@@ -1404,42 +1404,120 @@
                 <div class="project-card">
                     <div class="project-image"></div>
                     <div class="project-content">
-                        <h3>Learning Platform</h3>
-                        <p>An interactive platform for creating and sharing educational content with gamification elements.</p>
+                        <h3>EL Futuro</h3>
+                        <p>Our Most Intelligent AI Model which makes everyday tasks easier.</p>
                         <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">MongoDB</span>
+                            <span class="project-tag">#AI</span>
+                            <span class="project-tag">#ChatBot</span>
+                            <span class="project-tag">#Exonova</span>
                         </div>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image"></div>
                     <div class="project-content">
-                        <h3>3D Portfolio Builder</h3>
-                        <p>A tool for creating interactive 3D portfolios with customizable templates and animations.</p>
+                        <h3>Mindscribe</h3>
+                        <p>Mindscribe is your digital notebook to make everyday learning easier.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Three.js</span>
-                            <span class="project-tag">GSAP</span>
-                            <span class="project-tag">WebGL</span>
+                            <span class="project-tag">#Mindscribe</span>
+                            <span class="project-tag">#Notebook</span>
+                            <span class="project-tag">#Exonova</span>
                         </div>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image"></div>
                     <div class="project-content">
-                        <h3>Code Collaboration Tool</h3>
-                        <p>Real-time code editing and collaboration platform with integrated communication features.</p>
+                        <h3>Peo-TTS</h3>
+                        <p>Convert any educational text into natural speech with emotion and emphasis, supporting multiple languages and learning styles.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Socket.io</span>
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">Express</span>
+                            <span class="project-tag">#Peo</span>
+                            <span class="project-tag">#TTS</span>
+                            <span class="project-tag">#Exonova</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+<!-- Note Section -->
+<div class="note-section">
+  <div class="mesh"></div>
+  <p>
+    Note: the above mentioned Projects can be accessed at 
+    <a href="https://aditya-cmd-max.github.io/exonova-/downloadaxis/" target="_blank" class="highlight">Exonova Axis</a> 
+    android app. Also, you can use their web versions at 
+    <a href="https://aditya-cmd-max.github.io/exonova-/ecosystem/" target="_blank" class="highlight">Exonova Ecosystem</a>.
+  </p>
+</div>
+
+<style>
+.note-section {
+  position: relative;
+  background: #000; /* Black background */
+  color: #aaa;      /* Grey text */
+  font-size: 14px;
+  padding: 20px 25px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  font-family: "Segoe UI", sans-serif;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+}
+
+.note-section p {
+  margin: 0;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2; /* Make sure text stays above mesh */
+}
+
+.note-section .highlight {
+  background: linear-gradient(90deg, #ff4b2b, #ff416c, #6a5acd, #1e90ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  text-decoration: none;
+  animation: glow 3s ease-in-out infinite alternate;
+  transition: text-shadow 0.3s ease;
+}
+
+.note-section .highlight:hover {
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+}
+
+/* Mesh effect */
+.mesh {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: moveMesh 12s linear infinite;
+  z-index: 1;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  }
+  to {
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes moveMesh {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 40px 40px, 40px 40px;
+  }
+}
+</style>
 
     <!-- Values Section -->
     <section id="values">
