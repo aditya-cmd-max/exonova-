@@ -1455,7 +1455,7 @@
   </footer>
   
   <!-- Back to Top Button -->
-  <a href="#" class="back-to-top" id="backtotop">
+  <a href="#" class="back-to-top" id="backToTop">
     <i class="fas fa-arrow-up"></i>
   </a>
   
@@ -1471,33 +1471,50 @@
     });
     
    
-    // Back to top button
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('active');
-      } else {
-        backToTop.classList.remove('active');
+    document.addEventListener('DOMContentLoaded', () => {
+  const backToTop = document.getElementById('backToTop');
+  if (!backToTop) return; // safe guard, avoids runtime error
+
+  const SHOW_AFTER = 300;     // px scrolled before visible
+  const HEADER_OFFSET = 80;   // adjust if you have a fixed header
+
+  // toggle visibility
+  const toggleVisibility = () => {
+    if (window.scrollY > SHOW_AFTER) backToTop.classList.add('active');
+    else backToTop.classList.remove('active');
+  };
+
+  // run once in case page is already scrolled
+  toggleVisibility();
+
+  // use passive for better scroll performance
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+
+  // click -> smooth scroll to top
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Smooth scroll for anchor links that point to ids
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') return; // ignore plain '#'
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        // get absolute position and subtract header offset
+        const top = targetElement.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+        window.scrollTo({ top, behavior: 'smooth' });
+
+        // Optional: update the URL hash without jumping
+        history.pushState(null, '', targetId);
       }
     });
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
+  });
+});
     
     // Create floating particles
     const particlesContainer = document.getElementById('particles');
