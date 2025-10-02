@@ -1051,69 +1051,179 @@
         font-size: 1rem;
       }
     }
- /* Full-screen loader overlay */
-  .exonova-loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0d0d0d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 9999; /* Ensure it sits above all content */
-  }
+ #website-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-  .exonova-loader-spinner {
-    width: 3em;
-    height: 3em;
-    cursor: not-allowed;
-    border-radius: 50%;
-    border: 2px solid #444;
-    box-shadow: -10px -10px 10px #6359f8, 
-                0px -10px 10px 0px #9c32e2, 
-                10px -10px 10px #f36896, 
-                10px 0 10px #ff0b0b, 
-                10px 10px 10px 0px #ff5500, 
-                0 10px 10px 0px #ff9500, 
-                -10px 10px 10px 0px #ffb700;
-    animation: exonova-rot55 0.7s linear infinite;
-    opacity: 0; /* Start hidden for fade-in */
-    transition: opacity 3s ease;
-    position: relative;
-  }
+        #website-loader .loader-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-  .exonova-loader-inner {
-    border: 2px solid #444;
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+        #website-loader .loader {
+            width: 8em;
+            height: 8em;
+            filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.6));
+            animation: loader-fadeOut 0.5s ease-in-out 3s forwards;
+        }
 
-  @keyframes exonova-rot55 {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        #website-loader .loader__eye1,
+        #website-loader .loader__eye2,
+        #website-loader .loader__mouth1,
+        #website-loader .loader__mouth2 {
+            animation: loader-eye1 3s ease-in-out forwards;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'lilgrotesk', 'Product Sans', Arial, sans-serif;
-      color: var(--textly-color);
-      background-color: var(--bgly-dark);
-    }
+        #website-loader .loader__eye1,
+        #website-loader .loader__eye2 {
+            transform-origin: 64px 64px;
+        }
 
+        #website-loader .loader__eye2 {
+            animation-name: loader-eye2;
+        }
+
+        #website-loader .loader__mouth1 {
+            animation-name: loader-mouth1;
+        }
+
+        #website-loader .loader__mouth2 {
+            animation-name: loader-mouth2;
+            visibility: hidden;
+        }
+
+        #website-loader .welcome-text {
+            position: absolute;
+            bottom: -35px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(90deg, hsl(193,90%,50%), hsl(223,90%,50%));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: loader-textReveal 3s ease-in-out forwards, loader-fadeOut 0.5s ease-in-out 3s forwards;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
+        }
+
+        /* Loader-specific animations with unique names */
+        @keyframes loader-eye1 {
+            from {
+                transform: rotate(-260deg) translate(0, -56px);
+            }
+            50%,
+            60% {
+                animation-timing-function: cubic-bezier(0.17, 0, 0.58, 1);
+                transform: rotate(-40deg) translate(0, -56px) scale(1);
+            }
+            to {
+                transform: rotate(225deg) translate(0, -56px) scale(0.35);
+            }
+        }
+
+        @keyframes loader-eye2 {
+            from {
+                transform: rotate(-260deg) translate(0, -56px);
+            }
+            50% {
+                transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
+            }
+            52.5% {
+                transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1, 0);
+            }
+            55%,
+            70% {
+                animation-timing-function: cubic-bezier(0, 0, 0.28, 1);
+                transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
+            }
+            to {
+                transform: rotate(150deg) translate(0, -56px) scale(0.4);
+            }
+        }
+
+        @keyframes loader-mouth1 {
+            from {
+                animation-timing-function: ease-in;
+                stroke-dasharray: 0 351.86;
+                stroke-dashoffset: 0;
+            }
+            25% {
+                animation-timing-function: ease-out;
+                stroke-dasharray: 175.93 351.86;
+                stroke-dashoffset: 0;
+            }
+            50% {
+                animation-timing-function: steps(1, start);
+                stroke-dasharray: 175.93 351.86;
+                stroke-dashoffset: -175.93;
+                visibility: visible;
+            }
+            75%,
+            to {
+                visibility: hidden;
+            }
+        }
+
+        @keyframes loader-mouth2 {
+            from {
+                animation-timing-function: steps(1, end);
+                visibility: hidden;
+            }
+            50% {
+                animation-timing-function: ease-in-out;
+                visibility: visible;
+                stroke-dashoffset: 0;
+            }
+            to {
+                stroke-dashoffset: -351.86;
+            }
+        }
+
+        @keyframes loader-textReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            30% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes loader-fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    
     .footer {
       position: relative;
       border-top: 1px solid var(--borderly-color);
@@ -1499,13 +1609,45 @@
     
 
 
-    
-<!-- Loader Overlay -->
-<div class="exonova-loader-overlay">
-  <div class="exonova-loader-spinner">
-    <div class="exonova-loader-inner"></div>
-  </div>
-</div>
+<!-- Loader overlay -->
+    <div id="website-loader">
+        <div class="loader-wrapper">
+            <div class="loader">
+                <svg height="108px" width="108px" viewBox="0 0 128 128">
+                    <defs>
+                        <clipPath id="loader-eyes">
+                            <circle transform="rotate(-40,64,64) translate(0,-56)" r="8" cy="64" cx="64" class="loader__eye1"></circle>
+                            <circle transform="rotate(40,64,64) translate(0,-56)" r="8" cy="64" cx="64" class="loader__eye2"></circle>
+                        </clipPath>
+                        <linearGradient y2="1" x2="0" y1="0" x1="0" id="loader-grad">
+                            <stop stop-color="#000" offset="0%"></stop>
+                            <stop stop-color="#fff" offset="100%"></stop>
+                        </linearGradient>
+                        <mask id="loader-mask">
+                            <rect fill="url(#loader-grad)" height="128" width="128" y="0" x="0"></rect>
+                        </mask>
+                    </defs>
+                    <g stroke-dasharray="175.93 351.86" stroke-width="12" stroke-linecap="round">
+                        <g>
+                            <rect clip-path="url(#loader-eyes)" height="64" width="128" fill="hsl(193,90%,50%)"></rect>
+                            <g stroke="hsl(193,90%,50%)" fill="none">
+                                <circle transform="rotate(180,64,64)" r="56" cy="64" cx="64" class="loader__mouth1"></circle>
+                                <circle transform="rotate(0,64,64)" r="56" cy="64" cx="64" class="loader__mouth2"></circle>
+                            </g>
+                        </g>
+                        <g mask="url(#loader-mask)">
+                            <rect clip-path="url(#loader-eyes)" height="64" width="128" fill="hsl(223,90%,50%)"></rect>
+                            <g stroke="hsl(223,90%,50%)" fill="none">
+                                <circle transform="rotate(180,64,64)" r="56" cy="64" cx="64" class="loader__mouth1"></circle>
+                                <circle transform="rotate(0,64,64)" r="56" cy="64" cx="64" class="loader__mouth2"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="welcome-text">Welcome Home</div>
+        </div>
+    </div>
 
 
  <!-- Particles Background -->
@@ -3269,29 +3411,7 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
       });
     });
   </script>
-<script>
-  const loaderOverlay = document.querySelector('.exonova-loader-overlay');
-  const spinner = document.querySelector('.exonova-loader-spinner');
-  
-  // Lock scroll while loader is visible
-  document.body.style.overflow = 'hidden';
 
-  // Fade in spinner
-  requestAnimationFrame(() => {
-    spinner.style.opacity = 1;
-  });
-
-  // After 3 seconds, fade out loader and unlock scroll
-  setTimeout(() => {
-    spinner.style.opacity = 0;
-    spinner.style.transition = "opacity 0.5s ease"; // fade out faster
-    // Remove overlay and unlock scroll after fade-out
-    setTimeout(() => {
-      document.body.style.overflow = "auto";
-      loaderOverlay.remove();
-    }, 500);
-  }, 3000);
-</script>
 
  <script>
         const hamburger = document.getElementById('hamburger');
@@ -3351,7 +3471,16 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
             }
         });
     </script>
-   
+    <script>
+        // Remove loader and show website content after 3.5 seconds
+        setTimeout(function() {
+            const loader = document.getElementById('website-loader');
+            const content = document.getElementById('website-content');
+            
+            if (loader) loader.style.display = 'none';
+            if (content) content.style.display = 'block';
+        }, 3500);
+    </script>
       
   </div>
 </body>
