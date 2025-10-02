@@ -214,37 +214,7 @@
             left: 100%;
         }
         
-        .app-card {
-            transition: all 0.3s ease;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            background: #1e293b;
-            border: 1px solid #334155;
-        }
-        
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3);
-            border-color: #8b5cf6;
-        }
-        
-        .app-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
-            padding: 1.5rem;
-            color: white;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .app-card:hover .app-overlay {
-            transform: translateY(0);
-        }
-        
+      
         /* Navbar container */
         .navbar {
             position: fixed;
@@ -529,6 +499,251 @@
             font-size: 1rem;
         }
         
+      
+      @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .app-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.4);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--primary-pink));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .app-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .app-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+            padding: 2rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .app-card:hover .app-overlay {
+            transform: translateY(0);
+        }
+        
+        .logo-frame {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .app-card:hover .logo-frame {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-frame::before {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .app-card:hover .logo-frame::before {
+            opacity: 1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .product-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .app-card:hover .product-logo {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .card-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .try-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #1e293b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .try-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .coming-soon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 2rem;
+        }
+        
+        .coming-soon-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.4s ease;
+        }
+        
+        .app-card:hover .coming-soon-icon {
+            transform: scale(1.1);
+            background: rgba(139, 92, 246, 0.2);
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .app-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .card-content {
+                padding: 1.5rem;
+            }
+            
+            .logo-frame {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .product-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .card-title {
+                font-size: 1.25rem;
+            }
+        }
+        
+        /* Animation delays for staggered effect */
+        .animate-delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .animate-delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        .animate-delay-400 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-500 {
+            animation-delay: 0.5s;
+        }
+      
+      
         /* Floating animation */
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -567,18 +782,7 @@
             animation: pulse 4s ease-in-out infinite;
         }
         
-        /* Product logo styles */
-        .product-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
         
-        .app-card:hover .product-logo {
-            transform: scale(1.1);
-        }
         
         /* Glow effect */
         .glow {
@@ -2172,28 +2376,37 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
         </svg>
     </div>
 
-    <!-- Products Section -->
-    <section id="products" class="py-20 bg-gray-900 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate__animated animate__fadeIn">
-                <h2 class="title-font text-3xl sm:text-4xl font-bold text-white mb-4">
+     <!-- Products Section -->
+    <section id="products" class="py-16 md:py-20 bg-gray-900 relative z-10 overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-10 left-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-60 h-60 bg-blue-500 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 md:mb-16 animate__animated animate__fadeIn">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 font-space">
                     Our <span class="gradient-text">Educational Tools</span>
                 </h2>
-                <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto font-light">
                     A growing suite of AI-powered applications transforming how we learn and teach
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- El Futuro AI -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-purple-900 to-purple-700 animate__animated animate__fadeInUp">
-                    <div class="p-6 h-full flex flex-col justify-between">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-100">
+                    <div class="card-content">
                         <div>
-                            <img src="https://aditya-cmd-max.github.io/exonovaai/logo.png" alt="El Futuro AI" class="product-logo">
-                            <h3 class="text-2xl font-bold text-white mb-2">El Futuro AI</h3>
-                            <p class="text-gray-200">Intelligent tutoring system that adapts to each learner's needs and pace.</p>
+                            <div class="logo-frame">
+                                <img src="https://aditya-cmd-max.github.io/exonovaai/logo.png" alt="El Futuro AI" class="product-logo">
+                            </div>
+                            <h3 class="card-title">El Futuro AI</h3>
+                            <p class="card-description">Intelligent tutoring system that adapts to each learner's needs and pace.</p>
                         </div>
-                        <a href="#" class="inline-flex items-center text-purple-200 font-medium">
+                        <a href="#" class="card-link">
                             Learn more
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2201,20 +2414,24 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
                         </a>
                     </div>
                     <div class="app-overlay">
-                        <p class="text-sm text-gray-200">Personalized learning paths, automated grading, and real-time feedback powered by advanced machine learning algorithms.</p>
-                        <a href="https://aditya-cmd-max.github.io/exonovaai/" class="mt-2 inline-block bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium">Try Now</a>
+                        <p class="text-sm text-gray-200 mb-4">Personalized learning paths, automated grading, and real-time feedback powered by advanced machine learning algorithms.</p>
+                        <a href="https://aditya-cmd-max.github.io/exonovaai/" class="try-button" style="background: linear-gradient(90deg, var(--primary-purple), #a78bfa); color: white;">
+                            Try Now
+                        </a>
                     </div>
                 </div>
                 
                 <!-- SkyCast -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-blue-900 to-blue-700 animate__animated animate__fadeInUp animate__delay-1s">
-                    <div class="p-6 h-full flex flex-col justify-between">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-200">
+                    <div class="card-content">
                         <div>
-                            <img src="https://aditya-cmd-max.github.io/exonovaweather/skycast.png" alt="SkyCast" class="product-logo">
-                            <h3 class="text-2xl font-bold text-white mb-2">SkyCast</h3>
-                            <p class="text-gray-200">Interactive environmental science platform with real-world data visualization.</p>
+                            <div class="logo-frame">
+                                <img src="https://aditya-cmd-max.github.io/exonovaweather/skycast.png" alt="SkyCast" class="product-logo">
+                            </div>
+                            <h3 class="card-title">SkyCast</h3>
+                            <p class="card-description">Interactive environmental science platform with real-world data visualization.</p>
                         </div>
-                        <a href="#" class="inline-flex items-center text-blue-200 font-medium">
+                        <a href="#" class="card-link">
                             Learn more
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2222,20 +2439,24 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
                         </a>
                     </div>
                     <div class="app-overlay">
-                        <p class="text-sm text-gray-200">Teach meteorology and climate science with live weather data, predictive models, and immersive visualizations.</p>
-                        <a href="https://aditya-cmd-max.github.io/exonovaweather/" class="mt-2 inline-block bg-white text-blue-600 px-4 py-2 rounded-lg text-sm font-medium">Try Now</a>
+                        <p class="text-sm text-gray-200 mb-4">Teach meteorology and climate science with live weather data, predictive models, and immersive visualizations.</p>
+                        <a href="https://aditya-cmd-max.github.io/exonovaweather/" class="try-button" style="background: linear-gradient(90deg, var(--primary-blue), #60a5fa); color: white;">
+                            Try Now
+                        </a>
                     </div>
                 </div>
                 
                 <!-- PopOut Pro -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-pink-900 to-rose-700 animate__animated animate__fadeInUp animate__delay-2s">
-                    <div class="p-6 h-full flex flex-col justify-between">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-300">
+                    <div class="card-content">
                         <div>
-                            <img src="https://aditya-cmd-max.github.io/popout/ChatGPT Image Aug 15, 2025, 08_26_20 PM.png" alt="PopOut Pro" class="product-logo">
-                            <h3 class="text-2xl font-bold text-white mb-2">PopOut Pro</h3>
-                            <p class="text-gray-200">AI-powered visual learning tool for creating engaging educational content.</p>
+                            <div class="logo-frame">
+                                <img src="https://aditya-cmd-max.github.io/popout/ChatGPT%20Image%20Aug%2015,%202025,%2008_26_20%20PM.png" alt="PopOut Pro" class="product-logo">
+                            </div>
+                            <h3 class="card-title">PopOut Pro</h3>
+                            <p class="card-description">AI-powered visual learning tool for creating engaging educational content.</p>
                         </div>
-                        <a href="#" class="inline-flex items-center text-pink-200 font-medium">
+                        <a href="#" class="card-link">
                             Learn more
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2243,20 +2464,24 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
                         </a>
                     </div>
                     <div class="app-overlay">
-                        <p class="text-sm text-gray-200">Transform textbook content into visually stunning educational materials with automatic diagram generation and image enhancement.</p>
-                        <a href="https://aditya-cmd-max.github.io/popout/" class="mt-2 inline-block bg-white text-pink-600 px-4 py-2 rounded-lg text-sm font-medium">Try Now</a>
+                        <p class="text-sm text-gray-200 mb-4">Transform textbook content into visually stunning educational materials with automatic diagram generation and image enhancement.</p>
+                        <a href="https://aditya-cmd-max.github.io/popout/" class="try-button" style="background: linear-gradient(90deg, var(--primary-pink), #f472b6); color: white;">
+                            Try Now
+                        </a>
                     </div>
                 </div>
                 
                 <!-- Peo-TTS -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-amber-900 to-orange-700 animate__animated animate__fadeInUp animate__delay-3s">
-                    <div class="p-6 h-full flex flex-col justify-between">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-400">
+                    <div class="card-content">
                         <div>
-                            <img src="https://aditya-cmd-max.github.io/Peo/tts.png" alt="Peo-TTS" class="product-logo">
-                            <h3 class="text-2xl font-bold text-white mb-2">Peo-TTS</h3>
-                            <p class="text-gray-200">Natural sounding text-to-speech for accessible learning materials.</p>
+                            <div class="logo-frame">
+                                <img src="https://aditya-cmd-max.github.io/Peo/tts.png" alt="Peo-TTS" class="product-logo">
+                            </div>
+                            <h3 class="card-title">Peo-TTS</h3>
+                            <p class="card-description">Natural sounding text-to-speech for accessible learning materials.</p>
                         </div>
-                        <a href="#" class="inline-flex items-center text-amber-200 font-medium">
+                        <a href="#" class="card-link">
                             Learn more
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2264,20 +2489,24 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
                         </a>
                     </div>
                     <div class="app-overlay">
-                        <p class="text-sm text-gray-200">Convert any educational text into natural speech with emotion and emphasis, supporting multiple languages and learning styles.</p>
-                        <a href="https://aditya-cmd-max.github.io/Peo" class="mt-2 inline-block bg-white text-amber-600 px-4 py-2 rounded-lg text-sm font-medium">Try Now</a>
+                        <p class="text-sm text-gray-200 mb-4">Convert any educational text into natural speech with emotion and emphasis, supporting multiple languages and learning styles.</p>
+                        <a href="https://aditya-cmd-max.github.io/Peo" class="try-button" style="background: linear-gradient(90deg, var(--primary-amber), #fbbf24); color: white;">
+                            Try Now
+                        </a>
                     </div>
                 </div>
                 
                 <!-- MindScribe -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-emerald-900 to-teal-700 animate__animated animate__fadeInUp animate__delay-1s">
-                    <div class="p-6 h-full flex flex-col justify-between">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-500">
+                    <div class="card-content">
                         <div>
-                            <img src="https://aditya-cmd-max.github.io/logospace/logos.png" alt="Logo Space" class="product-logo">
-                            <h3 class="text-2xl font-bold text-white mb-2">Mindscribe</h3>
-                            <p class="text-gray-200">Mindscribe is your digita notebook to make everyday learning easier.</p>
+                            <div class="logo-frame">
+                                <img src="https://aditya-cmd-max.github.io/logospace/logos.png" alt="Logo Space" class="product-logo">
+                            </div>
+                            <h3 class="card-title">Mindscribe</h3>
+                            <p class="card-description">Mindscribe is your digital notebook to make everyday learning easier.</p>
                         </div>
-                        <a href="https://aditya-cmd-max.github.io/mindscribe/" class="inline-flex items-center text-emerald-200 font-medium">
+                        <a href="https://aditya-cmd-max.github.io/mindscribe/" class="card-link">
                             Learn more
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2285,22 +2514,24 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
                         </a>
                     </div>
                     <div class="app-overlay">
-                        <p class="text-sm text-gray-200".>Mindscribe is your digita notebook to make everyday learning easier.</p>
-                        <a href="https://aditya-cmd-max.github.io/mindscribe/" class="mt-2 inline-block bg-white text-emerald-600 px-4 py-2 rounded-lg text-sm font-medium">Try Now</a>
+                        <p class="text-sm text-gray-200 mb-4">Mindscribe is your digital notebook to make everyday learning easier.</p>
+                        <a href="https://aditya-cmd-max.github.io/mindscribe/" class="try-button" style="background: linear-gradient(90deg, var(--primary-emerald), #34d399); color: white;">
+                            Try Now
+                        </a>
                     </div>
                 </div>
                 
                 <!-- More Coming Soon -->
-                <div class="app-card h-80 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 animate__animated animate__fadeInUp animate__delay-2s">
-                    <div class="p-6 h-full flex flex-col justify-center items-center text-center">
-                        <div class="w-16 h-16 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+                <div class="app-card animate__animated animate__fadeInUp animate-delay-500">
+                    <div class="coming-soon">
+                        <div class="coming-soon-icon">
                             <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">More Coming Soon</h3>
                         <p class="text-gray-300 mb-6">We're continuously developing new tools to revolutionize education.</p>
-                        <a href="#contact" class="inline-flex items-center text-white font-medium border border-gray-600 px-6 py-2 rounded-lg hover:bg-gray-800 transition">
+                        <a href="#contact" class="inline-flex items-center text-white font-medium border border-gray-600 px-6 py-2 rounded-full hover:bg-gray-800 transition-all duration-300">
                             Stay Updated
                         </a>
                     </div>
@@ -3586,7 +3817,23 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
         }, { passive: false });
     </script>
       
-  </div>
+    <script>
+        // Add intersection observer for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.app-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__fadeInUp');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html>
-
