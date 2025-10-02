@@ -1052,46 +1052,55 @@
       }
     }
  body.loader-active {
-            overflow: hidden;
-            height: 100vh;
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
         }
 
-        /* Loader specific styles - isolated with high specificity */
+        /* Loader container */
         #website-loader {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: #121212;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
             overflow: hidden;
+            touch-action: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
+        /* Loader wrapper with perfect centering */
         #website-loader .loader-wrapper {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            width: 90vw;
             max-width: 300px;
             height: auto;
             padding: 20px;
+            position: relative;
         }
 
+        /* SVG loader with responsive sizing */
         #website-loader .loader {
-            width: 8em;
-            height: 8em;
-            max-width: 120px;
-            max-height: 120px;
+            width: 25vw;
+            height: 25vw;
+            min-width: 120px;
+            min-height: 120px;
+            max-width: 150px;
+            max-height: 150px;
             filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.6));
             animation: loader-fadeOut 0.5s ease-in-out 3s forwards;
         }
 
+        /* Loader animation elements */
         #website-loader .loader__eye1,
         #website-loader .loader__eye2,
         #website-loader .loader__mouth1,
@@ -1117,63 +1126,76 @@
             visibility: hidden;
         }
 
+        /* Welcome text with perfect mobile scaling */
         #website-loader .welcome-text {
-            position: relative;
-            margin-top: 30px;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: bold;
+            margin-top: 5vh;
+            font-size: min(8vw, 2.5rem);
+            font-weight: 700;
             text-align: center;
             background: linear-gradient(90deg, hsl(193,90%,50%), hsl(223,90%,50%));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             opacity: 0;
             animation: loader-textReveal 3s ease-in-out forwards, loader-fadeOut 0.5s ease-in-out 3s forwards;
             text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
             line-height: 1.2;
-            padding: 0 10px;
+            padding: 0 5%;
+            width: 100%;
+            word-wrap: break-word;
+            hyphens: auto;
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            #website-loader .loader-wrapper {
-                max-width: 250px;
-            }
-            
-            #website-loader .loader {
-                width: 6em;
-                height: 6em;
-                max-width: 100px;
-                max-height: 100px;
-            }
-            
-            #website-loader .welcome-text {
-                margin-top: 25px;
-                font-size: clamp(1.5rem, 6vw, 2rem);
-            }
-        }
-
+        /* Mobile-first responsive design */
         @media (max-width: 480px) {
             #website-loader .loader-wrapper {
-                max-width: 200px;
+                width: 95vw;
+                padding: 15px;
             }
             
             #website-loader .loader {
-                width: 5em;
-                height: 5em;
-                max-width: 80px;
-                max-height: 80px;
+                width: 30vw;
+                height: 30vw;
+                min-width: 100px;
+                min-height: 100px;
             }
             
             #website-loader .welcome-text {
-                margin-top: 20px;
-                font-size: clamp(1rem, 3vw, 1rem);
-                letter-spacing: 10px;
+                margin-top: 4vh;
+                font-size: min(9vw, 2rem);
+                letter-spacing: 0.3px;
             }
         }
 
-        /* Loader-specific animations with unique names */
+        @media (max-width: 320px) {
+            #website-loader .loader {
+                width: 35vw;
+                height: 35vw;
+                min-width: 80px;
+                min-height: 80px;
+            }
+            
+            #website-loader .welcome-text {
+                font-size: min(10vw, 1.8rem);
+                margin-top: 3vh;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #website-loader .loader {
+                width: 20vw;
+                height: 20vw;
+                max-width: 180px;
+                max-height: 180px;
+            }
+            
+            #website-loader .welcome-text {
+                font-size: min(6vw, 3rem);
+            }
+        }
+
+        /* Loader animations */
         @keyframes loader-eye1 {
             from {
                 transform: rotate(-260deg) translate(0, -56px);
@@ -1249,11 +1271,11 @@
         @keyframes loader-textReveal {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             30% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             70% {
                 opacity: 1;
@@ -1274,7 +1296,15 @@
                 visibility: hidden;
             }
         }
-    
+
+        /* Prevent any interactions during loading */
+        #website-loader * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+        }
     .footer {
       position: relative;
       border-top: 1px solid var(--borderly-color);
@@ -1653,13 +1683,12 @@
     </style>
 </head>
 <body class="loader-active">
-   
-
+  
     <!-- Loader overlay -->
     <div id="website-loader">
         <div class="loader-wrapper">
             <div class="loader">
-                <svg height="108px" width="108px" viewBox="0 0 128 128">
+                <svg viewBox="0 0 128 128" preserveAspectRatio="xMidYMid meet">
                     <defs>
                         <clipPath id="loader-eyes">
                             <circle transform="rotate(-40,64,64) translate(0,-56)" r="8" cy="64" cx="64" class="loader__eye1"></circle>
@@ -3517,27 +3546,45 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
             }
         });
     </script>
-   <script>
-        // Lock scroll initially
-        document.body.classList.add('loader-active');
+  <script>
+        // Enhanced scroll locking
+        function lockScroll() {
+            document.body.classList.add('loader-active');
+            document.documentElement.style.overflow = 'hidden';
+        }
+
+        function unlockScroll() {
+            document.body.classList.remove('loader-active');
+            document.documentElement.style.overflow = '';
+        }
+
+        // Initialize
+        lockScroll();
 
         // Remove loader and show website content after 3.5 seconds
         setTimeout(function() {
             const loader = document.getElementById('website-loader');
             const content = document.getElementById('website-content');
             
-            // Remove loader
-            if (loader) loader.style.display = 'none';
+            if (loader) {
+                loader.style.display = 'none';
+            }
             
-            // Show content
-            if (content) content.style.display = 'block';
+            if (content) {
+                content.style.display = 'block';
+            }
             
-            // Unlock scroll
-            document.body.classList.remove('loader-active');
+            unlockScroll();
             
         }, 3500);
-    </script>
 
+        // Prevent any touch events during loading
+        document.addEventListener('touchmove', function(e) {
+            if (document.body.classList.contains('loader-active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
       
   </div>
 </body>
