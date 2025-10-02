@@ -1051,7 +1051,13 @@
         font-size: 1rem;
       }
     }
- #website-loader {
+ body.loader-active {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Loader specific styles - isolated with high specificity */
+        #website-loader {
             position: fixed;
             top: 0;
             left: 0;
@@ -1062,21 +1068,26 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            overflow: hidden;
         }
 
         #website-loader .loader-wrapper {
             position: relative;
-            width: 300px;
-            height: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            padding: 20px;
         }
 
         #website-loader .loader {
             width: 8em;
             height: 8em;
+            max-width: 120px;
+            max-height: 120px;
             filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.6));
             animation: loader-fadeOut 0.5s ease-in-out 3s forwards;
         }
@@ -1107,9 +1118,9 @@
         }
 
         #website-loader .welcome-text {
-            position: absolute;
-            bottom: -35px;
-            font-size: 2.5rem;
+            position: relative;
+            margin-top: 30px;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: bold;
             text-align: center;
             background: linear-gradient(90deg, hsl(193,90%,50%), hsl(223,90%,50%));
@@ -1120,6 +1131,46 @@
             opacity: 0;
             animation: loader-textReveal 3s ease-in-out forwards, loader-fadeOut 0.5s ease-in-out 3s forwards;
             text-shadow: 0 0 10px rgba(100, 200, 255, 0.4);
+            line-height: 1.2;
+            padding: 0 10px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            #website-loader .loader-wrapper {
+                max-width: 250px;
+            }
+            
+            #website-loader .loader {
+                width: 6em;
+                height: 6em;
+                max-width: 100px;
+                max-height: 100px;
+            }
+            
+            #website-loader .welcome-text {
+                margin-top: 25px;
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            #website-loader .loader-wrapper {
+                max-width: 200px;
+            }
+            
+            #website-loader .loader {
+                width: 5em;
+                height: 5em;
+                max-width: 80px;
+                max-height: 80px;
+            }
+            
+            #website-loader .welcome-text {
+                margin-top: 20px;
+                font-size: clamp(1rem, 3vw, 1rem);
+                letter-spacing: 10px;
+            }
         }
 
         /* Loader-specific animations with unique names */
@@ -1601,15 +1652,10 @@
    
     </style>
 </head>
-<body>
- 
+<body class="loader-active">
+   
 
-
-
-    
-
-
-<!-- Loader overlay -->
+    <!-- Loader overlay -->
     <div id="website-loader">
         <div class="loader-wrapper">
             <div class="loader">
@@ -3471,17 +3517,29 @@ document.getElementById('exnPopup')?.addEventListener('click', (ev) => {
             }
         });
     </script>
-    <script>
+   <script>
+        // Lock scroll initially
+        document.body.classList.add('loader-active');
+
         // Remove loader and show website content after 3.5 seconds
         setTimeout(function() {
             const loader = document.getElementById('website-loader');
             const content = document.getElementById('website-content');
             
+            // Remove loader
             if (loader) loader.style.display = 'none';
+            
+            // Show content
             if (content) content.style.display = 'block';
+            
+            // Unlock scroll
+            document.body.classList.remove('loader-active');
+            
         }, 3500);
     </script>
+
       
   </div>
 </body>
 </html>
+
