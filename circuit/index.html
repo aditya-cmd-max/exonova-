@@ -156,8 +156,175 @@
       border-radius: 10px;
     }
     
-    
-    
+    /* Navbar container */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10000;
+      padding: 0 20px;
+    }
+
+    /* Logo section */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 15, 35, 0.9);
+      padding: 10px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(67, 203, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .logo-container:hover {
+      border-color: rgba(67, 203, 255, 0.4);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover img {
+      transform: rotate(10deg) scale(1.05);
+    }
+
+    .logo-text {
+      color: white;
+      font-weight: bold;
+      font-size: 1.3rem;
+      background: linear-gradient(45deg, #43CBFF, #FFFFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Navigation section */
+    .nav-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(15, 15, 35, 0.9);
+      padding: 10px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(67, 203, 255, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container:hover {
+      border-color: rgba(67, 203, 255, 0.4);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Navigation links */
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 5px 0;
+      white-space: nowrap;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #43CBFF, #9708CC);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #43CBFF;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu (hidden by default) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      gap: 5px;
+      position: relative;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: rgba(15, 15, 35, 0.98);
+      backdrop-filter: blur(15px);
+      flex-direction: column;
+      padding: 100px 30px 30px;
+      gap: 20px;
+      transition: right 0.4s ease;
+      z-index: 9999;
+      border-left: 1px solid rgba(67, 203, 255, 0.2);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 12px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: #43CBFF;
+      background: rgba(67, 203, 255, 0.1);
+    }
+
     /* Hero Section */
     .hero {
       min-height: 100vh;
@@ -693,6 +860,137 @@
       to { transform: rotate(360deg); }
     }
     
+    /* Animated SVG Background */
+    .svg-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.1;
+    }
+    
+    /* Blog Stats */
+    .blog-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 15px;
+      min-width: 150px;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    /* Newsletter Section */
+    .newsletter {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 4rem auto;
+      max-width: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
+      z-index: -1;
+    }
+    
+    .newsletter h3 {
+      font-family: 'lilgrotesk', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .newsletter-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.3);
+    }
+    
+    .newsletter-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 0 50px 50px 0;
+      background: var(--gradient);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+      background: var(--gradient-accent);
+    }
+    
+    /* Blog Categories Icons */
+    .category-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+    
     /* Responsive */
     @media (max-width: 992px) {
       .nav-links {
@@ -729,6 +1027,19 @@
       .blogs-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+      
+      .newsletter-input {
+        border-radius: 50px;
+        margin-bottom: 10px;
+      }
+      
+      .newsletter-btn {
+        border-radius: 50px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -762,6 +1073,22 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .mobile-menu {
+        display: flex;
+      }
+      
+      .logo-text {
+        font-size: 1.1rem;
+      }
     }
     
     @media (max-width: 480px) {
@@ -780,342 +1107,107 @@
         flex-direction: column;
         gap: 10px;
       }
+      
+      .navbar {
+        padding: 0 10px;
+      }
+      
+      .logo-container, .nav-container {
+        padding: 6px 12px;
+      }
+      
+      .logo img {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .logo-text {
+        font-size: 1rem;
+      }
     }
-      /* Navbar container */
-        .navbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10000;
-            padding: 0 20px;
-        }
+    
+    /* Hamburger animation */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+      background: #43CBFF;
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+      background: #43CBFF;
+    }
 
-        /* Logo section */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(15, 15, 35, 0.9);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(67, 203, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .logo-container:hover {
-            border-color: rgba(67, 203, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover img {
-            transform: rotate(10deg) scale(1.05);
-        }
-
-        .logo-text {
-            color: white;
-            font-weight: bold;
-            font-size: 1.3rem;
-            background: linear-gradient(45deg, #43CBFF, #FFFFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Navigation section */
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(15, 15, 35, 0.9);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(67, 203, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .nav-container:hover {
-            border-color: rgba(67, 203, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Navigation links */
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-            white-space: nowrap;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #43CBFF, #9708CC);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #43CBFF;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hamburger menu (hidden by default) */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            gap: 5px;
-            position: relative;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile menu styles */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: rgba(15, 15, 35, 0.98);
-            backdrop-filter: blur(15px);
-            flex-direction: column;
-            padding: 100px 30px 30px;
-            gap: 20px;
-            transition: right 0.4s ease;
-            z-index: 9999;
-            border-left: 1px solid rgba(67, 203, 255, 0.2);
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding: 12px 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu a:hover {
-            color: #43CBFF;
-            background: rgba(67, 203, 255, 0.1);
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 900px) {
-            .navbar {
-                width: 100%;
-                padding: 0 15px;
-                top: 15px;
-            }
-            
-            .logo-container, .nav-container {
-                padding: 8px 15px;
-            }
-            
-            .nav-links {
-                gap: 15px;
-            }
-            
-            .nav-links a {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .mobile-menu {
-                display: flex;
-            }
-            
-            .logo-text {
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 0 10px;
-            }
-            
-            .logo-container, .nav-container {
-                padding: 6px 12px;
-            }
-            
-            .logo img {
-                width: 30px;
-                height: 30px;
-            }
-            
-            .logo-text {
-                font-size: 1rem;
-            }
-        }
-
-        /* Hamburger animation */
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-            background: #43CBFF;
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-            background: #43CBFF;
-        }
-
-        /* Scrolling effect */
-        .navbar.scrolled {
-            top: 10px;
-        }
-        
-        .navbar.scrolled .logo-container,
-        .navbar.scrolled .nav-container {
-            padding: 8px 18px;
-            backdrop-filter: blur(15px);
-            background: rgba(15, 15, 35, 0.95);
-        }
-
-        /* Demo content */
-        .demo-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 30px 20px;
-            text-align: center;
-        }
-        
-        .demo-content h1 {
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #43CBFF, #9708CC);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.5rem;
-        }
-        
-        .demo-content p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-        }
-        
-        .scroll-indicator {
-            margin-top: 40px;
-            color: #43CBFF;
-            font-size: 1rem;
-        }
-        
-   
+    /* Scrolling effect */
+    .navbar.scrolled {
+      top: 10px;
+    }
+    
+    .navbar.scrolled .logo-container,
+    .navbar.scrolled .nav-container {
+      padding: 8px 18px;
+      backdrop-filter: blur(15px);
+      background: rgba(15, 15, 35, 0.95);
+    }
   </style>
 </head>
 <body>
   <!-- Floating Particles Background -->
   <div class="particles" id="particles"></div>
   
- 
+  <!-- Animated SVG Background -->
+  <svg class="svg-background" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:rgba(236,72,153,0.1);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:rgba(59,130,246,0.1);stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#grad1)"></path>
+    <path d="M0,20 Q50,10 100,20 L100,100 L0,100 Z" fill="rgba(59,130,246,0.05)" class="wave-animation"></path>
+    <path d="M0,40 Q50,30 100,40 L100,100 L0,100 Z" fill="rgba(236,72,153,0.05)" class="wave-animation" style="animation-delay: 2s;"></path>
+  </svg>
   
-  
-
-  
-  
-  
-  
+  <!-- Navigation -->
   <nav class="navbar">
-        <!-- Logo section -->
-        <div class="logo-container">
-            <div class="logo">
-                <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo">
-            </div>
-            <div class="logo-text">Exonova</div>
-        </div>
-   <!-- Navigation section -->
-        <div class="nav-container">
-            <div class="nav-links">
-                <a href="https://aditya-cmd-max.github.io/exonova-/index.html">Home</a>
-                <a href="#">Blogs</a>
-                <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
-                <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
-                <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
-            </div>
-            
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <!-- Logo section -->
+    <div class="logo-container">
+      <div class="logo">
+        <img src="https://aditya-cmd-max.github.io/exonova-/logo-nobg.png" alt="Exonova Logo">
+      </div>
+      <div class="logo-text">Exonova</div>
+    </div>
     
-    <!-- Mobile menu -->
-    <div class="mobile-menu" id="mobile-menu">
+    <!-- Navigation section -->
+    <div class="nav-container">
+      <div class="nav-links">
         <a href="https://aditya-cmd-max.github.io/exonova-/index.html">Home</a>
         <a href="#">Blogs</a>
         <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
         <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
         <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+      </div>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+  </nav>
   
- 
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="https://aditya-cmd-max.github.io/exonova-/index.html">Home</a>
+    <a href="#">Blogs</a>
+    <a href="https://aditya-cmd-max.github.io/exonova-/about/">Creator</a>
+    <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
+    <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
+  </div>
+  
   <!-- Hero Section -->
   <section class="hero" data-aos="fade-in">
     <h1><span class="discover">The </span> <span class="exonova-blogs">Circuit</span></h1>
@@ -1135,6 +1227,22 @@
       </a>
     </div>
   </section>
+  
+  <!-- Blog Stats -->
+  <div class="blog-stats" data-aos="fade-up">
+    <div class="stat-item">
+      <div class="stat-number">17+</div>
+      <div class="stat-label">Articles Published</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">2025</div>
+      <div class="stat-label">Since</div>
+    </div>
+  </div>
   
   <!-- Featured Blog -->
   <section id="featured" class="container" data-aos="fade-up">
@@ -1156,12 +1264,24 @@
   
   <!-- Category Filter -->
   <div class="category-filter" data-aos="fade-up">
-    <button class="category-btn active" data-category="all">All</button>
-    <button class="category-btn" data-category="science">Science</button>
-    <button class="category-btn" data-category="education">Education</button>
-    <button class="category-btn" data-category="history">History</button>
-    <button class="category-btn" data-category="technology">Technology</button>
-    <button class="category-btn" data-category="personal">Personal</button>
+    <button class="category-btn active" data-category="all">
+      <i class="fas fa-th-large category-icon"></i> All
+    </button>
+    <button class="category-btn" data-category="science">
+      <i class="fas fa-flask category-icon"></i> Science
+    </button>
+    <button class="category-btn" data-category="education">
+      <i class="fas fa-graduation-cap category-icon"></i> Education
+    </button>
+    <button class="category-btn" data-category="history">
+      <i class="fas fa-landmark category-icon"></i> History
+    </button>
+    <button class="category-btn" data-category="technology">
+      <i class="fas fa-laptop-code category-icon"></i> Technology
+    </button>
+    <button class="category-btn" data-category="personal">
+      <i class="fas fa-user category-icon"></i> Personal
+    </button>
   </div>
   
   <!-- Blog Grid -->
@@ -1483,9 +1603,17 @@
           </div>
         </div>
       </div>
-
-      
     </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section class="newsletter" data-aos="fade-up">
+    <h3>Stay Updated</h3>
+    <p>Subscribe to our newsletter to get the latest articles and updates directly in your inbox.</p>
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Your email address" required>
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
   </section>
   
   <!-- Footer -->
@@ -1529,51 +1657,51 @@
       offset: 100
     });
     
-   
+    // Back to top functionality
     document.addEventListener('DOMContentLoaded', () => {
-  const backToTop = document.getElementById('backToTop');
-  if (!backToTop) return; // safe guard, avoids runtime error
+      const backToTop = document.getElementById('backToTop');
+      if (!backToTop) return; // safe guard, avoids runtime error
 
-  const SHOW_AFTER = 300;     // px scrolled before visible
-  const HEADER_OFFSET = 80;   // adjust if you have a fixed header
+      const SHOW_AFTER = 300;     // px scrolled before visible
+      const HEADER_OFFSET = 80;   // adjust if you have a fixed header
 
-  // toggle visibility
-  const toggleVisibility = () => {
-    if (window.scrollY > SHOW_AFTER) backToTop.classList.add('active');
-    else backToTop.classList.remove('active');
-  };
+      // toggle visibility
+      const toggleVisibility = () => {
+        if (window.scrollY > SHOW_AFTER) backToTop.classList.add('active');
+        else backToTop.classList.remove('active');
+      };
 
-  // run once in case page is already scrolled
-  toggleVisibility();
+      // run once in case page is already scrolled
+      toggleVisibility();
 
-  // use passive for better scroll performance
-  window.addEventListener('scroll', toggleVisibility, { passive: true });
+      // use passive for better scroll performance
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
 
-  // click -> smooth scroll to top
-  backToTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Smooth scroll for anchor links that point to ids
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (!targetId || targetId === '#') return; // ignore plain '#'
-
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
+      // click -> smooth scroll to top
+      backToTop.addEventListener('click', (e) => {
         e.preventDefault();
-        // get absolute position and subtract header offset
-        const top = targetElement.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
 
-        // Optional: update the URL hash without jumping
-        history.pushState(null, '', targetId);
-      }
+      // Smooth scroll for anchor links that point to ids
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (!targetId || targetId === '#') return; // ignore plain '#'
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            // get absolute position and subtract header offset
+            const top = targetElement.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+            window.scrollTo({ top, behavior: 'smooth' });
+
+            // Optional: update the URL hash without jumping
+            history.pushState(null, '', targetId);
+          }
+        });
+      });
     });
-  });
-});
     
     // Create floating particles
     const particlesContainer = document.getElementById('particles');
@@ -1662,66 +1790,79 @@
         }
       });
     });
+    
+    // Newsletter form submission
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = newsletterForm.querySelector('.newsletter-input').value;
+        // Here you would typically send the email to your backend
+        alert(`Thank you for subscribing with ${email}! You'll receive updates soon.`);
+        newsletterForm.reset();
+      });
+    }
   </script>
   
   <script>
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navbar = document.querySelector('.navbar');
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navbar = document.querySelector('.navbar');
 
-        // Toggle mobile menu
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        });
+    // Toggle mobile menu
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      
+      // Prevent body scroll when menu is open
+      if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    });
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideNav = navbar.contains(event.target);
-            const isClickInsideMobileMenu = mobileMenu.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickInsideMobileMenu && mobileMenu.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+      const isClickInsideNav = navbar.contains(event.target);
+      const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+      
+      if (!isClickInsideNav && !isClickInsideMobileMenu && mobileMenu.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
 
-        // Scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                // Close mobile menu if open when resizing to desktop
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        // Close mobile menu if open when resizing to desktop
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
   
 </body>
 </html>
