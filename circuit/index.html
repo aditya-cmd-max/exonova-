@@ -69,6 +69,20 @@
       --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
     }
+
+    /* Light theme variables */
+    .light-theme {
+      --dark: #f8fafc;
+      --darker: #e2e8f0;
+      --light: #0f172a;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-subtle: #64748b;
+      --glass-bg: rgba(248, 250, 252, 0.7);
+      --glass-border: rgba(15, 23, 42, 0.1);
+      --card-bg: rgba(226, 232, 240, 0.5);
+      --card-hover: rgba(226, 232, 240, 0.8);
+    }
     
     * {
       margin: 0;
@@ -97,6 +111,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       line-height: 1.6;
+      transition: all 0.3s ease;
     }
     
     /* Floating Particles Background */
@@ -169,6 +184,7 @@
       align-items: center;
       z-index: 10000;
       padding: 0 20px;
+      transition: all 0.4s ease;
     }
 
     /* Logo section */
@@ -632,6 +648,7 @@
       z-index: 5;
     }
     
+    /* FIXED: Blog number positioning */
     .blog-number {
       position: absolute;
       top: 10px;
@@ -647,6 +664,20 @@
       font-weight: bold;
       font-size: 1.1rem;
       box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+      z-index: 10;
+    }
+    
+    /* FIXED: Category tag positioning */
+    .blog-category-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 600;
       z-index: 10;
     }
     
@@ -991,6 +1022,153 @@
       margin-right: 8px;
     }
     
+    /* NEW: Reading Progress Bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: var(--gradient);
+      z-index: 10001;
+      transition: width 0.2s ease;
+    }
+    
+    /* NEW: Blog Reading Time */
+    .reading-time {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      color: var(--text-subtle);
+    }
+    
+    /* NEW: Blog Card Hover Effects */
+    .blog-card-content {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .blog-card-hover {
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      transition: bottom 0.3s ease;
+    }
+    
+    .blog-card:hover .blog-card-hover {
+      bottom: 0;
+    }
+    
+    /* NEW: Blog Preview Modal */
+    .blog-preview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10002;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-preview-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .blog-preview-content {
+      background: var(--dark);
+      border-radius: 20px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .blog-preview-modal.active .blog-preview-content {
+      transform: scale(1);
+    }
+    
+    .close-preview {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    
+    .close-preview:hover {
+      background: var(--primary);
+    }
+    
+    /* NEW: Like and Share Buttons */
+    .blog-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .blog-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 20px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+    
+    .blog-action-btn:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    /* NEW: Dark Mode Toggle */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
     /* Responsive */
     @media (max-width: 992px) {
       .nav-links {
@@ -1155,6 +1333,9 @@
   </style>
 </head>
 <body>
+  <!-- NEW: Reading Progress Bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+  
   <!-- Floating Particles Background -->
   <div class="particles" id="particles"></div>
   
@@ -1190,6 +1371,11 @@
         <a href="https://aditya-cmd-max.github.io/exonova-/quiz/">Quiz</a>
         <a href="https://aditya-cmd-max.github.io/exonova-/authentication/signin.html">Sign In</a>
       </div>
+      
+      <!-- NEW: Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
       
       <div class="hamburger" id="hamburger">
         <span></span>
@@ -1297,14 +1483,24 @@
         </div>
         <div class="badge badge-new">First Blog</div>
         <div class="blog-number">01</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Science</div>
         <div class="blog-content">
           <h3 class="blog-title">The Science of Sleep</h3>
           <p class="blog-desc">Explore how sleep is very much important for the youth all over the world.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> April 09, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog1.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="1">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1315,14 +1511,24 @@
           <img src="https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif" alt="Study Hacks" class="blog-img">
         </div>
         <div class="blog-number">02</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Education</div>
         <div class="blog-content">
           <h3 class="blog-title">Top 5 Scientific Study Hacks</h3>
           <p class="blog-desc">Learn 5 brain-based study techniques that turn your study time into a productivity powerhouse.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> April 13, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog2.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="2">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1333,14 +1539,24 @@
           <img src="https://kamarajcollege.ac.in/wp-content/uploads/2021/08/economics.jpg" alt="Economics" class="blog-img">
         </div>
         <div class="blog-number">03</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Education</div>
         <div class="blog-content">
           <h3 class="blog-title">Introduction to Economics</h3>
           <p class="blog-desc">Get an overview of the world of economics, exploring how individuals and societies make choices with limited resources.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> April 18, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 10 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog3.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="3">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1351,14 +1567,24 @@
           <img src="https://images.cnbctv18.com/uploads/2025/05/india-pakistan-flags-ai-generated-image-6-2025-05-de59ecaa739f2999147cb4746fc65614.jpg?impolicy=website&width=1200&height=900" alt="Nutrition" class="blog-img">
         </div>
         <div class="blog-number">04</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">History</div>
         <div class="blog-content">
           <h3 class="blog-title">Part 1: India-Pakistan war: Is it WW3?</h3>
           <p class="blog-desc">In this part 1 of India-Pakistan Blog see how the conflict started among these countries and keeping till now.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> May 11, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 12 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog4.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="4">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1369,14 +1595,24 @@
           <img src="https://mcm.edu.ph/wp-content/uploads/2024/10/Academic-Pressure-Key-Causes-Effects-and-Coping-Tips-for-Students.png" alt="Academic Pressure" class="blog-img">
         </div>
         <div class="blog-number">05</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Education</div>
         <div class="blog-content">
           <h3 class="blog-title">Dark Reality of Academic Pressure</h3>
           <p class="blog-desc">Understanding the impact of academic stress on students and strategies to cope with it effectively.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> May 23, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog5.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="5">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1387,14 +1623,24 @@
           <img src="https://static.vecteezy.com/system/resources/previews/034/274/583/non_2x/a-young-boy-stands-in-the-middle-of-a-road-ai-generated-free-photo.jpg" alt="Middle Class Life" class="blog-img">
         </div>
         <div class="blog-number">06</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Personal</div>
         <div class="blog-content">
           <h3 class="blog-title">The Story of a Middle Class Boy</h3>
           <p class="blog-desc">Get a glimpse of life of an individual boy called teenager at every home.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> May 31, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog6.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="6">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1406,14 +1652,24 @@
         </div>
         <div class="badge" style="background: var(--badge-featured); color: #333;">Featured</div>
         <div class="blog-number">07</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Technology</div>
         <div class="blog-content">
           <h3 class="blog-title">The Evolution of Google</h3>
           <p class="blog-desc">Must Read.. get the inspiration story of the biggest Tech-Giant Google.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> June 9, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 15 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog7.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="7">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1424,14 +1680,24 @@
           <img src="https://i.postimg.cc/yd3sDB4j/Exonova.png" alt="Bananas" class="blog-img">
         </div>
         <div class="blog-number">08</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Science</div>
         <div class="blog-content">
           <h3 class="blog-title">Bananas are Radioactive</h3>
           <p class="blog-desc">Get the Fact about Bananas are Radioactive but are Safe to consume.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> June 19, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 4 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog8.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="8">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1442,14 +1708,24 @@
           <img src="https://www.flightradar24.com/blog/wp-content/uploads/2025/06/VT-ANB.jpg" alt="AI Flight 171" class="blog-img">
         </div>
         <div class="blog-number">09</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Technology</div>
         <div class="blog-content">
           <h3 class="blog-title">AI Flight 171 Crash Explained</h3>
           <p class="blog-desc">Get the probably scientific reasons for the crash of AI 171 Boeing 787- Dreamliner.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> June 21, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 9 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog9.html" class="read-more">
               Read <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="9">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1460,14 +1736,24 @@
           <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Phone slipping" class="blog-img">
         </div>
         <div class="blog-number">10</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Science</div>
         <div class="blog-content">
           <h3 class="blog-title">Why Your Phone Slips When Tired</h3>
           <p class="blog-desc">The Bizarre Physics Behind Why Your Phone Slips from Your Hand More When You're Tired.</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> July 07, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog10.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="10">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1478,14 +1764,24 @@
           <img src="https://aditya-cmd-max.github.io/exonova-/Exonova's.png" alt="Indian History" class="blog-img">
         </div>
         <div class="blog-number">11</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">History</div>
         <div class="blog-content">
           <h3 class="blog-title">What if India Never Got Independence?</h3>
           <p class="blog-desc">Exploring the alternate history of a India still under British colonial rule</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> August 15, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 11 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog11.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="11">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1497,14 +1793,24 @@
         </div>
         <div class="badge" style="background: var(--badge-featured); color: #333;">Featured</div>
         <div class="blog-number">12</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Technology</div>
         <div class="blog-content">
           <h3 class="blog-title">How AI Can Help You Learn Faster</h3>
           <p class="blog-desc">How AI can help students and general learners more by using Prompt engeeneering techniques</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> September 19, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog12.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="12">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1515,14 +1821,24 @@
           <img src="https://aditya-cmd-max.github.io/exonova-/Blogs.png" alt="Hacker" class="blog-img">
         </div> 
         <div class="blog-number">13</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Technology</div>
         <div class="blog-content">
           <h3 class="blog-title">You Are Being Hacked! Save Your Privacy Now!</h3>
           <p class="blog-desc">The people with lack of knowledge of technology loose their important credentials or even Money due to the harmful hackers!</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> September 23, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 10 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog13.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="13">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1535,14 +1851,24 @@
         </div>
         
         <div class="blog-number">14</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Education</div>
         <div class="blog-content">
           <h3 class="blog-title">The Great Indian Festive Season</h3>
           <p class="blog-desc">From Ganesh Chaturthi to Diwali - Celebrating Unity, Culture & Joy! • The Pride of India</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> September 30, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog14.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="14">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1554,14 +1880,24 @@
         </div>
      
         <div class="blog-number">15</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Education</div>
         <div class="blog-content">
           <h3 class="blog-title">The Mandela Effect</h3>
           <p class="blog-desc">When Collective Memory Fails - Exploring the Psychology Behind Shared False Memories</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> October 6, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 9 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog15.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="15">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1573,14 +1909,24 @@
         </div>
         <div class="blog-number">16</div>
        <div class="badge" style="background: var(--badge-featured); color: #333;">Featured</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Personal</div>
         <div class="blog-content">
           <h3 class="blog-title">The Power of Being Alone</h3>
           <p class="blog-desc">Solitude is the power. Read to attain!</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> October 18, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog16.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="16">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
@@ -1592,19 +1938,41 @@
         </div>
         <div class="badge badge-new">New</div> 
         <div class="blog-number">17</div>
+        <!-- FIXED: Category Tag -->
+        <div class="blog-category-tag">Personal</div>
         <div class="blog-content">
           <h3 class="blog-title">Being Me — The Quiet Strength</h3>
           <p class="blog-desc">A personal reflection on introversion, kindness, and the power of self-belief</p>
           <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> November 26, 2025</span>
+            <!-- NEW: Reading Time -->
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min</span>
+          </div>
+          <!-- NEW: Blog Actions -->
+          <div class="blog-actions">
             <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog17.html" class="read-more">
               Read now <i class="fas fa-arrow-right"></i>
             </a>
+            <button class="blog-action-btn preview-btn" data-blog="17">
+              <i class="far fa-eye"></i> Preview
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
+  
+  <!-- NEW: Blog Preview Modal -->
+  <div class="blog-preview-modal" id="blogPreviewModal">
+    <div class="blog-preview-content glass-panel">
+      <button class="close-preview" id="closePreview">
+        <i class="fas fa-times"></i>
+      </button>
+      <div id="previewContent">
+        <!-- Preview content will be loaded here -->
+      </div>
+    </div>
+  </div>
   
   <!-- Newsletter Section -->
   <section class="newsletter" data-aos="fade-up">
@@ -1802,6 +2170,92 @@
         newsletterForm.reset();
       });
     }
+    
+    // NEW: Reading Progress Bar
+    const readingProgress = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      readingProgress.style.width = `${scrolled}%`;
+    });
+    
+    // NEW: Blog Preview Modal
+    const previewModal = document.getElementById('blogPreviewModal');
+    const closePreview = document.getElementById('closePreview');
+    const previewContent = document.getElementById('previewContent');
+    const previewButtons = document.querySelectorAll('.preview-btn');
+    
+    // Sample preview content (in a real implementation, you would fetch this from your backend)
+    const blogPreviews = {
+      1: {
+        title: "The Science of Sleep",
+        content: "<h3>Why Sleep Matters</h3><p>Sleep is essential for our physical and mental health. During sleep, our bodies repair tissues, consolidate memories, and regulate hormones. Without adequate sleep, we can experience a range of negative effects...</p>",
+        image: "https://sleepcenterinfo.com/wp-content/uploads/2022/01/Young-man-sleeping-soundly-in-bed-scaled.jpg"
+      },
+      2: {
+        title: "Top 5 Scientific Study Hacks",
+        content: "<h3>Study Smarter, Not Harder</h3><p>Research shows that certain study techniques are far more effective than others. Here are five evidence-based methods to improve your learning efficiency...</p>",
+        image: "https://www.careerguide.com/career/wp-content/uploads/2020/04/giphy-4-1.gif"
+      }
+      // Add more previews for other blogs as needed
+    };
+    
+    previewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const blogId = button.getAttribute('data-blog');
+        const preview = blogPreviews[blogId];
+        
+        if (preview) {
+          previewContent.innerHTML = `
+            <div class="featured-img" style="height: 250px; background-image: url('${preview.image}'); background-size: cover; background-position: center;"></div>
+            <div class="featured-content">
+              <h2 class="featured-title gradient-text">${preview.title}</h2>
+              ${preview.content}
+              <div style="margin-top: 20px;">
+                <a href="https://aditya-cmd-max.github.io/exonova-/circuit/blog${blogId}.html" class="btn btn-primary">
+                  Read Full Article <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          `;
+          previewModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    
+    closePreview.addEventListener('click', () => {
+      previewModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    previewModal.addEventListener('click', (e) => {
+      if (e.target === previewModal) {
+        previewModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+    
+    // FIXED: Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+      const icon = themeToggle.querySelector('i');
+      if (document.body.classList.contains('light-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        // Update navbar colors for light theme
+        document.querySelector('.logo-container').style.background = 'rgba(248, 250, 252, 0.9)';
+        document.querySelector('.nav-container').style.background = 'rgba(248, 250, 252, 0.9)';
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        // Reset navbar colors for dark theme
+        document.querySelector('.logo-container').style.background = 'rgba(15, 15, 35, 0.9)';
+        document.querySelector('.nav-container').style.background = 'rgba(15, 15, 35, 0.9)';
+      }
+    });
   </script>
   
   <script>
